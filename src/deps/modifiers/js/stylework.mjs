@@ -1,11 +1,7 @@
 
 //
-const _changed_ = Symbol("changed");
-const _bound_ = Symbol("bound");
-
-//
 const styleElement = document.createElement("style");
-document.querySelector("head").appendChild(styleElement);
+document.querySelector("head")?.appendChild?.(styleElement);
 
 //
 let shapeCount = 0;
@@ -263,9 +259,7 @@ const classes = [
     [':root, :host, :scope', displayPortrait],
     [':root, :host, :scope', displayLandscape],
     [':root, :host, :scope', lts],
-    [':root, :host, :scope', pts],
-    [':root, :host, :scope', ltrans],
-    [':root, :host, :scope', ptrans]
+    [':root, :host, :scope', pts]
 ];
 
 //

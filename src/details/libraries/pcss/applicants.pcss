@@ -1,8 +1,0 @@
-@define-mixin perfect-translate $tx, $ty {
-    translate: $($tx) $($ty);
-
-    //
-    @supports (inset-start: round(1px, 1px)) {
-        translate: round(nearest, $($tx), 1px) round(nearest, $($ty), 1px);
-    }
-}
