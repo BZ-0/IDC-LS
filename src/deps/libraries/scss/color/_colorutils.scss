@@ -1,0 +1,24 @@
+/* 
+ * Here is color manipulation functions...
+ * Uses an entry values, and runtime variables...
+ */
+
+//
+$upMod: var(--theme-up-mod);
+$downMod: var(--theme-down-mod);
+$chromaMod: var(--theme-chroma-mod);
+
+//
+@function theme-mod-up($base, $percent) {
+    @return color-mix(in oklch, $base calc(100% - $percent), $upMod);
+}
+
+//
+@function theme-mod-down($base, $percent) {
+    @return color-mix(in oklch, $base calc(100% - $percent), $downMod);
+}
+
+//
+@function theme-mod-chroma($base, $percent) {
+    @return color-mix(in oklch, $base calc(100% - $percent), $chromaMod);
+}

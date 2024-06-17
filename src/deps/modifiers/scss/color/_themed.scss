@@ -1,0 +1,45 @@
+/* 
+ * Here is dark or light themes based color modifiers...
+ */
+
+@use "./colors" as cl;
+
+//
+@property --theme-is-dark { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --theme-dark-up-mod   { syntax: "<color>"; inherits: true; initial-value: black; }
+@property --theme-dark-down-mod { syntax: "<color>"; inherits: true; initial-value: white; }
+@property --theme-light-up-mod   { syntax: "<color>"; inherits: true; initial-value: white; }
+@property --theme-light-down-mod { syntax: "<color>"; inherits: true; initial-value: black; }
+@property --theme-chroma-mod { syntax: "<color>"; inherits: true; initial-value: red; }
+@property --theme-up-mod { syntax: "<color>"; inherits: true; initial-value: white; }
+@property --theme-down-mod { syntax: "<color>"; inherits: true; initial-value: black; }
+
+//
+:root, :host, :scope {
+    --theme-is-dark: 0;
+
+    //
+    @media (prefers-color-scheme: light) { --theme-is-dark: 0; }
+    @media (prefers-color-scheme: dark)  { --theme-is-dark: 1; }
+
+    //
+    --theme-chroma-mod: oklch(from var(--theme-base-color) h 0.999 l);
+
+    //
+    --theme-dark-up-mod: oklch(from var(--theme-base-color) h calc(c * 0.01) calc(l * 0.1));
+    --theme-dark-down-mod: oklch(from var(--theme-base-color) h calc(c * 0.01) calc(l * 0.99));
+
+    //
+    --theme-light-up-mod: oklch(from var(--theme-base-color) h calc(c * 0.01) calc(l * 0.99));
+    --theme-light-down-mod: oklch(from var(--theme-base-color) h calc(c * 0.01) calc(l * 0.1));
+
+    //
+    --theme-up-mod: color-mix(in oklch, var(--theme-dark-up-mod) calc(100% * var(--theme-is-dark)), var(--theme-light-up-mod));
+    --theme-down-mod: color-mix(in oklch, var(--theme-dark-down-mod) calc(100% * var(--theme-is-dark)), var(--theme-light-down-mod));
+
+    //
+    @supports(color: light-dark(white, black)) {
+        --theme-up-mod: light-dark(var(--theme-dark-up-mod), var(--theme-light-up-mod));
+        --theme-down-mod: light-dark(var(--theme-dark-down-mod), var(--theme-light-down-mod));
+    }
+}

@@ -1,0 +1,13 @@
+/* 
+ * There is color schemes (such as solid, transparent, colored)
+ */
+
+//
+@use "./colorutils" as cu;
+@use "./colors" as cl;
+
+//
+@mixin accent-mod($effect: 1) {
+    --effect: $effect;
+    --current-surface-color: cu.theme-mod-down(var(--theme-surface-color), calc(1% * var(--effect, 1)));
+}
