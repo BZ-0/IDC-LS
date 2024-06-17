@@ -11,6 +11,13 @@ class ScrollBar {
         this.holder  = holder;
 
         //
+        this.status = {
+            pointerLocation: 0,
+            virtualScroll: 0,
+            pointerId: -1
+        }
+
+        //
         const onChanges = ()=>{
             const thumbSize = this.scrollbar[["offsetWidth", "offsetHeight"][axis]] * 
             ( 
@@ -31,13 +38,58 @@ class ScrollBar {
             this.holder.style.setProperty("--scroll-top" , this.holder.scrollTop , "");
             this.holder.style.setProperty("--scroll-left", this.holder.scrollLeft, "");
         }
+
+        //
+        this.scrollbar.querySelector(".thumb").addEventListener("pointerdown", (ev)=>{
+            if (this.status.pointerId < 0) {
+                this.status.pointerId = ev.pointerId;
+                this.status.pointerLocation  = ev[["pageX","pageY"][axis]];
+                this.status.virtualScroll = this.holder[["scrollLeft", "scrollTop"][axis]];
+            }
+        });
+
+        //
+        document.addEventListener("pointermove", (ev)=>{
+            if (this.status.pointerId == ev.pointerId) {
+                const previous = this.holder[["scrollLeft", "scrollTop"][axis]];
+
+                // @ts-ignore
+                const coord = ev[["pageX","pageY"][axis]];
+
+                //
+                this.status.virtualScroll += (coord - this.status.pointerLocation) * (
+                    this.holder[["scrollWidth", "scrollHeight"][axis]] / 
+                    this.holder[["offsetWidth", "offsetHeight"][axis]]
+                );
+                this.status.pointerLocation = coord;
+
+                //
+                const realShift = this.status.virtualScroll - previous;
+
+                //
+                this.holder.scrollBy({
+                    [["left", "top"][axis]]: realShift,
+                    behavior: "instant"
+                });
+            }
+        });
+
+        //
+        const stopScroll = (ev)=>{
+            if (this.status.pointerId == ev.pointerId) {
+                this.status.virtualScroll = this.holder[["scrollLeft", "scrollTop"][axis]];
+                this.status.pointerId = -1;
+            }
+        }
+
+        //
+        document.addEventListener("pointerup", stopScroll, {});
+        document.addEventListener("pointercancel", stopScroll, {});
         
         //
         this.holder.addEventListener("scroll", onChanges);
         new ResizeObserver((entries)=>{
-            if (entries) {
-                onChanges();
-            }
+            if (entries) { onChanges(); }
         }).observe(this.holder, {box: "content-box"});
     }
 

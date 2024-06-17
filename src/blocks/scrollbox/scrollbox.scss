@@ -76,6 +76,10 @@
             inset: 0px;
 
             //
+            pointer-events: none;
+            user-select: none;
+
+            //
             --percent: 0.0;
 
             //
@@ -91,6 +95,19 @@
                 position: static;
                 background-color: black;
                 display: block;
+
+                //
+                pointer-events: auto;
+                pointer-events: bounding-box;
+                user-select: none;
+
+                //
+                cursor: grab;
+
+                //
+                &:active {
+                    cursor: grabbing;
+                }
             }
 
             //
