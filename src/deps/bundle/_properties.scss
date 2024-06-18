@@ -1,3 +1,38 @@
 @layer lx-properties {
     
+    //
+    @property --translate-x {
+        syntax: "<percentage-length>";
+        initial-value: 0px;
+        inherits: true;
+    }
+
+    //
+    @property --translate-y {
+        syntax: "<percentage-length>";
+        initial-value: 0px;
+        inherits: true;
+    }
+
+    //
+    @property --avail-width {
+        syntax: "<percentage-length>";
+        initial-value: 0px;
+        inherits: true;
+    }
+
+    //
+    @property --avail-height {
+        syntax: "<percentage-length>";
+        initial-value: 0px;
+        inherits: true;
+    }
+
+    //
+    @property --scaling {
+        syntax: "<number>";
+        initial-value: 1;
+        inherits: true;
+    }
+    
 }

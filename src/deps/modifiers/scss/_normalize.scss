@@ -20,10 +20,17 @@
     body {
         min-inline-size: 100dvi;
         min-block-size: 100dvb;
-        inline-size: 100dvi;
-        block-size: 100dvb;
+
+        //
         overflow: hidden;
         position: relative;
+
+        //
+        inline-size: var(--avail-width, 100dvi);
+        block-size: var(--avail-height, 100dvb);
+
+        //
+        zoom: var(--scaling, 1);
     }
 
     //

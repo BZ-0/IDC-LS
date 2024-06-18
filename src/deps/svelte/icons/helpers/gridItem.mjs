@@ -1,5 +1,64 @@
 import { get } from "http";
 import { type } from "os";
+import { parse } from "path";
+
+//
+export let gridPages = [{
+    id: "home-page",
+    iconList: ["test"]
+}].concat(JSON.parse(localStorage.getItem("@pages") || "[]") || []);
+export let iconItems = new Map([
+    ["test", {
+        id: "test",
+        icon: "cat",
+        cellX: 0,
+        cellY: 0
+    }]
+].concat(JSON.parse(localStorage.getItem("@icons") || "[]") || []));
+
+//
+export let saveInStorage = (iconItems)=>{
+    
+};
+
+// for editors
+export const currentIconState = {
+    iconItem: {
+        id: "",
+        icon: "",
+        label: ""
+    },
+    confirm() {
+        editForIcon.set(this.iconItem);
+    }
+}
+
+//
+export let editForIcon = writable({
+    id: "",
+    icon: "",
+    label: ""
+});
+
+//
+editForIcon.subscribe((newScheme) => {
+    let exist = iconItems.get(newScheme.id);
+    if (!exist) {
+        iconItems.set(newScheme.id, exist = {...newScheme});
+    };
+    Object.assign(exist, newScheme);
+    saveInStorage(iconItems);
+});
+
+//
+export const makeArgs = (iconItem, gridPage)=>{
+    return {
+        gridPage: document.querySelector(`.icon-grid[data-id="${gridPage.id}"]`),
+        iconList: gridPage.iconList, 
+        iconItems,
+        iconItem, CL
+    };
+}
 
 //
 const or_mod = {
@@ -92,7 +151,6 @@ export const fixCell = ({
     }
 }
 
-
 //
 export const animationSequence = [{
     "--translate-x": "calc(var(--p-drag-x) * var(--pxd))",
@@ -131,12 +189,17 @@ export const putToCell = ({
     const last = $last;
 
     //
+    const orientation = getCorrectOrientation();
     const oxBox = [gridPage.offsetWidth, gridPage.offsetHeight];
+
+    //
+    if (orientation.startsWith("landscape")) oxBox.reverse();
+
+    //
     const inBox = [oxBox[0] / CL[0], oxBox[1] / CL[1]];
 
     //
     const preCell = {x: itemItem.cellX, y: itemItem.cellY};
-    const orientation = getCorrectOrientation();
 
     //
     switch(orientation) {
