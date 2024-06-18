@@ -1,0 +1,3 @@
+[submodule "src/deps/libraries/js/ax"]
+	path = src/deps/libraries/js/ax
+	url = https://github.com/BZ-0/ax.js.git
