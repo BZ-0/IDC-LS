@@ -11,6 +11,18 @@
 	import { onMount } from "svelte";
 
     //
+    export let iconItems = new Map([]);
+    export let gridPages = [];
+
+    //
+    export const updateIcons = ()=>{ cIconItems.set(Array.from(iconItems.entries())); };
+    export const updateForce = ()=>{ cGridPages.set(gridPages); dragBucket = [...dragBucket]; };
+
+    //
+    cIconItems.subscribe((v)=>{iconItems = new Map(v)});
+    cGridPages.subscribe((v)=>{gridPages = [...v]});
+
+    //
     import {grabForDrag} from "../../libraries/js/orion/pointer-api.mjs"
 
     //
@@ -19,40 +31,21 @@
     export {editForIcon, columns, rows};
 
     //
-    let gridPages = [...cGridPages];
-    let iconItems = [...cIconItems];;
-
-    //
     columns.subscribe((v)=>(CL = [v,CL[1]]));
     rows.subscribe((v)=>(CL = [CL[0], v]));
 
     //
     export let currentPage = "home-page";
     export let mainElement = null;
+
     
-    //
-    /*export const resynchronize = ()=>{
-        gridPages = [...cGridPages];
-        iconItems = [...cIconItems];
-    }*/
-
-    //
-    export const forceUpdate = ()=>{
-        gridPages = [...cGridPages];
-        dragBucket = [...dragBucket];
-    };
-
-    //
-    export const forceUpdateIcons = ()=>{
-        iconItems = [...cIconItems];
-    };
 
     //
     const grabItem = (ev)=>{
         const iconElement = ev.target.closest(".icon-item");//ev.holding.element.deref();
         const iconId      = iconElement.dataset["id"];
-        const iconItem    = new Map(cIconItems).get(iconId);
-        const gridPage    = cGridPages.find((g)=>(currentPage==g.id));
+        const iconItem    = iconItems.get(iconId);
+        const gridPage    = gridPages.find((g)=>(currentPage==g.id));
 
         //
         iconItem.pointerId = ev.pointerId;
@@ -63,7 +56,7 @@
         dragBucket.push(iconId);
 
         //
-        forceUpdate();
+        updateForce();
     }
 
     //
@@ -74,15 +67,15 @@
         //
         const iconElement = holding.element.deref();
         const iconId      = iconElement.dataset["id"];
-        const iconItem    = new Map(cIconItems).get(iconId);
-        const gridPage    = cGridPages.find((g)=>(currentPage==g.id));
+        const iconItem    = iconItems.get(iconId);
+        const gridPage    = gridPages.find((g)=>(currentPage==g.id));
 
         //
         dragBucket = dragBucket.filter((id)=>(id!=iconId));
         gridPage.iconList.push(iconId);
 
         //
-        forceUpdate();
+        updateForce();
     }
 
     // make true value of cells
@@ -90,7 +83,7 @@
         
         
         //
-        forceUpdateIcons();
+        updateIcons();
     }
 
     //
@@ -112,19 +105,25 @@
                 <IconGrid type="labels" columns={CL[0]} rows={CL[1]}>
                     {@const iconList = page.iconList}
                     {#each iconList as iconId}
-                        <IconLabel iconItem={new Map(iconItems).get(iconId)}></IconLabel>
+                        {@const iconItem = iconItems.get(iconId)}
+                        {#if iconItem}
+                            <IconLabel iconItem={iconItem}></IconLabel>
+                        {/if}
                     {/each}
                 </IconGrid>
 
                 <IconGrid type="icons" columns={CL[0]} rows={CL[1]}>
                     {@const iconList = page.iconList}
                     {#each iconList as iconId}
-                        <IconItem 
-                            onmount={reCalcPosition}
-                            iconItem={new Map(iconItems).get(iconId)}
-                            dragend={placeElement}
-                            pointerdown={grabItem}
-                        ></IconItem>
+                        {@const iconItem = iconItems.get(iconId)}
+                        {#if iconItem}
+                            <IconItem 
+                                onmount={reCalcPosition}
+                                iconItem={iconItem}
+                                dragend={placeElement}
+                                pointerdown={grabItem}
+                            ></IconItem>
+                        {/if}
                     {/each}
                 </IconGrid>
                 
@@ -135,12 +134,15 @@
     <div inert=true class="grid-based-box pointer-events-none">
         <IconGrid dragend={placeElement} type="bucket" columns={CL[0]} rows={CL[1]}>
             {#each dragBucket as iconId}
-                <IconItem 
-                    inert=true
-                    iconItem={new Map(iconItems).get(iconId)}
-                    onmount={grabForDrag}
-                    dragend={placeElement}
-                ></IconItem>
+            {@const iconItem = iconItems.get(iconId)}
+                {#if iconItem}
+                    <IconItem 
+                        inert=true
+                        iconItem={iconItem}
+                        onmount={grabForDrag}
+                        dragend={placeElement}
+                    ></IconItem>
+                {/if}
             {/each}
         </IconGrid>
     </div>

@@ -7,5 +7,5 @@
     style={`--cell-x: ${iconItem.cellX}; --cell-y: ${iconItem.cellY}; --translate-shift: 3rem;`} 
     data-host={iconItem.id}
     data-name={iconItem.id}>
-    <span class="icon-label">{iconItem.label||""}</span>
+    <span class="icon-label">{iconItem?.label||""}</span>
 </div>
