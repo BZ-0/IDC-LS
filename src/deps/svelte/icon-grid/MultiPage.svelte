@@ -85,6 +85,14 @@
         forceUpdate();
     }
 
+    // make true value of cells
+    const reCalcPosition = (element, ev = {pointerId: 0})=>{
+        
+        
+        //
+        forceUpdateIcons();
+    }
+
     //
     onMount(()=>{
         
@@ -112,6 +120,7 @@
                     {@const iconList = page.iconList}
                     {#each iconList as iconId}
                         <IconItem 
+                            onmount={reCalcPosition}
                             iconItem={new Map(iconItems).get(iconId)}
                             dragend={placeElement}
                             pointerdown={grabItem}

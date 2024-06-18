@@ -43,7 +43,7 @@
 
         //
         container-type: size;
-        contain: content;
+        contain: size;
 
         //
         display: flex;
@@ -57,6 +57,9 @@
 
     //
     .icon-item {
+        overflow: visible;
+
+        //
         & .icon-design {
             --icon-size: min(100cqmin, 4rem);
 
@@ -71,6 +74,9 @@
 
             // debug
             background-color: black;
+
+            //
+            translate: calc(var(--drag-x) * 1px) calc(var(--drag-y) * 1px);
         }
     }
 
