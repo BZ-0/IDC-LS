@@ -59,7 +59,7 @@ class ScrollBar {
                 //
                 this.status.virtualScroll += (coord - this.status.pointerLocation) * (
                     this.holder[["scrollWidth", "scrollHeight"][axis]] / 
-                    this.holder[["offsetWidth", "offsetHeight"][axis]]
+                    this.scrollbar[["offsetWidth", "offsetHeight"][axis]]
                 );
                 this.status.pointerLocation = coord;
 

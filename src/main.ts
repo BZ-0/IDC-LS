@@ -1,5 +1,5 @@
-import App from './apps/tests/Scrollbox.svelte';
-import "./blocks/scrollbox/scrollbox.mjs";
+import App from '@apps/tests/Scrollbox.svelte';
+import "@complex/scrollbox/scrollbox.mjs";
 
 //
 const app = new App({

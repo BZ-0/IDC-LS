@@ -1,0 +1,34 @@
+@layer lx-normalize {
+
+    //
+    html, body {
+        padding: 0px;
+        margin: 0px;
+        inset: 0px;
+        border: none 0px transparent;
+    }
+
+    //
+    html {
+        inline-size: max-content;
+        block-size: max-content;
+        overflow: hidden;
+        position: fixed;
+    }
+
+    //
+    body {
+        min-inline-size: 100dvi;
+        min-block-size: 100dvb;
+        inline-size: 100dvi;
+        block-size: 100dvb;
+        overflow: hidden;
+        position: relative;
+    }
+
+    //
+    :where(*) {
+        box-sizing: border-box;
+    }
+
+}

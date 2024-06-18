@@ -12,13 +12,15 @@ const useBabel = true;
  * will increase total bundle size and expose your source code.
  */
 const sourceMapsInProduction = false;
-
-/*********************************************************************************************************************/
+/**********************, { replace, type postcss }***********************************************************************************************/
 /**********                                              Vite                                               **********/
 /*********************************************************************************************************************/
 
 import { defineConfig, UserConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { env } from 'process';
+import dist from 'svelte-preprocess';
+import { type UserConfig, defineConfig, type build } from 'vite';
 import path from 'path';
 import sveltePreprocess from 'svelte-preprocess';
 import legacy from '@vitejs/plugin-legacy';
@@ -40,6 +42,7 @@ const config = <UserConfig> defineConfig({
 	},
 	build: {
 		sourcemap: sourceMapsInProduction,
+		outDir: './',
 	},
 	css: {
 		postcss: {

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+
+		<title>Svelte app</title>
+
+		<script type="importmap">
+		{
+			"imports": {
+				"@src": "./src",
+				"@apps": "./src/apps",
+				"@complex": "./src/deps/complex",
+				"@bundle": "./src/deps/bundle",
+				"@modifiers": "./src/deps/modifiers",
+				"@libraries": "./src/deps/libraries"
+			}
+		}
+		</script>
+
+		<link rel="icon" type="image/png" href="/favicon.png">
+		<link rel="stylesheet" type="text/css" href="src/index.scss">
+
+		<style></style>
+	</head>
+	<body>
+		<noscript>Please enable JavaScript to view this application.</noscript>
+		<script type="module" src="src/main.ts"></script>
+	</body>
+</html>
