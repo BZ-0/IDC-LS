@@ -1,7 +1,8 @@
 <div class="stretch grid-based-box relative">
     
     {#each gridPages as page}
-        <div class="layered grid-based-box">
+        <div class="layered grid-based-box" type={page.type} visible={currentPage==page.id}
+            transition:fade={{ delay: 0, duration: 200 }}>
             <IconGrid type="icons" columns={CL[0]} rows={CL[1]}>
                 {#each page.iconList as iconId}
                     {@const iconItem = iconItems.get(iconId)}
@@ -47,6 +48,8 @@
     import IconItem from "./IconItem.svelte";
 	import IconGrid from "./IconGrid.svelte";
     import IconLabel from "./IconGrid.svelte";
+    import { fade } from 'svelte/transition';
+    import { swipe } from 'svelte-gestures';
 
     //
     import {
@@ -64,4 +67,7 @@
     export const dragBucket = [];
     export {editForIcon};
     export {columns, rows};
+
+    //
+    export let currentPage = "home";
 </script>

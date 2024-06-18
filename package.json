@@ -22,6 +22,7 @@
 		"defaults"
 	],
 	"dependencies": {
+		"svelte-gestures": "^5.0.1",
 		"vite-plugin-pwa": "^0.20.0"
 	}
 }
