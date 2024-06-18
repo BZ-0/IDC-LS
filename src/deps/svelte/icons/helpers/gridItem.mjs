@@ -5,6 +5,7 @@ import { parse } from "path";
 //
 export let gridPages = [{
     id: "home-page",
+    type: "icon-list",
     iconList: ["test"]
 }].concat(JSON.parse(localStorage.getItem("@pages") || "[]") || []);
 export let iconItems = new Map([

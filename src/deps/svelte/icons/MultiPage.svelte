@@ -1,31 +1,33 @@
 <div class="stretch grid-based-box relative">
     
     {#each gridPages as page}
-        <div class="layered grid-based-box" type={page.type} visible={currentPage==page.id}
-            transition:fade={{ delay: 0, duration: 200 }}>
-            <IconGrid type="icons" columns={CL[0]} rows={CL[1]}>
-                {#each page.iconList as iconId}
-                    {@const iconItem = iconItems.get(iconId)}
-                    <IconItem 
-                        id={iconItem.id || iconId}
-                        labelId={iconItem.id || iconId}
-                        icon={iconItem.icon}
-                        cellX={iconItem.cellX}
-                        cellY={iconItem.cellY}
-                    ></IconItem>
-                {/each}
-            </IconGrid>
-            <IconGrid type="labels" columns={CL[0]} rows={CL[1]}>
-                {#each page.iconList as iconId}
-                    {@const iconItem = iconItems.get(iconId)}
-                    <IconLabel
-                        hostId={iconItem.id || iconId}
-                        cellX={iconItem.cellX}
-                        cellY={iconItem.cellY}
-                    >{iconItem[iconItem.label]}</IconLabel>
-                {/each}
-            </IconGrid>
-        </div>
+        {#if currentPage==page.id}
+            <div class="layered grid-based-box" type={page.type} visible={currentPage==page.id}
+                transition:fade={{ delay: 0, duration: 200 }}>
+                <IconGrid type="icons" columns={CL[0]} rows={CL[1]}>
+                    {#each page.iconList as iconId}
+                        {@const iconItem = iconItems.get(iconId)}
+                        <IconItem 
+                            id={iconItem.id || iconId}
+                            labelId={iconItem.id || iconId}
+                            icon={iconItem.icon}
+                            cellX={iconItem.cellX}
+                            cellY={iconItem.cellY}
+                        ></IconItem>
+                    {/each}
+                </IconGrid>
+                <IconGrid type="labels" columns={CL[0]} rows={CL[1]}>
+                    {#each page.iconList as iconId}
+                        {@const iconItem = iconItems.get(iconId)}
+                        <IconLabel
+                            hostId={iconItem.id || iconId}
+                            cellX={iconItem.cellX}
+                            cellY={iconItem.cellY}
+                        >{iconItem[iconItem.label]}</IconLabel>
+                    {/each}
+                </IconGrid>
+            </div>
+        {/if}
     {/each}
 
     <div inert=true class="grid-based-box pointer-events-none">
@@ -69,5 +71,5 @@
     export {columns, rows};
 
     //
-    export let currentPage = "home";
+    export let currentPage = "home-page";
 </script>
