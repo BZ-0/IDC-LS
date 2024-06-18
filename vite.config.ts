@@ -27,6 +27,8 @@ import legacy from '@vitejs/plugin-legacy';
 import autoprefixer from 'autoprefixer';
 import pkg from './package.json';
 import tsconfig from './tsconfig.json';
+import { VitePWA } from 'vite-plugin-pwa'
+
 
 const production = process.env.NODE_ENV === 'production';
 const config = <UserConfig> defineConfig({
@@ -35,18 +37,16 @@ const config = <UserConfig> defineConfig({
 			emitCss: production,
 			preprocess: sveltePreprocess(),
 		}),
-        plugins: [
-            VitePWA({ 
-                registerType: 'autoUpdate',
-                devOptions: {
-                    enabled: true
-                },
-                workbox: {
-                    clientsClaim: true,
-                    skipWaiting: true
-                }
-            })
-        ]
+        VitePWA({ 
+            registerType: 'autoUpdate',
+            devOptions: {
+                enabled: true
+            },
+            workbox: {
+                clientsClaim: true,
+                skipWaiting: true
+            }
+        })
 	],
 	server: {
 		host: 'localhost',
