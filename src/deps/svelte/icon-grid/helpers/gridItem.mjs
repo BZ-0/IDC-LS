@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 //
-export const makeArgs = (iconItem, gridPage)=>{
+export const makeArgs = (iconItem, iconItems, gridPage, CL)=>{
     return {
         gridPage: document.querySelector(`.icon-grid[data-id="${gridPage.id}"]`),
         iconList: gridPage.iconList, 

@@ -11,14 +11,19 @@
     export let pointerdown = ()=>{};
     export let dragstart = ()=>{};
     export let dragging = ()=>{};
+    export let dragend = ()=>{};
     export let changed = ()=>{};
+    export let onmount = ()=>{}
 
     //
     let element = null;
     let handler = null;
-
+    
     //
     onMount(()=>{
+        onmount?.(element, iconItem);
+
+        //
         handler.addEventListener("pointerdown", (ev)=>{
             pointerdown?.(ev);
         });
@@ -35,6 +40,7 @@
 
         //
         element.addEventListener("m-dragend", (ev)=>{
+            iconItem.pointerId = -1;
             dragend?.(ev.detail);
         });
 

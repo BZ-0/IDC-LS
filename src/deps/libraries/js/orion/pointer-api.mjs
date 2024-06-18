@@ -49,7 +49,8 @@ document.addEventListener("pointerdown", (ev)=>{
     const np = {
         event: ev,
         current: [ev.pageX, ev.pageY],
-        down: [ev.pageX, ev.pageY]
+        down: [ev.pageX, ev.pageY],
+        movement: [0, 0],
     }
 
     //
@@ -58,7 +59,12 @@ document.addEventListener("pointerdown", (ev)=>{
     np.movement[1] = np.current[1] - exists.current[1];
 
     //
-    hm.shifting = [...(hm.modified || hm.shifting)];
+    if (!exists.holding) { exists.holding = []; };
+
+    //
+    exists.holding.map((hm)=>{
+        hm.shifting = [...(hm.modified || hm.shifting)];
+    });
 
     //
     if (!exists.edges) {
@@ -67,7 +73,7 @@ document.addEventListener("pointerdown", (ev)=>{
 
     //
     Object.assign(exists, np);
-    pointerMap.set(exists);
+    pointerMap.set(ev.pointerId, exists);
 }, {capture: true, passive: true});
 
 // 
@@ -75,7 +81,8 @@ document.addEventListener("pointermove", (ev)=>{
     const np = {
         event: ev,
         current: [ev.pageX, ev.pageY],
-        down: [ev.pageX, ev.pageY]
+        down: [ev.pageX, ev.pageY],
+        movement: [0, 0],
     }
 
     //
@@ -84,13 +91,16 @@ document.addEventListener("pointermove", (ev)=>{
     np.movement[1] = np.current[1] - exists.current[1];
 
     //
+    if (!exists.holding) { exists.holding = []; };
+
+    //
     if (!exists.edges) {
         exists.edges = new PointerEdge(exists);
     }
 
     //
     Object.assign(exists, np);
-    pointerMap.set(exists);
+    pointerMap.set(ev.pointerId, exists);
 
     //
     exists.holding.map((hm)=>{
@@ -103,10 +113,11 @@ document.addEventListener("pointermove", (ev)=>{
             pointer: exists,
             holding: hm
         }});
+
+        const em = hm.element.deref();
         em?.dispatchEvent?.(nev);
 
         //
-        const em = hm.element.deref();
         em?.style?.setProperty?.(`--${hm.propertyName||"drag"}-x`, hm.modified[0]);
         em?.style?.setProperty?.(`--${hm.propertyName||"drag"}-y`, hm.modified[1]);
     });
@@ -146,27 +157,29 @@ document.addEventListener("pointercancel", releasePointer, {capture: true, passi
 document.addEventListener("pointerup", releasePointer, {capture: true, passive: true});
 
 //
-export const grabForDrag = (element, pointerId = 0, {
+export const grabForDrag = (element, ev = {pointerId: 0}, {
     shifting = [0, 0], 
     propertyName = "drag" // use dragging events for use limits
 } = {})=>{
     const exists = pointerMap.get(ev.pointerId);
-    exists.event = ev;
+    if (exists) {
+        exists.event = ev;
 
-    //
-    const hm = exists.holding.find((hm)=>(hm.element == element)) || {};
-    exists.holding.push(Object.assign(hm, {
-        element: new WeakRef(element),
-        shifting: [...(hm?.modified || hm?.shifting)]
-    }));
+        //
+        const hm = exists.holding.find((hm)=>(hm.element == element)) || {};
+        exists.holding.push(Object.assign(hm, {
+            element: new WeakRef(element),
+            shifting: [...(hm?.modified || hm?.shifting || shifting || [])]
+        }));
 
-    // pls, assign "ev.detail.holding.shifting" to initial value (f.e. "ev.detail.holding.modified")
-    // note about "ev.detail.holding.element is WeakRef, so use ".deref()"
-    const nev = new CustomEvent("m-dragstart", { detail: {
-        pointer: exists,
-        holding: hm
-    }});
+        // pls, assign "ev.detail.holding.shifting" to initial value (f.e. "ev.detail.holding.modified")
+        // note about "ev.detail.holding.element is WeakRef, so use ".deref()"
+        const nev = new CustomEvent("m-dragstart", { detail: {
+            pointer: exists,
+            holding: hm
+        }});
 
-    //
-    element?.dispatchEvent?.(nev);
+        //
+        element?.dispatchEvent?.(nev);
+    }
 }

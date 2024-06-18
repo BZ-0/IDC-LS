@@ -5,14 +5,14 @@ export const columns = writable(parseInt(localStorage.getItem("@settings:@column
 export const rows = writable(parseInt(localStorage.getItem("@settings:@rows")) || 8);
 
 //
-export const gridPages = [{
+export const cGridPages = [{
     id: "home-page",
     type: "icon-list",
     iconList: ["test"]
 }].concat(JSON.parse(localStorage.getItem("@pages") || "[]") || []);
 
 //
-export const iconItems = new Map([
+export const cIconItems = new Map([
     ["test", {
         id: "test",
         icon: "cat",
@@ -57,10 +57,10 @@ export let editForIcon = writable({
 
 //
 editForIcon.subscribe((newScheme) => {
-    let exist = iconItems.get(newScheme.id);
+    let exist = cIconItems.get(newScheme.id);
     if (!exist) {
-        iconItems.set(newScheme.id, exist = {...newScheme});
+        cIconItems.set(newScheme.id, exist = {...newScheme});
     };
     Object.assign(exist, newScheme);
-    saveInStorage(iconItems);
+    saveInStorage(cIconItems);
 });
