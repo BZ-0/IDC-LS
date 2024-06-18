@@ -1,0 +1,77 @@
+@use "./gridmisc.scss" as gm;
+
+//
+@layer lx-icon-grid {
+
+    //
+    .icon-grid {
+        display: grid;
+
+        //
+        grid-template-columns: repeat(var(--columns), minmax(0px, 1fr));
+        grid-template-rows: repeat(var(--rows), minmax(0px, 1fr));
+
+        //
+        --c-gap: 1;
+        --r-gap: 1;
+
+        //
+        padding-inline: calc(var(--c-gap) * 0.5rem);
+        padding-block : calc(var(--r-gap) * 0.5rem);
+
+        //
+        column-gap: calc(var(--c-gap) * 1rem);
+        row-gap: calc(var(--c-gap) * 1rem);
+        
+        //
+        pointer-events: none;
+        overflow: visible;
+    }
+
+    //
+    .icon-placement {
+        //
+        @include gm.calculateMetric();
+
+        //
+        grid-column: auto;
+        grid-column: var(--fc-cell-x, auto);
+
+        //
+        grid-row: auto;
+        grid-row: var(--fc-cell-y, auto);
+
+        //
+        container-type: size;
+        contain: content;
+
+        //
+        display: flex;
+
+        //
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+        align-content: center;
+    }
+
+    //
+    .icon-item {
+        & .icon-design {
+            --icon-size: min(100cqmin, 4rem);
+
+            //
+            aspect-ratio: 1 / 1;
+            inline-size: var(--icon-size);
+            block-size: var(--icon-size);
+
+            //
+            pointer-events: auto;
+            pointer-events: bounding-box;
+
+            // debug
+            background-color: black;
+        }
+    }
+
+}

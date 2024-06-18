@@ -1,2 +1,5 @@
 @use "../modifiers/scss/normalize";
 @use "../modifiers/scss/classlets";
+
+// Svelte Components
+@use "../svelte/icon-grid/helpers/gridutils";

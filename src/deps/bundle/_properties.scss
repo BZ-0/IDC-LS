@@ -2,29 +2,57 @@
     
     //
     @property --translate-x {
-        syntax: "<percentage-length>";
+        syntax: "<length-percentage>";
         initial-value: 0px;
         inherits: true;
     }
 
     //
     @property --translate-y {
-        syntax: "<percentage-length>";
+        syntax: "<length-percentage>";
         initial-value: 0px;
         inherits: true;
     }
 
     //
     @property --avail-width {
-        syntax: "<percentage-length>";
+        syntax: "<length-percentage>";
         initial-value: 0px;
         inherits: true;
     }
 
     //
     @property --avail-height {
-        syntax: "<percentage-length>";
+        syntax: "<length-percentage>";
         initial-value: 0px;
+        inherits: true;
+    }
+
+    //
+    @property --r-gap {
+        syntax: "<number>";
+        initial-value: 1;
+        inherits: true;
+    }
+
+    //
+    @property --c-gap {
+        syntax: "<number>";
+        initial-value: 1;
+        inherits: true;
+    }
+
+    //
+    @property --rows {
+        syntax: "<number>";
+        initial-value: 1;
+        inherits: true;
+    }
+
+    //
+    @property --columns {
+        syntax: "<number>";
+        initial-value: 1;
         inherits: true;
     }
 
@@ -32,6 +60,13 @@
     @property --scaling {
         syntax: "<number>";
         initial-value: 1;
+        inherits: true;
+    }
+
+    //
+    @property --icon-size {
+        syntax: "<length-percentage>";
+        initial-value: 0px;
         inherits: true;
     }
     

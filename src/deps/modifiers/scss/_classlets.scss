@@ -88,6 +88,10 @@
         inset: 0px;
 
         //
+        pointer-events: none;
+        overflow: visible;
+
+        //
         & > :where(*) {
             @extend .contained;
             @extend .grid-inside;

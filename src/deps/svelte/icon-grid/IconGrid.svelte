@@ -9,9 +9,7 @@
 <div 
     data-type={type}
     data-id={id}
-    class="icon-grid stretch fixed inset-0 orientation-adaptive padding-0 overflow-visible grid-inside"
+    class="icon-grid stretch fixed inset-0 orientation-adaptive padding-0 overflow-visible grid-inside pointer-events-none"
     style={`--columns:${columns};--rows:${rows}`}>
     <slot></slot>
 </div>
-
-<style type="scss"></style>

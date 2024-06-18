@@ -1,55 +1,4 @@
-import { get } from "http";
-import { type } from "os";
-import { parse } from "path";
-
-//
-export let gridPages = [{
-    id: "home-page",
-    type: "icon-list",
-    iconList: ["test"]
-}].concat(JSON.parse(localStorage.getItem("@pages") || "[]") || []);
-export let iconItems = new Map([
-    ["test", {
-        id: "test",
-        icon: "cat",
-        cellX: 0,
-        cellY: 0
-    }]
-].concat(JSON.parse(localStorage.getItem("@icons") || "[]") || []));
-
-//
-export let saveInStorage = (iconItems)=>{
-    
-};
-
-// for editors
-export const currentIconState = {
-    iconItem: {
-        id: "",
-        icon: "",
-        label: ""
-    },
-    confirm() {
-        editForIcon.set(this.iconItem);
-    }
-}
-
-//
-export let editForIcon = writable({
-    id: "",
-    icon: "",
-    label: ""
-});
-
-//
-editForIcon.subscribe((newScheme) => {
-    let exist = iconItems.get(newScheme.id);
-    if (!exist) {
-        iconItems.set(newScheme.id, exist = {...newScheme});
-    };
-    Object.assign(exist, newScheme);
-    saveInStorage(iconItems);
-});
+import { writable } from 'svelte/store';
 
 //
 export const makeArgs = (iconItem, gridPage)=>{
@@ -86,7 +35,7 @@ export const getCorrectOrientation = ()=>{
 //
 export const fixCell = ({
     gridPage,
-    itemItem, iconList, CL,
+    iconItem, iconList, CL,
     iconItems
 }, $preCell) => {
     const items = iconItems;
@@ -124,7 +73,9 @@ export const fixCell = ({
     //
     const suitable = variants.find((v)=>!checkBusy(v));
     if (suitable) {
-        return [suitable.x, suitable.y];
+        iconItem.cellX = suitable.x;
+        iconItem.cellY = suitable.y;
+        return;
     }
 
     //
@@ -132,7 +83,9 @@ export const fixCell = ({
     let busy = checkBusy(preCell);
     while (busy && (exceed++) < (columns*rows)) {
         if (!busy) {
-            return [preCell.x, preCell.y];
+            iconItem.cellX = preCell.x;
+            iconItem.cellY = preCell.y;
+            return;
         }
 
         //
