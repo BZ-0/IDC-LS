@@ -12,14 +12,14 @@ export const cGridPages = [{
 }].concat(JSON.parse(localStorage.getItem("@pages") || "[]") || []);
 
 //
-export const cIconItems = new Map([
+export const cIconItems = [
     ["test", {
         id: "test",
         icon: "cat",
         cellX: 1,
         cellY: 0
     }]
-].concat(JSON.parse(localStorage.getItem("@icons") || "[]") || []));
+].concat(JSON.parse(localStorage.getItem("@icons") || "[]") || []);
 
 //
 columns.subscribe((value)=>{
@@ -32,7 +32,7 @@ rows.subscribe((value)=>{
 })
 
 //
-export let saveInStorage = (iconItems)=>{
+export const saveInStorage = (iconItems)=>{
     
 };
 
@@ -49,7 +49,7 @@ export const currentIconState = {
 }
 
 //
-export let editForIcon = writable({
+export const editForIcon = writable({
     id: "",
     icon: "",
     label: ""
@@ -57,10 +57,12 @@ export let editForIcon = writable({
 
 //
 editForIcon.subscribe((newScheme) => {
-    let exist = cIconItems.get(newScheme.id);
-    if (!exist) {
-        cIconItems.set(newScheme.id, exist = {...newScheme});
-    };
+    const iconItems = new Map(cIconItems);
+    let exist = iconItems.get(newScheme.id);
+    if (!exist) { iconItems.set(newScheme.id, exist = {...newScheme}); };
     Object.assign(exist, newScheme);
+    for (const [k,v] of iconItems.entries()) {
+        cIconItems[k] = v;
+    };
     saveInStorage(cIconItems);
 });
