@@ -1,6 +1,11 @@
 <script>
     import * as icons from 'lucide-svelte';
+	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
+    import { createEventDispatcher } from "svelte";
+
+    //
+    const dispatch = createEventDispatcher();
 
     //
     let realCell = {x: 0, y: 0};
@@ -16,10 +21,26 @@
     //
     cellX.subscribe((value)=>{ realCell.x = value; });
     cellY.subscribe((value)=>{ realCell.y = value; });
+
+    //
+    let element = null;
+
+    //
+    onMount(()=>{
+        element.addEventListener("m-dragstart", (ev)=>{
+            dispatch("m-dragstart", ev.detail);
+        });
+        element.addEventListener("m-dragging", (ev)=>{
+            dispatch("m-dragging", ev.detail);
+        });
+        element.addEventListener("m-dragend", (ev)=>{
+            dispatch("m-dragend", ev.detail);
+        });
+    });
 </script>
 
 <!-- -->
-<div inert={inert} class="icon-placement grid-item fspace" style={`--cell-x: ${realCell.x}; --cell-y: ${realCell.y}`} data-id={id} data-label-id={labelId}>
+<div bind:this={element} inert={inert} class="icon-placement grid-item fspace" style={`--cell-x: ${realCell.x}; --cell-y: ${realCell.y}`} data-id={id} data-label-id={labelId}>
     <div class="icon-design icon-shape">
         <!--<img class="icon-id" alt="IconItem" src="" data-lucide={id}/>-->
         <svelte:component class="icon-sign" this="{icons[icon]}" {...$$props} />
