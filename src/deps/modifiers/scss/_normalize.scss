@@ -31,4 +31,9 @@
         box-sizing: border-box;
     }
 
+    //
+    :where([inert], *[inert]) {
+        pointer-events: none;
+    }
+
 }

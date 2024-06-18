@@ -5,10 +5,92 @@
 @layer lx-classlets {
 
     // usable for grid-items
-    .fill-space {
+    .fspace {
         inline-size: auto;
         inline-size: stretch;
         block-size: auto;
         block-size: stretch;
+    }
+    
+    //
+    .stretch {
+        inline-size: auto;
+        inline-size: 100%;
+        inline-size: stretch;
+        block-size: auto;
+        block-size: 100%;
+        block-size: stretch;
+    }
+
+    //
+    .contained {
+        inline-size: 100cqi;
+        block-size: 100cqb;
+    }
+
+    //
+    .fixed { position: fixed; }
+    .inset-0 { inset: 0px; };
+
+    //
+    .horizontal-force {
+        writing-mode: horizontal-tb;
+    }
+
+    //
+    .orientation-adaptive {
+        transform-origin: center center;
+        writing-mode: var(--pwm);
+        direction: var(--pdir);
+        rotate: var(--pfrot);
+    }
+
+    //
+    .padding-0 {
+        padding: 0px;
+    }
+
+    //
+    .overflow-visible {
+        overflow: visible;
+    }
+
+    //
+    .relative {
+        position: relative;
+    }
+
+    // bit-complex element
+    .grid-inside {
+        position: relative;
+        grid-column: 1 / 1;
+        grid-row: 1 / 1;
+    }
+
+    //
+    .pointer-events-none {
+        pointer-events: none;
+    }
+
+    // bit-complex element
+    .grid-based-box {
+        @extend .stretch;
+
+        //
+        container-type: size;
+        contain: content;
+
+        //
+        display: grid;
+        grid-template-columns: minmax(0px, 1fr);
+        grid-template-rows: minmax(0px, 1fr);
+        position: fixed;
+        inset: 0px;
+
+        //
+        & > :where(*) {
+            @extend .contained;
+            @extend .grid-inside;
+        }
     }
 }
