@@ -20,5 +20,8 @@
 	},
 	"browserslist": [
 		"defaults"
-	]
+	],
+	"dependencies": {
+		"vite-plugin-pwa": "^0.20.0"
+	}
 }

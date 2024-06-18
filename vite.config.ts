@@ -35,6 +35,18 @@ const config = <UserConfig> defineConfig({
 			emitCss: production,
 			preprocess: sveltePreprocess(),
 		}),
+        plugins: [
+            VitePWA({ 
+                registerType: 'autoUpdate',
+                devOptions: {
+                    enabled: true
+                },
+                workbox: {
+                    clientsClaim: true,
+                    skipWaiting: true
+                }
+            })
+        ]
 	],
 	server: {
 		host: 'localhost',
