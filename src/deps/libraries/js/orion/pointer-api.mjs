@@ -149,12 +149,18 @@ export const releasePointer = (ev)=>{
             
             //
             em?.addEventListener?.("click", preventClick, {once: true});
-            document.addEventListener("click", preventClick, {once: true, capture: true});
+            em?.addEventListener?.("click", preventClick, {once: true});
+            
+            //
+            document.addEventListener("contextmenu", preventClick, {once: true, capture: true});
+            document.addEventListener("contextmenu", preventClick, {once: true, capture: true});
 
             //
             setTimeout(()=>{
                 em?.removeEventListener?.("click", preventClick);
+                em?.removeEventListener?.("contextmenu", preventClick);
                 document.removeEventListener("click", preventClick);
+                document.removeEventListener("contextmenu", preventClick);
             }, 100);
 
             //
