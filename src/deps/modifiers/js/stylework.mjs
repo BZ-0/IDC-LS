@@ -102,7 +102,9 @@ const properties = [
     { name: "--ptrans-x", syntax: "<length-percentage>", inherits: true, initialValue: "0px" },
     { name: "--ptrans-y", syntax: "<length-percentage>", inherits: true, initialValue: "0px" },
     { name: "--ltrans-x", syntax: "<length-percentage>", inherits: true, initialValue: "0px" },
-    { name: "--ltrans-y", syntax: "<length-percentage>", inherits: true, initialValue: "0px" }
+    { name: "--ltrans-y", syntax: "<length-percentage>", inherits: true, initialValue: "0px" },
+    { name: "--avail-width", syntax: "<length-percentage>", inherits: true, initialValue: "0px" },
+    { name: "--avail-height", syntax: "<length-percentage>", inherits: true, initialValue: "0px" },
 ];
 
 // define properties
@@ -192,9 +194,19 @@ const pts = Object.assign({}, ptsLandscape);
 //
 const cloudyShape = WavyShapedCircle();
 
+//
+const availSize = {
+    "--avail-width" : screen.availWidth  + "px",
+    "--avail-height": screen.availHeight + "px"
+}
 
 //
 const updateOrientation = (e)=>{
+    Object.assign(availSize, {
+        "--avail-width" : screen.availWidth  + "px",
+        "--avail-height": screen.availHeight + "px"
+    });
+
     //
     switch(getCorrectOrientation()) {
         case "portrait-primary":

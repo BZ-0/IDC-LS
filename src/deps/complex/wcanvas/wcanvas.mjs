@@ -84,7 +84,7 @@ class WCanvas extends HTMLCanvasElement {
         }).observe(this, {box: "content-box"});
 
         //
-        addEventListener("orientationchange", () => {
+        screen.orientation.addEventListener("change", () => {
             this.#render();
         });
 
