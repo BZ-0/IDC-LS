@@ -38,22 +38,6 @@
 	const updateGrids = ()=>{ gridState.gridPages.set(gridPages); }
 	const updateIcons = ()=>{ gridState.iconItems.set(Array.from(iconItems.entries())); }
 
-	// for using bind:editForIcon={@} for editors
-	export const editForIcon = writable({
-		id: "",
-		icon: "",
-		label: ""
-	});
-
-	//
-	editForIcon.subscribe((newScheme) => {
-		let exist = iconItems.get(newScheme.id);
-		if (!exist && newScheme.id) {
-			iconItems.set(newScheme.id, exist = {...newScheme});
-			gridState.iconItems.set(Array.from(iconItems.entries()));
-		}
-	});
-
 	//
 	const grabItem = (ev)=>{
 		document.addEventListener("pointermove", ()=>{
@@ -115,7 +99,10 @@
 		//
 		dragBucket = dragBucket.filter((id)=>(id!=iconId));
 		gridPage.iconList.push(iconId);
+		
+		//
 		updateGrids();
+		updateIcons();
 	}
 
 	// make true value of cells
