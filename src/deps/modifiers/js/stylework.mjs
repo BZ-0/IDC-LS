@@ -271,7 +271,8 @@ const classes = [
     [':root, :host, :scope', displayPortrait],
     [':root, :host, :scope', displayLandscape],
     [':root, :host, :scope', lts],
-    [':root, :host, :scope', pts]
+    [':root, :host, :scope', pts],
+    [':root, :host, :scope', availSize]
 ];
 
 //

@@ -1,6 +1,15 @@
 {
     "extends": "@tsconfig/svelte/tsconfig.json",
 	"compilerOptions": {
+        "paths": {
+            "@src": ["."],
+            "@deps": ["./deps"],
+			"@apps": ["./apps"],
+			"@complex": ["./deps/complex"],
+			"@bundle": ["./deps/bundle"],
+			"@modifiers": ["./deps/modifiers"],
+			"@libraries": ["./deps/libraries"]
+        },
 		"composite": true,
 		"lib": ["dom", "esnext", "webworker"],
         "module": "ESNext",

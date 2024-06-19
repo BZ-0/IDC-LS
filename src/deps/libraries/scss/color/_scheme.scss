@@ -9,5 +9,5 @@
 //
 @mixin accent-mod($effect: 1) {
     --effect: $effect;
-    --current-surface-color: cu.theme-mod-down(var(--theme-surface-color), calc(1% * var(--effect, 1)));
+    --current-surface-color: #{cu.theme-mod-down(var(--theme-surface-color), calc(1% * var(--effect, 1)))};
 }

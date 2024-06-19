@@ -76,8 +76,16 @@
     .fixed-avail {
         @extend .fixed;
         @extend .inset-0;
-        inline-size: var(--avail-width, 100dvi);
-        block-size: var(--avail-height, 100dvb);
+        
+        
+        inline-size: 100dvi;
+        block-size: 100dvb;
+        
+        //
+        @media all and ((display-mode: fullscreen) or (display-mode: standalone) or (display-mode: window-controls-overlay)){
+            inline-size: var(--avail-width, 100dvi);
+            block-size: var(--avail-height, 100dvb);
+        }
     }
 
     // depends from virtual keyboards

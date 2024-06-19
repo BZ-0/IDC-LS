@@ -9,19 +9,11 @@ const qualityMode = {
 }
 
 //
-export const sourceColorFromImage = async (image) => {
+export const sourceColorFromImage = async (bitmap) => {
     
     // Convert Image data to Pixel Array
     const Q = qualityMode["fast"];
 
-    //
-    if (!image.complete || !image.naturalHeight || !image.naturalHeight) {
-        return [];
-    }
-
-    //
-    const bitmap = await createImageBitmap(image);
-    
     //
     if (!(bitmap.naturalWidth ?? bitmap.width) || !(bitmap.naturalHeight ?? bitmap.height)) {
         return [0, 0];
@@ -60,13 +52,13 @@ export const sourceColorFromImage = async (image) => {
     context.restore();
 
     //
-    const area = image.dataset['area'];
-    if (area && /^\d+(\s*,\s*\d+){3}$/.test(area)) {
-        rect = area.split(/\s*,\s*/).map((s) => {
+    //const area = image.dataset['area'];
+    //if (area && /^\d+(\s*,\s*\d+){3}$/.test(area)) {
+        //rect = area.split(/\s*,\s*/).map((s) => {
             // tslint:disable-next-line:ban
-            return parseInt(s, 10);
-        });
-    }
+            //return parseInt(s, 10);
+        //});
+    //}
 
     //
     const imageBytes = context?.getImageData?.(...rect, { colorType: "unorm8", colorSpace: "srgb" }).data;

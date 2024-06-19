@@ -121,9 +121,13 @@ class WCanvas extends HTMLCanvasElement {
     //
     #preload(src) {
         return fetch(src).then(async (rp)=>{
-            const img = await createImageBitmap(await rp.blob()).catch((_)=>null);
-            if (img) { 
+            const blob = await rp.blob();
+            const img  = await createImageBitmap(blob).catch((_)=>null);
+            if (img) {
                 this.image = img;
+                window.dispatchEvent(new CustomEvent("wallpaper", { detail: {
+                    blob
+                }}));
             }
         }).catch(console.warn.bind(console));
     }

@@ -72,6 +72,7 @@
             aspect-ratio: 1 / 1;
             inline-size: var(--icon-size);
             block-size: var(--icon-size);
+            border-radius: calc(var(--icon-size) * 0.5);
 
             //
             pointer-events: auto;
@@ -83,6 +84,15 @@
             //
             will-change: translate, transform, --translate-x, --translate-y;
             translate: var(--translate-x) var(--translate-y);
+            
+            //
+            display: flex;
+            
+            //
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
         }
     }
 
