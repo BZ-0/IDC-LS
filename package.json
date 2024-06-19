@@ -22,6 +22,8 @@
 		"defaults"
 	],
 	"dependencies": {
+		"@material/material-color-utilities": "^0.2.7",
+		"culori": "^4.0.1",
 		"lucide-svelte": "^0.395.0",
 		"svelte-gestures": "^5.0.1",
 		"vite-plugin-pwa": "^0.20.0"

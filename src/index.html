@@ -10,8 +10,7 @@
         <meta http-equiv="content-language" content="en-us">
         <!--<meta http-equiv="Content-Security-Policy" content="script-src 'self';">-->
         <!---->
-        <meta name="viewport"
-            content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content, shrink-to-fit=no, virtual-keyboard=overlays-content">
+        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content, shrink-to-fit=no, virtual-keyboard=overlays-content">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="mobile-web-app-capable" content="yes">
@@ -48,19 +47,19 @@
 		<script type="importmap">
 		{
 			"imports": {
-				"@src": "./src",
-				"@apps": "./src/apps",
-				"@complex": "./src/deps/complex",
-				"@bundle": "./src/deps/bundle",
-				"@modifiers": "./src/deps/modifiers",
-				"@libraries": "./src/deps/libraries"
+				"@src": "./",
+				"@apps": "./apps",
+				"@complex": "./deps/complex",
+				"@bundle": "./deps/bundle",
+				"@modifiers": "./deps/modifiers",
+				"@libraries": "./deps/libraries"
 			}
 		}
 		</script>
 
         <script type="module">
         if (typeof navigator != "undefined") {
-            navigator?.serviceWorker?.register?.(new URL('./src/sw.mjs', import.meta.url), {scope: "/"}).then(
+            navigator?.serviceWorker?.register?.(new URL('./sw.mjs', import.meta.url), {scope: "/"}).then(
                 (registration) => {
                     console.log('Service worker registration succeeded:', registration);
                 },
@@ -78,12 +77,12 @@
         </script>
 
 		<link rel="icon" type="image/png" href="/favicon.png">
-		<link rel="stylesheet" type="text/css" href="src/index.scss">
+		<link rel="stylesheet" type="text/css" href="./index.scss">
 
 		<style></style>
 	</head>
 	<body>
 		<noscript>Please enable JavaScript to view this application.</noscript>
-		<script type="module" src="src/main.ts"></script>
+		<script type="module" src="./main.ts"></script>
 	</body>
 </html>

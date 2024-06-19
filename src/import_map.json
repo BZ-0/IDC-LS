@@ -1,0 +1,10 @@
+{
+    "imports": {
+        "@src": "./",
+        "@apps": "./apps",
+        "@complex": "./deps/complex",
+        "@bundle": "./deps/bundle",
+        "@modifiers": "./deps/modifiers",
+        "@libraries": "./deps/libraries"
+    }
+}

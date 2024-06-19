@@ -35,7 +35,9 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "allowUnusedLabels": true,
-        "allowUnreachableCode": true
+        "allowUnreachableCode": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true
     },
 	"include": [
 		"src/**/*.civet", 
@@ -45,9 +47,5 @@
 		"src/**/*.ts",
 		"src/**/*.svelte"
 	],
-	"references": [
-		{
-			"path": "./tsconfig.node.json"
-		}
-	]
+	"references": [{"path": "./src/tsconfig.json"}]
 }
