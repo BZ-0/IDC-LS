@@ -3,7 +3,7 @@ import html from "./scrollbox.html?raw";
 
 //
 class ScrollBar {
-	constructor({
+    constructor({
         holder,
         scrollbar
     }, axis = 0) {

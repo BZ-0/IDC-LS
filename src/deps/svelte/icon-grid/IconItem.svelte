@@ -1,7 +1,7 @@
 <script>
     import * as icons from 'lucide-svelte';
-	import { onMount } from 'svelte';
-	import { writable } from 'svelte/store';
+    import { onMount } from 'svelte';
+    import { writable } from 'svelte/store';
 
     //
     export let iconItem = {};

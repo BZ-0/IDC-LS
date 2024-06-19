@@ -1,8 +1,8 @@
 //
 const extractURL = function(css_url) {
-	let uri = css_url.match(/^\s*url\(\s*(.*)\s*\)\s*$/)[1], last = uri.length - 1;
-	if (uri[0] === '"' && uri[last] === '"' || uri[0] === "'" && uri[last] === "'") { uri = uri.slice(1, -1); }
-	return uri;
+    let uri = css_url.match(/^\s*url\(\s*(.*)\s*\)\s*$/)[1], last = uri.length - 1;
+    if (uri[0] === '"' && uri[last] === '"' || uri[0] === "'" && uri[last] === "'") { uri = uri.slice(1, -1); }
+    return uri;
 };
 
 // TODO: support for animations
