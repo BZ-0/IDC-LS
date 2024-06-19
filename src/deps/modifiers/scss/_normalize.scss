@@ -31,6 +31,10 @@
 
         //
         zoom: var(--scaling, 1);
+
+        // if needs viewport
+        container-type: size;
+        contain: strict;
     }
 
     //

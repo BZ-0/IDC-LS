@@ -11,7 +11,7 @@
         block-size: auto;
         block-size: stretch;
     }
-    
+
     //
     .stretch {
         inline-size: auto;
@@ -70,6 +70,20 @@
     //
     .pointer-events-none {
         pointer-events: none;
+    }
+
+    // not depends from virtual keyboards
+    .fixed-avail {
+        @extend .fixed;
+        @extend .inset-0;
+        inline-size: var(--avail-width, 100dvi);
+        block-size: var(--avail-height, 100dvb);
+    }
+
+    // depends from virtual keyboards
+    .fit-viewport {
+        inline-size: min(100dvi, 100cqi);
+        block-size: min(100dvb, 100cqb);
     }
 
     // bit-complex element

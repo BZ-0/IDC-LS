@@ -118,7 +118,7 @@
 </script>
 
 
-<div bind:this={mainElement} class="stretch grid-based-box relative">
+<div bind:this={mainElement} class="stretch grid-based-box fixed-avail relative">
 	
 	{#each gridPages as page}
 		{#if currentPage==page.id}
