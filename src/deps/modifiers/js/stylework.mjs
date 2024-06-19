@@ -24,7 +24,7 @@ export const setStyleRule = (selector, sheet) => {
 
 //
 export const setStyleRules = (classes) => {
-    return classes?.map?.((args)=>this.setStyleRule(...args));
+    return classes?.map?.((args)=>setStyleRule(...args));
 }
 
 //

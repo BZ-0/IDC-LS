@@ -1,5 +1,12 @@
+
+//
+import "./deps/modifiers/js/stylework.mjs"
+
+
 import App from '@apps/tests/MultiPageTest.svelte';
 //import "@complex/scrollbox/scrollbox.mjs";
+
+
 
 //
 const app = new App({

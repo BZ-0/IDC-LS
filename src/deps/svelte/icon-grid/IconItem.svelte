@@ -56,7 +56,12 @@
 <div bind:this={element} 
     inert={inert} 
     class="icon-item icon-placement grid-item fspace" 
-    style={`--cell-x: ${iconItem.cellX}; --cell-y: ${iconItem.cellY}`} 
+    style={`
+        --cell-x: ${iconItem.cellX}; 
+        --cell-y: ${iconItem.cellY};
+        --p-cell-x: ${iconItem.pCellX ?? iconItem.cellX};
+        --p-cell-y: ${iconItem.pCellY ?? iconItem.cellY};
+    `}
     data-id={iconItem.id} 
     data-label-id={iconItem.id}>
     <div bind:this={handler} class="icon-design icon-shape">

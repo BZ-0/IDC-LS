@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 
 //
 export const makeArgs = (iconItem, iconItems, gridPage, CL)=>{
@@ -52,8 +52,8 @@ export const fixCell = ({
     //
     if (!checkBusy(preCell)) {
         iconItem.cellX = preCell.x;
-        iconItem.cellX = preCell.y;
-        return;
+        iconItem.cellY = preCell.y;
+        return {x: iconItem.cellX, y: iconItem.cellY};
     }
 
     //
@@ -75,7 +75,7 @@ export const fixCell = ({
     if (suitable) {
         iconItem.cellX = suitable.x;
         iconItem.cellY = suitable.y;
-        return;
+        return {x: iconItem.cellX, y: iconItem.cellY};
     }
 
     //
@@ -85,7 +85,7 @@ export const fixCell = ({
         if (!busy) {
             iconItem.cellX = preCell.x;
             iconItem.cellY = preCell.y;
-            return;
+            return {x: iconItem.cellX, y: iconItem.cellY};
         }
 
         //
@@ -105,38 +105,88 @@ export const fixCell = ({
     }
 }
 
+
 //
-export const animationSequence = [{
-    "--translate-x": "calc(var(--p-drag-x) * var(--pxd))",
-    "--translate-y": "calc(var(--p-drag-y) * var(--pxd))",
+CSS?.registerProperty?.({
+    name: "--translate-x",
+    syntax: "<length-percentage>",
+    inherits: true,
+    initialValue: "0px",
+});
+
+//
+CSS?.registerProperty?.({
+    name: "--translate-y",
+    syntax: "<length-percentage>",
+    inherits: true,
+    initialValue: "0px",
+});
+
+
+const getOrientedPoint = ()=>{
+    const orientation = getCorrectOrientation();
+    switch(orientation) {
+        case "portrait-primary": 
+        return {
+            "--translate-x": "calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * 1px)",
+            "--translate-y": "calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * 1px)",
+        }
+
+        case "portrait-secondary": 
+        return {
+            "--translate-x": "calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * -1 * var(--pxd))",
+            "--translate-y": "calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * -1 * var(--pxd))",
+        }
+
+        case "landscape-primary": 
+        return {
+            "--translate-x": "calc(calc(calc(var(--grid-w) / var(--f-row)) * var(--vect-y)) * 1 * var(--pxd))",
+            "--translate-y": "calc(calc(calc(var(--grid-h) / var(--f-col)) * var(--vect-x)) * -1 * var(--pxd))",
+        }
+
+        case "landscape-secondary": 
+        return {
+            "--translate-x": "calc(calc(calc(var(--grid-w) / var(--f-row)) * var(--vect-y)) * -1 * var(--pxd))",
+            "--translate-y": "calc(calc(calc(var(--grid-h) / var(--f-col)) * var(--vect-x)) * 1 * var(--pxd))",
+        }
+
+        default: 
+        return {
+            "--translate-x": "calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * 1 * var(--pxd))",
+            "--translate-y": "calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * 1 * var(--pxd))",
+        }
+    }
+}
+
+
+//
+export const animationSequence = ()=> { return [{
+    "--translate-x": "calc(var(--drag-x) * var(--pxd))",
+    "--translate-y": "calc(var(--drag-y) * var(--pxd))",
 
     easing: "step-start",
     offset: 0.0,
 }, {
-    "--translate-x": "calc(var(--p-drag-x) * var(--pxd))",
-    "--translate-y": "calc(var(--p-drag-y) * var(--pxd))",
+    "--translate-x": "calc(var(--drag-x) * var(--pxd))",
+    "--translate-y": "calc(var(--drag-y) * var(--pxd))",
 
     easing: "linear",
     offset: 0.01
 }, {
-    "--translate-x": "calc(calc(calc(var(--grid-w, 0) / var(--f-col)) * var(--vect-x) * var(--xmd) + var(--drag-x)) * var(--pxd))",
-    "--translate-y": "calc(calc(calc(var(--grid-h, 0) / var(--f-row)) * var(--vect-y) * var(--ymd) + var(--drag-y)) * var(--pxd))",
-
+    ...getOrientedPoint(),
     easing: "step-end",
     offset: 0.99
 }, {
-    "--translate-x": "calc(calc(calc(var(--grid-w, 0) / var(--f-col)) * var(--vect-x) * var(--xmd) + var(--drag-x)) * var(--pxd))",
-    "--translate-y": "calc(calc(calc(var(--grid-h, 0) / var(--f-row)) * var(--vect-y) * var(--ymd) + var(--drag-y)) * var(--pxd))",
-
+    ...getOrientedPoint(),
     easing: "step-end",
     offset: 1
-}];
+}] };
 
 
 //
 export const putToCell = ({
     gridPage,
-    itemItem, iconList, CL,
+    iconItem, iconList, CL,
     iconItems
 }, $last) => {
     // should be relative from grid-box (not absolute or fixed position)
@@ -153,7 +203,9 @@ export const putToCell = ({
     const inBox = [oxBox[0] / CL[0], oxBox[1] / CL[1]];
 
     //
-    const preCell = {x: itemItem.cellX, y: itemItem.cellY};
+    const preCell = {x: iconItem.cellX, y: iconItem.cellY};
+        iconItem.pCellX = iconItem.cellX,
+        iconItem.pCellY = iconItem.cellY;
 
     //
     switch(orientation) {
@@ -176,9 +228,12 @@ export const putToCell = ({
     }
 
     //
-    return fixCell({
+    const fValue = fixCell({
         gridPage,
-        itemItem, iconList, CL,
+        iconItem, iconList, CL,
         iconItems
     }, preCell);
+
+    //
+    return fValue;
 }

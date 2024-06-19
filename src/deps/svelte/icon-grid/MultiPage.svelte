@@ -7,7 +7,7 @@
 
     //
     import { cGridPages, cIconItems, columns, rows, editForIcon } from "./helpers/gridState.mjs";
-    import { makeArgs } from "./helpers/gridItem.mjs"
+    import { animationSequence, makeArgs, putToCell } from "./helpers/gridItem.mjs"
 	import { onMount } from "svelte";
 
     //
@@ -48,7 +48,11 @@
         const gridPage    = gridPages.find((g)=>(currentPage==g.id));
 
         //
+        iconItem.pCellX = iconItem.cellX;
+        iconItem.pCellY = iconItem.cellY;
         iconItem.pointerId = ev.pointerId;
+
+        //
         const argObj = makeArgs(iconItem, iconItems, gridPage, CL);
 
         //
@@ -60,17 +64,43 @@
     }
 
     //
-    const placeElement = ({pointer, holding})=>{
+    const placeElement = async ({pointer, holding})=>{
         const bbox = mainElement.getBoundingClientRect();
-        const xy   = [pointer.currentX - bbox.left, pointer.currentY - bbox.top];
+        const xy   = [pointer.current[0] - bbox.left, pointer.current[1] - bbox.top];
 
         //
         const iconElement = holding.element.deref();
         const iconId      = iconElement.dataset["id"];
-        const iconItem    = iconItems.get(iconId);
+        const iconItem    = {...iconItems.get(iconId)}; // avoid force update
         const gridPage    = gridPages.find((g)=>(currentPage==g.id));
 
         //
+        const argObj = makeArgs(iconItem, iconItems, gridPage, CL);
+
+        //
+        putToCell(argObj, {
+            x: xy[0], 
+            y: xy[1]
+        });
+
+        // dirty hack-fix
+        //iconElement.style.setProperty("--p-cell-x", iconItem.pCellX, "");
+        //iconElement.style.setProperty("--p-cell-y", iconItem.pCellY, "");
+        iconElement.style.setProperty("--cell-x", iconItem.cellX, "");
+        iconElement.style.setProperty("--cell-y", iconItem.cellY, "");
+
+        //
+        const animation = iconElement.animate(animationSequence(), {
+            fill: "none",
+            duration: 100,
+            rangeStart: "cover 0%",
+            rangeEnd: "cover 100%",
+        });
+
+        await animation.finished;
+
+        //
+        iconItems.set(iconId, iconItem);
         dragBucket = dragBucket.filter((id)=>(id!=iconId));
         gridPage.iconList.push(iconId);
 
@@ -102,7 +132,7 @@
             <div class="layered grid-based-box" type={page.type} visible={currentPage==page.id}
                 transition:fade={{ delay: 0, duration: 200 }}>
 
-                <IconGrid type="labels" columns={CL[0]} rows={CL[1]}>
+                <IconGrid id={page.id} type="labels" columns={CL[0]} rows={CL[1]}>
                     {@const iconList = page.iconList}
                     {#each iconList as iconId}
                         {@const iconItem = iconItems.get(iconId)}
@@ -112,7 +142,7 @@
                     {/each}
                 </IconGrid>
 
-                <IconGrid type="icons" columns={CL[0]} rows={CL[1]}>
+                <IconGrid id={page.id} type="icons" columns={CL[0]} rows={CL[1]}>
                     {@const iconList = page.iconList}
                     {#each iconList as iconId}
                         {@const iconItem = iconItems.get(iconId)}
@@ -132,7 +162,7 @@
     {/each}
 
     <div inert=true class="grid-based-box pointer-events-none">
-        <IconGrid dragend={placeElement} type="bucket" columns={CL[0]} rows={CL[1]}>
+        <IconGrid type="bucket" columns={CL[0]} rows={CL[1]}>
             {#each dragBucket as iconId}
             {@const iconItem = iconItems.get(iconId)}
                 {#if iconItem}
