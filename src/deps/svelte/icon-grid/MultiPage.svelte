@@ -56,25 +56,27 @@
 
 	//
 	const grabItem = (ev)=>{
-		const iconElement = ev.target.closest(".icon-item");//ev.holding.element.deref();
-		const iconId      = iconElement.dataset["id"];
-		const iconItem    = iconItems.get(iconId);
-		const gridPage    = gridPages.find((g)=>(currentPage==g.id));
-
-		//
-		iconItem.pCellX = iconItem.cellX;
-		iconItem.pCellY = iconItem.cellY;
-		iconItem.pointerId = ev.pointerId;
-
-		//
-		const argObj = makeArgs(iconItem, iconItems, gridPage, columnsAndRows);
-
-		//
-		gridPage.iconList = gridPage.iconList.filter((id)=>(id!=iconId));
-		dragBucket = [...dragBucket, iconId];
-
-		//
-		updateGrids();
+		document.addEventListener("pointermove", ()=>{
+			const iconElement = ev.target.closest(".icon-item");//ev.holding.element.deref();
+			const iconId      = iconElement.dataset["id"];
+			const iconItem    = iconItems.get(iconId);
+			const gridPage    = gridPages.find((g)=>(currentPage==g.id));
+	
+			//
+			iconItem.pCellX = iconItem.cellX;
+			iconItem.pCellY = iconItem.cellY;
+			iconItem.pointerId = ev.pointerId;
+	
+			//
+			const argObj = makeArgs(iconItem, iconItems, gridPage, columnsAndRows);
+	
+			//
+			gridPage.iconList = gridPage.iconList.filter((id)=>(id!=iconId));
+			dragBucket = [...dragBucket, iconId];
+	
+			//
+			updateGrids();
+		}, {once: true, capture: true, passive: true});
 	}
 
 	//

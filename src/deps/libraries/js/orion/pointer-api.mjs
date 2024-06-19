@@ -140,6 +140,24 @@ export const releasePointer = (ev)=>{
     if (exists) {
         exists.holding.map((hm)=>{
             const em = hm.element.deref();
+            
+            const preventClick = (e)=>{
+                e.stopImmediatePropagation();
+                e.stopPropagation();
+                e.preventDefault();
+            };
+            
+            //
+            em?.addEventListener?.("click", preventClick, {once: true});
+            document.addEventListener("click", preventClick, {once: true, capture: true});
+
+            //
+            setTimeout(()=>{
+                em?.removeEventListener?.("click", preventClick);
+                document.removeEventListener("click", preventClick);
+            }, 100);
+
+            //
             const nev = new CustomEvent("m-dragend", { detail: {
                 pointer: exists,
                 holding: hm
