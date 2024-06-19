@@ -24,7 +24,10 @@ const config = <UserConfig> defineConfig({
         VitePWA({ 
             registerType: 'autoUpdate',
             devOptions: {
-                enabled: true
+                enabled: true,
+                resolveTempFolder: ()=>{
+                    return "./dist";
+                }
             },
             workbox: {
                 clientsClaim: true,
@@ -33,7 +36,6 @@ const config = <UserConfig> defineConfig({
         })
     ],
     server: {
-        open: './index.html',
         host: 'localhost',
         port: 5000,
     },
@@ -42,7 +44,7 @@ const config = <UserConfig> defineConfig({
         outDir: '../dist',
         emptyOutDir: true,
         rollupOptions: {
-            input: "./index.html"
+            input: "../dist/index.html"
         },
     },
     css: {
