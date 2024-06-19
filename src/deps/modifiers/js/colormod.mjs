@@ -43,6 +43,8 @@ document.body.style.setProperty("--theme-base-color", surfaceColor, "");
 
 //
 export const switchTheme = (isDark = false)=>{
+    if (!baseColorI) return;
+
     // used in UI
     surfaceColorI = interpolate([baseColorI, ([lightMods, darkMods][isDark-0])[1]], 'oklch', { h: interpolatorSplineBasis })(0.96);
 
@@ -106,6 +108,11 @@ export const colorScheme = async (blob)=>{
     //
     switchTheme(false);
 }
+
+//
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches }) => {
+    switchTheme(matches);
+})
 
 //
 window.addEventListener("wallpaper", (ev)=>{
