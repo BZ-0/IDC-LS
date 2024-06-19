@@ -66,7 +66,15 @@
 
         //
         & .icon-design {
+            //color-scheme: light;
+            //--theme-is-dark: 0;
+            
+            //
             --icon-size: min(100cqmin, 4rem);
+
+            //
+            clip-path: var(--clip-path);
+            cursor: grab;
 
             //
             aspect-ratio: 1 / 1;
@@ -79,7 +87,7 @@
             pointer-events: bounding-box;
 
             // debug
-            background-color: black;
+            background-color: var(--current-surface-color);
 
             //
             will-change: translate, transform, --translate-x, --translate-y;

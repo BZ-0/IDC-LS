@@ -40,7 +40,7 @@
 
 	//
 	const grabItem = (ev)=>{
-		document.addEventListener("pointermove", ()=>{
+		//document.addEventListener("pointermove", ()=>{
 			const iconElement = ev.target.closest(".icon-item");//ev.holding.element.deref();
 			const iconId      = iconElement.dataset["id"];
 			const iconItem    = iconItems.get(iconId);
@@ -60,7 +60,7 @@
 	
 			//
 			updateGrids();
-		}, {once: true, capture: true, passive: true});
+		//}, {once: true, capture: true, passive: true});
 	}
 
 	//
@@ -118,7 +118,7 @@
 </script>
 
 
-<div bind:this={mainElement} class="stretch grid-based-box fixed-avail relative">
+<div bind:this={mainElement} class="layer-2 stretch grid-based-box fixed-avail relative">
 	
 	{#each gridPages as page}
 		{#if currentPage==page.id}

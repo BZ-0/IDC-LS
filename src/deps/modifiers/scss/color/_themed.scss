@@ -15,7 +15,10 @@
 @property --theme-down-mod { syntax: "<color>"; inherits: true; initial-value: black; }
 
 //
-:root, :host, :scope {
+$baseColor: var(--theme-base-color);
+
+//
+:root, :host, :scope, :where(*) {
     --theme-is-dark: 0;
 
     //
@@ -23,15 +26,16 @@
     @media (prefers-color-scheme: dark)  { --theme-is-dark: 1; }
 
     //
-    --theme-chroma-mod: oklch(from var(--theme-base-color) h 0.999 l);
+    --theme-base-color: inherit;
+    --theme-chroma-mod: oklch(from #{$baseColor} h 0.999 l);
 
     //
-    --theme-dark-up-mod: oklch(from var(--theme-base-color) h calc(c * 0.01) calc(l * 0.1));
-    --theme-dark-down-mod: oklch(from var(--theme-base-color) h calc(c * 0.01) calc(l * 0.99));
+    --theme-dark-up-mod: oklch(from #{$baseColor} h calc(c * 0.01) calc(l * 0.1));
+    --theme-dark-down-mod: oklch(from #{$baseColor} h calc(c * 0.01) calc(l * 0.99));
 
     //
-    --theme-light-up-mod: oklch(from var(--theme-base-color) h calc(c * 0.01) calc(l * 0.99));
-    --theme-light-down-mod: oklch(from var(--theme-base-color) h calc(c * 0.01) calc(l * 0.1));
+    --theme-light-up-mod: oklch(from #{$baseColor} h calc(c * 0.01) calc(l * 0.99));
+    --theme-light-down-mod: oklch(from #{$baseColor} h calc(c * 0.01) calc(l * 0.1));
 
     //
     --theme-up-mod: color-mix(in oklch, var(--theme-dark-up-mod) calc(100% * var(--theme-is-dark)), var(--theme-light-up-mod));

@@ -3,6 +3,9 @@ import { parse, oklch, interpolate, interpolatorSplineBasis, formatHex, formatCs
 import {hexFromArgb} from "@material/material-color-utilities";
 
 //
+import {setStyleRule} from "./stylework.mjs";
+
+//
 export const provide = async (path="", rw = false)=>{
     const relPath = path.replace(location.origin, "");
     if (relPath.startsWith("/opfs")) {
@@ -39,7 +42,9 @@ let surfaceColor  = "#FFFFFF";
 let chromaMod     = {};
 
 //
-document.body.style.setProperty("--theme-base-color", surfaceColor, "");
+setStyleRule(":host, :root, :scope, :where(*)", {
+    "--theme-base-color": baseColor
+});
 
 //
 export const switchTheme = (isDark = false)=>{
@@ -51,10 +56,12 @@ export const switchTheme = (isDark = false)=>{
     //
     surfaceColorH = formatHex(surfaceColorI);
     surfaceColor  = formatCss(baseColorI);
-
+    
     //
-    document.body.style.setProperty("--theme-base-color", surfaceColor, "");
-    document.head.querySelector("meta[name=\"theme-color\"]:not([media])").content = surfaceColorH;
+    const media = document?.head?.querySelector?.("meta[name=\"theme-color\"]:not([media])");
+    if (media) {
+        media.content = surfaceColorH;
+    }
 }
 
 //
@@ -100,10 +107,17 @@ export const colorScheme = async (blob)=>{
 
     //
     baseColorH    = formatHex(baseColorI);
-    baseColor     = formatCss(surfaceColorI);
+    baseColor     = formatCss(baseColorI);
 
     //
-    localStorage.setItem("--theme-base-color", baseColor);
+    if (baseColor) {
+        setStyleRule(":host, :root, :scope, :where(*)", {
+            "--theme-base-color": baseColor
+        });
+        
+        //
+        localStorage.setItem("--theme-base-color", baseColor);
+    }
 
     //
     switchTheme(false);
