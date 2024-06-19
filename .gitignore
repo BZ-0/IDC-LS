@@ -74,6 +74,12 @@ dist/
 ./dist/
 
 #
+dev-dist
+dev-dist/
+./dev-dist
+./dev-dist/
+
+#
 private
 private/
 ./private
