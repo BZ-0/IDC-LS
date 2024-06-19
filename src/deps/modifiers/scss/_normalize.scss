@@ -83,6 +83,14 @@
         -o-user-drag: none;
         -ms-user-drag: none;
         user-drag: none;
+        
+        //
+        border: none;
+        outline: none;
+        -webkit-box-shadow: none;
+        -webkit-tap-highlight-color: transparent;
+        -moz-tap-highlight-color: transparent;
+        box-shadow: none;
     }
 
     //
