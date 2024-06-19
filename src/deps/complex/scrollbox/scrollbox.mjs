@@ -8,7 +8,7 @@ class ScrollBar {
         scrollbar
     }, axis = 0) {
         this.scrollbar = scrollbar;
-        this.holder  = holder;
+        this.holder    = holder;
 
         //
         this.status = {
@@ -37,6 +37,15 @@ class ScrollBar {
             //
             this.holder.style.setProperty("--scroll-top" , this.holder.scrollTop , "");
             this.holder.style.setProperty("--scroll-left", this.holder.scrollLeft, "");
+
+            //
+            const event = new CustomEvent("scroll-change", { detail: {
+                scrollTop: this.holder.scrollTop,
+                scrollLeft: this.holder.scrollLeft
+            } });
+
+            //
+            this.holder.dispatchEvent(event);
         }
 
         //
@@ -105,6 +114,9 @@ CSS?.registerProperty?.({
 
 //
 class ScrollBox extends HTMLElement {
+    static observedAttributes = ["data-scroll-top", "data-scroll-left"];
+
+    //
     constructor() {
         super();
         const shadowRoot = this.attachShadow({mode: 'open'});
@@ -131,6 +143,63 @@ class ScrollBox extends HTMLElement {
             holder: this,
             scrollbar: shadowRoot.querySelector(".scrollbar-y")
         }, 1);
+
+        //
+        if (this.dataset.scrollTop || this.dataset.scrollLeft) {
+            this.scrollTo({
+                top: this.dataset.scrollTop || 0,
+                left: this.dataset.scrollLeft || 0,
+                behavior: "instant"
+            });
+
+            //
+            const event = new CustomEvent("scroll-set", { detail: {
+                scrollTop: this.dataset.scrollTop || 0,
+                scrollLeft: this.dataset.scrollLeft || 0
+            } });
+
+            //
+            this.dispatchEvent(event);
+        }
+    }
+
+    //
+    attributeChangedCallback(name, oldValue, newValue) {
+        //
+        if (name == this.dataset.scrollTop) {
+            this.scrollTo({
+                top: this.dataset.scrollTop || 0,
+                left: this.scrollLeft || 0,
+                behavior: "instant"
+            });
+
+            //
+            const event = new CustomEvent("scroll-set", { detail: {
+                scrollTop: this.dataset.scrollTop || 0,
+                scrollLeft: this.dataset.scrollLeft || 0
+            } });
+
+            //
+            this.dispatchEvent(event);
+        }
+
+        //
+        if (name == this.dataset.scrollLeft) {
+            this.scrollTo({
+                top: this.scrollTop || 0,
+                left: this.dataset.scrollLeft || 0,
+                behavior: "instant"
+            });
+
+            //
+            const event = new CustomEvent("scroll-set", { detail: {
+                scrollTop: this.dataset.scrollTop || 0,
+                scrollLeft: this.dataset.scrollLeft || 0
+            } });
+
+            //
+            this.dispatchEvent(event);
+        }
     }
 }
 
