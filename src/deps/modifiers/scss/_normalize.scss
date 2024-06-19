@@ -59,4 +59,18 @@
         pointer-events: none;
     }
 
+    //
+    :where(canvas):is(.w-canvas) {
+        inline-size: 100cqi;
+        inline-size: stretch;
+        block-size: 100cqb;
+        block-size: stretch;
+
+        //
+        image-rendering: auto;
+        image-rendering: optimizeQuality;
+        image-rendering: smooth;
+        image-rendering: high-quality;
+    }
+
 }
