@@ -79,17 +79,18 @@
 
 	//
 	const placeElement = async ({pointer, holding})=>{
-		const bbox = mainElement.getBoundingClientRect();
-		const xy   = [pointer.current[0] - bbox.left, pointer.current[1] - bbox.top];
-
-		//
 		const iconElement = holding.element.deref();
 		const iconId      = iconElement.dataset["id"];
 		const iconItem    = {...iconItems.get(iconId)}; // avoid force update
 		const gridPage    = gridPages.find((g)=>(currentPage==g.id));
+		const args = makeArgs(iconItem, iconItems, gridPage, columnsAndRows);
 
 		//
-		putToCell(makeArgs(iconItem, iconItems, gridPage, columnsAndRows), {
+		const bbox = args.gridPage.getBoundingClientRect();
+		const xy   = [pointer.current[0] - bbox.left, pointer.current[1] - bbox.top];
+
+		//
+		putToCell(args, {
 			x: xy[0], 
 			y: xy[1]
 		});
