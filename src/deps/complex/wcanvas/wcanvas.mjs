@@ -24,7 +24,7 @@ const landscapeCover = (ctx, img, scale = 1) => {
 
         //
         case "portrait-primary": {
-            ctx.translate(canvas.height / 2, canvas.width / 2);
+            ctx.translate(canvas.width / 2, canvas.height / 2);
             ctx.rotate(-90 * (Math.PI/180));
             ctx.translate(-(img.width / 2) * scale, -(img.height / 2) * scale);
         }
@@ -40,7 +40,7 @@ const landscapeCover = (ctx, img, scale = 1) => {
 
         //
         case "portrait-primary": {
-            ctx.translate(canvas.height / 2, canvas.width / 2);
+            ctx.translate(canvas.width / 2, canvas.height / 2);
             ctx.rotate(-270 * (Math.PI/180));
             ctx.translate(-(img.width / 2) * scale, -(img.height / 2) * scale);
         }
@@ -57,13 +57,17 @@ class WCanvas extends HTMLCanvasElement {
         super();
 
         //
+        const canvas = this;
+        
+        //
         this.ctx = canvas.getContext("2d", {
             desynchronized: true,
             willReadFrequently: false,
             powerPreference: "high-performance"
         });
-
+        
         //
+        this.inert  = true;
         this.width  = (this.offsetWidth  * devicePixelRatio);
         this.height = (this.offsetHeight * devicePixelRatio);
 
@@ -96,16 +100,19 @@ class WCanvas extends HTMLCanvasElement {
     #render() {
         const canvas = this;
         const ctx = this.ctx;
+        const img = this.image;
 
         //
-        const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
-
-        //
-        if (this.image) {
+        if (img) {
+            const orientation = getCorrectOrientation();
+            const ox = orientation.startsWith("portrait") - 0;
+            const scale = Math.max(canvas[["width","height"][ox]] / img.width, canvas[["height","width"][ox]] / img.height);
+            
+            
             // TODO: support portrait images
-            if (this.image.width >= this.image.height) {
-                landscapeCover(ctx, this.image, scale);
-                ctx.drawImage(this.image, 0, 0, img.width * scale, img.height * scale);
+            if (img.width >= img.height) {
+                landscapeCover(ctx, img, scale);
+                ctx.drawImage(img, 0, 0, img.width * scale, img.height * scale);
             }
         }
         
@@ -114,14 +121,17 @@ class WCanvas extends HTMLCanvasElement {
     //
     #preload(src) {
         return fetch(src).then(async (rp)=>{
-            this.image = await createImageBitmap(await rp.blob());
+            const img = await createImageBitmap(await rp.blob()).catch((_)=>null);
+            if (img) { 
+                this.image = img;
+            }
         }).catch(console.warn.bind(console));
     }
 
     //
     attributeChangedCallback(name, oldValue, newValue) {
         if (name == "data-src") {
-            this.#preload(newValue);
+            this.#preload(newValue).then(()=>this.#render());
         };
     }
 }
