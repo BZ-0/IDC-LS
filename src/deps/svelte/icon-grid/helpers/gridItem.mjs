@@ -1,12 +1,12 @@
 import { get, writable } from 'svelte/store';
 
 //
-export const makeArgs = (iconItem, iconItems, gridPage, CL)=>{
+export const makeArgs = (iconItem, iconItems, gridPage, columnsAndRows)=>{
     return {
         gridPage: document.querySelector(`.icon-grid[data-id="${gridPage.id}"]`),
         iconList: gridPage.iconList, 
         iconItems,
-        iconItem, CL
+        iconItem, columnsAndRows
     };
 }
 
@@ -35,7 +35,7 @@ export const getCorrectOrientation = ()=>{
 //
 export const fixCell = ({
     gridPage,
-    iconItem, iconList, CL,
+    iconItem, iconList, columnsAndRows,
     iconItems
 }, $preCell) => {
     const items = iconItems;
@@ -57,8 +57,8 @@ export const fixCell = ({
     }
 
     //
-    const columns = (CL[0] || 4);
-    const rows    = (CL[1] || 8);
+    const columns = (columnsAndRows[0] || 4);
+    const rows    = (columnsAndRows[1] || 8);
 
     // 
     const variants = [
@@ -186,7 +186,7 @@ export const animationSequence = ()=> { return [{
 //
 export const putToCell = ({
     gridPage,
-    iconItem, iconList, CL,
+    iconItem, iconList, columnsAndRows,
     iconItems
 }, $last) => {
     // should be relative from grid-box (not absolute or fixed position)
@@ -200,7 +200,7 @@ export const putToCell = ({
     if (orientation.startsWith("landscape")) oxBox.reverse();
 
     //
-    const inBox = [oxBox[0] / CL[0], oxBox[1] / CL[1]];
+    const inBox = [oxBox[0] / columnsAndRows[0], oxBox[1] / columnsAndRows[1]];
 
     //
     const preCell = {x: iconItem.cellX, y: iconItem.cellY};
@@ -230,7 +230,7 @@ export const putToCell = ({
     //
     const fValue = fixCell({
         gridPage,
-        iconItem, iconList, CL,
+        iconItem, iconList, columnsAndRows,
         iconItems
     }, preCell);
 

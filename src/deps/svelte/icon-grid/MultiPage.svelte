@@ -1,4 +1,7 @@
 <script>
+    import { get, writable } from 'svelte/store';
+
+    //
     import IconItem from "./IconItem.svelte";
 	import IconGrid from "./IconGrid.svelte";
     import IconLabel from "./IconLabel.svelte";
@@ -6,39 +9,50 @@
     import { swipe } from 'svelte-gestures';
 
     //
-    import { cGridPages, cIconItems, columns, rows, editForIcon } from "./helpers/gridState.mjs";
+    import { settings, gridState } from "./helpers/gridState.mjs";
     import { animationSequence, makeArgs, putToCell } from "./helpers/gridItem.mjs"
 	import { onMount } from "svelte";
 
     //
-    export let iconItems = new Map([]);
-    export let gridPages = [];
+    import { grabForDrag } from "../../libraries/js/orion/pointer-api.mjs"
 
     //
-    export const updateIcons = ()=>{ cIconItems.set(Array.from(iconItems.entries())); };
-    export const updateForce = ()=>{ cGridPages.set(gridPages); dragBucket = [...dragBucket]; };
-
-    //
-    cIconItems.subscribe((v)=>{iconItems = new Map(v)});
-    cGridPages.subscribe((v)=>{gridPages = [...v]});
-
-    //
-    import {grabForDrag} from "../../libraries/js/orion/pointer-api.mjs"
-
-    //
-    export let CL = [8, 4];
     export let dragBucket = [];
-    export {editForIcon, columns, rows};
-
-    //
-    columns.subscribe((v)=>(CL = [v,CL[1]]));
-    rows.subscribe((v)=>(CL = [CL[0], v]));
-
-    //
     export let currentPage = "home-page";
     export let mainElement = null;
+    export let columnsAndRows = [8, 4];
 
-    
+    //
+    settings.columns.subscribe((v)=>(columnsAndRows = [v,columnsAndRows[1]]));
+    settings.rows.subscribe((v)=>(columnsAndRows = [columnsAndRows[0], v]));
+
+    //
+    let iconItems = [];
+    let gridPages = new Map([]);
+
+    //
+    gridState.iconItems.subscribe((v)=>{iconItems = new Map(v)})
+    gridState.gridPages.subscribe((v)=>{gridPages = [...v]})
+
+    //
+    const updateGrids = ()=>{ gridState.gridPages.set(gridPages); }
+    const updateIcons = ()=>{ gridState.iconItems.set(Array.from(iconItems.entries())); }
+
+    // for using bind:editForIcon={@} for editors
+    export const editForIcon = writable({
+        id: "",
+        icon: "",
+        label: ""
+    });
+
+    //
+    editForIcon.subscribe((newScheme) => {
+        let exist = iconItems.get(newScheme.id);
+        if (!exist && newScheme.id) {
+            iconItems.set(newScheme.id, exist = {...newScheme});
+            gridState.iconItems.set(Array.from(iconItems.entries()));
+        }
+    });
 
     //
     const grabItem = (ev)=>{
@@ -53,14 +67,14 @@
         iconItem.pointerId = ev.pointerId;
 
         //
-        const argObj = makeArgs(iconItem, iconItems, gridPage, CL);
+        const argObj = makeArgs(iconItem, iconItems, gridPage, columnsAndRows);
 
         //
         gridPage.iconList = gridPage.iconList.filter((id)=>(id!=iconId));
-        dragBucket.push(iconId);
+        dragBucket = [...dragBucket, iconId];
 
         //
-        updateForce();
+        updateGrids();
     }
 
     //
@@ -75,52 +89,41 @@
         const gridPage    = gridPages.find((g)=>(currentPage==g.id));
 
         //
-        const argObj = makeArgs(iconItem, iconItems, gridPage, CL);
-
-        //
-        putToCell(argObj, {
+        putToCell(makeArgs(iconItem, iconItems, gridPage, columnsAndRows), {
             x: xy[0], 
             y: xy[1]
         });
 
         // dirty hack-fix
-        //iconElement.style.setProperty("--p-cell-x", iconItem.pCellX, "");
-        //iconElement.style.setProperty("--p-cell-y", iconItem.pCellY, "");
         iconElement.style.setProperty("--cell-x", iconItem.cellX, "");
         iconElement.style.setProperty("--cell-y", iconItem.cellY, "");
 
         //
-        const animation = iconElement.animate(animationSequence(), {
+        await iconElement.animate(animationSequence(), {
             fill: "none",
             duration: 100,
             rangeStart: "cover 0%",
             rangeEnd: "cover 100%",
-        });
-
-        await animation.finished;
+        }).finished;
 
         //
         iconItems.set(iconId, iconItem);
-        dragBucket = dragBucket.filter((id)=>(id!=iconId));
-        gridPage.iconList.push(iconId);
 
         //
-        updateForce();
+        dragBucket = dragBucket.filter((id)=>(id!=iconId));
+        gridPage.iconList.push(iconId);
+        updateGrids();
     }
 
     // make true value of cells
     const reCalcPosition = (element, ev = {pointerId: 0})=>{
-        
-        
-        //
-        updateIcons();
+        //updateIcons();
     }
 
     //
     onMount(()=>{
-        
+        //mainElement
     });
-
 
 </script>
 
@@ -132,7 +135,7 @@
             <div class="layered grid-based-box" type={page.type} visible={currentPage==page.id}
                 transition:fade={{ delay: 0, duration: 200 }}>
 
-                <IconGrid id={page.id} type="labels" columns={CL[0]} rows={CL[1]}>
+                <IconGrid id={page.id} type="labels" columns={columnsAndRows[0]} rows={columnsAndRows[1]}>
                     {@const iconList = page.iconList}
                     {#each iconList as iconId}
                         {@const iconItem = iconItems.get(iconId)}
@@ -142,7 +145,7 @@
                     {/each}
                 </IconGrid>
 
-                <IconGrid id={page.id} type="icons" columns={CL[0]} rows={CL[1]}>
+                <IconGrid id={page.id} type="icons" columns={columnsAndRows[0]} rows={columnsAndRows[1]}>
                     {@const iconList = page.iconList}
                     {#each iconList as iconId}
                         {@const iconItem = iconItems.get(iconId)}
@@ -162,7 +165,7 @@
     {/each}
 
     <div inert=true class="grid-based-box pointer-events-none">
-        <IconGrid type="bucket" columns={CL[0]} rows={CL[1]}>
+        <IconGrid type="bucket" columns={columnsAndRows[0]} rows={columnsAndRows[1]}>
             {#each dragBucket as iconId}
             {@const iconItem = iconItems.get(iconId)}
                 {#if iconItem}
