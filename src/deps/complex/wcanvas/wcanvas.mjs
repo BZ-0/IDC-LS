@@ -24,9 +24,9 @@ const landscapeCover = (ctx, img, scale = 1) => {
 
         //
         case "portrait-primary": {
-            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.translate(canvas.height / 2, canvas.width / 2);
             ctx.rotate(-90 * (Math.PI/180));
-            ctx.translate(-(img.height / 2) * scale, -(img.width / 2) * scale);
+            ctx.translate(-(img.width / 2) * scale, -(img.height / 2) * scale);
         }
         break;
 
@@ -40,9 +40,9 @@ const landscapeCover = (ctx, img, scale = 1) => {
 
         //
         case "portrait-primary": {
-            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.translate(canvas.height / 2, canvas.width / 2);
             ctx.rotate(-270 * (Math.PI/180));
-            ctx.translate(-(img.height / 2) * scale, -(img.width / 2) * scale);
+            ctx.translate(-(img.width / 2) * scale, -(img.height / 2) * scale);
         }
         break;
     }
