@@ -26,7 +26,6 @@ $baseColor: var(--theme-base-color);
     @media (prefers-color-scheme: dark)  { --theme-is-dark: 1; }
 
     //
-    --theme-base-color: inherit;
     --theme-chroma-mod: oklch(from #{$baseColor} h 0.999 l);
 
     //

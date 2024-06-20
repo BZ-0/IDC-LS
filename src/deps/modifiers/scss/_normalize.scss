@@ -93,6 +93,15 @@
         box-shadow: none;
     }
 
+    :where(.lucide) {
+        display: block;
+        contain-intrinsic-width: 24px;
+        contain-intrinsic-height: 24px;
+        contain: size;
+        aspect-ratio: 1 / 1;
+        pointer-events: none;
+    }
+
     //
     :where([inert], *[inert]) {
         pointer-events: none;

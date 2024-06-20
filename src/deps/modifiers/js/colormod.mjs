@@ -51,7 +51,7 @@ export const switchTheme = (isDark = false)=>{
     if (!baseColorI) return;
 
     // used in UI
-    surfaceColorI = interpolate([baseColorI, ([lightMods, darkMods][isDark-0])[1]], 'oklch', { h: interpolatorSplineBasis })(0.96);
+    surfaceColorI = interpolate([baseColorI, ([lightMods, darkMods][isDark-0])[1]], 'oklch', {  })(0.96);
 
     //
     surfaceColorH = formatHex(surfaceColorI);
@@ -80,7 +80,7 @@ export const colorScheme = async (blob)=>{
     //
     baseColorI = interpolate([commonOkLch, chromaOkLch], 'oklch', {
         // spline instead of linear interpolation:
-        h: interpolatorSplineBasis
+        
     })(0.80);
 
     //
@@ -98,12 +98,12 @@ export const colorScheme = async (blob)=>{
     chromaMod.c = 1;
 
     //
-    lightMods[0] = interpolate([baseColorI, whiteMod], 'oklch', { h: interpolatorSplineBasis })(0.98),
-    lightMods[1] = interpolate([baseColorI, blackMod], 'oklch', { h: interpolatorSplineBasis })(0.9)
+    lightMods[0] = interpolate([baseColorI, whiteMod], 'oklch', {  })(0.98),
+    lightMods[1] = interpolate([baseColorI, blackMod], 'oklch', {  })(0.9)
     
     //
-    darkMods[0] = interpolate([baseColorI, whiteMod], 'oklch', { h: interpolatorSplineBasis })(0.98),
-    darkMods[1] = interpolate([baseColorI, blackMod], 'oklch', { h: interpolatorSplineBasis })(0.9)
+    darkMods[0] = interpolate([baseColorI, whiteMod], 'oklch', {  })(0.98),
+    darkMods[1] = interpolate([baseColorI, blackMod], 'oklch', {  })(0.9)
 
     //
     baseColorH    = formatHex(baseColorI);

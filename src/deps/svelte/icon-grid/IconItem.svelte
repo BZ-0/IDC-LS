@@ -3,6 +3,7 @@
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
     import { longpress as lgp } from "./helpers/longpress.mjs";
+    import LucideIcon from './LucideIcon.svelte';
 
     //
     export let iconItem = {};
@@ -69,6 +70,6 @@
     data-label-id={iconItem.id}>
     <div use:lgp bind:this={handler} class="icon-design icon-shape">
         <!--<img class="icon-id" alt="IconItem" src="" data-lucide={id}/>-->
-        <svelte:component class="icon-sign" this={icons[iconItem.icon]} {...$$props} />
+        <LucideIcon name={iconItem.icon}/>
     </div>
 </div>

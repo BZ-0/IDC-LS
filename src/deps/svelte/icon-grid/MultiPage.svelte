@@ -44,12 +44,12 @@
 
 	//
 	const grabItem = (ev)=>{
-		//document.addEventListener("pointermove", ()=>{
+		const grabEvent = ["pointermove", ()=>{
 			const iconElement = ev.detail.target.closest(".icon-item");
 			const iconId      = iconElement.dataset["id"];
 			const iconItem    = iconItems.get(iconId);
 			const iconList    = iconLists.get(currentPage);
-
+	
 			//
 			iconItem.pCellX = iconItem.cellX;
 			iconItem.pCellY = iconItem.cellY;
@@ -64,7 +64,13 @@
 	
 			//
 			updateLists();
-		//}, {once: true, capture: true, passive: true});
+		}, {once: true, capture: true, passive: true}];
+
+		//
+		document.addEventListener(...grabEvent);
+		document.addEventListener("pointerup", ()=>{
+			document.removeEventListener(...grabEvent, {once: true, capture: true, passive: true});
+		});
 	}
 
 	//
