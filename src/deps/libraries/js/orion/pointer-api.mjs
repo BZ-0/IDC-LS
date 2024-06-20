@@ -150,19 +150,23 @@ export const releasePointer = (ev)=>{
             
             //
             if (Math.hypot(...hm.shifting) > 10) {
-                em?.addEventListener?.("click", preventClick, {once: true});
-                em?.addEventListener?.("click", preventClick, {once: true});
+                const emt = [preventClick, {once: true}];
+                const doc = [preventClick, {once: true, capture: true}];
                 
                 //
-                document.addEventListener("contextmenu", preventClick, {once: true, capture: true});
-                document.addEventListener("contextmenu", preventClick, {once: true, capture: true});
+                em?.addEventListener?.("click", ...emt);
+                em?.addEventListener?.("contextmenu", ...emt);
+                
+                //
+                document.addEventListener("click", ...doc);
+                document.addEventListener("contextmenu", ...doc);
     
                 //
                 setTimeout(()=>{
-                    em?.removeEventListener?.("click", preventClick);
-                    em?.removeEventListener?.("contextmenu", preventClick);
-                    document.removeEventListener("click", preventClick);
-                    document.removeEventListener("contextmenu", preventClick);
+                    em?.removeEventListener?.("click", ...emt);
+                    em?.removeEventListener?.("contextmenu", ...emt);
+                    document.removeEventListener("click", ...doc);
+                    document.removeEventListener("contextmenu", ...doc);
                 }, 100);
             }
 
