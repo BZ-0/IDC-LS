@@ -14,7 +14,7 @@
 	import { onMount } from "svelte";
 
 	//
-	import { grabForDrag } from "../../libraries/js/orion/pointer-api.mjs"
+	import { grabForDrag } from "@libraries/js/orion/pointer-api.mjs"
 
 	//
 	export let dragBucket = [];
@@ -33,14 +33,14 @@
 	let gridPagesArray = [];
 
 	//
-	gridState.iconLists.subscribe((v)=>{ iconLists = new Map(v) })
-	gridState.iconItems.subscribe((v)=>{ iconItems = makeMap(v) })
-	gridState.gridPages.subscribe((v)=>{ gridPages = makeMap(v); gridPagesArray = v; })
-
-	//
 	const updateIcons = ()=>{ gridState.iconItems.set(Array.from(iconItems.values())); }
 	const updateGrids = ()=>{ gridState.gridPages.set(Array.from(gridPages.values())); }
 	const updateLists = ()=>{ gridState.iconLists.set(Array.from(iconLists.entries())); }
+
+	//
+	gridState.iconLists.subscribe((v)=>{ iconLists = new Map(v) })
+	gridState.iconItems.subscribe((v)=>{ iconItems = makeMap(v) })
+	gridState.gridPages.subscribe((v)=>{ gridPages = makeMap(v); gridPagesArray = v; })
 
 	//
 	const grabItem = (ev)=>{

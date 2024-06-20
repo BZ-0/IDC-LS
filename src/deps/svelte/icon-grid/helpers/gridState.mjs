@@ -37,6 +37,9 @@ export const gridState = {
             icon: "cat",
             cellX: 1,
             cellY: 0,
+            action: "",
+            href: "#",
+            label: ""
             
             // surrogate field - used when edit
             //parent: "home-page"
@@ -80,24 +83,59 @@ gridState.gridPages.subscribe((v)=>{
 })
 
 //
-export const editForIcon = writable(currentState.iconItems.get("test"));
+export const updateIcons = ()=>{ gridState.iconItems.set(Array.from(currentState.iconItems.values())); }
+export const updateGrids = ()=>{ gridState.gridPages.set(Array.from(currentState.gridPages.values())); }
+export const updateLists = ()=>{ gridState.iconLists.set(Array.from(currentState.iconLists.entries())); }
 
 //
-editForIcon.subscribe((newScheme) => {
-    let exist = currentState.iconItems.get(newScheme.id);
-    if (!exist && newScheme.id) {
-        currentState.iconItems.set(newScheme.id, exist = {...newScheme});
-        gridState.iconItems.set(Array.from(currentState.iconItems.entries()));
-    }
-});
-
-//
-export const getIconItemCurrentState = (elementOrId)=>{
-    const id = elementOrId?.dataset?.id || elementOrId;
+export const getIconState = (id = "test") => {
     return currentState.iconItems.get(id);
 }
 
 //
-export const applyIconItemState = (state)=>{
-    editForIcon.set(state);
+export const setIconState = (iconItem, id = null)=>{
+    currentState.iconItems.set(id || iconItem.id, iconItem);
+    updateIcons();
+}
+
+//
+export const focusIconForEdit = (id = "test")=>{
+    const focusIconState  = getIconState(id);
+    const focusIconFields = {
+        id: writable(iconState.id),
+        icon: writable(iconState.icon),
+        label: writable(iconState.label),
+        action: writable(iconState.action),
+        href: writable(iconState.href),
+        cellX: writable(iconState.cellX),
+        cellY: writable(iconState.cellY),
+        pCellX: writable(iconState.pCellX),
+        pCellY: writable(iconState.pCellY),
+        pointerId: writable(iconState.pointerId)
+    }
+
+    //
+    {
+        focusIconFields.id.subscribe(setIconState);
+        focusIconFields.icon.subscribe(setIconState);
+        focusIconFields.label.subscribe(setIconState);
+        focusIconFields.cellX.subscribe(setIconState);
+        focusIconFields.cellY.subscribe(setIconState);
+        focusIconFields.action.subscribe(setIconState);
+        focusIconFields.href.subscribe(setIconState);
+    }
+
+    //
+    const updatableIconLists = readable(focusIconState, (set)=>{
+        focusIconFields.id.subscribe((v)=>{focusIconState.id=v; set(focusIconState)});
+        focusIconFields.icon.subscribe((v)=>{focusIconState.icon=v; set(focusIconState)});
+        focusIconFields.label.subscribe((v)=>{focusIconState.label=v; set(focusIconState)});
+        focusIconFields.action.subscribe((v)=>{focusIconState.action=v; set(focusIconState)});
+        focusIconFields.href.subscribe((v)=>{focusIconState.href=v; set(focusIconState)});
+        focusIconFields.cellX.subscribe((v)=>{focusIconState.cellX=v; set(focusIconState)});
+        focusIconFields.cellY.subscribe((v)=>{focusIconState.cellY=v; set(focusIconState)});
+    });
+
+    //
+    return [focusIconFields, updatableIconLists];
 }
