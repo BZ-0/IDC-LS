@@ -27,17 +27,20 @@
 	settings.rows.subscribe((v)=>(columnsAndRows = [columnsAndRows[0], v]));
 
 	//
+	let iconLists = new Map([]);
 	let iconItems = new Map([]);
 	let gridPages = new Map([]);
 	let gridPagesArray = [];
 
 	//
+	gridState.iconLists.subscribe((v)=>{ iconLists = new Map(v) })
 	gridState.iconItems.subscribe((v)=>{ iconItems = makeMap(v) })
 	gridState.gridPages.subscribe((v)=>{ gridPages = makeMap(v); gridPagesArray = v; })
 
 	//
 	const updateIcons = ()=>{ gridState.iconItems.set(Array.from(iconItems.values())); }
 	const updateGrids = ()=>{ gridState.gridPages.set(Array.from(gridPages.values())); }
+	const updateLists = ()=>{ gridState.iconLists.set(Array.from(iconLists.entries())); }
 
 	//
 	const grabItem = (ev)=>{
@@ -45,22 +48,22 @@
 			const iconElement = ev.target.closest(".icon-item");
 			const iconId      = iconElement.dataset["id"];
 			const iconItem    = iconItems.get(iconId);
-			const gridPage    = gridPages.get(currentPage);
-	
+			const iconList    = iconLists.get(currentPage);
+
 			//
 			iconItem.pCellX = iconItem.cellX;
 			iconItem.pCellY = iconItem.cellY;
 			iconItem.pointerId = ev.pointerId;
 	
 			//
-			const argObj = makeArgs(iconItem, iconItems, gridPage, columnsAndRows);
+			const argObj = makeArgs(iconItem, iconItems, gridPages.get(currentPage), columnsAndRows, iconLists);
 	
 			//iconId
-			gridPage.iconList = gridPage.iconList.filter((id)=>(id!=iconId));
+			iconLists.set(currentPage, iconList.filter((id)=>(id!=iconId)) || []);
 			dragBucket = [...dragBucket, iconId];
 	
 			//
-			updateGrids();
+			updateLists();
 		//}, {once: true, capture: true, passive: true});
 	}
 
@@ -70,7 +73,8 @@
 		const iconId      = iconElement.dataset["id"];
 		const iconItem    = {...iconItems.get(iconId)}; // avoid force update
 		const gridPage    = gridPages.get(currentPage);
-		const args        = makeArgs(iconItem, iconItems, gridPage, columnsAndRows);
+		const iconList    = iconLists.get(currentPage) || [];
+		const args        = makeArgs(iconItem, iconItems, gridPage, columnsAndRows, iconLists);
 
 		//
 		const bbox = args.gridPage.getBoundingClientRect();
@@ -95,14 +99,12 @@
 		}).finished;
 
 		//
+		dragBucket = dragBucket.filter((id)=>(id!=iconId));
+		iconLists.set(currentPage, [...iconList, iconId]);
 		iconItems.set(iconId, iconItem);
 
 		//
-		dragBucket = dragBucket.filter((id)=>(id!=iconId));
-		gridPage.iconList = [...gridPage.iconList, iconId];
-		
-		//
-		updateGrids();
+		updateLists();
 		updateIcons();
 	}
 
@@ -127,7 +129,7 @@
 				transition:fade={{ delay: 0, duration: 200 }}>
 
 				<IconGrid id={page.id} type="labels" columns={columnsAndRows[0]} rows={columnsAndRows[1]}>
-					{@const iconList = page.iconList}
+					{@const iconList = iconLists.get(page.id)||[]}
 					{#each iconList as iconId}
 						{@const iconItem = iconItems.get(iconId)}
 						{#if iconItem && iconItem.id}
@@ -137,7 +139,7 @@
 				</IconGrid>
 
 				<IconGrid id={page.id} type="icons" columns={columnsAndRows[0]} rows={columnsAndRows[1]}>
-					{@const iconList = page.iconList}
+					{@const iconList = iconLists.get(page.id)||[]}
 					{#each iconList as iconId}
 						{@const iconItem = iconItems.get(iconId)}
 						{#if iconItem && iconItem.id}

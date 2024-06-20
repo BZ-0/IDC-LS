@@ -29,16 +29,22 @@ export const gridState = {
         ...(JSON.parse(localStorage.getItem("@pages") || "[]") || []), 
         {
             id: "home-page",
-            type: "icon-list",
-            iconList: ["test"]
+            type: "icon-list"
         }])),
     iconItems: writable(exKey([
         ...(JSON.parse(localStorage.getItem("@icons") || "[]") || []), {
             id: "test",
             icon: "cat",
             cellX: 1,
-            cellY: 0
-        }]))
+            cellY: 0,
+            
+            // surrogate field - used when edit
+            //parent: "home-page"
+        }])),
+    iconLists: writable(exKey([
+        ...(JSON.parse(localStorage.getItem("@lists") || "[]") || []), 
+        ["home-page", ["test"]]
+    ])),
 }
 
 //
@@ -49,16 +55,23 @@ export const makeMap = (array) => {
 //
 export const currentState = {
     gridPages: new Map([]),
-    iconItems: new Map([])
+    iconItems: new Map([]),
+    iconLists: new Map([])
 }
 
 //
 gridState.gridPages.subscribe((s)=>{currentState.gridPages = makeMap(s)});
 gridState.iconItems.subscribe((s)=>{currentState.iconItems = makeMap(s)});
+gridState.iconLists.subscribe((s)=>{currentState.iconLists = new Map(s)});
 
 //
 gridState.iconItems.subscribe((v)=>{
     localStorage.setItem("@icons", JSON.stringify(v));
+})
+
+//
+gridState.iconLists.subscribe((v)=>{
+    localStorage.setItem("@lists", JSON.stringify(v));
 })
 
 //

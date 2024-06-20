@@ -1,11 +1,11 @@
 import { get, writable } from 'svelte/store';
 
 //
-export const makeArgs = (iconItem, iconItems, gridPage, columnsAndRows)=>{
+export const makeArgs = (iconItem, iconItems, gridPage, columnsAndRows, iconLists)=>{
     return {
         gridPage: document.querySelector(`.icon-grid[data-id="${gridPage.id}"]`),
         iconList: gridPage.iconList, 
-        iconItems,
+        iconItems, iconLists,
         iconItem, columnsAndRows
     };
 }
@@ -36,11 +36,11 @@ export const getCorrectOrientation = ()=>{
 export const fixCell = ({
     gridPage,
     iconItem, iconList, columnsAndRows,
-    iconItems
+    iconItems, iconLists
 }, $preCell) => {
     const items = iconItems;
     const preCell = {...$preCell}; // make non-conflict copy
-    const icons = iconList.map((id)=>iconItems.get(id));
+    const icons = iconList?.map((id)=>iconItems.get(id)) || [];
 
     //
     const checkBusy = (cell)=>{
@@ -187,7 +187,7 @@ export const animationSequence = ()=> { return [{
 export const putToCell = ({
     gridPage,
     iconItem, iconList, columnsAndRows,
-    iconItems
+    iconItems, iconLists
 }, $last) => {
     // should be relative from grid-box (not absolute or fixed position)
     const last = $last;
@@ -231,7 +231,7 @@ export const putToCell = ({
     const fValue = fixCell({
         gridPage,
         iconItem, iconList, columnsAndRows,
-        iconItems
+        iconItems, iconLists
     }, preCell);
 
     //
