@@ -20,34 +20,34 @@ const cover = (ctx, img, scale = 1, port) => {
         case "landscape-primary": {
             ctx.translate(canvas.width / 2, canvas.height / 2);
             ctx.rotate(0 * (Math.PI/180));
-            ctx.rotate(port * 90 * (Math.PI/180));
+            ctx.rotate(port * -90 * (Math.PI/180));
             ctx.translate(-(img.width / 2) * scale, -(img.height / 2) * scale);
         }
         break;
-
+        
         //
         case "portrait-primary": {
             ctx.translate(canvas.width / 2, canvas.height / 2);
-            ctx.rotate(-90 * (Math.PI/180));
-            ctx.rotate(port * 90 * (Math.PI/180));
+            ctx.rotate(90 * (Math.PI/180));
+            ctx.rotate(port * -90 * (Math.PI/180));
             ctx.translate(-(img.width / 2) * scale, -(img.height / 2) * scale);
         }
         break;
-
+        
         //
         case "landscape-secondary": {
             ctx.translate(canvas.width / 2, canvas.height / 2);
-            ctx.rotate(-180 * (Math.PI/180));
-            ctx.rotate(port * 90 * (Math.PI/180));
+            ctx.rotate(180 * (Math.PI/180));
+            ctx.rotate(port * -90 * (Math.PI/180));
             ctx.translate(-(img.width / 2) * scale, -(img.height / 2) * scale);
         }
         break;
-
+        
         //
-        case "portrait-primary": {
+        case "portrait-secondary": {
             ctx.translate(canvas.width / 2, canvas.height / 2);
-            ctx.rotate(-270 * (Math.PI/180));
-            ctx.rotate(port * 90 * (Math.PI/180));
+            ctx.rotate(270 * (Math.PI/180));
+            ctx.rotate(port * -90 * (Math.PI/180));
             ctx.translate(-(img.width / 2) * scale, -(img.height / 2) * scale);
         }
         break;
@@ -60,11 +60,19 @@ class WCanvas extends HTMLCanvasElement {
     static observedAttributes = ["data-src"];
 
     //
+    connectedCallback() {
+        const parent = this.parentNode;
+        this.width  = Math.max((this.offsetWidth  || parent?.offsetWidth  || 0) * devicePixelRatio, 0);
+        this.height = Math.max((this.offsetHeight || parent?.offsetHeight || 0) * devicePixelRatio, 0);
+    }
+
+    //
     constructor() {
         super();
 
         //
         const canvas = this;
+        const parent = this.parentNode;
         
         //
         this.ctx = canvas.getContext("2d", {
@@ -72,11 +80,11 @@ class WCanvas extends HTMLCanvasElement {
             willReadFrequently: false,
             powerPreference: "high-performance"
         });
-        
+
         //
         this.inert  = true;
-        this.width  = (this.offsetWidth  * devicePixelRatio);
-        this.height = (this.offsetHeight * devicePixelRatio);
+        this.width  = Math.max((this.offsetWidth  || parent?.offsetWidth  || 0) * devicePixelRatio, 0);
+        this.height = Math.max((this.offsetHeight || parent?.offsetHeight || 0) * devicePixelRatio, 0);
 
         //
         this.style.objectFit = "cover";
@@ -86,9 +94,10 @@ class WCanvas extends HTMLCanvasElement {
         //
         new ResizeObserver((entries)=>{
             for (const entry of entries) {
-                if (entry.contentBoxSize[0]) {
-                    this.width  = entry.contentBoxSize[0].inlineSize * devicePixelRatio;
-                    this.height = entry.contentBoxSize[0].blockSize * devicePixelRatio;
+                const contentBox = entry.contentBoxSize[0];
+                if (contentBox) {
+                    this.width  = Math.max(contentBox.inlineSize * devicePixelRatio, 0);
+                    this.height = Math.max(contentBox.blockSize  * devicePixelRatio, 0);
                     this.#render();
                 }
             }

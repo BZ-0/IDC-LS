@@ -100,10 +100,16 @@
 
     //
     :where(canvas):is(.w-canvas) {
-        inline-size: 100cqi;
         inline-size: stretch;
-        block-size: 100cqb;
         block-size: stretch;
+        
+        //
+        aspect-ratio: auto;
+        inline-size: 100%;
+        block-size: 100%;
+        
+        //
+        display: block;
 
         //
         image-rendering: auto;
