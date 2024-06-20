@@ -11,6 +11,7 @@ import pkg from './package.json';
 import tsconfig from './tsconfig.json';
 import { VitePWA } from 'vite-plugin-pwa'
 import autoprefixer from 'autoprefixer';
+import certificate from "./https/certificate.mjs"
 
 //
 const production = process.env.NODE_ENV === 'production';
@@ -36,8 +37,11 @@ const config = <UserConfig> defineConfig({
         })
     ],
     server: {
-        host: 'localhost',
-        port: 5000,
+        host: '0.0.0.0',
+        port: 8000,
+        https: {
+            ...certificate
+        },
     },
     build: {
         sourcemap: sourceMapsInProduction,

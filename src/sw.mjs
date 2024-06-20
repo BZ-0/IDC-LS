@@ -130,12 +130,6 @@ const preloadNeeded = (list)=>{
 //
 const PRE_CACHE_FORCE = [
     /* webpackIgnore: true */ "/assets/wallpaper/0.jpg",
-
-    //
-    /* webpackIgnore: true */ "/modules/index.css",
-    /* webpackIgnore: true */ "/modules/index.js",
-
-    //
     /* webpackIgnore: true */ "/index.html",
     /* webpackIgnore: true */ "/favicon.ico",
     /* webpackIgnore: true */ "/manifest-pwa.json",
