@@ -33,20 +33,20 @@ export const gridState = {
         }])),
     iconItems: writable(exKey([
         ...(JSON.parse(localStorage.getItem("@icons") || "[]") || []), {
-            id: "test",
-            icon: "cat",
-            cellX: 1,
+            id: "github",
+            icon: "github",
+            cellX: 0,
             cellY: 0,
-            action: "",
+            action: "open-link",
             href: "#",
-            label: ""
+            label: "GitHub"
             
             // surrogate field - used when edit
             //parent: "home-page"
         }])),
     iconLists: writable(exKey([
         ...(JSON.parse(localStorage.getItem("@lists") || "[]") || []), 
-        ["home-page", ["test"]]
+        ["home-page", ["github"]]
     ])),
 }
 
@@ -88,7 +88,7 @@ export const updateGrids = ()=>{ gridState.gridPages.set(Array.from(currentState
 export const updateLists = ()=>{ gridState.iconLists.set(Array.from(currentState.iconLists.entries())); }
 
 //
-export const getIconState = (id = "test") => {
+export const getIconState = (id = "github") => {
     return currentState.iconItems.get(id);
 }
 
@@ -99,7 +99,7 @@ export const setIconState = (iconItem, id = null)=>{
 }
 
 //
-export const focusIconForEdit = (id = "test")=>{
+export const focusIconForEdit = (id = "github")=>{
     const focusIconState  = getIconState(id);
     const focusIconFields = {
         id: writable(iconState.id),

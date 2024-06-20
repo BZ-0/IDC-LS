@@ -99,16 +99,20 @@
     }
 
     //
-    :where(canvas):is(.w-canvas) {
+    :where(canvas):is([is="w-canvas"]) {
+        min-inline-size: 100cqi;
+        min-block-size: 100cqb;
+        
+        //
+        inline-size: 100%;
+        block-size: 100%;
+        
+        //
         inline-size: stretch;
         block-size: stretch;
         
         //
         aspect-ratio: auto;
-        inline-size: 100%;
-        block-size: 100%;
-        
-        //
         display: block;
 
         //

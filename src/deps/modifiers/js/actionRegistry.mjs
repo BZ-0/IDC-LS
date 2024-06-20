@@ -1,0 +1,13 @@
+export const actionRegistry = new Map([
+    ["open-link", (from, event)=>{
+        window.open(from.dataset.href, "_blank");
+    }]
+]);
+
+// support of actions
+document.addEventListener("click", (ev)=>{
+    const pr = el.matches("[data-action]") ? el : el.closest("[data-action]")
+    if (pr?.dataset?.action) {
+        actionRegistry.get(pr.dataset.action)?.(pr, ev);
+    }
+});

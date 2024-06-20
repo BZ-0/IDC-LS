@@ -2,6 +2,7 @@
 //
 import "@deps/modifiers/js/stylework.mjs"
 import "@deps/modifiers/js/colormod.mjs"
+import "@deps/modifiers/js/actionRegistry.mjs"
 
 //
 import "@complex/scrollbox/scrollbox.mjs";

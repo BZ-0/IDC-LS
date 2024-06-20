@@ -141,6 +141,7 @@ export const releasePointer = (ev)=>{
         exists.holding.map((hm)=>{
             const em = hm.element.deref();
             
+            //
             const preventClick = (e)=>{
                 e.stopImmediatePropagation();
                 e.stopPropagation();
@@ -148,20 +149,22 @@ export const releasePointer = (ev)=>{
             };
             
             //
-            em?.addEventListener?.("click", preventClick, {once: true});
-            em?.addEventListener?.("click", preventClick, {once: true});
-            
-            //
-            document.addEventListener("contextmenu", preventClick, {once: true, capture: true});
-            document.addEventListener("contextmenu", preventClick, {once: true, capture: true});
-
-            //
-            setTimeout(()=>{
-                em?.removeEventListener?.("click", preventClick);
-                em?.removeEventListener?.("contextmenu", preventClick);
-                document.removeEventListener("click", preventClick);
-                document.removeEventListener("contextmenu", preventClick);
-            }, 100);
+            if (Math.hypot(...hm.shifting) > 10) {
+                em?.addEventListener?.("click", preventClick, {once: true});
+                em?.addEventListener?.("click", preventClick, {once: true});
+                
+                //
+                document.addEventListener("contextmenu", preventClick, {once: true, capture: true});
+                document.addEventListener("contextmenu", preventClick, {once: true, capture: true});
+    
+                //
+                setTimeout(()=>{
+                    em?.removeEventListener?.("click", preventClick);
+                    em?.removeEventListener?.("contextmenu", preventClick);
+                    document.removeEventListener("click", preventClick);
+                    document.removeEventListener("contextmenu", preventClick);
+                }, 100);
+            }
 
             //
             const nev = new CustomEvent("m-dragend", { detail: {

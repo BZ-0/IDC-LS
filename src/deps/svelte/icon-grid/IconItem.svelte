@@ -62,6 +62,8 @@
         --p-cell-x: ${iconItem.pCellX ?? iconItem.cellX};
         --p-cell-y: ${iconItem.pCellY ?? iconItem.cellY};
     `}
+    data-action={iconItem.action} 
+    data-href={iconItem.href} 
     data-id={iconItem.id} 
     data-label-id={iconItem.id}>
     <div bind:this={handler} class="icon-design icon-shape">
