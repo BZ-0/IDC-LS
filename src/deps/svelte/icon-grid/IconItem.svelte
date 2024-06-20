@@ -2,13 +2,14 @@
     import * as icons from 'lucide-svelte';
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
+    import { longpress as lgp } from "./helpers/longpress.mjs";
 
     //
     export let iconItem = {};
     export let inert = false;
 
     //
-    export let pointerdown = ()=>{};
+    export let longpress = ()=>{};
     export let dragstart = ()=>{};
     export let dragging = ()=>{};
     export let dragend = ()=>{};
@@ -24,8 +25,8 @@
         onmount?.(element, iconItem);
 
         //
-        handler.addEventListener("pointerdown", (ev)=>{
-            pointerdown?.(ev);
+        handler.addEventListener("longpress", (ev)=>{
+            longpress?.(ev);
         });
 
         //
@@ -66,7 +67,7 @@
     data-href={iconItem.href} 
     data-id={iconItem.id} 
     data-label-id={iconItem.id}>
-    <div bind:this={handler} class="icon-design icon-shape">
+    <div use:lgp bind:this={handler} class="icon-design icon-shape">
         <!--<img class="icon-id" alt="IconItem" src="" data-lucide={id}/>-->
         <svelte:component class="icon-sign" this={icons[iconItem.icon]} {...$$props} />
     </div>

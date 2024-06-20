@@ -45,7 +45,7 @@
 	//
 	const grabItem = (ev)=>{
 		//document.addEventListener("pointermove", ()=>{
-			const iconElement = ev.target.closest(".icon-item");
+			const iconElement = ev.detail.target.closest(".icon-item");
 			const iconId      = iconElement.dataset["id"];
 			const iconItem    = iconItems.get(iconId);
 			const iconList    = iconLists.get(currentPage);
@@ -53,7 +53,7 @@
 			//
 			iconItem.pCellX = iconItem.cellX;
 			iconItem.pCellY = iconItem.cellY;
-			iconItem.pointerId = ev.pointerId;
+			iconItem.pointerId = ev.detail.pointerId;
 	
 			//
 			const argObj = makeArgs(iconItem, iconItems, gridPages.get(currentPage), columnsAndRows, iconLists);
@@ -147,7 +147,7 @@
 								onmount={reCalcPosition}
 								iconItem={iconItem}
 								dragend={placeElement}
-								pointerdown={grabItem}
+								longpress={grabItem}
 							></IconItem>
 						{/if}
 					{/each}

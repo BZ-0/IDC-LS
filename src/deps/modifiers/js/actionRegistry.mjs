@@ -6,6 +6,7 @@ export const actionRegistry = new Map([
 
 // support of actions
 document.addEventListener("click", (ev)=>{
+    const el = ev.target;
     const pr = el.matches("[data-action]") ? el : el.closest("[data-action]")
     if (pr?.dataset?.action) {
         actionRegistry.get(pr.dataset.action)?.(pr, ev);
