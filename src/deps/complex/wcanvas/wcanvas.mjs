@@ -2,13 +2,15 @@
 //
 const getCorrectOrientation = ()=>{
     let orientationType = screen.orientation.type;
-    if (matchMedia("(orientation: portrait)" ).matches) { orientationType = orientationType.replace("landscape", "portrait"); } else
-    if (matchMedia("(orientation: landscape)").matches) { orientationType = orientationType.replace("portrait", "landscape"); };
+    if (!window.matchMedia("((display-mode: fullscreen) or (display-mode: standalone) or (display-mode: window-controls-overlay))").matches) {
+        if (matchMedia("(orientation: portrait)" ).matches) { orientationType = orientationType.replace("landscape", "portrait"); } else
+        if (matchMedia("(orientation: landscape)").matches) { orientationType = orientationType.replace("portrait", "landscape"); };
+    }
     return orientationType;
 }
 
 //
-const landscapeCover = (ctx, img, scale = 1) => {
+const cover = (ctx, img, scale = 1, port) => {
     const orientation = getCorrectOrientation();
     const canvas = ctx.canvas;
 
@@ -18,6 +20,7 @@ const landscapeCover = (ctx, img, scale = 1) => {
         case "landscape-primary": {
             ctx.translate(canvas.width / 2, canvas.height / 2);
             ctx.rotate(0 * (Math.PI/180));
+            ctx.rotate(port * 90 * (Math.PI/180));
             ctx.translate(-(img.width / 2) * scale, -(img.height / 2) * scale);
         }
         break;
@@ -26,6 +29,7 @@ const landscapeCover = (ctx, img, scale = 1) => {
         case "portrait-primary": {
             ctx.translate(canvas.width / 2, canvas.height / 2);
             ctx.rotate(-90 * (Math.PI/180));
+            ctx.rotate(port * 90 * (Math.PI/180));
             ctx.translate(-(img.width / 2) * scale, -(img.height / 2) * scale);
         }
         break;
@@ -34,6 +38,7 @@ const landscapeCover = (ctx, img, scale = 1) => {
         case "landscape-secondary": {
             ctx.translate(canvas.width / 2, canvas.height / 2);
             ctx.rotate(-180 * (Math.PI/180));
+            ctx.rotate(port * 90 * (Math.PI/180));
             ctx.translate(-(img.width / 2) * scale, -(img.height / 2) * scale);
         }
         break;
@@ -42,10 +47,12 @@ const landscapeCover = (ctx, img, scale = 1) => {
         case "portrait-primary": {
             ctx.translate(canvas.width / 2, canvas.height / 2);
             ctx.rotate(-270 * (Math.PI/180));
+            ctx.rotate(port * 90 * (Math.PI/180));
             ctx.translate(-(img.width / 2) * scale, -(img.height / 2) * scale);
         }
         break;
     }
+    
 }
 
 //
@@ -91,6 +98,11 @@ class WCanvas extends HTMLCanvasElement {
         screen.orientation.addEventListener("change", () => {
             this.#render();
         });
+        
+        //
+        window.addEventListener("resize", ()=>{
+            this.#render();
+        });
 
         //
         this.#preload(this.dataset.src).then(()=>this.#render());
@@ -106,16 +118,29 @@ class WCanvas extends HTMLCanvasElement {
         if (img) {
             const orientation = getCorrectOrientation();
             const ox = orientation.startsWith("portrait") - 0;
-            const scale = Math.max(canvas[["width","height"][ox]] / img.width, canvas[["height","width"][ox]] / img.height);
             
+            //
+            const port = img.width < img.height ? 1 : 0;
+            const scale = Math.max(
+                canvas[["width","height"][ox]] / img[["width","height"][port]], 
+                canvas[["height","width"][ox]] / img[["height","width"][port]]);
             
             // TODO: support portrait images
-            if (img.width >= img.height) {
-                landscapeCover(ctx, img, scale);
-                ctx.drawImage(img, 0, 0, img.width * scale, img.height * scale);
-            }
+            ctx.save();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            cover(ctx, img, scale, port);
+            ctx.drawImage(img, 0, 0, img.width * scale, img.height * scale);
+            ctx.restore();
         }
         
+    }
+
+    //
+    async #saveImage(blob) { 
+        const img = await createImageBitmap(blob).catch((_)=>null);
+        if (img) {
+            window.dispatchEvent(new CustomEvent("wallpaper", { detail: { blob }}));
+        }
     }
 
     //
@@ -123,12 +148,7 @@ class WCanvas extends HTMLCanvasElement {
         return fetch(src).then(async (rp)=>{
             const blob = await rp.blob();
             const img  = await createImageBitmap(blob).catch((_)=>null);
-            if (img) {
-                this.image = img;
-                window.dispatchEvent(new CustomEvent("wallpaper", { detail: {
-                    blob
-                }}));
-            }
+            if (img) { this.image = img; }
         }).catch(console.warn.bind(console));
     }
 
