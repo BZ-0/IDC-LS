@@ -9,7 +9,7 @@
 	import { swipe } from 'svelte-gestures';
 
 	//
-	import { settings, gridState } from "./helpers/gridState.mjs";
+	import { settings, gridState, makeMap } from "./helpers/gridState.mjs";
 	import { animationSequence, makeArgs, putToCell } from "./helpers/gridItem.mjs"
 	import { onMount } from "svelte";
 
@@ -27,24 +27,25 @@
 	settings.rows.subscribe((v)=>(columnsAndRows = [columnsAndRows[0], v]));
 
 	//
-	let iconItems = [];
+	let iconItems = new Map([]);
 	let gridPages = new Map([]);
+	let gridPagesArray = [];
 
 	//
-	gridState.iconItems.subscribe((v)=>{iconItems = new Map(v)})
-	gridState.gridPages.subscribe((v)=>{gridPages = [...v]})
+	gridState.iconItems.subscribe((v)=>{ iconItems = makeMap(v) })
+	gridState.gridPages.subscribe((v)=>{ gridPages = makeMap(v); gridPagesArray = v; })
 
 	//
-	const updateGrids = ()=>{ gridState.gridPages.set(gridPages); }
-	const updateIcons = ()=>{ gridState.iconItems.set(Array.from(iconItems.entries())); }
+	const updateIcons = ()=>{ gridState.iconItems.set(Array.from(iconItems.values())); }
+	const updateGrids = ()=>{ gridState.gridPages.set(Array.from(gridPages.values())); }
 
 	//
 	const grabItem = (ev)=>{
 		//document.addEventListener("pointermove", ()=>{
-			const iconElement = ev.target.closest(".icon-item");//ev.holding.element.deref();
+			const iconElement = ev.target.closest(".icon-item");
 			const iconId      = iconElement.dataset["id"];
 			const iconItem    = iconItems.get(iconId);
-			const gridPage    = gridPages.find((g)=>(currentPage==g.id));
+			const gridPage    = gridPages.get(currentPage);
 	
 			//
 			iconItem.pCellX = iconItem.cellX;
@@ -54,7 +55,7 @@
 			//
 			const argObj = makeArgs(iconItem, iconItems, gridPage, columnsAndRows);
 	
-			//
+			//iconId
 			gridPage.iconList = gridPage.iconList.filter((id)=>(id!=iconId));
 			dragBucket = [...dragBucket, iconId];
 	
@@ -68,8 +69,8 @@
 		const iconElement = holding.element.deref();
 		const iconId      = iconElement.dataset["id"];
 		const iconItem    = {...iconItems.get(iconId)}; // avoid force update
-		const gridPage    = gridPages.find((g)=>(currentPage==g.id));
-		const args = makeArgs(iconItem, iconItems, gridPage, columnsAndRows);
+		const gridPage    = gridPages.get(currentPage);
+		const args        = makeArgs(iconItem, iconItems, gridPage, columnsAndRows);
 
 		//
 		const bbox = args.gridPage.getBoundingClientRect();
@@ -98,7 +99,7 @@
 
 		//
 		dragBucket = dragBucket.filter((id)=>(id!=iconId));
-		gridPage.iconList.push(iconId);
+		gridPage.iconList = [...gridPage.iconList, iconId];
 		
 		//
 		updateGrids();
@@ -120,7 +121,7 @@
 
 <div bind:this={mainElement} class="layer-2 stretch grid-based-box fixed-avail relative">
 	
-	{#each gridPages as page}
+	{#each gridPagesArray as page}
 		{#if currentPage==page.id}
 			<div class="layered grid-based-box" type={page.type} visible={currentPage==page.id}
 				transition:fade={{ delay: 0, duration: 200 }}>
@@ -129,7 +130,7 @@
 					{@const iconList = page.iconList}
 					{#each iconList as iconId}
 						{@const iconItem = iconItems.get(iconId)}
-						{#if iconItem}
+						{#if iconItem && iconItem.id}
 							<IconLabel iconItem={iconItem}></IconLabel>
 						{/if}
 					{/each}
@@ -139,7 +140,7 @@
 					{@const iconList = page.iconList}
 					{#each iconList as iconId}
 						{@const iconItem = iconItems.get(iconId)}
-						{#if iconItem}
+						{#if iconItem && iconItem.id}
 							<IconItem 
 								onmount={reCalcPosition}
 								iconItem={iconItem}
@@ -158,7 +159,7 @@
 		<IconGrid type="bucket" columns={columnsAndRows[0]} rows={columnsAndRows[1]}>
 			{#each dragBucket as iconId}
 			{@const iconItem = iconItems.get(iconId)}
-				{#if iconItem}
+				{#if iconItem && iconItem.id}
 					<IconItem 
 						inert=true
 						iconItem={iconItem}

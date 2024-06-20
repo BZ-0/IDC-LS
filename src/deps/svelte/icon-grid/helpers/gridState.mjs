@@ -17,13 +17,6 @@ settings.rows.subscribe((value)=>{
 })
 
 //
-const exMap = (array)=>{
-    return array.filter((value, index, self) => {
-        return (index === self.findIndex((t) => (t[0] === value[0])))
-    })
-}
-
-//
 const exKey = (array)=>{
     return array.filter((value, index, self) => {
         return (index === self.findIndex((t) => (t.id === value.id)))
@@ -38,30 +31,30 @@ export const gridState = {
             id: "home-page",
             type: "icon-list",
             iconList: ["test"]
-        },
-        
-    ])),
-    iconItems: writable(exMap([
-        ...(JSON.parse(localStorage.getItem("@icons") || "[]") || []),
-        ["test", {
+        }])),
+    iconItems: writable(exKey([
+        ...(JSON.parse(localStorage.getItem("@icons") || "[]") || []), {
             id: "test",
             icon: "cat",
             cellX: 1,
             cellY: 0
-        }],
-        
-    ]))
+        }]))
+}
+
+//
+export const makeMap = (array) => {
+    return new Map(Object.entries(Object.groupBy(Array.from(array), ({id})=>(id))).map(([id,[v]])=>([id,v])));
 }
 
 //
 export const currentState = {
-    gridPages: [],
+    gridPages: new Map([]),
     iconItems: new Map([])
 }
 
 //
-gridState.gridPages.subscribe((s)=>{currentState.gridPages = s});
-gridState.iconItems.subscribe((s)=>{currentState.iconItems = new Map(s)});
+gridState.gridPages.subscribe((s)=>{currentState.gridPages = makeMap(s)});
+gridState.iconItems.subscribe((s)=>{currentState.iconItems = makeMap(s)});
 
 //
 gridState.iconItems.subscribe((v)=>{
@@ -73,12 +66,8 @@ gridState.gridPages.subscribe((v)=>{
     localStorage.setItem("@pages", JSON.stringify(v));
 })
 
-// for using bind:editForIcon={@} for editors
-export const editForIcon = writable({
-    id: "",
-    icon: "",
-    label: ""
-});
+//
+export const editForIcon = writable(currentState.iconItems.get("test"));
 
 //
 editForIcon.subscribe((newScheme) => {
