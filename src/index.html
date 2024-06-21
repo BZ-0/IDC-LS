@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
         <meta nativeui="true">
         <!---->
         <title>IDC-LX0</title>
@@ -10,6 +10,7 @@
         <meta http-equiv="content-language" content="en-us">
         <!--<meta http-equiv="Content-Security-Policy" content="script-src 'self';">-->
         <!---->
+        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content, shrink-to-fit=no">
         <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content, shrink-to-fit=no, virtual-keyboard=overlays-content">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -35,16 +36,14 @@
         <meta name="keywords"
             content="pwa, source, project, intendant, idx, software, experimental, nextgen, ng, 2024, 2025, future, wip, portfolio">
             
-        
-		<title>Svelte app</title>
+        <title>Svelte app</title>
 
         <!-- webpackIgnore: true-->
         <link rel="manifest" href="./manifest-pwa.json">
-                
 
-		<script type="importmap">
-		{
-			"imports": {
+        <script type="importmap">
+        {
+            "imports": {
                 "@src": "./",
                 "@deps": "./deps",
                 "@apps": "./deps/apps",
@@ -58,8 +57,8 @@
                 "@tests": "./deps/tests",
                 "@assets": "./assets"
             }
-		}
-		</script>
+        }
+        </script>
 
         <script type="module">
         if (typeof navigator != "undefined") {
@@ -80,13 +79,13 @@
         }
         </script>
 
-		<link rel="icon" type="image/png" href="./favicon.png">
-		<link rel="stylesheet" type="text/css" href="./deps/main.scss">
+        <link rel="icon" type="image/png" href="./favicon.png">
+        <link rel="stylesheet" type="text/css" href="./deps/main.scss">
 
-		<style></style>
-	</head>
-	<body>
-		<noscript>Please enable JavaScript to view this application.</noscript>
-		<script type="module" src="./deps/main.ts"></script>
-	</body>
+        <style></style>
+    </head>
+    <body>
+        <noscript>Please enable JavaScript to view this application.</noscript>
+        <script type="module" src="./deps/main.ts"></script>
+    </body>
 </html>

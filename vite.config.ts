@@ -17,7 +17,7 @@ import tsconfig from "./tsconfig.json";
 const __dirname = import.meta.dirname;
 
 const r = (s) => {
-	return s;
+    return s;
 };
 
 //
