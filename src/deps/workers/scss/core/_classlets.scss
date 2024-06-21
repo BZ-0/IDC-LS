@@ -68,8 +68,65 @@
     }
 
     //
+    .pointer-events-enable {
+        pointer-events: auto;
+        pointer-events: bounding-box;
+    }
+
+    //
+    .pe-enable {
+        @extend .pointer-events-enable;
+    }
+
+    //
+    .user-select-enable {
+        -webkit-user-select: auto;
+        -khtml-user-select: auto;
+        -moz-user-select: auto;
+        -o-user-select: auto;
+        -ms-user-select: auto;
+        user-select: auto;
+    }
+
+    //
+    .us-enable {
+        @extend .user-select-enable;
+    }
+
+    //
+    .user-drag-enable {
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        -ms-user-drag: none;
+        user-drag: none;
+    }
+
+    //
+    .ud-enable {
+        @extend .user-drag-enable;
+    }
+
+    //
     .pointer-events-none {
         pointer-events: none;
+
+        //
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        //
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        -ms-user-drag: none;
+        user-drag: none;
     }
 
     // not depends from virtual keyboards
@@ -127,4 +184,14 @@
     .layer-2 { z-index: 2; };
     .layer-9999 { z-index: 9999; };
     .layer-99999 { z-index: 99999; };
+
+    // display: contents + pointer-events: none
+    // used for transparent wrappers
+    .contents {
+        container-type: normal;
+        contain: none;
+        display: contents;
+        pointer-events: none;
+        background-color: transparent;
+    }
 }
