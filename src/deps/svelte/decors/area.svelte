@@ -2,11 +2,13 @@
     <div class="icon-box hl-1">
         
     </div>
-    <div class="label-box">
-        <slot></slot>
-    </div>
-    <div class="in-element">
-        <slot name="element"></slot>
+    <div class="content-box">
+        <div class="label-box">
+            <slot></slot>
+        </div>
+        <div class="in-element">
+            <slot name="element"></slot>
+        </div>
     </div>
     <!--<div class="description">
     
