@@ -64,6 +64,10 @@ const config = <UserConfig>defineConfig({
 		https: {
 			...certificate,
 		},
+		headers: {
+			"Service-Worker-Allowed": "/",
+			"Permissions-Policy": "fullscreen=*, window-management=*",
+		},
 	},
 	build: {
 		sourcemap: sourceMapsInProduction,

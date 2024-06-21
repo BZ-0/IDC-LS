@@ -39,8 +39,6 @@
 		<title>Svelte app</title>
 
         <!-- webpackIgnore: true-->
-        <link rel="icon" type="image/x-icon" href="./favicon.ico">
-        <!-- webpackIgnore: true-->
         <link rel="manifest" href="./manifest-pwa.json">
                 
 
@@ -65,7 +63,7 @@
 
         <script type="module">
         if (typeof navigator != "undefined") {
-            navigator?.serviceWorker?.register?.(new URL('./sw.mjs', import.meta.url), {scope: "/"}).then(
+            navigator?.serviceWorker?.register?.(new URL('./service.mjs', import.meta.url), {scope: "/"}).then(
                 (registration) => {
                     console.log('Service worker registration succeeded:', registration);
                 },

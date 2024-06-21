@@ -134,11 +134,11 @@ const preloadNeeded = (list)=>{
 
 //
 const PRE_CACHE_FORCE = [
-    /* webpackIgnore: true */ "/assets/wallpaper/0.jpg",
-    /* webpackIgnore: true */ "/index.html",
-    /* webpackIgnore: true */ "/favicon.ico",
-    /* webpackIgnore: true */ "/manifest-pwa.json",
-].map((u)=>(new URL(u, self.location.origin).href));
+	/* webpackIgnore: true */ "/assets/wallpaper/0.jpg",
+	/* webpackIgnore: true */ "/index.html",
+	/* webpackIgnore: true */ "/favicon.png",
+	/* webpackIgnore: true */ "/manifest-pwa.json",
+].map((u) => new URL(u, self.location.origin).href);
 
 //
 self?.addEventListener?.("install", (event) => {
