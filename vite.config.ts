@@ -2,16 +2,16 @@ const useBabel = true;
 const sourceMapsInProduction = true;
 
 //
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import legacy from "@vitejs/plugin-legacy";
-import autoprefixer from "autoprefixer";
-import path from "path";
-import sveltePreprocess from "svelte-preprocess";
-import { defineConfig, type UserConfig } from "vite";
-import { VitePWA } from "vite-plugin-pwa";
+import { svelte } from "@sveltejs/vite-plugin-svelte"
+import legacy from "@vitejs/plugin-legacy"
+import autoprefixer from "autoprefixer"
+import path from "path"
+import sveltePreprocess from "svelte-preprocess"
+import { defineConfig, type UserConfig } from "vite"
+import { VitePWA } from "vite-plugin-pwa"
 import certificate from "./https/certificate.mjs"
-import pkg from "./package.json";
-import tsconfig from "./tsconfig.json";
+import pkg from "./package.json"
+import tsconfig from "./tsconfig.json"
 
 //
 const __dirname = import.meta.dirname;
@@ -23,65 +23,65 @@ const r = (s) => {
 //
 const production = process.env.NODE_ENV === 'production';
 const config = <UserConfig>defineConfig({
-	root: "./src",
+    root: "./src",
 
-	alias: {
-		"@": r("/src"),
-		"@src": r("/src"),
-		"@deps": r("/src/deps"),
-		"@libraries": r("/src/libraries"),
-		"@workers": r("/src/workers"),
-		"@tests": r("/src/tests"),
-		"@modules": r("/src/modules"),
-		"@svelte": r("/src/modules/svelte"),
-		"@webcomp": r("/src/modules/webcomp"),
-		"@states": r("/src/modules/states"),
-		"@bundle": r("/src/bundle"),
-	},
+    alias: {
+        "@": r("/src"),
+        "@src": r("/src"),
+        "@deps": r("/src/deps"),
+        "@libraries": r("/src/deps/libraries"),
+        "@workers": r("/src/deps/workers"),
+        "@tests": r("/src/deps/tests"),
+        "@modules": r("/src/deps/modules"),
+        "@svelte": r("/src/deps/modules/svelte"),
+        "@webcomp": r("/src/deps/modules/webcomp"),
+        "@states": r("/src/deps/modules/states"),
+        "@bundle": r("/src/deps/bundle"),
+    },
 
-	plugins: [
-		svelte({
-			emitCss: production,
-			preprocess: sveltePreprocess(),
-		}),
-		VitePWA({
-			registerType: "autoUpdate",
-			devOptions: {
-				enabled: true,
-				resolveTempFolder: () => {
-					return "./dist";
-				},
-			},
-			workbox: {
-				clientsClaim: true,
-				skipWaiting: true,
-			},
-		}),
-	],
-	server: {
-		host: "0.0.0.0",
-		port: 8000,
-		https: {
-			...certificate,
-		},
-		headers: {
-			"Service-Worker-Allowed": "/",
-			"Permissions-Policy": "fullscreen=*, window-management=*",
-		},
-	},
-	build: {
-		sourcemap: sourceMapsInProduction,
-		outDir: "../dist",
-		emptyOutDir: true,
-		rollupOptions: {
-			input: "../dist/index.html",
-		},
-	},
-	css: {
-		postcss: {
-			plugins: [autoprefixer()],
-		},
-	},
+    plugins: [
+        svelte({
+            emitCss: production,
+            preprocess: sveltePreprocess(),
+        }),
+        VitePWA({
+            registerType: "autoUpdate",
+            devOptions: {
+                enabled: true,
+                resolveTempFolder: () => {
+                    return "./dist";
+                },
+            },
+            workbox: {
+                clientsClaim: true,
+                skipWaiting: true,
+            },
+        }),
+    ],
+    server: {
+        host: "0.0.0.0",
+        port: 8000,
+        https: {
+            ...certificate,
+        },
+        headers: {
+            "Service-Worker-Allowed": "/",
+            "Permissions-Policy": "fullscreen=*, window-management=*",
+        },
+    },
+    build: {
+        sourcemap: sourceMapsInProduction,
+        outDir: "../dist",
+        emptyOutDir: true,
+        rollupOptions: {
+            input: "../dist/index.html",
+        },
+    },
+    css: {
+        postcss: {
+            plugins: [autoprefixer()],
+        },
+    },
 });
 
 // Babel
