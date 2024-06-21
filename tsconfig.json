@@ -8,12 +8,16 @@
 		"paths": {
 			"@src": ["./src"],
 			"@deps": ["./src/deps"],
-			"@apps": ["./src/apps"],
-			"@complex": ["./src/deps/complex"],
+			"@apps": ["./src/deps/apps"],
+			"@modules": ["./src/deps/modules"],
+			"@states": ["./src/deps/modules/states"],
+			"@webcomp": ["./src/deps/modules/webcomp"],
+			"@svelte": ["./src/deps/modules/svelte"],
 			"@bundle": ["./src/deps/bundle"],
-			"@modifiers": ["./src/deps/modifiers"],
+			"@workers": ["./src/deps/workers"],
 			"@libraries": ["./src/deps/libraries"],
-			"@assets": ["../src/assets"]
+			"@tests": ["./src/deps/tests"],
+			"@assets": ["./src/assets"]
 		},
 		"moduleResolution": "Classic",
 		"allowArbitraryExtensions": true,
@@ -41,13 +45,6 @@
 		"forceConsistentCasingInFileNames": true,
 		"strict": true
 	},
-	"include": [
-		"src/**/*.civet",
-		"src/**/*.mjs",
-		"src/**/*.js",
-		"src/**/*.d.ts",
-		"src/**/*.ts",
-		"src/**/*.svelte"
-	],
+	"include": ["vite.config.ts", "package.json", "tsconfig.json"],
 	"references": [{ "path": "./src/tsconfig.json" }]
 }

@@ -47,14 +47,19 @@
 		<script type="importmap">
 		{
 			"imports": {
-				"@src": "./",
-				"@apps": "./apps",
-				"@deps": "./deps",
-				"@complex": "./deps/complex",
-				"@bundle": "./deps/bundle",
-				"@modifiers": "./deps/modifiers",
-				"@libraries": "./deps/libraries"
-			}
+                "@src": "./",
+                "@deps": "./deps",
+                "@apps": "./deps/apps",
+                "@modules": "./deps/modules",
+                "@states": "./deps/modules/states",
+                "@webcomp": "./deps/modules/webcomp",
+                "@svelte": "./deps/modules/svelte",
+                "@bundle": "./deps/bundle",
+                "@workers": "./deps/workers",
+                "@libraries": "./deps/libraries",
+                "@tests": "./deps/tests",
+                "@assets": "./assets"
+            }
 		}
 		</script>
 
@@ -77,13 +82,13 @@
         }
         </script>
 
-		<link rel="icon" type="image/png" href="/favicon.png">
-		<link rel="stylesheet" type="text/css" href="./index.scss">
+		<link rel="icon" type="image/png" href="./favicon.png">
+		<link rel="stylesheet" type="text/css" href="./deps/main.scss">
 
 		<style></style>
 	</head>
 	<body>
 		<noscript>Please enable JavaScript to view this application.</noscript>
-		<script type="module" src="./main.ts"></script>
+		<script type="module" src="./deps/main.ts"></script>
 	</body>
 </html>

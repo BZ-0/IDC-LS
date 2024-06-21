@@ -1,20 +1,15 @@
 <script>
-	import { get, writable } from 'svelte/store';
-
 	//
-	import IconItem from "./IconItem.svelte";
-	import IconGrid from "./IconGrid.svelte";
-	import IconLabel from "./IconLabel.svelte";
 	import { fade } from 'svelte/transition';
-	import { swipe } from 'svelte-gestures';
-
-	//
-	import { settings, gridState, makeMap } from "./helpers/gridState.mjs";
-	import { animationSequence, makeArgs, putToCell } from "./helpers/gridItem.mjs"
+	import IconGrid from "./IconGrid.svelte";
+	import IconItem from "./IconItem.svelte";
+	import IconLabel from "./IconLabel.svelte";
+//
+	import { animationSequence, makeArgs, putToCell } from "@states/gridItem.mjs";
+	import { gridState, makeMap, settings } from "@states/gridState.mjs";
 	import { onMount } from "svelte";
-
-	//
-	import { grabForDrag } from "@libraries/js/orion/pointer-api.mjs"
+//
+	import { grabForDrag } from "@libraries/js/orion/pointer-api.mjs";
 
 	//
 	export let dragBucket = [];

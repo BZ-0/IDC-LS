@@ -3,7 +3,7 @@
 </script>
 
 <!-- -->
-<div class="icon-placement grid-item fspace translate-down horizontal-force" 
+<div class="icon-placement grid-item auto-space translate-down horizontal-force" 
     style={`--cell-x: ${iconItem.cellX}; --cell-y: ${iconItem.cellY}; --translate-shift: 3rem;`} 
     data-host={iconItem.id}
     data-name={iconItem.id}>

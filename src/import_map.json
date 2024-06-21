@@ -1,12 +1,16 @@
 {
-    "imports": {
+	"imports": {
 		"@src": "./",
-		"@assets": "./assets",
-		"@apps": "./apps",
 		"@deps": "./deps",
-		"@complex": "./deps/complex",
+		"@apps": "./deps/apps",
+		"@modules": "./deps/modules",
+		"@states": "./deps/modules/states",
+		"@webcomp": "./deps/modules/webcomp",
+		"@svelte": "./deps/modules/svelte",
 		"@bundle": "./deps/bundle",
-		"@modifiers": "./deps/modifiers",
-		"@libraries": "./deps/libraries"
+		"@workers": "./deps/workers",
+		"@libraries": "./deps/libraries",
+		"@tests": "./deps/tests",
+		"@assets": "./assets"
 	}
 }

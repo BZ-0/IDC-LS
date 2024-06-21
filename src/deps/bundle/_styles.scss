@@ -1,7 +1,7 @@
-@use "../modifiers/scss/normalize";
-@use "../modifiers/scss/classlets";
-@use "../modifiers/scss/color/colors";
-@use "../modifiers/scss/color/themed";
+@use "@workers/scss/normalize";
+@use "@workers/scss/classlets";
+@use "@workers/scss/color/colors";
+@use "@workers/scss/color/themed";
 
 // Svelte Components
-@use "../svelte/icon-grid/helpers/gridutils";
+@use "@workers/scss/icongrid/gridutils";

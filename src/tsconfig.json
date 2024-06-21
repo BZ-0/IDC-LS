@@ -1,14 +1,18 @@
 {
-    "extends": "@tsconfig/svelte/tsconfig.json",
+	"extends": "@tsconfig/svelte/tsconfig.json",
 	"compilerOptions": {
 		"paths": {
 			"@src": ["."],
 			"@deps": ["./deps"],
-			"@apps": ["./apps"],
-			"@complex": ["./deps/complex"],
+			"@apps": ["./deps/apps"],
+			"@modules": ["./deps/modules"],
+			"@webcomp": ["./deps/modules/webcomp"],
+			"@states": ["./deps/modules/states"],
+			"@svelte": ["./deps/modules/svelte"],
 			"@bundle": ["./deps/bundle"],
-			"@modifiers": ["./deps/modifiers"],
+			"@workers": ["./deps/workers"],
 			"@libraries": ["./deps/libraries"],
+			"@tests": ["./deps/tests"],
 			"@assets": ["./assets"]
 		},
 		"composite": true,
@@ -45,8 +49,17 @@
 		"strict": true
 	},
 	"include": [
-		"vite.config.ts",
-		"package.json",
-		"tsconfig.json"
+		"./**/*.civet",
+		"./**/*.mjs",
+		"./**/*.js",
+		"./**/*.d.ts",
+		"./**/*.ts",
+		"./**/*.svelte",
+		"src/**/*.civet",
+		"src/**/*.mjs",
+		"src/**/*.js",
+		"src/**/*.d.ts",
+		"src/**/*.ts",
+		"src/**/*.svelte"
 	]
 }

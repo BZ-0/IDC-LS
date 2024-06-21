@@ -1,7 +1,7 @@
 <script>
+    import { longpress as lgp } from "@libraries/js/orion/longpress.mjs";
     import { onMount } from 'svelte';
     import LucideIcon from './LucideIcon.svelte';
-    import { longpress as lgp } from "./helpers/longpress.mjs";
 
     //
     export let iconItem = {};
@@ -55,7 +55,7 @@
 <!-- -->
 <div bind:this={element} 
     inert={inert} 
-    class="icon-item icon-placement grid-item fspace" 
+    class="icon-item icon-placement grid-item auto-space" 
     style={`
         --cell-x: ${iconItem.cellX}; 
         --cell-y: ${iconItem.cellY};
