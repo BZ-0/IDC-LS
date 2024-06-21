@@ -129,6 +129,11 @@
         user-drag: none;
     }
 
+    //
+    .pe-none {
+        @extend .pointer-events-none;
+    }
+
     // not depends from virtual keyboards
     .fixed-avail {
         @extend .fixed;
@@ -193,5 +198,27 @@
         display: contents;
         pointer-events: none;
         background-color: transparent;
+    }
+    
+    //
+    .contain-size {
+        container-type: size;
+        contain: content;
+        min-inline-size: max-content;
+        min-block-size: max-content;
+        inline-size: stretch;
+        block-size: stretch;
+        max-inline-size: stretch;
+        max-block-size: stretch;
+    }
+    
+    //
+    .contain-inline-size {
+        container-type: inline-size;
+        contain: content;
+        inline-size: stretch;
+        min-block-size: max-content;
+        block-size: max-content;
+        max-block-size: stretch;
     }
 }
