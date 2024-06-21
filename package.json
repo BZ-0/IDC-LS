@@ -7,15 +7,17 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
+		"@effective/eslint-config": "^5.4.7",
 		"@sveltejs/vite-plugin-svelte": "^2.4.6",
 		"@tsconfig/svelte": "^5.0.2",
 		"@types/node": "*",
 		"@vitejs/plugin-legacy": "^4.1.1",
 		"autoprefixer": "^10.4.16",
+		"eslint-config-prettier": "^9.1.0",
 		"sass": "^1.69.4",
 		"svelte": "^4.2.2",
 		"svelte-preprocess": "^5.0.4",
-		"typescript": "^5.2.2",
+		"typescript": "^5.5.2",
 		"vite": "^4.5.0"
 	},
 	"browserslist": [

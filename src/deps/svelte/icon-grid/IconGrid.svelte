@@ -1,11 +1,13 @@
 <script>
     import { onMount } from "svelte";
 
+    //
     export let id = "";
     export let columns = 4;
     export let rows = 8;
     export let type = "";
 
+    //
     let element = null;
     let gridW = 0;
     let gridH = 0;

@@ -16,7 +16,6 @@
 		"module": "ESNext",
 		"target": "esnext",
 		"baseUrl": ".",
-		"paths": {},
 		"resolveJsonModule": true,
 		"allowSyntheticDefaultImports": true,
 		"moduleResolution": "node",

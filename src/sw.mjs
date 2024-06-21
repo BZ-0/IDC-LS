@@ -1,31 +1,36 @@
 
 
 //
-const provide = async (path="")=>{
-    path = (path?.url ?? path);
-    const relPath = path.replace(location.origin, "");
-    if (relPath.startsWith("/opfs")) {
-        const params = relPath.split(/\?/i)?.[1]||relPath;
-        const $path = new URLSearchParams(params).get("path");
-        const parts = $path?.split?.("/")||$path||"";
+const provide = async (path = "") => {
+	path = path?.url ?? path;
+	const relPath = path.replace(location.origin, "");
+	if (relPath.startsWith("/opfs")) {
+		const params = relPath.split(/\?/i)?.[1] || relPath;
+		const $path = new URLSearchParams(params).get("path");
+		const parts = $path?.split?.("/") || $path || "";
 
-        //
-        let dir = await navigator?.storage?.getDirectory?.()?.catch?.(console.warn.bind(console));
-        for (let I=0;I<parts.length-1;I++) {
-            if (!parts[I]) continue;
-            dir = await dir?.getDirectoryHandle?.(parts[I], { create: false })?.catch?.(console.warn.bind(console));
-            if (!dir) break;
-        }
+		//
+		let dir = await navigator?.storage
+			?.getDirectory?.()
+			?.catch?.(console.warn.bind(console));
+		for (let I = 0; I < parts.length - 1; I++) {
+			if (!parts[I]) continue;
+			dir = await dir
+				?.getDirectoryHandle?.(parts[I], { create: false })
+				?.catch?.(console.warn.bind(console));
+			if (!dir) break;
+		}
 
-        //
-        const fileh = await dir?.getFileHandle?.(parts[parts.length-1], { create: false });
-        return await fileh?.getFile?.();
-    } else
-    if (relPath.startsWith("/")) {
-        return fetch(path).then((r)=>r.blob());
-    }
-    return null;
-}
+		//
+		const fileh = await dir?.getFileHandle?.(parts[parts.length - 1], {
+			create: false,
+		});
+		return await fileh?.getFile?.();
+	} else if (relPath.startsWith("/")) {
+		return fetch(path).then((r) => r.blob());
+	}
+	return null;
+};
 
 // Config
 const NETWORK_TIMEOUT_MS = 6000; // hosting, amvera
