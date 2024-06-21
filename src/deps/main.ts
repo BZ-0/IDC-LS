@@ -8,7 +8,7 @@ const loading = Promise.allSettled([
 ]);
 
 //
-import App from "@tests/Combined.svelte";
+import App from "@tests/ColorsAndDecors.svelte";
 //import App from '@apps/tests/ScrollBox.svelte';
 //import App from '@apps/tests/MultiPageTest.svelte';
 

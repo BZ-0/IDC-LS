@@ -1,0 +1,81 @@
+@use "@libraries/scss/color/colorutils" as cu;
+@use "@libraries/scss/color/colors" as cl;
+
+//
+@layer lx-decors {
+    .area-decor {
+        min-block-size: 2rem;
+        inline-size: stretch;
+        block-size: max-content;
+        
+        //
+        display: grid;
+        box-sizing: border-box;
+        
+        //
+        justify-content: center;
+        justify-items: center;
+        align-content: center;
+        align-items: center;
+        
+        //
+        grid-template-columns: minmax(2rem, max-content) minmax(0px, 1fr) minmax(2rem, max-content);
+        grid-template-rows: minmax(2rem, max-content);
+        
+        //
+        padding: 0px;
+        margin: 0px;
+        
+        //
+        & :where(.icon-box, .label-box, .in-element){
+            padding: 1rem;
+            box-sizing: border-box;
+            background-clip: border-box;
+            background-origin: content-box;
+        }
+        
+        //
+        & .icon-box   { grid-column: 1 / 1; grid-row: 1 / 1; }
+        & .label-box  { grid-column: 2 / 2; grid-row: 1 / 1; justify-self: start; }
+        & .in-element { grid-column: 3 / 3; grid-row: 1 / 1; }
+        
+        //
+        &.area-alt {
+            grid-template-columns: minmax(2rem, max-content) minmax(0px, 1fr);
+            grid-template-rows: minmax(2rem, max-content) minmax(2rem, max-content);
+            
+            //
+            & .icon-box   { grid-column: 1 / 1;  grid-row: 1 / 2; }
+            & .in-element { grid-column: 2 / 2;  grid-row: 2 / 2; }
+            & .label-box  { grid-column: 2 / 2; grid-row: 1 / 1; }
+        }
+        
+        //
+        .icon-box {
+            min-block-size: max-content;
+            max-block-size: stretch;
+            
+            min-inline-size: max-content;
+            max-inline-size: stretch;
+            
+            block-size: stretch;
+            inline-size: stretch;
+            
+            aspect-ratio: 1 / 1;
+        }
+    }
+    
+    
+    //colorization
+    .area-decor {
+        color: cu.theme-mod-down(#{cl.$baseColor}, 90%);
+        background-color: cu.theme-mod-up(#{cl.$baseColor}, 60%);
+    
+        //
+        .icon-box {
+            color: cu.theme-mod-down(#{cl.$baseColor}, 90%);
+            background-color: cu.theme-mod-up(#{cl.$baseColor}, 40%);
+        }
+    }
+    
+}

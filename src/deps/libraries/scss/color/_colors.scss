@@ -1,6 +1,7 @@
 @use "./colorutils" as cu;
 
 //
+$baseColor: var(--theme-base-color);
 $surfaceColor: cu.theme-mod-up(var(--theme-base-color), 96%);
 $glyphColor: cu.theme-mod-down(var(--theme-base-color), 98%);
 $accentColor: cu.theme-mod-down(var(--theme-base-color), 92%);

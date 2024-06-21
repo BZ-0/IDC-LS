@@ -1,3 +1,6 @@
+@use "@libraries/scss/fonts/xo_caliburn" as dFont;
+
+//
 @layer lx-normalize {
 
     //
@@ -26,6 +29,7 @@
 
         //
         @include HQRendering();
+        @include dFont.applyFont(0.95rem);
     }
 
     //

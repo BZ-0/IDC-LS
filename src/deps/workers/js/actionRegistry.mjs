@@ -1,7 +1,16 @@
 export const actionRegistry = new Map([
-    ["open-link", (from, event)=>{
-        window.open(from.dataset.href, "_blank");
-    }]
+    [
+        "default",
+        (from, event) => {
+            from?.dispatchEvent?.(new CustomEvent("action", { detail: event }));
+        },
+    ],
+    [
+        "open-link",
+        (from, event) => {
+            window.open(from.dataset.href, "_blank");
+        },
+    ],
 ]);
 
 // support of actions

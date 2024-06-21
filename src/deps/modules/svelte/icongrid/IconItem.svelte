@@ -1,7 +1,7 @@
 <script>
     import { longpress as lgp } from "@libraries/js/orion/longpress.mjs";
     import { onMount } from 'svelte';
-    import LucideIcon from './LucideIcon.svelte';
+    import LucideIcon from '../decors/LucideIcon.svelte';
 
     //
     export let iconItem = {};

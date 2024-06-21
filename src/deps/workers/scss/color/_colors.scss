@@ -6,15 +6,17 @@
 @use "@libraries/scss/color/colors" as cl;
 
 //
-:root, :host, :scope {
-    --theme-glyph-color: #{cl.$glyphColor};
-    --theme-surface-color: #{cl.$surfaceColor};
-    --theme-accent-color: #{cl.$accentColor};
-    --theme-chroma-color: #{cl.$chromaColor};
+@layer lx-colors {
+    :root, :host, :scope {
+        --theme-glyph-color: #{cl.$glyphColor};
+        --theme-surface-color: #{cl.$surfaceColor};
+        --theme-accent-color: #{cl.$accentColor};
+        --theme-chroma-color: #{cl.$chromaColor};
 
-    //
-    --current-glyph-color: var(--theme-glyph-color);
-    --current-surface-color: var(--theme-surface-color);
-    --current-accent-color: var(--theme-accent-color);
-    --current-chroma-color: var(--theme-chroma-color);
+        //
+        --current-glyph-color: var(--theme-glyph-color);
+        --current-surface-color: var(--theme-surface-color);
+        --current-accent-color: var(--theme-accent-color);
+        --current-chroma-color: var(--theme-chroma-color);
+    }
 }

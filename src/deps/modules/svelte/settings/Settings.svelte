@@ -1,4 +1,5 @@
 <script>
+	import LucideIcon from '@modules/svelte/icongrid/LucideIcon.svelte';
 	import { settings } from "grid-state.mjs";
 	import RangeSlider from 'svelte-range-slider-pips';
 	import Area from './../decors/Area.svelte';
@@ -21,7 +22,8 @@
 	<div class="content">
 		<div class="lx-page lx-tabs">
 			<Area class="area-decor lx-tab-item">
-				
+				<LucideIcon name={iconItem.icon}/>
+				<div class="tab-label"></div>
 			</Area>
 		</div>
 		<div class="lx-page lx-options">
