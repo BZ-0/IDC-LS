@@ -1,9 +1,7 @@
 <script>
-    import * as icons from 'lucide-svelte';
     import { onMount } from 'svelte';
-    import { writable } from 'svelte/store';
-    import { longpress as lgp } from "./helpers/longpress.mjs";
     import LucideIcon from './LucideIcon.svelte';
+    import { longpress as lgp } from "./helpers/longpress.mjs";
 
     //
     export let iconItem = {};

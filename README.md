@@ -3,16 +3,17 @@
 A starter template for [Svelte](https://svelte.dev) that comes preconfigured with [Vite](https://vitejs.dev/),
 TypeScript, SCSS, Babel, Autoprefixer, and HMR.
 
-- [Getting started](#getting-started)
-  - [Installation](#installation)
-  - [Starting the development server](#starting-the-development-server)
-  - [Building for production](#building-for-production)
-- [Usage](#usage)
-  - [Global stylesheets](#global-stylesheets)
-  - [Browsers list](#browsers-list)
-  - [Babel customization](#babel-customization)
-  - [Source maps in production](#source-maps-in-production)
-  - [Import path aliases](#import-path-aliases)
+- [Svelte Vite Starter](#svelte-vite-starter)
+  - [Getting started](#getting-started)
+    - [Installation](#installation)
+    - [Starting the development server](#starting-the-development-server)
+    - [Building for production](#building-for-production)
+  - [Usage](#usage)
+    - [Global stylesheets](#global-stylesheets)
+    - [Browsers list](#browsers-list)
+    - [Babel customization](#babel-customization)
+    - [Source maps in production](#source-maps-in-production)
+    - [Import path aliases](#import-path-aliases)
 
 ---
 
