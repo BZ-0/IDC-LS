@@ -1,11 +1,31 @@
 @layer lx-normalize {
 
     //
+    @mixin HQRendering($importance: null) {
+        -webkit-font-smoothing: subpixel-antialiased #{$importance};
+        -moz-osx-font-smoothing: auto #{$importance};
+        text-rendering: optimizeLegibility #{$importance};
+        text-rendering: geometricPrecision #{$importance};
+        font-smooth: auto #{$importance};
+    }
+
+    @mixin LQRendering($importance: null) {
+        -webkit-font-smoothing: none #{$importance};
+        -moz-osx-font-smoothing: grayscale#{$importance};
+        text-rendering: optimizeSpeed #{$importance};
+        font-smooth: 0px #{$importance};
+        font-smooth: never #{$importance};
+    }
+
+    //
     html, body {
         padding: 0px;
         margin: 0px;
         inset: 0px;
         border: none 0px transparent;
+
+        //
+        @include HQRendering();
     }
 
     //

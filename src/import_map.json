@@ -1,11 +1,12 @@
 {
     "imports": {
-        "@src": "./",
-        "@apps": "./apps",
-        "@deps": "./deps",
-        "@complex": "./deps/complex",
-        "@bundle": "./deps/bundle",
-        "@modifiers": "./deps/modifiers",
-        "@libraries": "./deps/libraries"
-    }
+		"@src": "./",
+		"@assets": "./assets",
+		"@apps": "./apps",
+		"@deps": "./deps",
+		"@complex": "./deps/complex",
+		"@bundle": "./deps/bundle",
+		"@modifiers": "./deps/modifiers",
+		"@libraries": "./deps/libraries"
+	}
 }
