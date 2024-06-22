@@ -1,5 +1,5 @@
 //
-const lucide = (await import("@libraries/js/cdn/lucide-cdn.mjs")).default;
+const lucide = (await import("@libs/cdn/lucide-cdn.mjs")).default;
 const { createElement } = lucide;
 
 /**

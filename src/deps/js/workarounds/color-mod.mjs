@@ -65,7 +65,9 @@ export const sourceColorFromImage = async (bitmap) => {
     if (!imageBytes) { return [0, 0]; };
 
     //
-    const { hexFromArgb, QuantizerCelebi, argbFromRgb, Hct } = await (import("@libraries/js/cdn/material-color-cdn.mjs").then((m)=>m.default));
+    const { hexFromArgb, QuantizerCelebi, argbFromRgb, Hct } = await import(
+        "@libs/cdn/material-color-cdn.mjs"
+    ).then((m) => m.default);
 
     // Convert Image data to Pixel Array
     const pixels = [];

@@ -28,3 +28,15 @@ $chromaMod: var(--theme-chroma-mod);
     --effect: $effect;
     --current-surface-color: #{cu.theme-mod-down(var(--theme-surface-color), calc(1% * var(--effect, 1)))};
 }
+
+//
+@mixin var-dependent {
+    --theme-up-mod: color-mix(in oklch, var(--theme-dark-up-mod) calc(100% * var(--theme-is-dark)), var(--theme-light-up-mod));
+    --theme-down-mod: color-mix(in oklch, var(--theme-dark-down-mod) calc(100% * var(--theme-is-dark)), var(--theme-light-down-mod));    
+}
+
+//
+@mixin scheme-dependent {
+    --theme-up-mod: light-dark(var(--theme-dark-up-mod), var(--theme-light-up-mod));
+    --theme-down-mod: light-dark(var(--theme-dark-down-mod), var(--theme-light-down-mod));
+}

@@ -1,5 +1,5 @@
-@use "@libraries/scss/color/colorutils" as cu;
-@use "@libraries/scss/color/colors" as cl;
+@use "@scss/color/colorvars" as cl;
+@use "@scss/color/colorutils" as cu;
 
 //
 @layer lx-decors {
@@ -49,7 +49,8 @@
         
         //
         & > :where(.icon-wrap) {
-            background-color: var(--current-surface-color);
+            //background-color: var(--current-surface-color);
+            background-color: transparent;
             color: var(--current-glyph-color);
         }
         
@@ -80,6 +81,7 @@
             block-size: max-content;
             inline-size: max-content;
             
+            padding: 0.5rem;
             aspect-ratio: 1 / 1;
         }
     }

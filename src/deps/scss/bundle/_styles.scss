@@ -1,11 +1,10 @@
-@use "@workers/scss/core/normalize";
-@use "@workers/scss/core/classlets";
-@use "@workers/scss/color/colors";
-@use "@workers/scss/color/themed";
-@use "@workers/scss/cmods/cmods";
+@use "@scss/core/normalize";
+@use "@scss/core/classlets";
+@use "@scss/core/colors";
+@use "@scss/core/themed";
 
 // Svelte Components
-@use "@modules/scss/icongrid/gridutils";
-@use "@modules/scss/settings/settings";
-@use "@modules/scss/decors/block";
-@use "@modules/scss/inputs/number";
+@use "@scss/elements/icongrid/gridutils";
+@use "@scss/elements/settings/settings";
+@use "@scss/elements/decors/block";
+@use "@scss/elements/inputs/number";

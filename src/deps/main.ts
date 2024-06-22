@@ -1,10 +1,10 @@
 // use workers
 const loading = Promise.allSettled([
-    import("@workers/js/stylework.mjs"),
-    import("@workers/js/actionRegistry.mjs"),
+    import("@workers/stylework.mjs"),
+    import("@workers/actionRegistry.mjs"),
     import("@webcomp/scrollbox/scrollbox.mjs"),
     import("@webcomp/wcanvas/wcanvas.mjs").then(
-        (_) => import("@workers/js/colormod.mjs")
+        (_) => import("@workers/colormod.mjs")
     ),
 ]);
 

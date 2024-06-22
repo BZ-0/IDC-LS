@@ -1,4 +1,4 @@
-import { sourceColorFromImage } from "@libraries/js/workarounds/color-mod.mjs";
+import { sourceColorFromImage } from "@js/workarounds/color-mod.mjs";
 import { hexFromArgb } from "@material/material-color-utilities";
 import { formatCss, formatHex, interpolate, oklch, parse } from "culori";
 

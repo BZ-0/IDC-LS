@@ -1,5 +1,5 @@
-@use "@libraries/scss/color/colorutils" as cu;
-@use "@libraries/scss/color/colors" as cl;
+@use "@scss/color/colorvars" as cl;
+@use "@scss/color/colorutils" as cu;
 
 //
 @layer lx-settings {

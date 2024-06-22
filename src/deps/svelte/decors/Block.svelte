@@ -1,4 +1,4 @@
-<div class="block-decor themed" {...$$props}>
+<div class="block-decor solid" {...$$props}>
     <div class="icon-wrap hl-1">
         <div class="icon-box"><slot name="icon"></slot></div>
     </div>

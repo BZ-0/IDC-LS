@@ -1,4 +1,4 @@
-@use "@libraries/scss/fonts/xo_caliburn" as dFont;
+@use "@scss/fonts/xo_caliburn" as dFont;
 
 //
 @layer lx-normalize {
@@ -115,6 +115,9 @@
         -webkit-tap-highlight-color: transparent;
         -moz-tap-highlight-color: transparent;
         box-shadow: none;
+        
+        //
+        touch-action: pan-y pan-x;
     }
     
     //
