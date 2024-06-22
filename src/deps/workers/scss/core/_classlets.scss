@@ -168,6 +168,9 @@
         //
         container-type: size;
         contain: content;
+        
+        //
+        isolation: auto;
 
         //
         display: grid;
@@ -185,6 +188,17 @@
             @extend .contained;
             @extend .grid-inside;
         }
+    }
+    
+    //
+    .inset-auto {
+        inset: auto;
+    }
+    
+    //
+    .no-contain {
+        container-type: normal;
+        contain: none;
     }
 
     //

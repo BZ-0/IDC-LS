@@ -1,6 +1,5 @@
 <script>
 	//
-	import { fade } from 'svelte/transition';
 	import IconGrid from "./IconGrid.svelte";
 	import IconItem from "./IconItem.svelte";
 	import IconLabel from "./IconLabel.svelte";
@@ -122,57 +121,53 @@
 </script>
 
 
-<div bind:this={mainElement} class="layer-2 stretch grid-based-box fixed-avail relative">
+<div bind:this={mainElement} class="layer-2 stretch grid-based-box fixed-avail fixed" style="isolation: isolate;">
+	<canvas is="w-canvas" class="stretch fixed inset-0" data-src="./assets/wallpaper/0.jpg"/>
 	
 	{#each gridPagesArray as page}
 		{#if currentPage==page.id}
-			<div class="layered grid-based-box" type={page.type} visible={currentPage==page.id}
-				transition:fade={{ delay: 0, duration: 200 }}>
+			
+			<IconGrid id={page.id} type="labels" columns={columnsAndRows[0]} rows={columnsAndRows[1]}>
+				{@const iconList = iconLists.get(page.id)||[]}
+				{#each iconList as iconId}
+					{@const iconItem = iconItems.get(iconId)}
+					{#if iconItem && iconItem.id}
+						<IconLabel iconItem={iconItem}></IconLabel>
+					{/if}
+				{/each}
+			</IconGrid>
 
-				<IconGrid id={page.id} type="labels" columns={columnsAndRows[0]} rows={columnsAndRows[1]}>
-					{@const iconList = iconLists.get(page.id)||[]}
-					{#each iconList as iconId}
-						{@const iconItem = iconItems.get(iconId)}
-						{#if iconItem && iconItem.id}
-							<IconLabel iconItem={iconItem}></IconLabel>
-						{/if}
-					{/each}
-				</IconGrid>
-
-				<IconGrid id={page.id} type="icons" columns={columnsAndRows[0]} rows={columnsAndRows[1]}>
-					{@const iconList = iconLists.get(page.id)||[]}
-					{#each iconList as iconId}
-						{@const iconItem = iconItems.get(iconId)}
-						{#if iconItem && iconItem.id}
-							<IconItem 
-								onmount={reCalcPosition}
-								iconItem={iconItem}
-								dragend={placeElement}
-								longpress={grabItem}
-							></IconItem>
-						{/if}
-					{/each}
-				</IconGrid>
-				
-			</div>
+			<IconGrid id={page.id} type="icons" columns={columnsAndRows[0]} rows={columnsAndRows[1]}>
+				{@const iconList = iconLists.get(page.id)||[]}
+				{#each iconList as iconId}
+					{@const iconItem = iconItems.get(iconId)}
+					{#if iconItem && iconItem.id}
+						<IconItem 
+							onmount={reCalcPosition}
+							iconItem={iconItem}
+							dragend={placeElement}
+							longpress={grabItem}
+						></IconItem>
+					{/if}
+				{/each}
+			</IconGrid>
+			
 		{/if}
 	{/each}
 
-	<div inert=true class="grid-based-box pointer-events-none">
-		<IconGrid type="bucket" columns={columnsAndRows[0]} rows={columnsAndRows[1]}>
-			{#each dragBucket as iconId}
-			{@const iconItem = iconItems.get(iconId)}
-				{#if iconItem && iconItem.id}
-					<IconItem 
-						inert=true
-						iconItem={iconItem}
-						onmount={grabForDrag}
-						dragend={placeElement}
-					></IconItem>
-				{/if}
-			{/each}
-		</IconGrid>
-	</div>
+	<IconGrid type="bucket" columns={columnsAndRows[0]} rows={columnsAndRows[1]}>
+		{#each dragBucket as iconId}
+		{@const iconItem = iconItems.get(iconId)}
+			{#if iconItem && iconItem.id}
+				<IconItem 
+					inert=true
+					iconItem={iconItem}
+					onmount={grabForDrag}
+					dragend={placeElement}
+				></IconItem>
+			{/if}
+		{/each}
+	</IconGrid>
 
 </div>
 

@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import { fade } from "svelte/transition";
 
     //
     export let id = "";
@@ -33,10 +34,12 @@
 
 <!-- -->
 <div 
+    transition:fade={{ delay: 0, duration: 200 }}
     bind:this={element} 
     data-type={type}
     data-id={id}
-    class="icon-grid stretch fixed inset-0 orientation-adaptive padding-0 overflow-visible grid-inside pointer-events-none"
-    style={`--columns:${columns};--rows:${rows};--grid-w:${gridW};--grid-h:${gridH};`}>
+    class="icon-grid stretch relative inset-0 orientation-adaptive padding-0 overflow-visible grid-inside pointer-events-none no-contain inset-auto"
+    style={`--columns:${columns};--rows:${rows};--grid-w:${gridW};--grid-h:${gridH};`}
+    {...$$props}>
     <slot></slot>
 </div>

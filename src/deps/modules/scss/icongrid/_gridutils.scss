@@ -26,6 +26,9 @@
         //
         pointer-events: none;
         overflow: visible;
+        
+        //
+        background-color: transparent;
     }
 
     //
@@ -42,8 +45,8 @@
         grid-row: var(--fc-cell-y);
 
         //
-        container-type: size;
-        contain: size;
+        container-type: normal;
+        contain: none;
 
         //
         will-change: --translate-x, --translate-y;
@@ -58,11 +61,30 @@
         justify-items: center;
         align-items: center;
         align-content: center;
+        
+        //
+        background-color: transparent;
+    }
+
+    //
+    .grid-item-label {
+        background-color: transparent;
+    
+        & > span {
+            background-color: transparent;
+            
+            display: inline-grid;
+            transform: translate(0, 3rem) rotate(calc(0deg - var(--pfrot, 0deg)));
+            writing-mode: horizontal-tb;
+            
+            color: white;
+        }
     }
 
     //
     .icon-item {
         overflow: visible;
+        background-color: transparent;
 
         //
         & .icon-design {
