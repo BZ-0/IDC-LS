@@ -1,6 +1,6 @@
 <div class="block-decor themed" {...$$props}>
-    <div class="icon-box hl-1">
-        <slot name="icon"></slot>
+    <div class="icon-wrap hl-1">
+        <div class="icon-box"><slot name="icon"></slot></div>
     </div>
     
     <div class="label-box">

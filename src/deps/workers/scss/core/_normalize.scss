@@ -44,6 +44,9 @@
         block-size: max-content;
         overflow: hidden;
         position: fixed;
+        
+        //
+        background-color: white;
     }
 
     //
@@ -58,6 +61,9 @@
         //
         inline-size: 100dvi;
         block-size: 100dvb;
+        
+        //
+        background-color: transparent;
         
         //
         @media all and ((display-mode: fullscreen) or (display-mode: standalone) or (display-mode: window-controls-overlay)){
