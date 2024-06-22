@@ -139,135 +139,139 @@ CSS?.registerProperty?.({
 
 //
 const getOrientedPoint = () => {
-	const orientation = getCorrectOrientation();
-	switch (orientation) {
-		case "portrait-primary":
-			return {
-				"--translate-x":
-					"calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * 1px)",
-				"--translate-y":
-					"calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * 1px)",
-			};
+    const orientation = getCorrectOrientation();
+    switch (orientation) {
+        case "portrait-primary":
+            return {
+                "--translate-x":
+                    "calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * 1px)",
+                "--translate-y":
+                    "calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * 1px)",
+            };
 
-		case "portrait-secondary":
-			return {
-				"--translate-x":
-					"calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * -1 * var(--pxd))",
-				"--translate-y":
-					"calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * -1 * var(--pxd))",
-			};
+        case "portrait-secondary":
+            return {
+                "--translate-x":
+                    "calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * -1px)",
+                "--translate-y":
+                    "calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * -1px)",
+            };
 
-		case "landscape-primary":
-			return {
-				"--translate-x":
-					"calc(calc(calc(var(--grid-w) / var(--f-row)) * var(--vect-y)) * 1 * var(--pxd))",
-				"--translate-y":
-					"calc(calc(calc(var(--grid-h) / var(--f-col)) * var(--vect-x)) * -1 * var(--pxd))",
-			};
+        case "landscape-primary":
+            return {
+                "--translate-x":
+                    "calc(calc(calc(var(--grid-w) / var(--f-row)) * var(--vect-y)) * 1px)",
+                "--translate-y":
+                    "calc(calc(calc(var(--grid-h) / var(--f-col)) * var(--vect-x)) * -1px)",
+            };
 
-		case "landscape-secondary":
-			return {
-				"--translate-x":
-					"calc(calc(calc(var(--grid-w) / var(--f-row)) * var(--vect-y)) * -1 * var(--pxd))",
-				"--translate-y":
-					"calc(calc(calc(var(--grid-h) / var(--f-col)) * var(--vect-x)) * 1 * var(--pxd))",
-			};
+        case "landscape-secondary":
+            return {
+                "--translate-x":
+                    "calc(calc(calc(var(--grid-w) / var(--f-row)) * var(--vect-y)) * -1px)",
+                "--translate-y":
+                    "calc(calc(calc(var(--grid-h) / var(--f-col)) * var(--vect-x)) * 1px)",
+            };
 
-		default:
-			return {
-				"--translate-x":
-					"calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * 1 * var(--pxd))",
-				"--translate-y":
-					"calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * 1 * var(--pxd))",
-			};
-	}
+        default:
+            return {
+                "--translate-x":
+                    "calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * 1px)",
+                "--translate-y":
+                    "calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * 1px)",
+            };
+    }
 };
 
 //
 export const animationSequence = () => {
-	return [
-		{
-			"--translate-x": "calc(var(--drag-x) * var(--pxd))",
-			"--translate-y": "calc(var(--drag-y) * var(--pxd))",
+    return [
+        {
+            "--translate-x": "calc(var(--drag-x) * 1px)",
+            "--translate-y": "calc(var(--drag-y) * 1px)",
 
-			easing: "step-start",
-			offset: 0.0,
-		},
-		{
-			"--translate-x": "calc(var(--drag-x) * var(--pxd))",
-			"--translate-y": "calc(var(--drag-y) * var(--pxd))",
+            easing: "step-start",
+            offset: 0.0,
+        },
+        {
+            "--translate-x": "calc(var(--drag-x) * 1px)",
+            "--translate-y": "calc(var(--drag-y) * 1px)",
 
-			easing: "linear",
-			offset: 0.01,
-		},
-		{
-			...getOrientedPoint(),
-			easing: "step-end",
-			offset: 0.99,
-		},
-		{
-			...getOrientedPoint(),
-			easing: "step-end",
-			offset: 1,
-		},
-	];
+            easing: "linear",
+            offset: 0.01,
+        },
+        {
+            ...getOrientedPoint(),
+            easing: "step-end",
+            offset: 0.99,
+        },
+        {
+            ...getOrientedPoint(),
+            easing: "step-end",
+            offset: 1,
+        },
+    ];
 };
 
 //
 export const putToCell = (
-	{ gridPage, iconItem, iconList, columnsAndRows, iconItems, iconLists },
-	$last
+    { gridPage, iconItem, iconList, columnsAndRows, iconItems, iconLists },
+    $last
 ) => {
-	// should be relative from grid-box (not absolute or fixed position)
-	const last = $last;
+    // should be relative from grid-box (not absolute or fixed position)
+    const scaling =
+        parseFloat(document.body.style.getPropertyValue("--scaling")) || 1;
 
-	//
-	const orientation = getCorrectOrientation();
-	const oxBox = [gridPage.offsetWidth, gridPage.offsetHeight];
+    //
+    const last = { x: $last.x, y: $last.y };
 
-	//
-	if (orientation.startsWith("landscape")) oxBox.reverse();
+    //
+    const orientation = getCorrectOrientation();
+    const oxBox = [gridPage.offsetWidth, gridPage.offsetHeight];
 
-	//
-	const inBox = [oxBox[0] / columnsAndRows[0], oxBox[1] / columnsAndRows[1]];
+    //
+    if (orientation.startsWith("landscape")) oxBox.reverse();
 
-	//
-	const preCell = { x: iconItem.cellX, y: iconItem.cellY };
-	(iconItem.pCellX = iconItem.cellX), (iconItem.pCellY = iconItem.cellY);
+    //
+    const inBox = [oxBox[0] / columnsAndRows[0], oxBox[1] / columnsAndRows[1]];
 
-	//
-	switch (orientation) {
-		case "portrait-primary":
-			preCell.x = Math.floor(last.x / inBox[0]) || 0;
-			preCell.y = Math.floor(last.y / inBox[1]) || 0;
-			break;
-		case "landscape-primary":
-			preCell.x = Math.floor((oxBox[0] - last.y) / inBox[0]) || 0;
-			preCell.y = Math.floor(last.x / inBox[1]) || 0;
-			break;
-		case "portrait-secondary":
-			preCell.x = Math.floor((oxBox[0] - last.x) / inBox[0]) || 0;
-			preCell.y = Math.floor((oxBox[1] - last.y) / inBox[1]) || 0;
-			break;
-		case "landscape-secondary":
-			preCell.x = Math.floor(last.y / inBox[0]) || 0;
-			preCell.y = Math.floor((oxBox[1] - last.x) / inBox[1]) || 0;
-			break;
-	}
+    //
+    const preCell = { x: iconItem.cellX, y: iconItem.cellY };
+    (iconItem.pCellX = iconItem.cellX), (iconItem.pCellY = iconItem.cellY);
 
-	//
-	const fValue = fixCell(
-		{
-			gridPage,
-			iconItem,
-			iconList,
-			columnsAndRows,
-			iconItems,
-			iconLists,
-		},
-		preCell
-	);
+    //
+    switch (orientation) {
+        case "portrait-primary":
+            preCell.x = Math.floor(last.x / inBox[0]) || 0;
+            preCell.y = Math.floor(last.y / inBox[1]) || 0;
+            break;
+        case "landscape-primary":
+            preCell.x = Math.floor((oxBox[0] - last.y) / inBox[0]) || 0;
+            preCell.y = Math.floor(last.x / inBox[1]) || 0;
+            break;
+        case "portrait-secondary":
+            preCell.x = Math.floor((oxBox[0] - last.x) / inBox[0]) || 0;
+            preCell.y = Math.floor((oxBox[1] - last.y) / inBox[1]) || 0;
+            break;
+        case "landscape-secondary":
+            preCell.x = Math.floor(last.y / inBox[0]) || 0;
+            preCell.y = Math.floor((oxBox[1] - last.x) / inBox[1]) || 0;
+            break;
+    }
 
-	//
-	return fValue;
+    //
+    const fValue = fixCell(
+        {
+            gridPage,
+            iconItem,
+            iconList,
+            columnsAndRows,
+            iconItems,
+            iconLists,
+        },
+        preCell
+    );
+
+    //
+    return fValue;
 };

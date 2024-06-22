@@ -118,8 +118,8 @@
                 inset-inline-end: auto;
 
                 //
-                inset-block-end: calc(0px - var(--scroll-top)*1px);
-                inset-inline-start: calc(0px + var(--scroll-left)*1px);
+                inset-block-end: calc(0px - var(--scroll-top) * 1px);
+                inset-inline-start: calc(0px + var(--scroll-left) * 1px);
 
                 //
                 animation-timeline: --scroll-x;
@@ -145,8 +145,8 @@
                 inset-block-end: auto;
 
                 //
-                inset-block-start: calc(0px + var(--scroll-top)*1px);
-                inset-inline-end: calc(0px - var(--scroll-left)*1px);
+                inset-block-start: calc(0px + var(--scroll-top) * 1px);
+                inset-inline-end: calc(0px - var(--scroll-left) * 1px);
 
                 //
                 animation-timeline: --scroll-y;

@@ -49,8 +49,8 @@
 
         //
         will-change: --translate-x, --translate-y;
-        --translate-x: calc(var(--drag-x) * var(--pxd));
-        --translate-y: calc(var(--drag-y) * var(--pxd));
+        --translate-x: calc(var(--drag-x) * 1px);
+        --translate-y: calc(var(--drag-y) * 1px);
 
         //
         display: flex;

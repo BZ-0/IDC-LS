@@ -1,106 +1,142 @@
-import { get, writable } from 'svelte/store';
+import { writable } from "svelte/store"
 
 //
 export const settings = {
-    columns : writable(parseInt(localStorage.getItem("@settings:@columns")) || 4),
-    rows : writable(parseInt(localStorage.getItem("@settings:@rows")) || 8)
-}
+    columns: writable(
+        parseInt(localStorage.getItem("@settings:@columns")) || 4
+    ),
+    rows: writable(parseInt(localStorage.getItem("@settings:@rows")) || 8),
+    scaling: writable(
+        parseFloat(localStorage.getItem("@settings:@scaling")) || 1.5
+    ),
+};
 
 //
-settings.columns.subscribe((value)=>{
+settings.columns.subscribe((value) => {
     localStorage.setItem("@settings:@columns", value);
-})
+});
 
 //
-settings.rows.subscribe((value)=>{
+settings.rows.subscribe((value) => {
     localStorage.setItem("@settings:@rows", value);
-})
+});
 
 //
-const exKey = (array)=>{
+settings.scaling.subscribe((value) => {
+    localStorage.setItem("@settings:@scaling", value);
+    document.body.style.setProperty("--scaling", value || 1);
+});
+
+//
+const exKey = (array) => {
     return array.filter((value, index, self) => {
-        return (index === self.findIndex((t) => (t.id === value.id)))
-    })
-}
+        return index === self.findIndex((t) => t.id === value.id);
+    });
+};
 
 //
 export const gridState = {
-    gridPages: writable(exKey([
-        ...(JSON.parse(localStorage.getItem("@pages") || "[]") || []), 
-        {
-            id: "home-page",
-            type: "icon-list"
-        }])),
-    iconItems: writable(exKey([
-        ...(JSON.parse(localStorage.getItem("@icons") || "[]") || []), {
-            id: "github",
-            icon: "github",
-            cellX: 0,
-            cellY: 0,
-            action: "open-link",
-            href: "#",
-            label: "GitHub"
-            
-            // surrogate field - used when edit
-            //parent: "home-page"
-        }])),
-    iconLists: writable(exKey([
-        ...(JSON.parse(localStorage.getItem("@lists") || "[]") || []), 
-        ["home-page", ["github"]]
-    ])),
-}
+    gridPages: writable(
+        exKey([
+            ...(JSON.parse(localStorage.getItem("@pages") || "[]") || []),
+            {
+                id: "home-page",
+                type: "icon-list",
+            },
+        ])
+    ),
+    iconItems: writable(
+        exKey([
+            ...(JSON.parse(localStorage.getItem("@icons") || "[]") || []),
+            {
+                id: "github",
+                icon: "github",
+                cellX: 0,
+                cellY: 0,
+                action: "open-link",
+                href: "#",
+                label: "GitHub",
+
+                // surrogate field - used when edit
+                //parent: "home-page"
+            },
+        ])
+    ),
+    iconLists: writable(
+        exKey([
+            ...(JSON.parse(localStorage.getItem("@lists") || "[]") || []),
+            ["home-page", ["github"]],
+        ])
+    ),
+};
 
 //
 export const makeMap = (array) => {
-    return new Map(Object.entries(Object.groupBy(Array.from(array), ({id})=>(id))).map(([id,[v]])=>([id,v])));
-}
+    return new Map(
+        Object.entries(Object.groupBy(Array.from(array), ({ id }) => id)).map(
+            ([id, [v]]) => [id, v]
+        )
+    );
+};
 
 //
 export const currentState = {
     gridPages: new Map([]),
     iconItems: new Map([]),
-    iconLists: new Map([])
-}
+    iconLists: new Map([]),
+};
 
 //
-gridState.gridPages.subscribe((s)=>{currentState.gridPages = makeMap(s)});
-gridState.iconItems.subscribe((s)=>{currentState.iconItems = makeMap(s)});
-gridState.iconLists.subscribe((s)=>{currentState.iconLists = new Map(s)});
+gridState.gridPages.subscribe((s) => {
+    currentState.gridPages = makeMap(s);
+});
+gridState.iconItems.subscribe((s) => {
+    currentState.iconItems = makeMap(s);
+});
+gridState.iconLists.subscribe((s) => {
+    currentState.iconLists = new Map(s);
+});
 
 //
-gridState.iconItems.subscribe((v)=>{
+gridState.iconItems.subscribe((v) => {
     localStorage.setItem("@icons", JSON.stringify(v));
-})
+});
 
 //
-gridState.iconLists.subscribe((v)=>{
+gridState.iconLists.subscribe((v) => {
     localStorage.setItem("@lists", JSON.stringify(v));
-})
+});
 
 //
-gridState.gridPages.subscribe((v)=>{
+gridState.gridPages.subscribe((v) => {
     localStorage.setItem("@pages", JSON.stringify(v));
-})
+});
 
 //
-export const updateIcons = ()=>{ gridState.iconItems.set(Array.from(currentState.iconItems.values())); }
-export const updateGrids = ()=>{ gridState.gridPages.set(Array.from(currentState.gridPages.values())); }
-export const updateLists = ()=>{ gridState.iconLists.set(Array.from(currentState.iconLists.entries())); }
+export const updateIcons = () => {
+    gridState.iconItems.set(Array.from(currentState.iconItems.values()));
+};
+export const updateGrids = () => {
+    gridState.gridPages.set(Array.from(currentState.gridPages.values()));
+};
+export const updateLists = () => {
+    gridState.iconLists.set(Array.from(currentState.iconLists.entries()));
+};
 
 //
 export const getIconState = (id = "github") => {
     return currentState.iconItems.get(id);
-}
+};
 
 //
-export const setIconState = (iconItem, id = null)=>{
+export const setIconState = (iconItem, id = null) => {
     currentState.iconItems.set(id || iconItem.id, iconItem);
     updateIcons();
-}
+};
 
 //
-export const focusIconForEdit = (id = "github")=>{
-    const focusIconState  = getIconState(id);
+export const focusIconForEdit = (id = "github") => {
+    const focusIconState = getIconState(id);
     const focusIconFields = {
         id: writable(iconState.id),
         icon: writable(iconState.icon),
@@ -111,8 +147,8 @@ export const focusIconForEdit = (id = "github")=>{
         cellY: writable(iconState.cellY),
         pCellX: writable(iconState.pCellX),
         pCellY: writable(iconState.pCellY),
-        pointerId: writable(iconState.pointerId)
-    }
+        pointerId: writable(iconState.pointerId),
+    };
 
     //
     {
@@ -126,16 +162,37 @@ export const focusIconForEdit = (id = "github")=>{
     }
 
     //
-    const updatableIconLists = readable(focusIconState, (set)=>{
-        focusIconFields.id.subscribe((v)=>{focusIconState.id=v; set(focusIconState)});
-        focusIconFields.icon.subscribe((v)=>{focusIconState.icon=v; set(focusIconState)});
-        focusIconFields.label.subscribe((v)=>{focusIconState.label=v; set(focusIconState)});
-        focusIconFields.action.subscribe((v)=>{focusIconState.action=v; set(focusIconState)});
-        focusIconFields.href.subscribe((v)=>{focusIconState.href=v; set(focusIconState)});
-        focusIconFields.cellX.subscribe((v)=>{focusIconState.cellX=v; set(focusIconState)});
-        focusIconFields.cellY.subscribe((v)=>{focusIconState.cellY=v; set(focusIconState)});
+    const updatableIconLists = readable(focusIconState, (set) => {
+        focusIconFields.id.subscribe((v) => {
+            focusIconState.id = v;
+            set(focusIconState);
+        });
+        focusIconFields.icon.subscribe((v) => {
+            focusIconState.icon = v;
+            set(focusIconState);
+        });
+        focusIconFields.label.subscribe((v) => {
+            focusIconState.label = v;
+            set(focusIconState);
+        });
+        focusIconFields.action.subscribe((v) => {
+            focusIconState.action = v;
+            set(focusIconState);
+        });
+        focusIconFields.href.subscribe((v) => {
+            focusIconState.href = v;
+            set(focusIconState);
+        });
+        focusIconFields.cellX.subscribe((v) => {
+            focusIconState.cellX = v;
+            set(focusIconState);
+        });
+        focusIconFields.cellY.subscribe((v) => {
+            focusIconState.cellY = v;
+            set(focusIconState);
+        });
     });
 
     //
     return [focusIconFields, updatableIconLists];
-}
+};

@@ -45,92 +45,124 @@ export const pointerMap = new Map([
 ]);
 
 //
-document.addEventListener("pointerdown", (ev)=>{
-    const np = {
-        event: ev,
-        current: [ev.pageX, ev.pageY],
-        down: [ev.pageX, ev.pageY],
-        movement: [0, 0],
-    }
-
-    //
-    const exists = pointerMap.has(ev.pointerId) ? pointerMap.get(ev.pointerId) : np;
-    np.movement[0] = np.current[0] - exists.current[0];
-    np.movement[1] = np.current[1] - exists.current[1];
-
-    //
-    if (!exists.holding) { exists.holding = []; };
-
-    //
-    exists.holding.map((hm)=>{
-        hm.shifting = [...(hm.modified || hm.shifting)];
-    });
-
-    //
-    if (!exists.edges) {
-        exists.edges = new PointerEdge(exists);
-    }
-
-    //
-    Object.assign(exists, np);
-    pointerMap.set(ev.pointerId, exists);
-}, {capture: true, passive: true});
-
-// 
-document.addEventListener("pointermove", (ev)=>{
-    const np = {
-        event: ev,
-        current: [ev.pageX, ev.pageY],
-        down: [ev.pageX, ev.pageY],
-        movement: [0, 0],
-    }
-
-    //
-    const exists = pointerMap.has(ev.pointerId) ? pointerMap.get(ev.pointerId) : np;
-    np.movement[0] = np.current[0] - exists.current[0];
-    np.movement[1] = np.current[1] - exists.current[1];
-
-    //
-    if (!exists.holding) { exists.holding = []; };
-
-    //
-    if (!exists.edges) {
-        exists.edges = new PointerEdge(exists);
-    }
-
-    //
-    Object.assign(exists, np);
-    pointerMap.set(ev.pointerId, exists);
-
-    //
-    exists.holding.map((hm)=>{
-        hm.shifting[0] += np.movement[0];
-        hm.shifting[1] += np.movement[1];
-        hm.modified = [...hm.shifting];
+document.addEventListener(
+    "pointerdown",
+    (ev) => {
+        const scaling =
+            parseFloat(document.body.style.getPropertyValue("--scaling")) || 1;
 
         //
-        const nev = new CustomEvent("m-dragging", { detail: {
-            pointer: exists,
-            holding: hm
-        }});
-
-        const em = hm.element.deref();
-        em?.dispatchEvent?.(nev);
+        const np = {
+            event: ev,
+            current: [ev.pageX / scaling, ev.pageY / scaling],
+            down: [ev.pageX / scaling, ev.pageY / scaling],
+            movement: [0, 0],
+        };
 
         //
-        em?.style?.setProperty?.(`--${hm.propertyName||"drag"}-x`, hm.modified[0]);
-        em?.style?.setProperty?.(`--${hm.propertyName||"drag"}-y`, hm.modified[1]);
-    });
+        const exists = pointerMap.has(ev.pointerId)
+            ? pointerMap.get(ev.pointerId)
+            : np;
+        np.movement[0] = np.current[0] - exists.current[0];
+        np.movement[1] = np.current[1] - exists.current[1];
 
-    //
-    ["left", "top", "right", "bottom"].map((side)=>{
-        if (exists.edges.results[side] != exists.edges[side]) {
-            const nev = new CustomEvent((exists.edges[side] ? "m-contact-" : "m-leave-") + side, { detail: exists });
-            document?.dispatchEvent?.(nev);
+        //
+        if (!exists.holding) {
+            exists.holding = [];
         }
-    });
 
-}, {capture: true, passive: true});
+        //
+        exists.holding.map((hm) => {
+            hm.shifting = [...(hm.modified || hm.shifting)];
+        });
+
+        //
+        if (!exists.edges) {
+            exists.edges = new PointerEdge(exists);
+        }
+
+        //
+        Object.assign(exists, np);
+        pointerMap.set(ev.pointerId, exists);
+    },
+    { capture: true, passive: true }
+);
+
+//
+document.addEventListener(
+    "pointermove",
+    (ev) => {
+        const scaling =
+            parseFloat(document.body.style.getPropertyValue("--scaling")) || 1;
+
+        const np = {
+            event: ev,
+            current: [ev.pageX / scaling, ev.pageY / scaling],
+            movement: [0, 0],
+        };
+
+        //
+        const exists = pointerMap.has(ev.pointerId)
+            ? pointerMap.get(ev.pointerId)
+            : np;
+        np.movement[0] = np.current[0] - exists.current[0];
+        np.movement[1] = np.current[1] - exists.current[1];
+
+        //
+        if (!exists.holding) {
+            exists.holding = [];
+        }
+
+        //
+        if (!exists.edges) {
+            exists.edges = new PointerEdge(exists);
+        }
+
+        //
+        Object.assign(exists, np);
+        pointerMap.set(ev.pointerId, exists);
+
+        //
+        exists.holding.map((hm) => {
+            hm.shifting[0] += np.movement[0];
+            hm.shifting[1] += np.movement[1];
+            hm.modified = [...hm.shifting];
+
+            //
+            const nev = new CustomEvent("m-dragging", {
+                detail: {
+                    pointer: exists,
+                    holding: hm,
+                },
+            });
+
+            const em = hm.element.deref();
+            em?.dispatchEvent?.(nev);
+
+            //
+            em?.style?.setProperty?.(
+                `--${hm.propertyName || "drag"}-x`,
+                hm.modified[0]
+            );
+            em?.style?.setProperty?.(
+                `--${hm.propertyName || "drag"}-y`,
+                hm.modified[1]
+            );
+        });
+
+        //
+        ["left", "top", "right", "bottom"].map((side) => {
+            if (exists.edges.results[side] != exists.edges[side]) {
+                const nev = new CustomEvent(
+                    (exists.edges[side] ? "m-contact-" : "m-leave-") + side,
+                    { detail: exists }
+                );
+                document?.dispatchEvent?.(nev);
+            }
+        });
+    },
+    { capture: true, passive: true }
+);
 
 //
 export const releasePointer = (ev)=>{

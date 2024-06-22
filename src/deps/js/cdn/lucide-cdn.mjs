@@ -1,4 +1,8 @@
-import cdnImport from "@libraries/js/misc/cdnImport.mjs";
+import cdnImport from "@libs/misc/cdnImport.mjs";
 
 //
-export default await cdnImport(['https://cdn.jsdelivr.net/npm/lucide/+esm'], ()=>import('lucide'), true);
+export default await cdnImport(
+    ["https://cdn.jsdelivr.net/npm/lucide/+esm"],
+    () => import("lucide"),
+    true
+);

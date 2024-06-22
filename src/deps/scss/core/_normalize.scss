@@ -51,24 +51,27 @@
 
     //
     body {
-        min-inline-size: 100dvi;
-        min-block-size: 100dvb;
+        min-inline-size: calc(100dvi / var(--scaling, 1));
+        min-block-size: calc(100dvb / var(--scaling, 1));
 
         //
         overflow: hidden;
         position: relative;
         
         //
-        inline-size: 100dvi;
-        block-size: 100dvb;
+        inline-size: calc(100dvi / var(--scaling, 1));
+        block-size: calc(100dvb / var(--scaling, 1));
         
         //
         background-color: transparent;
         
         //
+        --ppx: calc(1px / var(--scaling, 1));
+        
+        //
         @media all and ((display-mode: fullscreen) or (display-mode: standalone) or (display-mode: window-controls-overlay)){
-            inline-size: var(--avail-width, 100dvi);
-            block-size: var(--avail-height, 100dvb);
+            inline-size: calc(var(--avail-width, 100dvi) / var(--scaling, 1));
+            block-size: calc(var(--avail-height, 100dvb) / var(--scaling, 1));
         }
 
         //

@@ -8,7 +8,7 @@
 	import { gridState, makeMap, settings } from "@states/gridState.mjs";
 	import { onMount } from "svelte";
 //
-	import { grabForDrag } from "@libraries/js/orion/pointer-api.mjs";
+	import { grabForDrag } from "@libs/orion/pointer-api.mjs";
 
 	//
 	export let dragBucket = [];

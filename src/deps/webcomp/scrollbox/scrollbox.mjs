@@ -1,32 +1,30 @@
-import styles from "./scrollbox.scss?inline";
-import html from "./scrollbox.html?raw";
+import html from "./scrollbox.html?raw"
+import styles from "./scrollbox.scss?inline"
 
 //
 class ScrollBar {
-    constructor({
-        holder,
-        scrollbar
-    }, axis = 0) {
+    constructor({ holder, scrollbar }, axis = 0) {
         this.scrollbar = scrollbar;
-        this.holder    = holder;
+        this.holder = holder;
 
         //
         this.status = {
             pointerLocation: 0,
             virtualScroll: 0,
-            pointerId: -1
-        }
+            pointerId: -1,
+        };
 
         //
-        const onChanges = ()=>{
-            const thumbSize = this.scrollbar[["offsetWidth", "offsetHeight"][axis]] * 
-            ( 
-                this.holder[["offsetWidth", "offsetHeight"][axis]] /
-                this.holder[["scrollWidth", "scrollHeight"][axis]]
-            );
-            
+        const onChanges = () => {
+            const thumbSize =
+                this.scrollbar[["offsetWidth", "offsetHeight"][axis]] *
+                (this.holder[["offsetWidth", "offsetHeight"][axis]] /
+                    this.holder[["scrollWidth", "scrollHeight"][axis]]);
+
             //
-            const percentInPx = this.scrollbar[["offsetWidth", "offsetHeight"][axis]] - thumbSize;
+            const percentInPx =
+                this.scrollbar[["offsetWidth", "offsetHeight"][axis]] -
+                thumbSize;
 
             // @ts-ignore
             this.scrollbar.style.setProperty("--thumbSize", thumbSize, "");
@@ -35,41 +33,62 @@ class ScrollBar {
             this.scrollbar.style.setProperty("--percentInPx", percentInPx, "");
 
             //
-            this.holder.style.setProperty("--scroll-top" , this.holder.scrollTop , "");
-            this.holder.style.setProperty("--scroll-left", this.holder.scrollLeft, "");
+            this.holder.style.setProperty(
+                "--scroll-top",
+                this.holder.scrollTop,
+                ""
+            );
+            this.holder.style.setProperty(
+                "--scroll-left",
+                this.holder.scrollLeft,
+                ""
+            );
 
             //
-            const event = new CustomEvent("scroll-change", { detail: {
-                scrollTop: this.holder.scrollTop,
-                scrollLeft: this.holder.scrollLeft
-            } });
+            const event = new CustomEvent("scroll-change", {
+                detail: {
+                    scrollTop: this.holder.scrollTop,
+                    scrollLeft: this.holder.scrollLeft,
+                },
+            });
 
             //
             this.holder.dispatchEvent(event);
-        }
+        };
 
         //
-        this.scrollbar.querySelector(".thumb").addEventListener("pointerdown", (ev)=>{
-            if (this.status.pointerId < 0) {
-                this.status.pointerId = ev.pointerId;
-                this.status.pointerLocation  = ev[["pageX","pageY"][axis]];
-                this.status.virtualScroll = this.holder[["scrollLeft", "scrollTop"][axis]];
-            }
-        });
+        this.scrollbar
+            .querySelector(".thumb")
+            .addEventListener("pointerdown", (ev) => {
+                const scaling =
+                    parseFloat(document.body.style.getPropertyValue("--scaling")) || 1;
+            
+                if (this.status.pointerId < 0) {
+                    this.status.pointerId = ev.pointerId;
+                    this.status.pointerLocation = ev[["pageX", "pageY"][axis]] / scaling;
+                    this.status.virtualScroll =
+                        this.holder[["scrollLeft", "scrollTop"][axis]];
+                }
+            });
 
         //
-        document.addEventListener("pointermove", (ev)=>{
+        document.addEventListener("pointermove", (ev) => {
             if (this.status.pointerId == ev.pointerId) {
+                const scaling =
+                    parseFloat(
+                        document.body.style.getPropertyValue("--scaling")
+                    ) || 1;
+
                 const previous = this.holder[["scrollLeft", "scrollTop"][axis]];
 
                 // @ts-ignore
-                const coord = ev[["pageX","pageY"][axis]];
+                const coord = ev[["pageX", "pageY"][axis]] / scaling;
 
                 //
-                this.status.virtualScroll += (coord - this.status.pointerLocation) * (
-                    this.holder[["scrollWidth", "scrollHeight"][axis]] / 
-                    this.scrollbar[["offsetWidth", "offsetHeight"][axis]]
-                );
+                this.status.virtualScroll +=
+                    (coord - this.status.pointerLocation) *
+                    (this.holder[["scrollWidth", "scrollHeight"][axis]] /
+                        this.scrollbar[["offsetWidth", "offsetHeight"][axis]]);
                 this.status.pointerLocation = coord;
 
                 //
@@ -78,30 +97,32 @@ class ScrollBar {
                 //
                 this.holder.scrollBy({
                     [["left", "top"][axis]]: realShift,
-                    behavior: "instant"
+                    behavior: "instant",
                 });
             }
         });
 
         //
-        const stopScroll = (ev)=>{
+        const stopScroll = (ev) => {
             if (this.status.pointerId == ev.pointerId) {
-                this.status.virtualScroll = this.holder[["scrollLeft", "scrollTop"][axis]];
+                this.status.virtualScroll =
+                    this.holder[["scrollLeft", "scrollTop"][axis]];
                 this.status.pointerId = -1;
             }
-        }
+        };
 
         //
         document.addEventListener("pointerup", stopScroll, {});
         document.addEventListener("pointercancel", stopScroll, {});
-        
+
         //
         this.holder.addEventListener("scroll", onChanges);
-        new ResizeObserver((entries)=>{
-            if (entries) { onChanges(); }
-        }).observe(this.holder, {box: "content-box"});
+        new ResizeObserver((entries) => {
+            if (entries) {
+                onChanges();
+            }
+        }).observe(this.holder, { box: "content-box" });
     }
-
 }
 
 //
@@ -119,11 +140,11 @@ class ScrollBox extends HTMLElement {
     //
     constructor() {
         super();
-        const shadowRoot = this.attachShadow({mode: 'open'});
+        const shadowRoot = this.attachShadow({ mode: "open" });
         const parser = new DOMParser();
         const dom = parser.parseFromString(html, "text/html");
 
-        dom.querySelector("template")?.content?.childNodes.forEach((cp)=>{
+        dom.querySelector("template")?.content?.childNodes.forEach((cp) => {
             shadowRoot.appendChild(cp.cloneNode(true));
         });
 
@@ -133,30 +154,38 @@ class ScrollBox extends HTMLElement {
         shadowRoot.appendChild(style);
 
         //
-        this["@scrollbar-x"] = new ScrollBar({
-            holder: this,
-            scrollbar: shadowRoot.querySelector(".scrollbar-x")
-        }, 0);
+        this["@scrollbar-x"] = new ScrollBar(
+            {
+                holder: this,
+                scrollbar: shadowRoot.querySelector(".scrollbar-x"),
+            },
+            0
+        );
 
         //
-        this["@scrollbar-y"] = new ScrollBar({
-            holder: this,
-            scrollbar: shadowRoot.querySelector(".scrollbar-y")
-        }, 1);
+        this["@scrollbar-y"] = new ScrollBar(
+            {
+                holder: this,
+                scrollbar: shadowRoot.querySelector(".scrollbar-y"),
+            },
+            1
+        );
 
         //
         if (this.dataset.scrollTop || this.dataset.scrollLeft) {
             this.scrollTo({
                 top: this.dataset.scrollTop || 0,
                 left: this.dataset.scrollLeft || 0,
-                behavior: "instant"
+                behavior: "instant",
             });
 
             //
-            const event = new CustomEvent("scroll-set", { detail: {
-                scrollTop: this.dataset.scrollTop || 0,
-                scrollLeft: this.dataset.scrollLeft || 0
-            } });
+            const event = new CustomEvent("scroll-set", {
+                detail: {
+                    scrollTop: this.dataset.scrollTop || 0,
+                    scrollLeft: this.dataset.scrollLeft || 0,
+                },
+            });
 
             //
             this.dispatchEvent(event);
@@ -170,14 +199,16 @@ class ScrollBox extends HTMLElement {
             this.scrollTo({
                 top: this.dataset.scrollTop || 0,
                 left: this.scrollLeft || 0,
-                behavior: "instant"
+                behavior: "instant",
             });
 
             //
-            const event = new CustomEvent("scroll-set", { detail: {
-                scrollTop: this.dataset.scrollTop || 0,
-                scrollLeft: this.dataset.scrollLeft || 0
-            } });
+            const event = new CustomEvent("scroll-set", {
+                detail: {
+                    scrollTop: this.dataset.scrollTop || 0,
+                    scrollLeft: this.dataset.scrollLeft || 0,
+                },
+            });
 
             //
             this.dispatchEvent(event);
@@ -188,14 +219,16 @@ class ScrollBox extends HTMLElement {
             this.scrollTo({
                 top: this.scrollTop || 0,
                 left: this.dataset.scrollLeft || 0,
-                behavior: "instant"
+                behavior: "instant",
             });
 
             //
-            const event = new CustomEvent("scroll-set", { detail: {
-                scrollTop: this.dataset.scrollTop || 0,
-                scrollLeft: this.dataset.scrollLeft || 0
-            } });
+            const event = new CustomEvent("scroll-set", {
+                detail: {
+                    scrollTop: this.dataset.scrollTop || 0,
+                    scrollLeft: this.dataset.scrollLeft || 0,
+                },
+            });
 
             //
             this.dispatchEvent(event);
@@ -204,4 +237,4 @@ class ScrollBox extends HTMLElement {
 }
 
 //
-customElements.define('x-scrollbox', ScrollBox);
+customElements.define("x-scrollbox", ScrollBox);

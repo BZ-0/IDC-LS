@@ -1,5 +1,6 @@
 // use workers
 const loading = Promise.allSettled([
+    import("@states/gridState.mjs"),
     import("@workers/stylework.mjs"),
     import("@workers/actionRegistry.mjs"),
     import("@webcomp/scrollbox/scrollbox.mjs"),
@@ -9,10 +10,10 @@ const loading = Promise.allSettled([
 ]);
 
 //
-//import App from "@tests/MultiPageTest.svelte";
-//import App from '@apps/tests/ScrollBox.svelte';
-//import App from '@apps/tests/MultiPageTest.svelte';
-import App from "@tests/SettingsTest.svelte";
+import App from "@tests/MultiPageTest.svelte"
+//import App from '@tests/ScrollBox.svelte'
+//import App from '@tests/MultiPageTest.svelte'
+//import App from "@tests/SettingsTest.svelte";
 
 //
 const app = new App({
