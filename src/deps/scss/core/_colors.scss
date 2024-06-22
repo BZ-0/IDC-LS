@@ -22,4 +22,17 @@
         --current-accent-color: var(--theme-accent-color);
         --current-chroma-color: var(--theme-chroma-color);
     }
+    
+    :root {
+		--range-slider:          #{cu.theme-mod-up(cl.$baseColor, 90%)};; /* slider main background color */
+		--range-handle-inactive: #{cu.theme-mod-up(cl.$baseColor, 80%)};; /* inactive handle color */
+		--range-handle:          #{cu.theme-mod-up(cl.$baseColor, 20%)};; /* non-focussed handle color */
+		--range-handle-focus:    #{cu.theme-mod-up(cl.$baseColor, 10%)}; /* focussed handle color */
+		--range-handle-border:   var(--range-handle); /* handle border color */
+		--range-range-inactive:  var(--range-handle-inactive); /* inactive range bar background color */
+		--range-range:           var(--range-handle-focus); /* active range background color */
+		--range-float-inactive:  var(--range-handle-inactive); /* inactive floating label background color */
+		--range-float:           var(--range-handle-focus); /* floating label background color */
+		--range-float-text:      #{cu.theme-mod-up(cl.$baseColor, 100%)};; /* text color on floating label */
+	}
 }

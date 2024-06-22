@@ -1,22 +1,17 @@
 @use "@scss/color/colorvars" as cl;
 @use "@scss/color/colorutils" as cu;
+@use "@scss/core/classlets";
 
 //
 @layer lx-decors {
     .block-decor {
-        min-block-size: 2rem;
-        inline-size: stretch;
-        block-size: max-content;
-        
+        //
+        @extend .align-center;
+        @extend .inline-stretch;
+    
         //
         display: grid;
         box-sizing: border-box;
-        
-        //
-        justify-content: center;
-        justify-items: center;
-        align-content: center;
-        align-items: center;
         
         //
         grid-template-columns: minmax(2rem, max-content) minmax(0px, 1fr) minmax(2rem, max-content);
@@ -27,23 +22,21 @@
         margin: 0px;
         
         //
+        min-block-size: 2rem;
+        
+        //
         background-color: var(--current-surface-color);
         color: var(--current-glyph-color);
         
         //
         & > :where(.icon-wrap, .label-box, .in-element) {
+            @extend .align-center;
+            
+            //
             box-sizing: border-box;
             background-clip: border-box;
             background-origin: content-box;
             padding: 1rem;
-            
-            //
-            justify-content: center;
-            justify-items: center;
-            align-content: center;
-            align-items: center;
-            
-            //
             text-align: start;
         }
         
@@ -58,6 +51,12 @@
         & > .icon-wrap  { grid-column: 1 / 1; grid-row: 1 / 1; inline-size: stretch; block-size: stretch; }
         & > .label-box  { grid-column: 2 / 2; grid-row: 1 / 1; inline-size: stretch; block-size: stretch; justify-self: start; }
         & > .in-element { grid-column: 3 / 3; grid-row: 1 / 1; inline-size: stretch; block-size: stretch; }
+        
+        //
+        & > .label-box {
+			justify-content: start;
+			text-align: start;
+        }
         
         //
         &.layout-alt {

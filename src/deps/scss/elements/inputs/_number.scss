@@ -1,17 +1,16 @@
+@use "@scss/core/classlets";
+
+//
 @layer lx-inputs {
     .number-input {
         display: grid;
         grid-template-columns: minmax(max-content, 1rem) minmax(max-content, 1fr) minmax(max-content, 1rem);
         grid-template-rows: minmax(max-content, 1rem);
-        
-        
         overflow: hidden;
-        
-        justify-content: center;
-        justify-items: center;
-        align-content: center;
-        align-items: center;
-        
+
+        //
+        @extend .align-center;
+
         //
         & input {
             text-align: center;
@@ -21,34 +20,26 @@
         
         //
         & > * {
+            @extend .align-center;
+            @extend .stretch;
+            @extend .max-content-as-min;
+            
+            //
             display: flex;
-            justify-content: center;
-            justify-items: center;
-            align-content: center;
-            align-items: center;
             padding: 0.5rem;
-            
-            inline-size: stretch;
-            block-size: stretch;
-            
-            min-inline-size: max-content;
-            min-block-size: max-content;
-            
             background: transparent;
         }
         
+        //
         & > :is(.f-minus, .f-plus) {
             cursor: pointer;
             background-color: var(--current-surface-color) !important;
         }
         
+        //
         & > .icon-wrap {
-            inline-size: stretch;
-            block-size: stretch;
-            
-            min-inline-size: max-content;
-            min-block-size: max-content;
-            
+            @extend .stretch;
+            @extend .max-content-as-min;
             aspect-ratio: 1 / 1;
         }
     }

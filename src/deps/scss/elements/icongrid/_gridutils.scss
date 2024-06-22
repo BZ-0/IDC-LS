@@ -1,3 +1,4 @@
+@use "@scss/core/classlets";
 @use "./gridmisc.scss" as gm;
 
 //
@@ -35,6 +36,8 @@
     .icon-placement {
         //
         @include gm.calculateMetric();
+        @extend .align-center;
+        @extend .no-contain;
 
         //
         grid-column: auto;
@@ -45,22 +48,12 @@
         grid-row: var(--fc-cell-y);
 
         //
-        container-type: normal;
-        contain: none;
-
-        //
         will-change: --translate-x, --translate-y;
         --translate-x: calc(var(--drag-x) * var(--pxd));
         --translate-y: calc(var(--drag-y) * var(--pxd));
 
         //
         display: flex;
-
-        //
-        justify-content: center;
-        justify-items: center;
-        align-items: center;
-        align-content: center;
         
         //
         background-color: transparent;
@@ -88,8 +81,8 @@
 
         //
         & .icon-design {
-            //color-scheme: light;
-            //--theme-is-dark: 0;
+            @extend .pe-enable;
+            @extend .align-center;
             
             //
             --icon-size: min(100cqmin, 4rem);
@@ -105,25 +98,15 @@
             block-size: var(--icon-size);
             border-radius: calc(var(--icon-size) * 0.5);
 
-            //
-            pointer-events: auto;
-            pointer-events: bounding-box;
-
             // debug
             background-color: var(--current-surface-color);
 
             //
             will-change: translate, transform, --translate-x, --translate-y;
             translate: var(--translate-x) var(--translate-y);
-            
+    
             //
             display: flex;
-            
-            //
-            align-content: center;
-            align-items: center;
-            justify-content: center;
-            justify-items: center;
         }
     }
 

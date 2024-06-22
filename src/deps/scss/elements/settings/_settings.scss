@@ -1,43 +1,18 @@
 @use "@scss/color/colorvars" as cl;
 @use "@scss/color/colorutils" as cu;
+@use "@scss/core/classlets";
 
 //
 @layer lx-settings {
 	
 	//
-	//.rangeSlider.focus .rangeNub  .rangeNub {
-		//--handle: var(--current-glyph-color);
-	//}
-	
-	:root {
-		--range-slider:          #{cu.theme-mod-up(cl.$baseColor, 90%)};; /* slider main background color */
-		--range-handle-inactive: #{cu.theme-mod-up(cl.$baseColor, 80%)};; /* inactive handle color */
-		--range-handle:          #{cu.theme-mod-up(cl.$baseColor, 20%)};; /* non-focussed handle color */
-		--range-handle-focus:    #{cu.theme-mod-up(cl.$baseColor, 10%)}; /* focussed handle color */
-		--range-handle-border:   var(--range-handle); /* handle border color */
-		--range-range-inactive:  var(--range-handle-inactive); /* inactive range bar background color */
-		--range-range:           var(--range-handle-focus); /* active range background color */
-		--range-float-inactive:  var(--range-handle-inactive); /* inactive floating label background color */
-		--range-float:           var(--range-handle-focus); /* floating label background color */
-		--range-float-text:      #{cu.theme-mod-up(cl.$baseColor, 100%)};; /* text color on floating label */
-	}
-	
-	//
 	.lx-settings {
+		//
+		@extend .contain-size;
+	
+		//
 		container-name: lx-settings;
-		container-type: size;
-		contain: content;
-
-		//
 		display: grid;
-
-		//
-		inline-size: auto;
-		inline-size: stretch;	
-		
-		//
-		block-size: auto;
-		block-size: stretch;
 
 		//
 		grid-template-columns: minmax(0px, 1fr);
@@ -53,21 +28,11 @@
 		
 		//
 		.content {
+			@extend .stretch;
+		
 			//
 			display: grid;
-			
-			//
 			grid-template-columns: minmax(2.5in, max-content) minmax(0px, 1fr);
-			
-			//
-			inline-size: auto;
-			inline-size: stretch;	
-			
-			//
-			block-size: auto;
-			block-size: stretch;
-
-			//
 			grid-row: content-b;
 		}
 
@@ -99,18 +64,12 @@
 			display: flex;
 			
 			//
+			@extend .align-center;
+			@extend .stretch;
+			
+			//
 			justify-content: start;
-			justify-items: center;
-			align-content: center;
-			align-items: center;
-			
-			//
-			inline-size: auto;
-			inline-size: stretch;	
-			
-			//
-			block-size: auto;
-			block-size: stretch;
+			text-align: start;
 		}
 
 		//
@@ -137,13 +96,7 @@
 				min-block-size: max-content;
 				
 				//
-				inline-size: auto;
-				inline-size: stretch;	
-				
-				//
-				block-size: auto;
-				block-size: stretch;
-				
+				@extend .stretch;
 			}
 			
 			
