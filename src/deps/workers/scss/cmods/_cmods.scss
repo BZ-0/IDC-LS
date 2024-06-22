@@ -4,12 +4,12 @@
 // default
 .themed {
     --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
-    --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 60%)};
+    --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 90%)};
 
     //
     .icon-box {
         --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
-        --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 40%)};
+        --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 80%)};
     }
 }
 

@@ -18,14 +18,16 @@
 @layer lx-colors {
     :root, :host, :scope, :where(*) {
         --theme-chroma-mod: oklch(from #{cl.$baseColor} l 0.99 h);
+        --theme-black-mod: oklch(from #{cl.$baseColor} 0.01 0.01 h);
+        --theme-white-mod: oklch(from #{cl.$baseColor} 0.99 0.01 h);
 
         //
-        --theme-dark-up-mod: oklch(from #{cl.$baseColor} 0.99 0.01 h);
-        --theme-dark-down-mod: oklch(from #{cl.$baseColor} 0.01 0.01 h);
+        --theme-dark-down-mod: color-mix(in oklch, var(--theme-black-mod) 98%, #{cl.$baseColor});
+        --theme-dark-up-mod: color-mix(in oklch, var(--theme-white-mod) 90%, #{cl.$baseColor});
 
         //
-        --theme-light-up-mod: oklch(from #{cl.$baseColor} 0.01 0.01 h);
-        --theme-light-down-mod: oklch(from #{cl.$baseColor} 0.99 0.01 h);
+        --theme-light-down-mod: color-mix(in oklch, var(--theme-white-mod) 98%, #{cl.$baseColor});
+        --theme-light-up-mod: color-mix(in oklch, var(--theme-black-mod) 90%, #{cl.$baseColor});
 
         //
         --theme-up-mod: color-mix(in oklch, var(--theme-dark-up-mod) calc(100% * var(--theme-is-dark)), var(--theme-light-up-mod));

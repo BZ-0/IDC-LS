@@ -113,8 +113,8 @@ export const colorScheme = async (blob) => {
     chromaMod.c = 0.99;
 
     //
-    lightMods[0] = interpolate([baseColorI, whiteMod], "oklch", {})(0.98);
-    lightMods[1] = interpolate([baseColorI, blackMod], "oklch", {})(0.9);
+    lightMods[0] = interpolate([baseColorI, blackMod], "oklch", {})(0.98);
+    lightMods[1] = interpolate([baseColorI, whiteMod], "oklch", {})(0.9);
 
     //
     darkMods[0] = interpolate([baseColorI, whiteMod], "oklch", {})(0.98);
