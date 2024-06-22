@@ -21,11 +21,17 @@
     }
 
     //
+    :where(div, span) {
+        background-color: transparent;
+    }
+
+    //
     html, body {
         padding: 0px;
         margin: 0px;
         inset: 0px;
         border: none 0px transparent;
+        background-color: transparent;
 
         //
         @include HQRendering();

@@ -1,23 +1,23 @@
 <script>
-    import Area from '@svelte/decors/Area.svelte';
+    import Block from '@svelte/decors/Block.svelte';
     import LucideIcon from '@svelte/decors/LucideIcon.svelte';
 
 </script>
 
 <!-- -->
 <div class="test-container" style="--theme-is-dark: 1; color-scheme: dark;">
-    <Area>
+    <Block>
         <LucideIcon name={"github"} slot="icon"></LucideIcon>
         <span>When Dark Theme</span>
-    </Area>
+    </Block>
 </div>
 
 <!-- -->
 <div class="test-container" style="--theme-is-dark: 0; color-scheme: light;">
-    <Area>
+    <Block>
         <LucideIcon name={"github"} slot="icon"></LucideIcon>
         <span>When Light Theme</span>
-    </Area>
+    </Block>
 </div>
 
 <style type="scss">

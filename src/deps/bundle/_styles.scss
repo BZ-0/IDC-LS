@@ -2,8 +2,9 @@
 @use "@workers/scss/core/classlets";
 @use "@workers/scss/color/colors";
 @use "@workers/scss/color/themed";
+@use "@workers/scss/cmods/cmods";
 
 // Svelte Components
 @use "@modules/scss/icongrid/gridutils";
 @use "@modules/scss/settings/settings";
-@use "@modules/scss/decors/area";
+@use "@modules/scss/decors/block";

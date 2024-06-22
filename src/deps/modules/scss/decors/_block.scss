@@ -3,7 +3,7 @@
 
 //
 @layer lx-decors {
-    .area-decor {
+    .block-decor {
         min-block-size: 2rem;
         inline-size: stretch;
         block-size: max-content;
@@ -27,6 +27,10 @@
         margin: 0px;
         
         //
+        background-color: var(--current-surface-color);
+        color: var(--current-glyph-color);
+        
+        //
         & :where(.icon-box, .label-box, .in-element){
             padding: 1rem;
             box-sizing: border-box;
@@ -35,12 +39,18 @@
         }
         
         //
+        & :where(.icon-box) {
+            background-color: var(--current-surface-color);
+            color: var(--current-glyph-color);
+        }
+        
+        //
         & .icon-box   { grid-column: 1 / 1; grid-row: 1 / 1; }
         & .label-box  { grid-column: 2 / 2; grid-row: 1 / 1; justify-self: start; }
         & .in-element { grid-column: 3 / 3; grid-row: 1 / 1; }
         
         //
-        &.area-alt {
+        &.layout-alt {
             grid-template-columns: minmax(2rem, max-content) minmax(0px, 1fr);
             grid-template-rows: minmax(2rem, max-content) minmax(2rem, max-content);
             
@@ -64,18 +74,4 @@
             aspect-ratio: 1 / 1;
         }
     }
-    
-    
-    //colorization
-    .area-decor {
-        color: cu.theme-mod-down(#{cl.$baseColor}, 90%);
-        background-color: cu.theme-mod-up(#{cl.$baseColor}, 60%);
-    
-        //
-        .icon-box {
-            color: cu.theme-mod-down(#{cl.$baseColor}, 90%);
-            background-color: cu.theme-mod-up(#{cl.$baseColor}, 40%);
-        }
-    }
-    
 }

@@ -7,7 +7,7 @@
 
 //
 @layer lx-colors {
-    :root, :host, :scope {
+    :root, :host, :scope, :where(*) {
         --theme-glyph-color: #{cl.$glyphColor};
         --theme-surface-color: #{cl.$surfaceColor};
         --theme-accent-color: #{cl.$accentColor};
