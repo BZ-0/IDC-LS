@@ -1,4 +1,26 @@
+@use "@libraries/scss/color/colorutils" as cu;
+@use "@libraries/scss/color/colors" as cl;
+
+//
 @layer lx-settings {
+	
+	//
+	//.rangeSlider.focus .rangeNub  .rangeNub {
+		//--handle: var(--current-glyph-color);
+	//}
+	
+	:root {
+		--range-slider:          #{cu.theme-mod-up(cl.$baseColor, 90%)};; /* slider main background color */
+		--range-handle-inactive: #{cu.theme-mod-up(cl.$baseColor, 80%)};; /* inactive handle color */
+		--range-handle:          #{cu.theme-mod-up(cl.$baseColor, 20%)};; /* non-focussed handle color */
+		--range-handle-focus:    #{cu.theme-mod-up(cl.$baseColor, 10%)}; /* focussed handle color */
+		--range-handle-border:   var(--range-handle); /* handle border color */
+		--range-range-inactive:  var(--range-handle-inactive); /* inactive range bar background color */
+		--range-range:           var(--range-handle-focus); /* active range background color */
+		--range-float-inactive:  var(--range-handle-inactive); /* inactive floating label background color */
+		--range-float:           var(--range-handle-focus); /* floating label background color */
+		--range-float-text:      #{cu.theme-mod-up(cl.$baseColor, 100%)};; /* text color on floating label */
+	}
 	
 	//
 	.lx-settings {
@@ -20,7 +42,7 @@
 		//
 		grid-template-columns: minmax(0px, 1fr);
 		grid-template-rows: 
-			[titlebar] minmax(4rem, max-content) 
+			[titlebar] minmax(2rem, max-content) 
 			[content-b] minmax(0px, 1fr);
 
 		//
@@ -31,10 +53,11 @@
 		
 		//
 		.content {
+			//
 			display: grid;
 			
 			//
-			grid-template-columns: minmax(16rem, max-content) minmax(0px, 1fr);
+			grid-template-columns: minmax(2.5in, max-content) minmax(0px, 1fr);
 			
 			//
 			inline-size: auto;
@@ -76,7 +99,7 @@
 			display: flex;
 			
 			//
-			justify-content: center;
+			justify-content: start;
 			justify-items: center;
 			align-content: center;
 			align-items: center;
@@ -107,7 +130,7 @@
 				//
 				grid-template-columns: subgrid;
 				grid-template-rows: minmax(2rem, max-content);
-				grid-column: 1 / 4;
+				grid-column: 1 / 3 span;
 				grid-row: auto;
 	
 				//

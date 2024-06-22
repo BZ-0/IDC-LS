@@ -31,29 +31,32 @@
         color: var(--current-glyph-color);
         
         //
-        & :where(.icon-wrap, .label-box, .in-element) {
+        & > :where(.icon-wrap, .label-box, .in-element) {
             box-sizing: border-box;
             background-clip: border-box;
             background-origin: content-box;
-            padding: 0.5rem;
+            padding: 1rem;
             
             //
             justify-content: center;
             justify-items: center;
             align-content: center;
             align-items: center;
+            
+            //
+            text-align: start;
         }
         
         //
-        & :where(.icon-wrap) {
+        & > :where(.icon-wrap) {
             background-color: var(--current-surface-color);
             color: var(--current-glyph-color);
         }
         
         //rangeSlider
-        & .icon-wrap  { grid-column: 1 / 1; grid-row: 1 / 1; inline-size: stretch; block-size: stretch; }
-        & .label-box  { grid-column: 2 / 2; grid-row: 1 / 1; inline-size: stretch; block-size: stretch; justify-self: start; }
-        & .in-element { grid-column: 3 / 3; grid-row: 1 / 1; inline-size: stretch; block-size: stretch; }
+        & > .icon-wrap  { grid-column: 1 / 1; grid-row: 1 / 1; inline-size: stretch; block-size: stretch; }
+        & > .label-box  { grid-column: 2 / 2; grid-row: 1 / 1; inline-size: stretch; block-size: stretch; justify-self: start; }
+        & > .in-element { grid-column: 3 / 3; grid-row: 1 / 1; inline-size: stretch; block-size: stretch; }
         
         //
         &.layout-alt {
@@ -61,13 +64,13 @@
             grid-template-rows: minmax(2rem, max-content) minmax(2rem, max-content);
             
             //
-            & .icon-wrap  { grid-column: 1 / 1; grid-row: 1 / span 2; }
-            & .in-element { grid-column: 2 / 2; grid-row: 2 / 2; }
-            & .label-box  { grid-column: 2 / 2; grid-row: 1 / 1; }
+            & > .icon-wrap  { grid-column: 1 / 1; grid-row: 1 / span 2; }
+            & > .in-element { grid-column: 2 / 2; grid-row: 2 / 2; }
+            & > .label-box  { grid-column: 2 / 2; grid-row: 1 / 1; justify-self: start; }
         }
         
         //
-        .icon-box {
+        & > .icon-wrap > .icon-box {
             min-block-size: 2rem;
             max-block-size: stretch;
             

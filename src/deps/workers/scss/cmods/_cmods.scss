@@ -7,7 +7,7 @@
     --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 90%)};
 
     //
-    .icon-box {
+    & > :where(.icon-wrap) {
         --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
         --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 80%)};
     }
@@ -17,6 +17,11 @@
 .solid {
     --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
     --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 60%)};
+    
+    //
+    & > :where(.icon-wrap) {
+        background-color: transparent;
+    }
 }
 
 // 
@@ -29,6 +34,16 @@
 .apply-color-theme {
     background-color: var(--current-surface-color);
     color: var(--current-glyph-color);
+}
+
+//
+:where(.hl-1) {
+    background-color: var(--current-surface-color);
+}
+
+//
+.hl-1 {
+    --current-surface-color: #{cu.theme-mod-down(var(--theme-surface-color), 5%)};
 }
 
 //

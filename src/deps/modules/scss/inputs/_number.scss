@@ -1,0 +1,51 @@
+@layer lx-inputs {
+    .number-input {
+        display: grid;
+        grid-template-columns: minmax(max-content, 1rem) minmax(max-content, 1fr) minmax(max-content, 1rem);
+        grid-template-rows: minmax(max-content, 1rem);
+        
+        justify-content: center;
+        justify-items: center;
+        align-content: center;
+        align-items: center;
+        
+        //
+        & input {
+            text-align: center;
+            background: transparent;
+            max-inline-size: 2rem;
+        }
+        
+        //
+        & > * {
+            display: flex;
+            justify-content: center;
+            justify-items: center;
+            align-content: center;
+            align-items: center;
+            padding: 0.5rem;
+            
+            inline-size: stretch;
+            block-size: stretch;
+            
+            min-inline-size: max-content;
+            min-block-size: max-content;
+            
+            background: transparent;
+        }
+        
+        & > :is(.f-minus, .f-plus) {
+            background-color: var(--current-surface-color) !important;
+        }
+        
+        & > .icon-wrap {
+            inline-size: stretch;
+            block-size: stretch;
+            
+            min-inline-size: max-content;
+            min-block-size: max-content;
+            
+            aspect-ratio: 1 / 1;
+        }
+    }
+}
