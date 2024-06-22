@@ -2,8 +2,8 @@
  * There is color constants (of dynamic colors)
  */
 
-@use "@libraries/scss/color/colorutils" as cu;
-@use "@libraries/scss/color/colors" as cl;
+@use "../color/colorutils" as cu;
+@use "../color/colorvars" as cl;
 
 //
 @layer lx-colors {

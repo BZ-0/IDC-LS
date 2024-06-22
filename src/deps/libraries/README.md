@@ -1,3 +1,0 @@
-# 📚 Libraries 📚
-
-Here is not direct (indirect) interaction libraries...

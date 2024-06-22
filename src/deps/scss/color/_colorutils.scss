@@ -22,3 +22,9 @@ $chromaMod: var(--theme-chroma-mod);
 @function theme-mod-chroma($base, $percent) {
     @return color-mix(in oklch, $base calc(100% - $percent), $chromaMod);
 }
+
+//
+@mixin accent-mod($effect: 1) {
+    --effect: $effect;
+    --current-surface-color: #{cu.theme-mod-down(var(--theme-surface-color), calc(1% * var(--effect, 1)))};
+}
