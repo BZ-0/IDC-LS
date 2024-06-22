@@ -41,14 +41,14 @@ onMount(()=>{
 </script>
 
 <!-- -->
-<div class="number-input solid">
-    <div bind:this={minusBtn} class="icon-wrap f-minus hl-1">
+<div class="number-input solid hl-ns round-ns">
+    <div bind:this={minusBtn} class="icon-wrap f-minus hl-1h">
         <LucideIcon inert={true} name={"chevron-left"}/>
     </div>
     <div class="input-wrap">
         <input bind:this={input} {min} {max} {step} bind:value={$value} inert={true} type="number" inputmode="numeric" pattern="\d*" virtualkeyboardpolicy="manual"/>
     </div>
-    <div bind:this={plusBtn} class="icon-wrap f-plus hl-1">
+    <div bind:this={plusBtn} class="icon-wrap f-plus hl-1h">
         <LucideIcon inert={true} name={"chevron-right"}/>
     </div>
 </div>

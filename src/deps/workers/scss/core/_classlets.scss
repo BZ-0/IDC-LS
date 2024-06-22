@@ -156,6 +156,11 @@
         block-size: min(100dvb, 100cqb);
     }
 
+    //
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
     // bit-complex element
     .grid-based-box {
         @extend .stretch;

@@ -1,6 +1,14 @@
 @use "@libraries/scss/color/colorutils" as cu;
 @use "@libraries/scss/color/colors" as cl;
 
+//
+:where(.themed, .solid, .accent, .transparent, *) {
+    --highlight-transition-duration: 0.2s;
+    --highlight-transition-mode: linear;
+    --highlight-transition-property: --highlight-coefficient;
+    transition: var(--highlight-transition-property) var(--highlight-transition-duration) var(--highlight-transition-mode);
+}
+
 // default
 .themed {
     --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
@@ -16,7 +24,18 @@
 // 
 .solid {
     --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
-    --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 60%)};
+    --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 90%)};
+    
+    //
+    & > :where(.icon-wrap) {
+        background-color: transparent;
+    }
+}
+
+// 
+.accent {
+    --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
+    --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 80%)};
     
     //
     & > :where(.icon-wrap) {
@@ -37,15 +56,22 @@
 }
 
 //
-:where(.hl-1) {
+:where(.hl-1, .hl-1h) {
     background-color: var(--current-surface-color);
 }
 
 //
-.hl-1 {
-    --current-surface-color: #{cu.theme-mod-down(var(--theme-surface-color), 5%)};
-}
+.hl-1h:hover { --highlight-coefficient: 5; }
+.hl-2h:hover { --highlight-coefficient: 10; }
+.hl-1 { --highlight-coefficient: 5; }
+.hl-2 { --highlight-coefficient: 10; }; 
+.hl-ns { --highlight-coefficient: 4; }
 
 //
 .force-light { --theme-is-dark: 0; color-scheme: light; }
 .force-dark { --theme-is-dark: 1; color-scheme: dark; }
+
+//
+.round-ns {
+    border-radius: 0.2rem;
+}

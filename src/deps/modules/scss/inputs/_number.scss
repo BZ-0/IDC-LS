@@ -4,6 +4,9 @@
         grid-template-columns: minmax(max-content, 1rem) minmax(max-content, 1fr) minmax(max-content, 1rem);
         grid-template-rows: minmax(max-content, 1rem);
         
+        
+        overflow: hidden;
+        
         justify-content: center;
         justify-items: center;
         align-content: center;
@@ -35,6 +38,7 @@
         }
         
         & > :is(.f-minus, .f-plus) {
+            cursor: pointer;
             background-color: var(--current-surface-color) !important;
         }
         

@@ -12,12 +12,13 @@
         --theme-surface-color: #{cl.$surfaceColor};
         --theme-accent-color: #{cl.$accentColor};
         --theme-chroma-color: #{cl.$chromaColor};
+        --highlight-coefficient: 0.0;
     }
     
     //
     :root, :host, :scope, html, body, :where(*) {
         --current-glyph-color: var(--theme-glyph-color);
-        --current-surface-color: var(--theme-surface-color);
+        --current-surface-color: #{cu.theme-mod-down(var(--theme-surface-color), calc(var(--highlight-coefficient) * 1%))};
         --current-accent-color: var(--theme-accent-color);
         --current-chroma-color: var(--theme-chroma-color);
     }
