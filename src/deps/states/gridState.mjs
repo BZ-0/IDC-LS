@@ -1,5 +1,5 @@
-import { makeWritableProperty } from "@states/writables.mjs";
-import { readable, writable } from "svelte/store";
+import { makeWritableProperty } from "@states/writables.mjs"
+import { readable, writable } from "svelte/store"
 
 //
 export const makeKeyMap = (array) => {
@@ -104,13 +104,13 @@ export const makeMap = (array) => {
 
 //
 export const updateIcons = (cs = currentState) => {
-    currentState.iconItems = currentState.iconItems;
+    currentState.iconItems = cs.iconItems ?? cs;
 };
 export const updateGrids = (cs = currentState) => {
-    currentState.gridPages = currentState.gridPages;
+    currentState.gridPages = cs.gridPages ?? cs;
 };
 export const updateLists = (cs = currentState) => {
-    currentState.iconLists = currentState.iconLists;
+    currentState.iconLists = cs.iconLists ?? cs;
 };
 
 //

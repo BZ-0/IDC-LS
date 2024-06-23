@@ -2,7 +2,7 @@
 	//
 	import { grabForDrag } from "@libs/orion/pointer-api.mjs";
 	import { animationSequence, makeArgs, putToCell } from "@states/gridItem.mjs";
-	import { currentState, gridState, makeMap } from "@states/gridState.mjs";
+	import { gridState, makeMap, updateIcons, updateLists } from "@states/gridState.mjs";
 	import { settings } from "@states/settings.mjs";
 	import { onMount } from "svelte";
 	import IconGrid from "./IconGrid.svelte";
@@ -24,11 +24,6 @@
 	let iconItems = new Map([]);
 	let gridPages = new Map([]);
 	let gridPagesArray = [];
-
-	//
-	const updateIcons = ()=>{ currentState.iconItems = iconItems; }
-	const updateGrids = ()=>{ currentState.gridPages = gridPages; }
-	const updateLists = ()=>{ currentState.iconLists = iconLists; }
 
 	//
 	gridState.iconLists.subscribe((v)=>{ iconLists = new Map(v) })
@@ -56,7 +51,7 @@
 			dragBucket = [...dragBucket, iconId];
 	
 			//
-			updateLists();
+			updateLists(iconLists);
 		}, {once: true, capture: true, passive: true}];
 
 		//
@@ -103,8 +98,8 @@
 		iconItems.set(iconId, iconItem);
 
 		//
-		updateLists();
-		updateIcons();
+		updateLists(iconLists);
+		updateIcons(iconItems);
 	}
 
 	// make true value of cells
