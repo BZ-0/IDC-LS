@@ -15,16 +15,16 @@
 
     //
     onMount(()=>{
-        gridW = element.offsetWidth;
-        gridH = element.offsetHeight;
+        gridW = element?.offsetWidth;
+        gridH = element?.offsetHeight;
 
         //
         new ResizeObserver((entries)=>{
             if (entries.length > 0) {
                 for (const entry of entries) {
                     if (entry && entry.contentBoxSize) {
-                        gridW = element.offsetWidth;
-                        gridH = element.offsetHeight;
+                        gridW = element?.offsetWidth;
+                        gridH = element?.offsetHeight;
                     }
                 }
             }
