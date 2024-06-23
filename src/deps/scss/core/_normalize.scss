@@ -1,4 +1,5 @@
 @use "@scss/fonts/xo_caliburn" as dFont;
+@use "./classlets";
 
 //
 @layer lx-normalize {
@@ -51,30 +52,19 @@
 
     //
     body {
-        min-inline-size: calc(100dvi / var(--scaling, 1));
-        min-block-size: calc(100dvb / var(--scaling, 1));
+        //@extend .vp-exclude-keyboard;
+        @extend .vp-bounding-box;
+        @extend .use-vp-size;
 
         //
         overflow: hidden;
         position: relative;
         
         //
-        inline-size: calc(100dvi / var(--scaling, 1));
-        block-size: calc(100dvb / var(--scaling, 1));
-        
-        //
-        background-color: transparent;
-        
-        //
         --ppx: calc(1px / var(--scaling, 1));
-        
-        //
-        @media all and ((display-mode: fullscreen) or (display-mode: standalone) or (display-mode: window-controls-overlay)){
-            inline-size: calc(var(--avail-width, 100dvi) / var(--scaling, 1));
-            block-size: calc(var(--avail-height, 100dvb) / var(--scaling, 1));
-        }
 
         //
+        background-color: transparent;
         zoom: var(--scaling, 1);
 
         // if needs viewport
@@ -82,33 +72,15 @@
         contain: strict;
     }
 
-    @mixin no-user-select {
-        //
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        
-        //
-        -webkit-user-drag: none;
-        -khtml-user-drag: none;
-        -moz-user-drag: none;
-        -o-user-drag: none;
-        -ms-user-drag: none;
-        user-drag: none;
-    }
-
     //
     :where(canvas, img, picture, video) {
         pointer-events: none;
-        @include no-user-select;
+        @extend .no-user-select;
     }
 
     //
     :where(*) {
-        @include no-user-select;
+        @extend .no-user-select;
         
         //
         box-sizing: border-box;
@@ -141,8 +113,7 @@
 
     //
     :where([inert], *[inert]) {
-        pointer-events: none;
-        @include no-user-select;
+        @extend .pointer-events-none
     }
 
     //

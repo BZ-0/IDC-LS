@@ -10,8 +10,8 @@
         <meta http-equiv="content-language" content="en-us">
         <!--<meta http-equiv="Content-Security-Policy" content="script-src 'self';">-->
         <!---->
-        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content, shrink-to-fit=no">
-        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content, shrink-to-fit=no, virtual-keyboard=overlays-content">
+        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, interactive-widget=overlays-content, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, interactive-widget=overlays-content, shrink-to-fit=no, virtual-keyboard=overlays-content">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="mobile-web-app-capable" content="yes">
@@ -60,7 +60,17 @@
         }
         </script>
 
+        <style>
+            :root { virtual-keyboard: overlays-content; }
+        </style>
+
         <script type="module">
+        //
+        if ("virtualKeyboard" in navigator) {
+            navigator.virtualKeyboard.overlaysContent = true;
+        }
+        
+        //
         if (typeof navigator != "undefined") {
             navigator?.serviceWorker?.register?.(new URL('./service.mjs', import.meta.url), {scope: "/"}).then(
                 (registration) => {
