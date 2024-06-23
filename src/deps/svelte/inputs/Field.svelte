@@ -29,6 +29,7 @@
             field.addEventListener("click", (ev)=>{
                 const name = ev?.target?.dataset?.name;
                 if (name) { focusField(name); }
+                field?.focus?.();
             });
             
             //

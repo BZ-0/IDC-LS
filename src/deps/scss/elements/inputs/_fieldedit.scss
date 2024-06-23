@@ -17,33 +17,49 @@
         [field-edit] minmax(max-content, 4rem);
     
     //
-    .field-wrap {
-        @extend .stretch;
-        
-        //
-        display: flex;
-        flex-direction: row;
-        min-block-size: 4rem;
-        
-        //
-        input {
-            @extend .stretch;
-            @include dFont.applyFont(1.8rem);
-        
-            padding-inline: 1rem;
-            min-block-size: 4rem;
-        }
-    }
-    
-    //
     .field-content {
+        display: grid;
+    
+        //
         pointer-events: auto;
         pointer-events: bounding-box;
 
-        input {
-            pointer-events: auto;
-            pointer-events: bounding-box;
-            user-select: auto;
+        //
+        grid-template-columns: minmax(0px, 1fr) minmax(4rem, max-content) minmax(4rem, max-content);
+        max-block-size: 4rem;
+
+        :where(.field-copy, .field-paste) {
+            padding: 1rem;
         }
+
+        //
+        .field-wrap {
+            @extend .stretch;
+            
+            //
+            display: flex;
+            flex-direction: row;
+            min-block-size: 4rem;
+            
+            //
+            input {
+                @extend .stretch;
+                @include dFont.applyFont(1.8rem);
+            
+                //
+                background-color: transparent;
+            
+                //
+                padding-inline: 1rem;
+                min-block-size: 4rem;
+                
+                //
+                pointer-events: auto;
+                pointer-events: bounding-box;
+                user-select: auto;
+            }
+        }
+
     }
+    
 }
