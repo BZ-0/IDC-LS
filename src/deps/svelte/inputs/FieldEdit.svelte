@@ -32,8 +32,9 @@
     });
 </script>
 
-{#if id}
-    <div class="field-edit">
+<!-- -->
+{#if idOf}
+    <div class="field-edit" data-edit={idOf||""}>
         <div class="field-wrap">
             <input bind:this={input} type="text" data-edit={idOf||""} bind:value={$value}/>
         </div>

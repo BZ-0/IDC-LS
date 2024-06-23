@@ -25,15 +25,10 @@ fieldEditWrite.value.subscribe((v) => {
 });
 
 //
-export const applyForIcon = (iconItemWrite) => {
-    for (const k of fields.keys()) {
-        iconItemWrite?.[k]?.set?.(fields.get(k) || "");
-    }
-};
-
-//
 export const applyToField = (idOf) => {
-    const onEdit = document.querySelector(`input[data-name=\"${idOf}\"]`);
+    const onEdit = document.querySelector(
+        `input[data-name=\"${(idOf ||= fieldEditState.id)}\"]`
+    );
     if (onEdit) {
         onEdit.value = fields.get(idOf);
         onEdit.dispatchEvent(
@@ -56,6 +51,13 @@ export const importFromIcon = (iconItem) => {
     for (const k of fields.keys()) {
         fields.set(k, iconItem[k]);
         applyToField(k);
+    }
+};
+
+//
+export const applyForIcon = (iconItemWrite) => {
+    for (const k of fields.keys()) {
+        iconItemWrite?.[k]?.set?.(fields.get(k) || "");
     }
 };
 
