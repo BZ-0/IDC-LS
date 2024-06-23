@@ -121,7 +121,7 @@
 </script>
 
 
-<div bind:this={mainElement} class="layer-2 stretch grid-based-box fixed-avail fixed" style="isolation: isolate;">
+<div bind:this={mainElement} class="layer-2 stretch grid-based-box fixed-avail fixed" style="isolation: isolate;" {...$$props}>
 	<canvas is="w-canvas" class="stretch fixed inset-0" data-src="./assets/wallpaper/0.jpg"/>
 	
 	{#each gridPagesArray as page}

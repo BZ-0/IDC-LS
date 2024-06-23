@@ -3,10 +3,7 @@ import LucideIcon from '@svelte/decors/LucideIcon.svelte';
 import { onMount } from 'svelte';
 
 //
-let value = $$props.value;
-export let min = 0;
-export let max = 1;
-export let step = 1;
+let value = $$props?.value;
 
 //
 let plusBtn = null;
@@ -16,7 +13,7 @@ export let onchange = (ev)=>{}
 
 //
 let onchangeInternal = (ev)=>{
-    value.set(input.value);
+    value?.set(input?.value);
     onchange(ev);
 }
 
@@ -41,12 +38,12 @@ onMount(()=>{
 </script>
 
 <!-- -->
-<div class="number-input solid hl-ns round-ns">
+<div class="number-input solid hl-ns round-ns" {...$$props}>
     <div bind:this={minusBtn} class="icon-wrap f-minus hl-1h">
         <LucideIcon inert={true} name={"chevron-left"}/>
     </div>
     <div class="input-wrap">
-        <input bind:this={input} {min} {max} {step} bind:value={$value} inert={true} type="number" inputmode="numeric" pattern="\d*" virtualkeyboardpolicy="manual"/>
+        <input {...$$props} bind:this={input} inert={true} type="number" inputmode="numeric" pattern="\d*" virtualkeyboardpolicy="manual" bind:value={$value}/>
     </div>
     <div bind:this={plusBtn} class="icon-wrap f-plus hl-1h">
         <LucideIcon inert={true} name={"chevron-right"}/>

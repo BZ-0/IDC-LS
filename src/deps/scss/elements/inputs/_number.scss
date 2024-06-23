@@ -1,4 +1,6 @@
 @use "@scss/core/classlets";
+@use "@scss/color/colorvars" as cl;
+@use "@scss/color/colorutils" as cu;
 
 //
 @layer lx-inputs {
@@ -7,15 +9,22 @@
         grid-template-columns: minmax(max-content, 1rem) minmax(max-content, 1fr) minmax(max-content, 1rem);
         grid-template-rows: minmax(max-content, 1rem);
         overflow: hidden;
-
+        
         //
         @extend .align-center;
-
+        @extend .pe-enable;
+        
         //
         & input {
+            display: inline-block;
+            opacity: 1;
             text-align: center;
             background: transparent;
             max-inline-size: 2rem;
+            appearance: textfield;
+            visibility: visible;
+            
+            color: var(--current-glyph-color);
         }
         
         //

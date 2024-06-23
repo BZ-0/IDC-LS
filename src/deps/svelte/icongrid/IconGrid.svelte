@@ -34,7 +34,7 @@
 
 <!-- -->
 <div 
-    transition:fade={{ delay: 0, duration: 200 }}
+    transition:fade={{ delay: 0, duration: 100 }}
     bind:this={element} 
     data-type={type}
     data-id={id}
