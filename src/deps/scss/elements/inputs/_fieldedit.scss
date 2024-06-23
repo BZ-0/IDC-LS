@@ -1,0 +1,27 @@
+.field-edit {
+    display: grid;
+    position: fixed;
+    
+    //
+    inset: 0px;
+    inset-block-start: auto;
+    pointer-events: none;
+    
+    //
+    grid-template-columns: minmax(0px, 1fr);
+    grid-template-rows: 
+        [empty-space] mimmax(0px, 1fr)
+        [field-edit] mimmax(max-content, 4rem);
+        
+    //
+    .field-content {
+        pointer-events: auto;
+        pointer-events: bounding-box;
+
+        input {
+            pointer-events: auto;
+            pointer-events: bounding-box;
+            user-select: auto;
+        }
+    }
+}

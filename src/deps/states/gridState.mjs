@@ -1,4 +1,4 @@
-import { writable } from "svelte/store"
+import { readable, writable } from "svelte/store";
 
 //
 export const settings = {
@@ -138,42 +138,57 @@ export const setIconState = ({ iconItem = null, id = null }) => {
 };
 
 //
-const fieldNames = ["id", "icon", "label", "action", "href", "cellX", "cellY"];
+export const fieldNames = [
+    "id",
+    "icon",
+    "label",
+    "action",
+    "href",
+    "cellX",
+    "cellY",
+];
 
 //
 export const focusIconForEdit = (id = "github") => {
+    const focusEdit = {};
     const focusIconState = getIconState(id);
     const focusIconWrite = {};
+    const focusFieldSubscribe = {};
 
     //
     for (const f of fieldNames) {
         focusIconWrite[f] = writable(focusIconState[f]);
-    }
-
-    //
-    const sbc = (v) => {
-        setIconState({ id, iconItem: focusIconState });
-    };
-
-    //
-    for (const f of fieldNames) {
-        focusIconWrite[f].subscribe(sbc);
+        focusIconWrite[f].subscribe(
+            (focusFieldSubscribe[f] = (v) => {
+                focusIconState[f] = v;
+                setIconState({ id, iconItem: focusIconState });
+            })
+        );
     }
 
     //
     const updatableIconLists = readable(focusIconState, (set) => {
         for (const f of fieldNames) {
-            focusIconWrite[f].subscribe((v) => {
-                focusIconState[f] = v;
-                set(focusIconState);
+            focusIconWrite[f].subscribe(() => {
+                set?.(focusIconState);
             });
         }
     });
 
     //
-    return {
-        focusIconWrite,
-        focusIconState,
-        updatableIconLists,
-    };
+    focusEdit.updatableIconLists = updatableIconLists;
+    focusEdit.focusIconWrite = focusIconWrite;
+    focusEdit.focusIconState = focusIconState;
+    focusEdit.focusFieldSubscribe = focusFieldSubscribe;
+
+    //
+    return focusEdit;
+};
+
+//
+export const fixSubscribe = (focusEdit) => {
+    for (const f of fieldNames) {
+        focusEdit.focusIconWrite[f].subscribe(focusEdit.focusFieldSubscribe[f]);
+    }
+    return focusEdit;
 };
