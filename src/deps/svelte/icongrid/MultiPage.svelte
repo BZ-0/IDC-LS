@@ -1,14 +1,13 @@
 <script>
 	//
+	import { grabForDrag } from "@libs/orion/pointer-api.mjs";
+	import { animationSequence, makeArgs, putToCell } from "@states/gridItem.mjs";
+	import { currentState, gridState, makeMap } from "@states/gridState.mjs";
+	import { settings } from "@states/settings.mjs";
+	import { onMount } from "svelte";
 	import IconGrid from "./IconGrid.svelte";
 	import IconItem from "./IconItem.svelte";
 	import IconLabel from "./IconLabel.svelte";
-//
-	import { animationSequence, makeArgs, putToCell } from "@states/gridItem.mjs";
-	import { gridState, makeMap, settings } from "@states/gridState.mjs";
-	import { onMount } from "svelte";
-//
-	import { grabForDrag } from "@libs/orion/pointer-api.mjs";
 
 	//
 	export let dragBucket = [];
@@ -27,9 +26,9 @@
 	let gridPagesArray = [];
 
 	//
-	const updateIcons = ()=>{ gridState.iconItems.set(Array.from(iconItems.values())); }
-	const updateGrids = ()=>{ gridState.gridPages.set(Array.from(gridPages.values())); }
-	const updateLists = ()=>{ gridState.iconLists.set(Array.from(iconLists.entries())); }
+	const updateIcons = ()=>{ currentState.iconItems = iconItems; }
+	const updateGrids = ()=>{ currentState.gridPages = gridPages; }
+	const updateLists = ()=>{ currentState.iconLists = iconLists; }
 
 	//
 	gridState.iconLists.subscribe((v)=>{ iconLists = new Map(v) })

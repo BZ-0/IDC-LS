@@ -1,52 +1,61 @@
+import { makeWritableProperty } from "@states/writables.mjs";
 import { readable, writable } from "svelte/store";
 
 //
-export const settings = {
-    columns: writable(
-        parseInt(localStorage.getItem("@settings:@columns")) || 4
-    ),
-    rows: writable(parseInt(localStorage.getItem("@settings:@rows")) || 8),
-    scaling: writable(
-        parseFloat(localStorage.getItem("@settings:@scaling")) || 1.5
-    ),
+export const makeKeyMap = (array) => {
+    return new Map(
+        Object.entries(Object.groupBy(Array.from(array), ({ id }) => id)).map(
+            ([id, [v]]) => [id, v]
+        )
+    );
 };
 
 //
-settings.columns.subscribe((value) => {
-    localStorage.setItem("@settings:@columns", value);
-});
+export const unKeyMap = (map) => {
+    return Array.from(map.values());
+};
 
 //
-settings.rows.subscribe((value) => {
-    localStorage.setItem("@settings:@rows", value);
-});
+export const makeListMap = (listMap) => {
+    return new Map(listMap);
+};
 
 //
-settings.scaling.subscribe((value) => {
-    localStorage.setItem("@settings:@scaling", value);
-    document.body.style.setProperty("--scaling", value || 1);
-});
+export const unListMap = (listMap) => {
+    return Array.from(listMap.entries());
+};
 
 //
-const exKey = (array) => {
+export const exKey = (array) => {
     return array.filter((value, index, self) => {
         return index === self.findIndex((t) => t.id === value.id);
     });
 };
 
 //
+export const currentState = {};
+
+//
 export const gridState = {
-    gridPages: writable(
-        exKey([
+    gridPages: makeWritableProperty(currentState, "gridPages", {
+        initial: exKey([
             ...(JSON.parse(localStorage.getItem("@pages") || "[]") || []),
             {
                 id: "home-page",
                 type: "icon-list",
             },
-        ])
-    ),
-    iconItems: writable(
-        exKey([
+        ]),
+        getter: makeKeyMap,
+        setter(v) {
+            const um = unKeyMap(v);
+            localStorage.setItem("@pages", JSON.stringify(um));
+            return um;
+        },
+    }),
+
+    //
+    iconItems: makeWritableProperty(currentState, "iconItems", {
+        initial: exKey([
             ...(JSON.parse(localStorage.getItem("@icons") || "[]") || []),
             {
                 id: "github",
@@ -60,14 +69,28 @@ export const gridState = {
                 // surrogate field - used when edit
                 //parent: "home-page"
             },
-        ])
-    ),
-    iconLists: writable(
-        exKey([
+        ]),
+        getter: makeKeyMap,
+        setter(v) {
+            const um = unKeyMap(v);
+            localStorage.setItem("@icons", JSON.stringify(um));
+            return um;
+        },
+    }),
+
+    //
+    iconLists: makeWritableProperty(currentState, "iconLists", {
+        initial: exKey([
             ...(JSON.parse(localStorage.getItem("@lists") || "[]") || []),
             ["home-page", ["github"]],
-        ])
-    ),
+        ]),
+        getter: makeListMap,
+        setter(v) {
+            const um = unListMap(v);
+            localStorage.setItem("@lists", JSON.stringify(um));
+            return um;
+        },
+    }),
 };
 
 //
@@ -80,39 +103,14 @@ export const makeMap = (array) => {
 };
 
 //
-export const currentState = {
-    gridPages: new Map([]),
-    iconItems: new Map([]),
-    iconLists: new Map([]),
-};
-
-//
-gridState.iconItems.subscribe((v) => {
-    currentState.iconItems = makeMap(v);
-    localStorage.setItem("@icons", JSON.stringify(v));
-});
-
-//
-gridState.gridPages.subscribe((v) => {
-    currentState.gridPages = makeMap(v);
-    localStorage.setItem("@pages", JSON.stringify(v));
-});
-
-//
-gridState.iconLists.subscribe((v) => {
-    currentState.iconLists = new Map(v);
-    localStorage.setItem("@lists", JSON.stringify(v));
-});
-
-//
 export const updateIcons = (cs = currentState) => {
-    gridState.iconItems.set(Array.from(cs.iconItems.values()));
+    currentState.iconItems = currentState.iconItems;
 };
 export const updateGrids = (cs = currentState) => {
-    gridState.gridPages.set(Array.from(cs.gridPages.values()));
+    currentState.gridPages = currentState.gridPages;
 };
 export const updateLists = (cs = currentState) => {
-    gridState.iconLists.set(Array.from(cs.iconLists.entries()));
+    currentState.iconLists = currentState.iconLists;
 };
 
 //

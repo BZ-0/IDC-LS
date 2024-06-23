@@ -1,5 +1,5 @@
 <script>
-	import { settings } from "@states/gridState.mjs";
+	import { settings } from "@states/settings.mjs";
 	import LucideIcon from '@svelte/decors/LucideIcon.svelte';
 	import Number from '@svelte/inputs/Number.svelte';
 	import { onMount } from 'svelte';
