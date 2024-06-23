@@ -87,40 +87,32 @@ export const currentState = {
 };
 
 //
-gridState.gridPages.subscribe((s) => {
-    currentState.gridPages = makeMap(s);
-});
-gridState.iconItems.subscribe((s) => {
-    currentState.iconItems = makeMap(s);
-});
-gridState.iconLists.subscribe((s) => {
-    currentState.iconLists = new Map(s);
-});
-
-//
 gridState.iconItems.subscribe((v) => {
+    currentState.iconItems = makeMap(v);
     localStorage.setItem("@icons", JSON.stringify(v));
 });
 
 //
-gridState.iconLists.subscribe((v) => {
-    localStorage.setItem("@lists", JSON.stringify(v));
-});
-
-//
 gridState.gridPages.subscribe((v) => {
+    currentState.gridPages = makeMap(v);
     localStorage.setItem("@pages", JSON.stringify(v));
 });
 
 //
-export const updateIcons = () => {
-    gridState.iconItems.set(Array.from(currentState.iconItems.values()));
+gridState.iconLists.subscribe((v) => {
+    currentState.iconLists = new Map(v);
+    localStorage.setItem("@lists", JSON.stringify(v));
+});
+
+//
+export const updateIcons = (cs = currentState) => {
+    gridState.iconItems.set(Array.from(cs.iconItems.values()));
 };
-export const updateGrids = () => {
-    gridState.gridPages.set(Array.from(currentState.gridPages.values()));
+export const updateGrids = (cs = currentState) => {
+    gridState.gridPages.set(Array.from(cs.gridPages.values()));
 };
-export const updateLists = () => {
-    gridState.iconLists.set(Array.from(currentState.iconLists.entries()));
+export const updateLists = (cs = currentState) => {
+    gridState.iconLists.set(Array.from(cs.iconLists.entries()));
 };
 
 //
