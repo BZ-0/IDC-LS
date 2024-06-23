@@ -3,6 +3,7 @@ export const fields = new Map([
     ["icon", ""],
     ["label", ""],
     ["action", ""],
+    ["href", ""],
 ]);
 
 //
@@ -13,26 +14,26 @@ export const fieldEditWrite = {
 };
 
 //
-fieldEditWrite.id.subscribe((v) => {
-    fieldEditState.id = v;
-});
-
-//
+fieldEditWrite.id.subscribe((v) => {fieldEditState.id = v; });
 fieldEditWrite.value.subscribe((v) => {
-    if (fieldEditState.id) {
-        fields.set(fieldEditState.id, (fieldEditState.value = v || ""));
-    }
+    const {id} = fieldEditState;
+    if (id) { fields.set(id, (fieldEditState.value = v || "")); }
 });
 
+
+///////////////////////////
+// applicants for fields //
+///////////////////////////
+
 //
-export const applyToField = (idOf) => {
+export const reflectToField = (idOf, evName = "input") => {
     const onEdit = document.querySelector(
         `input[data-name=\"${(idOf ||= fieldEditState.id)}\"]`
     );
     if (onEdit) {
-        onEdit.value = fields.get(idOf);
+        onEdit.value = fields.get(idOf) || "";
         onEdit.dispatchEvent(
-            new Event("change", {
+            new Event(evName || "input", {
                 bubbles: true,
                 cancelable: true,
             })
@@ -41,10 +42,25 @@ export const applyToField = (idOf) => {
 };
 
 //
-export const focusField = (idOf) => {
-    fieldEditWrite.id.set(idOf);
-    fieldEditWrite.value.set(fields.get(idOf));
+export const bindToFieldEdit = (input)=>{
+    const id = input.dataset.edit;
+    input?.addEventListener?.("change", (ev)=>reflectToField(id, "change"));
+    input?.addEventListener?.("input", (ev)=>reflectToField(id, "input"));
+}
+
+// may possible is input itself
+export const focusField = (idOrInput) => {
+    const ifOd = idOrInput?.dataset?.name ?? idOrInput?.dataset?.edit ?? idOrInput;
+    if (ifOd) {
+        fieldEditWrite.id.set(ifOd);
+        fieldEditWrite.value.set(fields.get(idOf));
+    }
 };
+
+
+//////////////////////////
+// applicants for icons //
+//////////////////////////
 
 //
 export const importFromIcon = (iconItem) => {

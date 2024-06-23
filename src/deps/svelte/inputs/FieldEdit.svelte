@@ -7,36 +7,16 @@
     let input = null;
 
     //
-    let idOf = "";
-    id.subscribe((v)=>{ idOf = v; });
-
-    //
-    const onChange = (evName) => {
-        return (ev)=>{
-            const {target} = ev;
-            const onEdit = document.querySelector(`input[data-name=\"${idOf}\"]`);
-            if (onEdit) {
-                onEdit.value = target.value;
-                onEdit.dispatchEvent(new Event(evName || "input", {
-                    'bubbles': true,
-                    'cancelable': true
-                }));
-            }
-        }
-    }
-
-    //
     onMount(()=>{
-        input?.addEventListener?.("change", onChange("change"));
-        input?.addEventListener?.("input", onChange("input"));
+        if (input) { bindToFieldEdit(input); }
     });
 </script>
 
 <!-- -->
-{#if idOf}
-    <div class="field-edit" data-edit={idOf||""}>
+{#if $id}
+    <div class="field-edit" data-edit={$id||""}>
         <div class="field-wrap">
-            <input bind:this={input} type="text" data-edit={idOf||""} bind:value={$value}/>
+            <input bind:this={input} type="text" data-edit={$id||""} bind:value={$value}/>
         </div>
         <div class="field-copy">
             
