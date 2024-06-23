@@ -17,25 +17,27 @@
             }
         });
     }
-    
+
     //
     onMount(()=>{
-        listenChanges(field);
-        importFromIcon(onEdit.focusIconState);
-        reflectToField(field.dataset.name, "change");
-        
-        //
-        field.addEventListener("click", (ev)=>{
-            const name = ev?.target?.dataset?.name;
-            if (name) { focusField(name); }
-        });
-        
-        //
-        field.addEventListener("focusin", (ev)=>{
-            // TODO: when mobile...
-            focusField(ev?.target?.dataset?.name);
-            refocus();
-        });
+        if (field) {
+            listenChanges(field);
+            importFromIcon(onEdit.focusIconState);
+            reflectToField(field?.dataset?.name, "change");
+            
+            //
+            field.addEventListener("click", (ev)=>{
+                const name = ev?.target?.dataset?.name;
+                if (name) { focusField(name); }
+            });
+            
+            //
+            field.addEventListener("focusin", (ev)=>{
+                // TODO: when mobile...
+                focusField(ev?.target?.dataset?.name);
+                refocus();
+            });
+        }
     });
 </script>
 

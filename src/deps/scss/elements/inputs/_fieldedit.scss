@@ -1,3 +1,6 @@
+@use "@scss/core/classlets";
+@use "@scss/fonts/xo_caliburn" as dFont;
+
 .field-edit {
     display: grid;
     position: fixed;
@@ -10,9 +13,28 @@
     //
     grid-template-columns: minmax(0px, 1fr);
     grid-template-rows: 
-        [empty-space] mimmax(0px, 1fr)
-        [field-edit] mimmax(max-content, 4rem);
+        [empty-space] minmax(0px, 1fr) 
+        [field-edit] minmax(max-content, 4rem);
+    
+    //
+    .field-wrap {
+        @extend .stretch;
         
+        //
+        display: flex;
+        flex-direction: row;
+        min-block-size: 4rem;
+        
+        //
+        input {
+            @extend .stretch;
+            @include dFont.applyFont(1.8rem);
+        
+            padding-inline: 1rem;
+            min-block-size: 4rem;
+        }
+    }
+    
     //
     .field-content {
         pointer-events: auto;

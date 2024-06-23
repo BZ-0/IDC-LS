@@ -17,14 +17,35 @@
     });
 
     //
+    const unfocus = ()=>{
+        requestAnimationFrame(()=>{
+            if (!document.activeElement.matches("input")) {
+                id.set("");
+            }
+        });
+    }
+    
+    //
     onMount(()=>{
+        
+        //
         value.subscribe((v)=>{
             if (input != null) { input.value = v; };
         });
     
         //
+        document.addEventListener("click", ({})=>{
+            unfocus();
+        });
+    
+        //
         requestAnimationFrame(()=>{
             if (input) {
+                input?.addEventListener("focusout", ({target})=>{
+                    unfocus();
+                });
+                
+                //
                 bindToFieldEdit(input); 
                 input.focus();
             }
