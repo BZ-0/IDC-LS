@@ -9,6 +9,7 @@ import path from "path"
 import sveltePreprocess from "svelte-preprocess"
 import { defineConfig, type UserConfig } from "vite"
 import { VitePWA } from "vite-plugin-pwa"
+import { viteStaticCopy } from "vite-plugin-static-copy";
 import certificate from "./https/certificate.mjs"
 import pkg from "./package.json"
 import tsconfig from "./tsconfig.json"
@@ -51,13 +52,21 @@ const config = <UserConfig>defineConfig({
             devOptions: {
                 enabled: true,
                 resolveTempFolder: () => {
-                    return "./dist";
+                    return "./webapp";
                 },
             },
             workbox: {
                 clientsClaim: true,
                 skipWaiting: true,
             },
+        }),
+        viteStaticCopy({
+            targets: [
+                {
+                    src: path.resolve(__dirname, "./src/copying") + "/[!.]*", // 1️⃣
+                    dest: "./webapp", // 2️⃣
+                },
+            ],
         }),
     ],
     server: {
@@ -73,10 +82,10 @@ const config = <UserConfig>defineConfig({
     },
     build: {
         sourcemap: sourceMapsInProduction,
-        outDir: "../dist",
+        outDir: "../webapp",
         emptyOutDir: true,
         rollupOptions: {
-            input: "../dist/index.html",
+            input: "../webapp/index.html",
         },
     },
     css: {

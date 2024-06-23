@@ -12,7 +12,7 @@
 @property --theme-down-mod { syntax: "<color>"; inherits: true; initial-value: black; }
 
 //
-@layer lx-colors {
+@layer ls-colors {
     :root, :host, :scope, :where(*) {
         --theme-chroma-mod: oklch(from #{cl.$baseColor} l 0.99 h);
         --theme-black-mod: oklch(from #{cl.$baseColor} 0.01 0.01 h);

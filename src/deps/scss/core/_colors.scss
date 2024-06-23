@@ -6,7 +6,7 @@
 @use "../color/colorvars" as cl;
 
 //
-@layer lx-colors {
+@layer ls-colors {
     :root, :host, :scope, html, body {
         --theme-glyph-color: #{cl.$glyphColor};
         --theme-surface-color: #{cl.$surfaceColor};

@@ -1,0 +1,99 @@
+{
+    "name": "pwa-idc-ls",
+    "version": "0.0.1",
+    "description": "Electron edition of IDC-LX0",
+    "author": "IDC-LC-2024",
+    "authors": [
+        "unit-404 <conway24b@gmail.com>",
+        "user-404 <conway24b@yandex.ru>"
+    ],
+    "type": "module",
+    "main": "app/index.mjs",
+    "engines": {
+        "node": ">=22"
+    },
+    "keywords": [
+        "fastify",
+        "server"
+    ],
+    "license": "MIT",
+    "private": false,
+    "scripts": {
+        "start": "electron ./app/index.mjs",
+        "make-win64": "npx electron-builder --win --x64",
+        "postinstall": "electron-builder install-app-deps"
+    },
+    "target": "web",
+    "dependencies": {
+        "electron-builder-squirrel-windows": "^25.0.0-alpha.6",
+        "electron-nightly": "^32.0.0-nightly.20240424",
+        "electron-root-path": "^1.1.0",
+        "electron-server": "^0.2.0",
+        "@fastify/autoload": "^5.8.0",
+        "@fastify/cors": "^9.0.1",
+        "@fastify/static": "^7.0.1",
+        "fastify": "^4.27.0",
+        "module-alias": "^2.2.3",
+        "puppeteer": "^22.7.0"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@electron-forge/cli": "^7.4.0",
+        "@electron-forge/maker-deb": "^7.4.0",
+        "@electron-forge/maker-rpm": "^7.4.0",
+        "@electron-forge/maker-squirrel": "^7.4.0",
+        "@electron-forge/maker-zip": "^7.4.0",
+        "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
+        "@electron-forge/plugin-fuses": "^7.4.0",
+        "@electron/fuses": "^1.8.0",
+        "electron": "npm:electron-nightly@^32.0.0-nightly.20240425",
+        "electron-devtools-installer": "^3.2.0"
+    },
+    "build": {
+        "appId": "pwa.idc.lx",
+        "files": [
+            "app"
+        ],
+        "extraResources": [
+            {
+                "from": "../webapp/",
+                "to": "./webapp"
+            },
+            {
+                "from": "../https/",
+                "to": "./https"
+            }
+        ],
+        "directories": {
+            "buildResources": "resources"
+        },
+        "extraFiles": [
+            "credentials"
+        ],
+        "publish": null,
+        "win": {
+            "target": "portable",
+            "icon": "../src/assets/icons/gpt/512x.png"
+        }
+    },
+    "config": {
+        "forge": {
+            "makers": [],
+            "publishers": [],
+            "packagerConfig": {
+                "icon": "../src/assets/icons/gpt/512x.png"
+            }
+        }
+    }
+}

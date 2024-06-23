@@ -195,11 +195,11 @@ https://github.com/tonsky/FiraCode/issues/211#issuecomment-239058632
 
     (defun fira-code-mode--make-alist (list)
       "Generate prettify-symbols alist from LIST."
-      (let ((idx -1))
+      (let ((idc -1))
         (mapcar
          (lambda (s)
-           (setq idx (1+ idx))
-           (let* ((code (+ #Xe100 idx))
+           (setq idc (1+ idc))
+           (let* ((code (+ #Xe100 idc))
               (width (string-width s))
               (prefix ())
               (suffix '(?\s (Br . Br)))

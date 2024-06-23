@@ -41,7 +41,7 @@
 		//
 		tabsEl.addEventListener("click", (ev)=>{
 			const {target} = ev;
-			if (target.matches(".lx-tab-item")) {
+			if (target.matches(".ls-tab-item")) {
 				currentPage = target.dataset.page || "";
 			}
 		})
@@ -49,7 +49,7 @@
 </script>
 
 <!-- -->
-<div bind:this={settingsEl} class="lx-settings" transition:fade={{ delay: 0, duration: 100 }} data-current-page={currentPage} {...$$props}>
+<div bind:this={settingsEl} class="ls-settings" transition:fade={{ delay: 0, duration: 100 }} data-current-page={currentPage} {...$$props}>
 
 	<div class="titlebar accent apply-color-theme hl-1">
 		<div class="back-button accent hl-2 hl-3h apply-color-theme" style="grid-column: back-button; aspect-ratio: 1 / 1;">
@@ -63,16 +63,16 @@
 		</div>
 	</div>
 	<div class="content apply-color-theme">
-		<div class="lx-page lx-tabs accent apply-color-theme" bind:this={tabsEl}>
+		<div class="ls-page ls-tabs accent apply-color-theme" bind:this={tabsEl}>
 		
 			{#each tabs as tab}
-				<Block class="block-decor lx-tab-item accent hl-1h cursor-pointer pe-enable" data-page={tab.page}>
+				<Block class="block-decor ls-tab-item accent hl-1h cursor-pointer pe-enable" data-page={tab.page}>
 					<LucideIcon inert={true} slot="icon" name={tab.icon}/>
 					<div inert={true} class="tab-label">{tab.label}</div>
 				</Block>
 			{/each}
 		</div>
-		<div class="lx-page lx-options">
+		<div class="ls-page ls-options">
 			
 			{#if ["grid-settings"].indexOf(currentPage) >= 0}
 				<form data-page data-name="grid-columns-row" transition:fade={{ delay: 0, duration: 100 }}>

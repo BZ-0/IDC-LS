@@ -3,7 +3,7 @@
 @use "@scss/color/colorutils" as cu;
 
 //
-@layer lx-inputs {
+@layer ls-inputs {
     .number-input {
         display: grid;
         grid-template-columns: minmax(max-content, 1rem) minmax(max-content, 1fr) minmax(max-content, 1rem);
