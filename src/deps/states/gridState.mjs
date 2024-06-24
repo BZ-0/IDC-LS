@@ -153,22 +153,19 @@ export const fieldNames = [
 
 //
 export const focusIconForEdit = (id = "github") => {
-    const focusEdit = {};
     const focusIconState = getIconState(id);
     const focusIconWrite = {};
-    const focusFieldSubscribe = {};
+    //const focusFieldSubscribe = {};
 
     //
     for (const f of fieldNames) {
         focusIconWrite[f] = writable(focusIconState[f]);
-        focusIconWrite[f].subscribe(
-            (focusFieldSubscribe[f] = (v) => {
-                if (v != null) {
-                    focusIconState[f] = v;
-                    setIconState({ id, iconItem: focusIconState });
-                }
-            })
-        );
+        focusIconWrite[f].subscribe((v) => {
+            if (v != null) {
+                focusIconState[f] = v;
+                setIconState({ id, iconItem: focusIconState });
+            }
+        });
     }
 
     //
@@ -181,19 +178,18 @@ export const focusIconForEdit = (id = "github") => {
     });
 
     //
-    focusEdit.updatableIconLists = updatableIconLists;
-    focusEdit.focusIconWrite = focusIconWrite;
-    focusEdit.focusIconState = focusIconState;
-    focusEdit.focusFieldSubscribe = focusFieldSubscribe;
-
-    //
-    return focusEdit;
+    return {
+        updatableIconLists,
+        focusIconWrite, 
+        focusIconState
+    };;
 };
 
 //
-export const fixSubscribe = (focusEdit) => {
+/*export const fixSubscribe = (focusEdit) => {
     for (const f of fieldNames) {
         focusEdit.focusIconWrite[f].subscribe(focusEdit.focusFieldSubscribe[f]);
     }
     return focusEdit;
 };
+*/

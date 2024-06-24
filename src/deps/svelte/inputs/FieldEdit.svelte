@@ -6,10 +6,7 @@
 
     //
     let {id, value} = fieldEditWrite;
-    let input = null;
-    let copyButton = null;
-    let pasteButton = null;
-    let fieldEdit = null;
+    let input = null, copyButton = null,pasteButton = null, fieldEdit = null;
 
     //
     id.subscribe((v)=>{
@@ -19,11 +16,6 @@
                 input.focus();
             }
         });
-    });
-
-    //
-    value.subscribe((v)=>{
-        if (input != null) { input.value = v; };
     });
 
     //

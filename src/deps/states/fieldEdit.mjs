@@ -1,5 +1,4 @@
-import { writable } from "svelte/store"
-import { fixSubscribe } from "./gridState.mjs"
+import { makeWritableProperty } from "@states/writables.mjs"
 import { whenMedia } from "./readables.mjs"
 
 //
@@ -14,36 +13,34 @@ export const fields = new Map([
 ]);
 
 //
-export const fieldEditState = { value: "", id: "" };
+export const fieldEditState = {};
 export const fieldEditWrite = {
-    value: writable(""),
-    id: writable(""),
+    value: makeWritableProperty(fieldEditState, "value", {
+        initial: "",
+        setter: (v) => {
+            const id = fieldEditState.id;
+            if (id && id != null && id != "undefined") {
+                fields.set(id, v || "");
+            }
+            return v || "";
+        },
+    }),
+    id: makeWritableProperty(fieldEditState, "id", { initial: "" }),
 };
-
-//
-fieldEditWrite.id.subscribe((v) => {
-    fieldEditState.id = v;
-});
-fieldEditWrite.value.subscribe((v) => {
-    const { id } = fieldEditState;
-    if (id && id != null && id != "undefined") {
-        fields.set(id, (fieldEditState.value = v || ""));
-    }
-});
 
 ///////////////////////////
 // applicants for fields //
 ///////////////////////////
 
 //
-export const reflectToField = (idOf, evName = "input") => {
+export const reflectToField = (idOf, evName = "input", value = null) => {
     const onEdit = document.querySelector(
         `input[data-name=\"${(idOf ||= fieldEditState.id)}\"]`
     );
     if (onEdit) {
-        /*if (onEdit.value) {
-            fields.set(idOf, onEdit.value);
-        }*/
+        if (value != null) {
+            fields.set(idOf, value);
+        }
         onEdit.value = fields.get(idOf) || "";
         onEdit.dispatchEvent(
             new Event(evName || "input", {
@@ -57,7 +54,7 @@ export const reflectToField = (idOf, evName = "input") => {
 //
 export const onInputChange = ({ target }) => {
     if (target.value != null) {
-        fieldEditWrite.value.set(target.value);
+        fieldEditState.value = target.value;
     }
 };
 
@@ -70,10 +67,14 @@ export const listenChanges = (field) => {
 //
 export const bindToFieldEdit = (input) => {
     const id = input?.dataset?.edit || "";
-    input?.addEventListener?.("change", (ev) => reflectToField(id, "change"));
-    input?.addEventListener?.("input", (ev) => reflectToField(id, "input"));
+    input?.addEventListener?.("change", (ev) =>
+        reflectToField(id, "change", ev.target.value)
+    );
+    input?.addEventListener?.("input", (ev) =>
+        reflectToField(id, "input", ev.target.value)
+    );
     if (input) {
-        reflectToField(id, "change");
+        reflectToField(id, "change", input.value);
     }
 };
 
@@ -100,8 +101,8 @@ export const focusField = (idOrInput) => {
         if (idOrInput?.value != null) {
             fields.set(idOf, idOrInput?.value);
         }
-        fieldEditWrite.id.set(idOf);
-        fieldEditWrite.value.set(fields.get(idOf));
+        fieldEditState.id = idOf;
+        fieldEditState.value = fields.get(idOf);
     }
 };
 
@@ -124,22 +125,10 @@ export const importFromIcon = (iconItem) => {
 //
 export const applyForIcon = (onEdit) => {
     if (onEdit) {
-        fixSubscribe(onEdit);
+        //fixSubscribe(onEdit);
         for (const k of fields.keys()) {
             const field = fields.get(k) || "";
             onEdit.focusIconWrite[k].set(field);
         }
     }
 };
-
-// for example...
-/*
-    export const fieldEditState = {
-        value: "",
-        id: "",
-    };
-    
-    //
-    fieldEditWrite.value.subscribe((v) => (fieldEditState.value = v));
-    fieldEditWrite.id.subscribe((v) => (fieldEditState.id = v));
-*/

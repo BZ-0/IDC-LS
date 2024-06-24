@@ -51,4 +51,4 @@
 </script>
 
 <!-- -->
-<input bind:this={field} value="default" type="text" data-name="label" virtualkeyboardpolicy="manual" {...$$props}>
+<input bind:this={field} value="default" type="text" data-name="label" virtualkeyboardpolicy="manual">

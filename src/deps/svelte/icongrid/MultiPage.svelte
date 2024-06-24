@@ -2,7 +2,7 @@
     //
     import { grabForDrag } from "@libs/orion/pointer-api.mjs";
     import { animationSequence, makeArgs, putToCell } from "@states/gridItem.mjs";
-    import { currentState, gridState, makeMap } from "@states/gridState.mjs";
+    import { currentState } from "@states/gridState.mjs";
     import { settings } from "@states/settings.mjs";
     import { onMount } from "svelte";
     import IconGrid from "./IconGrid.svelte";
@@ -10,28 +10,24 @@
     import IconLabel from "./IconLabel.svelte";
 
     //
+    let {rows, columns} = settings;
+
+    //
     export let dragBucket = [];
     export let currentPage = "home-page";
     export let mainElement = null;
-    export let columnsAndRows = [8, 4];
+    export let columnsAndRows = [$columns, $rows];
 
     //
-    settings.columns.subscribe((v)=>(columnsAndRows = [v,columnsAndRows[1]]));
-    settings.rows.subscribe((v)=>(columnsAndRows = [columnsAndRows[0], v]));
-
-    //
-    let iconLists = currentState.iconLists || new Map();
-    let iconItems = currentState.iconItems || new Map();
-    let gridPages = currentState.gridPages || new Map();
+    let {iconLists, iconItems, gridPages} = currentState;
     let gridPagesArray = Array.from(gridPages.values());
 
     //
-    gridState.iconLists.subscribe((v)=> { iconLists = new Map(v); });
-    gridState.iconItems.subscribe((v)=> { iconItems = makeMap(v); });
-    gridState.gridPages.subscribe((v)=> { 
-        gridPages = makeMap(v);
-        gridPagesArray = Array.from(gridPages.values()); 
-    });
+    $: columnsAndRows = [$columns, $rows];
+    $: iconLists = currentState.iconLists;
+    $: iconItems = currentState.iconItems;
+    $: gridPages = currentState.gridPages;
+    $: gridPagesArray = Array.from(gridPages.values());
 
     //
     const grabItem = (ev)=>{
@@ -40,21 +36,20 @@
             const iconId      = iconElement.dataset["id"];
             const iconItem    = iconItems.get(iconId);
             const iconList    = iconLists.get(currentPage);
-    
+
             //
             iconItem.pCellX = iconItem.cellX;
             iconItem.pCellY = iconItem.cellY;
             iconItem.pointerId = ev.detail.pointerId;
-    
+
             //
             const argObj = makeArgs(iconItem, iconItems, gridPages.get(currentPage), columnsAndRows, iconLists);
-    
+
             //iconId
             iconLists.set(currentPage, iconList.filter((id)=>(id!=iconId)) || []);
-            dragBucket = [...dragBucket, iconId];
-    
-            //
             currentState.iconLists = iconLists;
+            dragBucket = [...dragBucket, iconId];
+            
         }, {once: true, capture: true, passive: true}];
 
         //
