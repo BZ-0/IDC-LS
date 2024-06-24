@@ -88,7 +88,7 @@
 
 <!-- -->
 {#if $id}
-    <div class="field-edit fixed stretch exclude-keyboard-vp" data-edit={$id||""}>
+    <div class="field-edit fixed stretch exclude-keyboard-vp use-vp-size" data-edit={$id||""}>
         <div class="field-content stretch solid apply-color-theme" style="grid-row: field-edit;">
             <div class="field-wrap solid apply-color-theme">
                 <input bind:this={input} autofocus={true} type="text" data-edit={$id||""} bind:value={$value}/>

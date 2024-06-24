@@ -280,34 +280,14 @@
     
     //
     .vp-bounding-box {
-        --vp-min-i-size: calc(100dvi / var(--scaling, 1));
-        --vp-min-b-size: calc(100dvb / var(--scaling, 1));
-
-        //
-        --vp-i-size: calc(100dvi / var(--scaling, 1));
-        --vp-b-size: calc(100dvb / var(--scaling, 1));
-        
-        //
-        @media all and ((display-mode: fullscreen) or (display-mode: standalone) or (display-mode: window-controls-overlay)){
-            --vp-i-size: calc(var(--avail-width, 100dvi) / var(--scaling, 1));
-            --vp-b-size: calc(var(--avail-height, 100dvb) / var(--scaling, 1));
-        }
+        --vp-i-size: calc(min(var(--avail-width, 100dvi), 100dvi) / var(--scaling, 1));
+        --vp-b-size: calc(min(var(--avail-height, 100dvb), 100dvb) / var(--scaling, 1));
     }
     
     //
     .exclude-keyboard-vp {
-        --vp-min-i-size: calc(calc(100dvi - 0px) / var(--scaling, 1));
-        --vp-min-b-size: calc(calc(100dvb - env(keyboard-inset-height, 0px)) / var(--scaling, 1));
-
-        //
-        --vp-i-size: calc(calc(100dvi - 0px) / var(--scaling, 1));
-        --vp-b-size: calc(calc(100dvb - env(keyboard-inset-height, 0px)) / var(--scaling, 1));
-        
-        //
-        @media all and ((display-mode: fullscreen) or (display-mode: standalone) or (display-mode: window-controls-overlay)){
-            --vp-i-size: calc(calc(var(--avail-width, 100dvi) - 0px) / var(--scaling, 1));
-            --vp-b-size: calc(calc(var(--avail-height, 100dvb) - env(keyboard-inset-height, 0px)) / var(--scaling, 1));
-        }
+        --vp-i-size: calc(calc(min(var(--avail-width, 100dvi), 100dvi) - 0px) / var(--scaling, 1));
+        --vp-b-size: calc(calc(min(var(--avail-height, 100dvb), 100dvb) - env(keyboard-inset-height, 0px)) / var(--scaling, 1));
     }
     
     //
@@ -317,12 +297,12 @@
         inset: 0px;
 
         //
-        min-inline-size: var(--vp-min-i-size, 100dvi);
-        min-block-size: var(--vp-min-b-size, 100dvb);
-
+        inline-size: var(--vp-i-size, 100dvi);
+        block-size: var(--vp-b-size, 100dvb);
+        
         //
-        inline-size: var(--vp-min-i-size, 100dvi);
-        block-size: var(--vp-min-b-size, 100dvb);
+        max-inline-size: var(--vp-i-size, 100dvi);
+        max-block-size: var(--vp-b-size, 100dvb);
     }
 
 }
