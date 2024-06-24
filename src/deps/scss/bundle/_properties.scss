@@ -133,10 +133,10 @@
 
     //
     :root, :host, :scope {
-        --keyboard-inset-bottom: env(keyboard-inset-bottom, auto);
-        --keyboard-inset-height: env(keyboard-inset-height, 0px);
+        --keyboard-inset-bottom: calc(env(keyboard-inset-bottom, 0px) / var(--scaling, 1));
+        --keyboard-inset-height: calc(env(keyboard-inset-height, 0px) / var(--scaling, 1));
 
         //
-        will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset
+        will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset;
     }
 }
