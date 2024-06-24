@@ -27,7 +27,7 @@
     }
 
     //
-    html, body {
+    :where(html, body) {
         padding: 0px;
         margin: 0px;
         inset: 0px;
@@ -40,25 +40,32 @@
     }
 
     //
+    head {
+        display: none !important;
+        pointer-events: none !important;
+    }
+
+    //
     html {
+        background-color: transparent;
         inline-size: max-content;
         block-size: max-content;
         overflow: hidden;
         position: fixed;
-        
-        //
-        background-color: white;
+        display: contents;
     }
 
     //
     body {
         //@extend .vp-exclude-keyboard;
         @extend .vp-bounding-box;
-        @extend .use-vp-size;
+
+        //
+        background-color: white !important;
 
         //
         overflow: hidden;
-        position: relative;
+        position: fixed;
         
         //
         --ppx: calc(1px / var(--scaling, 1));

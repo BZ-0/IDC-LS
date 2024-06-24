@@ -150,22 +150,16 @@
     .fixed-avail {
         @extend .fixed;
         @extend .inset-0;
-        
+
         //
-        inline-size: 100dvi;
-        block-size: 100dvb;
-        
-        //
-        @media all and ((display-mode: fullscreen) or (display-mode: standalone) or (display-mode: window-controls-overlay)){
-            inline-size: var(--avail-width, 100dvi);
-            block-size: var(--avail-height, 100dvb);
-        }
+        inline-size: calc(min(var(--avail-width, 100dvi), 100dvi) / var(--scaling));
+        block-size: calc(min(var(--avail-height, 100dvb), 100dvb) / var(--scaling));
     }
 
     // depends from virtual keyboards
     .fit-viewport {
-        inline-size: min(100dvi, 100cqi);
-        block-size: min(100dvb, 100cqb);
+        inline-size: min(calc(min(var(--avail-width, 100dvi), 100dvi) / var(--scaling)), 100cqi);
+        block-size: min(calc(min(var(--avail-height, 100dvb), 100dvb) / var(--scaling)), 100cqb);
     }
 
     //
@@ -277,25 +271,18 @@
         align-items: center;
         text-align: center;
     }
-    
+
     //
     .vp-bounding-box {
-        --vp-i-size: calc(min(var(--avail-width, 100dvi), 100dvi) / var(--scaling, 1));
-        --vp-b-size: calc(min(var(--avail-height, 100dvb), 100dvb) / var(--scaling, 1));
-    }
-    
-    //
-    .exclude-keyboard-vp {
-        --vp-i-size: calc(calc(min(var(--avail-width, 100dvi), 100dvi) - 0px) / var(--scaling, 1));
-        --vp-b-size: calc(calc(min(var(--avail-height, 100dvb), 100dvb) - env(keyboard-inset-height, 0px)) / var(--scaling, 1));
-    }
-    
-    //
-    .use-vp-size {
-        overflow: visible;
-        position: fixed;
-        inset: 0px;
+        --vp-i-size: calc(100dvi / var(--scaling, 1));
+        --vp-b-size: calc(100dvb / var(--scaling, 1));
 
+        //
+        @media all and (display-mode: fullscreen) {
+            --vp-i-size: calc(var(--avail-width, 100dvi) / var(--scaling, 1));
+            --vp-b-size: calc(var(--avail-height, 100dvb) / var(--scaling, 1));
+        }
+        
         //
         inline-size: var(--vp-i-size, 100dvi);
         block-size: var(--vp-b-size, 100dvb);

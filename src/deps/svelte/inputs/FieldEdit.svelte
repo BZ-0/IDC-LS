@@ -36,6 +36,16 @@
     let pasteButton = null;
     
     //
+    const refocus = (input)=>{
+        //
+        if (input) {
+            input.style.display = "none";
+            input.style.removeProperty("display");
+            input.focus();
+        }
+    }
+    
+    //
     onMount(()=>{
         
         //
@@ -52,8 +62,8 @@
         requestAnimationFrame(()=>{
             //
             document.addEventListener("click", ({target})=>{
-                if (target == copyButton || target == pasteButton) {
-                    input?.focus?.(input);
+                if (target == copyButton || target == pasteButton || target == input) {
+                    refocus(input);
                 }
                 
                 // TODO: needs to action
@@ -68,10 +78,10 @@
             //
             document.addEventListener("focusin", ({target})=>{
                 if (target == copyButton || target == pasteButton) {
-                    input?.focus?.();
+                    refocus(input);
                 }
             });
-        
+
             //
             if (input) {
                 input?.addEventListener("focusout", ({target})=>{
@@ -80,7 +90,7 @@
                 
                 //
                 bindToFieldEdit(input); 
-                input.focus();
+                refocus(input);
             }
         });
     });
@@ -88,7 +98,7 @@
 
 <!-- -->
 {#if $id}
-    <div class="field-edit fixed stretch exclude-keyboard-vp use-vp-size" data-edit={$id||""}>
+    <div class="field-edit fixed" data-edit={$id||""}>
         <div class="field-content stretch solid apply-color-theme" style="grid-row: field-edit;">
             <div class="field-wrap solid apply-color-theme">
                 <input bind:this={input} autofocus={true} type="text" data-edit={$id||""} bind:value={$value}/>

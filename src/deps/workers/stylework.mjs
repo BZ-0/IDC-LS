@@ -196,19 +196,19 @@ const cloudyShape = WavyShapedCircle();
 
 //
 const availSize = {
-    "--avail-width" : screen.availWidth  + "px",
-    "--avail-height": (screen.availHeight - (navigator?.virtualKeyboard?.boundingRect?.height || 0)) + "px"
-}
+    "--avail-width": screen.availWidth + "px",
+    "--avail-height": screen.availHeight + "px",
+};
 
 //
-const updateOrientation = (e)=>{
+const updateOrientation = (e) => {
     Object.assign(availSize, {
-        "--avail-width" : screen.availWidth  + "px",
-        "--avail-height": (screen.availHeight - (navigator?.virtualKeyboard?.boundingRect?.height || 0)) + "px"
+        "--avail-width": screen.availWidth + "px",
+        "--avail-height": screen.availHeight + "px",
     });
 
     //
-    switch(getCorrectOrientation()) {
+    switch (getCorrectOrientation()) {
         case "portrait-primary":
             Object.assign(landscape, landscape90deg);
             Object.assign(portrait, portrait0deg);
@@ -220,7 +220,7 @@ const updateOrientation = (e)=>{
             //
             Object.assign(lts, ltsPortrait);
             Object.assign(pts, ptsPortrait);
-        break;
+            break;
 
         case "landscape-primary":
             Object.assign(landscape, landscape0deg);
@@ -233,7 +233,7 @@ const updateOrientation = (e)=>{
             //
             Object.assign(lts, ltsLandscape);
             Object.assign(pts, ptsLandscape);
-        break;
+            break;
 
         case "portrait-secondary":
             Object.assign(landscape, landscape270deg);
@@ -246,7 +246,7 @@ const updateOrientation = (e)=>{
             //
             Object.assign(lts, ltsPortrait);
             Object.assign(pts, ptsPortrait);
-        break;
+            break;
 
         case "landscape-secondary":
             Object.assign(landscape, landscape180deg);
@@ -259,31 +259,54 @@ const updateOrientation = (e)=>{
             //
             Object.assign(lts, ltsLandscape);
             Object.assign(pts, ptsLandscape);
-        break;
+            break;
     }
-}
+};
 
 //
 const classes = [
-    [':root, :host, :scope', cloudyShape],
-    [':root, :host, :scope', portrait],
-    [':root, :host, :scope', landscape],
-    [':root, :host, :scope', displayPortrait],
-    [':root, :host, :scope', displayLandscape],
-    [':root, :host, :scope', lts],
-    [':root, :host, :scope', pts],
-    [':root, :host, :scope', availSize]
+    [":root, :host, :scope", cloudyShape],
+    [":root, :host, :scope", portrait],
+    [":root, :host, :scope", landscape],
+    [":root, :host, :scope", displayPortrait],
+    [":root, :host, :scope", displayLandscape],
+    [":root, :host, :scope", lts],
+    [":root, :host, :scope", pts],
+    [":root, :host, :scope", availSize],
 ];
 
 //
-const updateDynamic = (e)=>{
+const updateDynamic = (e) => {
     updateOrientation(e);
     setStyleRules(classes);
-}
+};
 
 //
-navigator?.virtualKeyboard?.addEventListener?.("geometrychange", updateDynamic);
-document.addEventListener("DOMContentLoaded", updateDynamic, {passive: true});
-screen.orientation.addEventListener("change", updateDynamic, {passive: true});
-self.addEventListener("resize", updateDynamic, {passive: true});
+navigator?.virtualKeyboard?.addEventListener?.(
+    "geometrychange",
+    updateDynamic,
+    { passive: true }
+);
+document.addEventListener("DOMContentLoaded", updateDynamic, { passive: true });
+screen.orientation.addEventListener("change", updateDynamic, { passive: true });
+self.addEventListener("resize", updateDynamic, { passive: true });
 updateDynamic();
+
+// pre-fix full-screen mode
+document.addEventListener(
+    "click",
+    () => {
+        if (
+            matchMedia(
+                "all and ((display-mode: fullscreen) or (display-mode: standalone))"
+            ).matches
+        ) {
+            document?.body
+                ?.requestFullscreen?.({
+                    navigationUI: "hide",
+                })
+                ?.catch(console.warn.bind(console));
+        }
+    },
+    { passive: true, capture: true }
+);
