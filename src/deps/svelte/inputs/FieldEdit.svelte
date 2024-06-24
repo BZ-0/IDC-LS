@@ -18,10 +18,14 @@
     });
 
     //
-    const unfocus = ()=>{
+    const unfocus = (target)=>{
+        if (target != input) {
+            document.activeElement?.blur?.();
+        }
         requestAnimationFrame(()=>{
             if (!document.activeElement.matches("input")) {
                 navigator?.virtualKeyboard?.hide?.();
+                document.activeElement?.blur?.();
                 id.set("");
             }
         });
@@ -40,8 +44,8 @@
         });
     
         //
-        document.addEventListener("click", ({})=>{
-            unfocus();
+        document.addEventListener("click", ({target})=>{
+            unfocus(target);
         });
     
         //
@@ -49,7 +53,7 @@
             //
             document.addEventListener("click", ({target})=>{
                 if (target == copyButton || target == pasteButton) {
-                    input?.focus?.();
+                    input?.focus?.(input);
                 }
                 
                 // TODO: needs to action
