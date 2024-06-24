@@ -5,7 +5,7 @@ import { whenMedia } from "./readables.mjs"
 export const whenTouch = whenMedia("(hover: none) and (pointer: coarse)");
 
 //
-export const fields = new Map([
+export const fieldsData = new Map([
     ["icon", ""],
     ["label", ""],
     ["action", ""],
@@ -20,7 +20,7 @@ export const fieldEditWrite = {
         setter: (v) => {
             const id = fieldEditState.id;
             if (id && id != null && id != "undefined") {
-                fields.set(id, v || "");
+                fieldsData.set(id, v || "");
             }
             return v || "";
         },
@@ -29,7 +29,7 @@ export const fieldEditWrite = {
 };
 
 ///////////////////////////
-// applicants for fields //
+// applicants for fieldsData //
 ///////////////////////////
 
 //
@@ -39,9 +39,9 @@ export const reflectToField = (idOf, evName = "input", value = null) => {
     );
     if (onEdit) {
         if (value != null) {
-            fields.set(idOf, value);
+            fieldsData.set(idOf, value);
         }
-        onEdit.value = fields.get(idOf) || "";
+        onEdit.value = fieldsData.get(idOf) || "";
         onEdit.dispatchEvent(
             new Event(evName || "input", {
                 bubbles: true,
@@ -79,7 +79,7 @@ export const bindToFieldEdit = (input) => {
 };
 
 //
-export const fromField = (idOrInput) => {
+export const fieldToData = (idOrInput) => {
     const idOf =
         idOrInput?.dataset?.name ?? idOrInput?.dataset?.edit ?? idOrInput;
     const field =
@@ -89,7 +89,7 @@ export const fromField = (idOrInput) => {
               )
             : idOrInput;
     if (field?.value != null && idOf && idOf != null && idOf != "undefined") {
-        fields.set(idOf, field?.value);
+        fieldsData.set(idOf, field?.value);
     }
 };
 
@@ -99,10 +99,10 @@ export const focusField = (idOrInput) => {
         idOrInput?.dataset?.name ?? idOrInput?.dataset?.edit ?? idOrInput;
     if (idOf && idOf != null && idOf != "undefined") {
         if (idOrInput?.value != null) {
-            fields.set(idOf, idOrInput?.value);
+            fieldsData.set(idOf, idOrInput?.value);
         }
         fieldEditState.id = idOf;
-        fieldEditState.value = fields.get(idOf);
+        fieldEditState.value = fieldsData.get(idOf);
     }
 };
 
@@ -113,10 +113,10 @@ export const focusField = (idOrInput) => {
 //
 export const importFromIcon = (iconItem) => {
     if (iconItem) {
-        for (const k of fields.keys()) {
+        for (const k of fieldsData.keys()) {
             const iconField = iconItem[k];
             if (iconField) {
-                fields.set(k, iconField || "");
+                fieldsData.set(k, iconField || "");
             }
         }
     }
@@ -126,8 +126,8 @@ export const importFromIcon = (iconItem) => {
 export const applyForIcon = (onEdit) => {
     if (onEdit) {
         //fixSubscribe(onEdit);
-        for (const k of fields.keys()) {
-            const field = fields.get(k) || "";
+        for (const k of fieldsData.keys()) {
+            const field = fieldsData.get(k) || "";
             onEdit.focusIconWrite[k].set(field);
         }
     }

@@ -1,5 +1,5 @@
 <script>
-    import { focusField, fromField, importFromIcon, listenChanges, reflectToField } from '@states/fieldEdit.mjs';
+    import { fieldToData, focusField, importFromIcon, listenChanges, reflectToField } from '@states/fieldEdit.mjs';
     import { onMount } from 'svelte';
     
     //
@@ -7,6 +7,7 @@
     
     //
     export let onEdit = null;//focusIconForEdit("github");
+    export let fieldName = "";
     
     //
     const refocus = ()=>{
@@ -44,11 +45,11 @@
             reflectToField(field?.dataset?.name, "change");
             
             //
-            field.addEventListener("change", (ev)=>{ fromField(field?.dataset?.name); });
-            field.addEventListener("input", (ev)=>{ fromField(field?.dataset?.name); });
+            field.addEventListener("change", (ev)=>{ fieldToData(field?.dataset?.name); });
+            field.addEventListener("input", (ev)=>{ fieldToData(field?.dataset?.name); });
         }
     });
 </script>
 
 <!-- -->
-<input bind:this={field} value="default" type="text" data-name="label" virtualkeyboardpolicy="manual">
+<input bind:this={field} value="" type="text" data-name={fieldName} virtualkeyboardpolicy="manual">

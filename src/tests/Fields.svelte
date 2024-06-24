@@ -18,7 +18,7 @@
 </script>
 
 <!-- -->
-<Field {onEdit} value="default" type="text" data-name="label"/>
+<Field {onEdit} fieldName={"label"}/>
 
 <!--  -->
 <button bind:this={button} type="button">Confirm</button>

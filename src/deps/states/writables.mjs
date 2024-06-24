@@ -1,12 +1,7 @@
 import { writable } from "svelte/store";
 
 //
-const setterFx = (v) => {
-    return v;
-};
-
-//
-const getterFx = (v) => {
+const nullFx = (v) => {
     return v;
 };
 
@@ -14,18 +9,17 @@ const getterFx = (v) => {
 export const makeWritableProperty = (
     base = {},
     name = "",
-    { initial = null, setter = setterFx, getter = getterFx } = {}
+    { initial = null, setter = nullFx, getter = nullFx, afterSet = nullFx } = {}
 ) => {
     const state = {
         w: writable(initial),
         v: getter(initial),
-        s: (v) => {
-            state.v = getter(v);
-        },
     };
 
     //
-    state.w.subscribe(state.s);
+    state.w.subscribe((v) => {
+        afterSet?.((state.v = getter(v)));
+    });
 
     //
     Object.defineProperty(base, name, {
@@ -34,8 +28,8 @@ export const makeWritableProperty = (
             return state.v;
         },
         set(v) {
-            state.w.set(setter(v));
             state.v = v;
+            state.w.set(setter(v));
         },
     });
 

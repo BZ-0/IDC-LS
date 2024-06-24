@@ -1,5 +1,5 @@
 import { makeWritableProperty } from "@states/writables.mjs"
-import { readable, writable } from "svelte/store"
+import { readable } from "svelte/store"
 
 //
 export const makeKeyMap = (array) => {
@@ -153,18 +153,22 @@ export const fieldNames = [
 
 //
 export const focusIconForEdit = (id = "github") => {
-    const focusIconState = getIconState(id);
+    const focusIconState = {};
     const focusIconWrite = {};
-    //const focusFieldSubscribe = {};
 
     //
+    const state = getIconState(id);
     for (const f of fieldNames) {
-        focusIconWrite[f] = writable(focusIconState[f]);
-        focusIconWrite[f].subscribe((v) => {
-            if (v != null) {
-                focusIconState[f] = v;
-                setIconState({ id, iconItem: focusIconState });
-            }
+        focusIconWrite[f] = makeWritableProperty(focusIconState, f, {
+            initial: state[f],
+            afterSet: (v) => {
+                if (v != null) {
+                    const iconItem = getIconState(id);
+                    iconItem[f] = v;
+                    setIconState({ id, iconItem });
+                }
+                return v || "";
+            },
         });
     }
 
@@ -180,9 +184,9 @@ export const focusIconForEdit = (id = "github") => {
     //
     return {
         updatableIconLists,
-        focusIconWrite, 
-        focusIconState
-    };;
+        focusIconWrite,
+        focusIconState,
+    };
 };
 
 //
