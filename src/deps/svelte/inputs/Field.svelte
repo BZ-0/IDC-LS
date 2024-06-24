@@ -1,5 +1,5 @@
 <script>
-    import { focusField, importFromIcon, listenChanges, reflectToField } from '@states/fieldEdit.mjs';
+    import { focusField, fromField, importFromIcon, listenChanges, reflectToField } from '@states/fieldEdit.mjs';
     import { onMount } from 'svelte';
     
     //
@@ -27,15 +27,19 @@
             
             //
             field.addEventListener("click", (ev)=>{
-                const name = ev?.target?.dataset?.name;
+                const name = field?.dataset?.name;
                 if (name) { focusField(name); }
                 field?.focus?.();
             });
             
             //
+            field.addEventListener("change", (ev)=>{ fromField(field?.dataset?.name); });
+            field.addEventListener("input", (ev)=>{ fromField(field?.dataset?.name); });
+            
+            //
             field.addEventListener("focusin", (ev)=>{
                 // TODO: when mobile...
-                focusField(ev?.target?.dataset?.name);
+                focusField(field?.dataset?.name);
                 refocus();
             });
         }

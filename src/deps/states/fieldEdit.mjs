@@ -73,6 +73,21 @@ export const bindToFieldEdit = (input) => {
     }
 };
 
+//
+export const fromField = (idOrInput) => {
+    const idOf =
+        idOrInput?.dataset?.name ?? idOrInput?.dataset?.edit ?? idOrInput;
+    const field =
+        typeof idOrInput == "string"
+            ? document.querySelector(
+                  `input[data-name=\"${(idOf ||= fieldEditState.id)}\"]`
+              )
+            : idOrInput;
+    if (field?.value != null) {
+        fields.set(idOf, field?.value);
+    }
+};
+
 // may possible is input itself
 export const focusField = (idOrInput) => {
     const idOf =
