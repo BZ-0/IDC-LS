@@ -1,18 +1,21 @@
 @use "@scss/core/classlets";
 @use "@scss/fonts/xo_caliburn" as dFont;
 
+//
 .field-edit {
     display: grid;
     position: fixed;
+    overflow: hidden;
     
     //
-    inset: 0px;
+    inset: 0px !important;
     inset-block-start: 0px;
-    inset-block-end: env(keyboard-inset-height, 0px);
-    
+    inset-block-end: auto;
+    inset-block-end: var(--keyboard-inset-bottom, auto);
+
     //
     inline-size: 100cqi;
-    block-size: calc(100cqb - env(keyboard-inset-height, 0px));
+    block-size: calc(100cqb - var(--keyboard-inset-height, 0px));
     
     //
     pointer-events: none;

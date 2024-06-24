@@ -18,7 +18,7 @@
 </script>
 
 <!-- -->
-<Field {onEdit} value="default" type="text" data-name="label" virtualkeyboardpolicy="manual"/>
+<Field {onEdit} value="default" type="text" data-name="label"/>
 
 <!--  -->
 <button bind:this={button} type="button">Confirm</button>

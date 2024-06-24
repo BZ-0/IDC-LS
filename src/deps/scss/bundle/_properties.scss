@@ -65,6 +65,20 @@
     }
 
     //
+    @property --keyboard-inset-bottom {
+        syntax: "<length-percentage>";
+        initial-value: 0px;
+        inherits: true;
+    }
+
+    //
+    @property --keyboard-inset-height {
+        syntax: "<length-percentage>";
+        initial-value: 0px;
+        inherits: true;
+    }
+
+    //
     @property --r-gap {
         syntax: "<number>";
         initial-value: 1;
@@ -116,4 +130,10 @@
     @property --current-chroma-color { syntax: "<color>"; initial-value: black; inherits: true; };
     @property --current-accent-color { syntax: "<color>"; initial-value: black; inherits: true; };
     @property --highlight-coefficient { syntax: "<number>"; initial-value: 0; inherits: true; };
+
+    //
+    :root, :host, :scope {
+        --keyboard-inset-bottom: env(keyboard-inset-bottom, auto);
+        --keyboard-inset-height: env(keyboard-inset-height, 0px);
+    }
 }
