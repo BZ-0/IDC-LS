@@ -7,7 +7,7 @@ export const settings = {
     ),
     rows: writable(parseInt(localStorage.getItem("@settings:@rows")) || 8),
     scaling: writable(
-        parseFloat(localStorage.getItem("@settings:@scaling")) || 1.5
+        parseFloat(localStorage.getItem("@settings:@scaling")) || 1
     ),
 };
 

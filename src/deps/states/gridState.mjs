@@ -28,7 +28,7 @@ export const unListMap = (listMap) => {
 //
 export const exKey = (array) => {
     return array.filter((value, index, self) => {
-        return index === self.findIndex((t) => t.id === value.id);
+        return index === self.findIndex((t) => t?.id === value?.id);
     });
 };
 
@@ -48,7 +48,9 @@ export const gridState = {
         getter: makeKeyMap,
         setter(v) {
             const um = unKeyMap(v);
-            localStorage.setItem("@pages", JSON.stringify(um));
+            if (um) {
+                localStorage.setItem("@pages", JSON.stringify(um));
+            }
             return um;
         },
     }),
@@ -73,7 +75,9 @@ export const gridState = {
         getter: makeKeyMap,
         setter(v) {
             const um = unKeyMap(v);
-            localStorage.setItem("@icons", JSON.stringify(um));
+            if (um) {
+                localStorage.setItem("@icons", JSON.stringify(um));
+            }
             return um;
         },
     }),
@@ -87,7 +91,9 @@ export const gridState = {
         getter: makeListMap,
         setter(v) {
             const um = unListMap(v);
-            localStorage.setItem("@lists", JSON.stringify(um));
+            if (um) {
+                localStorage.setItem("@lists", JSON.stringify(um));
+            }
             return um;
         },
     }),
@@ -104,13 +110,19 @@ export const makeMap = (array) => {
 
 //
 export const updateIcons = (cs = currentState) => {
-    currentState.iconItems = cs.iconItems ?? cs;
+    if (cs.iconItems) {
+        currentState.iconItems = cs.iconItems; // ?? cs;
+    }
 };
 export const updateGrids = (cs = currentState) => {
-    currentState.gridPages = cs.gridPages ?? cs;
+    if (cs.gridPages) {
+        currentState.gridPages = cs.gridPages; // ?? cs;
+    }
 };
 export const updateLists = (cs = currentState) => {
-    currentState.iconLists = cs.iconLists ?? cs;
+    if (cs.iconLists) {
+        currentState.iconLists = cs.iconLists; // ?? cs;
+    }
 };
 
 //
@@ -120,10 +132,11 @@ export const getIconState = (id = "github") => {
 
 //
 export const setIconState = ({ iconItem = null, id = null }) => {
-    currentState.iconItems.set(
-        (id ||= iconItem.id),
-        (iconItem ||= getIconState((id ||= iconItem.id)))
-    );
+    const iconOf = (iconItem ||= getIconState(idOf));
+    const idOf = (id ||= iconItem.id);
+    if (idOf && iconOf) {
+        currentState.iconItems.set(idOf, iconOf);
+    }
     updateIcons();
 };
 
@@ -150,8 +163,10 @@ export const focusIconForEdit = (id = "github") => {
         focusIconWrite[f] = writable(focusIconState[f]);
         focusIconWrite[f].subscribe(
             (focusFieldSubscribe[f] = (v) => {
-                focusIconState[f] = v;
-                setIconState({ id, iconItem: focusIconState });
+                if (v != null) {
+                    focusIconState[f] = v;
+                    setIconState({ id, iconItem: focusIconState });
+                }
             })
         );
     }

@@ -1,5 +1,9 @@
-import { writable } from "svelte/store";
-import { fixSubscribe } from "./gridState.mjs";
+import { writable } from "svelte/store"
+import { fixSubscribe } from "./gridState.mjs"
+import { whenMedia } from "./readables.mjs"
+
+//
+export const whenTouch = whenMedia("(hover: none) and (pointer: coarse)");
 
 //
 export const fields = new Map([
@@ -22,7 +26,7 @@ fieldEditWrite.id.subscribe((v) => {
 });
 fieldEditWrite.value.subscribe((v) => {
     const { id } = fieldEditState;
-    if (id) {
+    if (id && id != null && id != "undefined") {
         fields.set(id, (fieldEditState.value = v || ""));
     }
 });
@@ -83,7 +87,7 @@ export const fromField = (idOrInput) => {
                   `input[data-name=\"${(idOf ||= fieldEditState.id)}\"]`
               )
             : idOrInput;
-    if (field?.value != null) {
+    if (field?.value != null && idOf && idOf != null && idOf != "undefined") {
         fields.set(idOf, field?.value);
     }
 };
@@ -92,8 +96,8 @@ export const fromField = (idOrInput) => {
 export const focusField = (idOrInput) => {
     const idOf =
         idOrInput?.dataset?.name ?? idOrInput?.dataset?.edit ?? idOrInput;
-    if (idOf) {
-        if (idOrInput?.value) {
+    if (idOf && idOf != null && idOf != "undefined") {
+        if (idOrInput?.value != null) {
             fields.set(idOf, idOrInput?.value);
         }
         fieldEditWrite.id.set(idOf);
@@ -107,16 +111,24 @@ export const focusField = (idOrInput) => {
 
 //
 export const importFromIcon = (iconItem) => {
-    for (const k of fields.keys()) {
-        fields.set(k, iconItem[k]);
+    if (iconItem) {
+        for (const k of fields.keys()) {
+            const iconField = iconItem[k];
+            if (iconField) {
+                fields.set(k, iconField || "");
+            }
+        }
     }
 };
 
 //
 export const applyForIcon = (onEdit) => {
-    fixSubscribe(onEdit);
-    for (const k of fields.keys()) {
-        onEdit.focusIconWrite[k].set(fields.get(k) || "");
+    if (onEdit) {
+        fixSubscribe(onEdit);
+        for (const k of fields.keys()) {
+            const field = fields.get(k) || "";
+            onEdit.focusIconWrite[k].set(field);
+        }
     }
 };
 

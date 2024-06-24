@@ -1,5 +1,5 @@
 <script>
-    import { bindToFieldEdit, fieldEditWrite } from "@states/fieldEdit.mjs";
+    import { bindToFieldEdit, fieldEditWrite, whenTouch } from "@states/fieldEdit.mjs";
     import LucideIcon from '@svelte/decors/LucideIcon.svelte';
     import { onMount } from 'svelte';
     import { fade } from "svelte/transition";
@@ -61,7 +61,7 @@
         //
         requestAnimationFrame(()=>{
             if (document.activeElement != input) {
-                input.focus();
+                input?.focus?.();
             }
         });
     }
@@ -73,7 +73,7 @@
 
     //
     document.addEventListener("focusin", ({target})=>{
-        if (target == copyButton || target == pasteButton) {
+        if (!stillInFocus(target)) {
             if (document.activeElement != input) { refocus(input); }
         }
     });
@@ -95,8 +95,6 @@
         }
     });
 
-    
-    
     //
     onMount(()=>{
         requestAnimationFrame(()=>{
@@ -109,7 +107,7 @@
 </script>
 
 <!-- -->
-{#if $id}
+{#if $id && $whenTouch}
     <div 
         transition:fade={{ delay: 0, duration: 10 }} 
         bind:this={fieldEdit} 
@@ -118,7 +116,7 @@
     >
         <div class="field-content stretch solid apply-color-theme" style="grid-row: field-edit;">
             <div class="field-wrap solid apply-color-theme">
-                <input bind:this={input} autofocus={true} type="text" data-edit={$id||""} bind:value={$value}/>
+                <input bind:this={input} type="text" data-edit={$id||""} bind:value={$value}/>
             </div>
             <div bind:this={copyButton} class="field-copy solid hl-1 hl-2h apply-color-theme pe-enable">
                 <LucideIcon name="copy"></LucideIcon>

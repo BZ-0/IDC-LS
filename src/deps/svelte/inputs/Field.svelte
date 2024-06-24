@@ -19,6 +19,24 @@
     }
 
     //
+    document.addEventListener("click", (ev)=>{
+        if (ev.target == field) {
+            const name = field?.dataset?.name;
+            if (name) { focusField(name); }
+            field?.focus?.();
+        }
+    });
+
+    //
+    document.addEventListener("focusin", (ev)=>{
+        // TODO: when mobile...
+        if (ev.target == field) {
+            focusField(field?.dataset?.name);
+            refocus();
+        }
+    });
+
+    //
     onMount(()=>{
         if (field) {
             listenChanges(field);
@@ -26,22 +44,8 @@
             reflectToField(field?.dataset?.name, "change");
             
             //
-            field.addEventListener("click", (ev)=>{
-                const name = field?.dataset?.name;
-                if (name) { focusField(name); }
-                field?.focus?.();
-            });
-            
-            //
             field.addEventListener("change", (ev)=>{ fromField(field?.dataset?.name); });
             field.addEventListener("input", (ev)=>{ fromField(field?.dataset?.name); });
-            
-            //
-            field.addEventListener("focusin", (ev)=>{
-                // TODO: when mobile...
-                focusField(field?.dataset?.name);
-                refocus();
-            });
         }
     });
 </script>

@@ -18,7 +18,7 @@ export const makeWritableProperty = (
 ) => {
     const state = {
         w: writable(initial),
-        v: initial,
+        v: getter(initial),
         s: (v) => {
             state.v = getter(v);
         },
@@ -35,7 +35,7 @@ export const makeWritableProperty = (
         },
         set(v) {
             state.w.set(setter(v));
-            state.v = getter(v);
+            state.v = v;
         },
     });
 
