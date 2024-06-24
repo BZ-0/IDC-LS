@@ -135,5 +135,8 @@
     :root, :host, :scope {
         --keyboard-inset-bottom: env(keyboard-inset-bottom, auto);
         --keyboard-inset-height: env(keyboard-inset-height, 0px);
+
+        //
+        will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset
     }
 }

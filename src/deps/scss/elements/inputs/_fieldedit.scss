@@ -12,10 +12,14 @@
     inset-block-start: 0px;
     inset-block-end: auto;
     inset-block-end: var(--keyboard-inset-bottom, auto);
-
+    
     //
-    inline-size: 100cqi;
-    block-size: calc(100cqb - var(--keyboard-inset-height, 0px));
+    inline-size: 100svi !important;
+    block-size: 100svb !important;
+    block-size: calc(100svb - var(--keyboard-inset-height, 0px)) !important;
+    
+    //
+    will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset;
     
     //
     pointer-events: none;

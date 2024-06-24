@@ -6,7 +6,9 @@
     //
     let {id, value} = fieldEditWrite;
     let input = null;
-
+    let copyButton = null;
+    let pasteButton = null;
+    
     //
     id.subscribe((v)=>{
         requestAnimationFrame(()=>{
@@ -16,79 +18,70 @@
             }
         });
     });
+    
+    //
+    value.subscribe((v)=>{
+        if (input != null) { input.value = v; };
+    });
 
     //
-    const unfocus = (target)=>{
-        if (target != input) {
-            document.activeElement?.blur?.();
+    const unfocus = ({target})=>{
+        if (target == input) {
+            requestAnimationFrame(()=>{
+                if (!document?.activeElement?.matches?.("input")) {
+                    navigator?.virtualKeyboard?.hide?.();
+                    if (document?.activeElement == input) {
+                        document?.activeElement?.blur?.();
+                    }
+                    id.set("");
+                }
+            });
         }
-        requestAnimationFrame(()=>{
-            if (!document.activeElement.matches("input")) {
-                navigator?.virtualKeyboard?.hide?.();
-                document.activeElement?.blur?.();
-                id.set("");
-            }
-        });
     }
-    
-    //
-    let copyButton = null;
-    let pasteButton = null;
-    
+
     //
     const refocus = (input)=>{
-        //
-        if (input) {
+        //if (target?.matches("input"))
+        if (input && document.activeElement != input) {
             input.style.display = "none";
             input.style.removeProperty("display");
             input.focus();
         }
     }
+
+    //
+    document.addEventListener("focusout", ({target})=>{
+        unfocus({target});
+    });
+
+    //
+    document.addEventListener("click", ({target})=>{
+        if (target == copyButton || target == pasteButton || target == input || document?.activeElement?.matches?.("input")) {
+            refocus(input);
+        } else {
+            unfocus({target});
+        }
+        
+        // TODO: needs to action
+        if (target == copyButton) {
+        }
+        
+        // TODO: needs to action
+        if (target == pasteButton) {
+        }
+    });
+
+    //
+    document.addEventListener("focusin", ({target})=>{
+        if (target == copyButton || target == pasteButton) {
+            if (document.activeElement != input) { refocus(input); }
+        }
+    });
     
     //
     onMount(()=>{
-        
-        //
-        value.subscribe((v)=>{
-            if (input != null) { input.value = v; };
-        });
-    
-        //
-        document.addEventListener("click", ({target})=>{
-            unfocus(target);
-        });
-    
-        //
         requestAnimationFrame(()=>{
-            //
-            document.addEventListener("click", ({target})=>{
-                if (target == copyButton || target == pasteButton || target == input) {
-                    refocus(input);
-                }
-                
-                // TODO: needs to action
-                if (target == copyButton) {
-                }
-                
-                // TODO: needs to action
-                if (target == pasteButton) {
-                }
-            });
-            
-            //
-            document.addEventListener("focusin", ({target})=>{
-                if (target == copyButton || target == pasteButton) {
-                    refocus(input);
-                }
-            });
-
-            //
             if (input) {
-                input?.addEventListener("focusout", ({target})=>{
-                    unfocus();
-                });
-                
-                //
                 bindToFieldEdit(input); 
                 refocus(input);
             }
