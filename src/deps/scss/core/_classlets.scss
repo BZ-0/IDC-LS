@@ -95,6 +95,16 @@
     }
 
     //
+    .ls-hidden {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        
+        & * {
+            pointer-events: none !important;
+        }
+    }
+
+    //
     .us-enable {
         @extend .user-select-enable;
     }

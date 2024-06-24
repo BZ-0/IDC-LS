@@ -2,13 +2,15 @@
     import { bindToFieldEdit, fieldEditWrite } from "@states/fieldEdit.mjs";
     import LucideIcon from '@svelte/decors/LucideIcon.svelte';
     import { onMount } from 'svelte';
+    import { fade } from "svelte/transition";
 
     //
     let {id, value} = fieldEditWrite;
     let input = null;
     let copyButton = null;
     let pasteButton = null;
-    
+    let fieldEdit = null;
+
     //
     id.subscribe((v)=>{
         requestAnimationFrame(()=>{
@@ -18,21 +20,25 @@
             }
         });
     });
-    
+
     //
     value.subscribe((v)=>{
         if (input != null) { input.value = v; };
     });
 
     //
+    const stillInFocus = (el)=>{
+        return el && (el.matches("input") || [input, copyButton, pasteButton, fieldEdit].indexOf(el) >= 0);
+    }
+
+    //
     const unfocus = ({target})=>{
-        if (target == input) {
+        if (!stillInFocus(target)) {
             requestAnimationFrame(()=>{
-                if (!document?.activeElement?.matches?.("input")) {
+                const active = document.activeElement;
+                if (!stillInFocus(active)) {
                     navigator?.virtualKeyboard?.hide?.();
-                    if (document?.activeElement == input) {
-                        document?.activeElement?.blur?.();
-                    }
+                    active?.blur?.();
                     id.set("");
                 }
             });
@@ -40,24 +46,42 @@
     }
 
     //
-    const refocus = (input)=>{
+    const refocus = (input, from)=>{
         //if (target?.matches("input"))
+        const idOf = from?.dataset?.name || from?.dataset?.edit;
+        if (idOf) { id.set(idOf); };
+        
+        //
         if (input && document.activeElement != input) {
             input.style.display = "none";
             input.style.removeProperty("display");
             input.focus();
         }
+        
+        //
+        requestAnimationFrame(()=>{
+            if (document.activeElement != input) {
+                input.focus();
+            }
+        });
     }
 
     //
     document.addEventListener("focusout", ({target})=>{
-        unfocus({target});
+        if (target == input) { unfocus({target}); }
+    });
+
+    //
+    document.addEventListener("focusin", ({target})=>{
+        if (target == copyButton || target == pasteButton) {
+            if (document.activeElement != input) { refocus(input); }
+        }
     });
 
     //
     document.addEventListener("click", ({target})=>{
-        if (target == copyButton || target == pasteButton || target == input || document?.activeElement?.matches?.("input")) {
-            refocus(input);
+        if (stillInFocus(target)) {
+            refocus(input, document?.activeElement);
         } else {
             unfocus({target});
         }
@@ -71,12 +95,7 @@
         }
     });
 
-    //
-    document.addEventListener("focusin", ({target})=>{
-        if (target == copyButton || target == pasteButton) {
-            if (document.activeElement != input) { refocus(input); }
-        }
-    });
+    
     
     //
     onMount(()=>{
@@ -91,7 +110,12 @@
 
 <!-- -->
 {#if $id}
-    <div class="field-edit fixed" data-edit={$id||""}>
+    <div 
+        transition:fade={{ delay: 0, duration: 10 }} 
+        bind:this={fieldEdit} 
+        class="field-edit fixed" 
+        data-edit={$id||""}
+    >
         <div class="field-content stretch solid apply-color-theme" style="grid-row: field-edit;">
             <div class="field-wrap solid apply-color-theme">
                 <input bind:this={input} autofocus={true} type="text" data-edit={$id||""} bind:value={$value}/>

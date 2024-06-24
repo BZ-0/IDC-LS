@@ -2,16 +2,6 @@
 @use "../color/colorutils" as cu;
 
 //
-@property --theme-is-dark { syntax: "<number>"; inherits: true; initial-value: 0; }
-@property --theme-dark-up-mod   { syntax: "<color>"; inherits: true; initial-value: black; }
-@property --theme-dark-down-mod { syntax: "<color>"; inherits: true; initial-value: white; }
-@property --theme-light-up-mod   { syntax: "<color>"; inherits: true; initial-value: white; }
-@property --theme-light-down-mod { syntax: "<color>"; inherits: true; initial-value: black; }
-@property --theme-chroma-mod { syntax: "<color>"; inherits: true; initial-value: red; }
-@property --theme-up-mod { syntax: "<color>"; inherits: true; initial-value: white; }
-@property --theme-down-mod { syntax: "<color>"; inherits: true; initial-value: black; }
-
-//
 @layer ls-colors {
     :root, :host, :scope, :where(*) {
         --theme-chroma-mod: oklch(from #{cl.$baseColor} l 0.99 h);
