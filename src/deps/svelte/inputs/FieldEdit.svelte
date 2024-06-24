@@ -21,6 +21,7 @@
     const unfocus = ()=>{
         requestAnimationFrame(()=>{
             if (!document.activeElement.matches("input")) {
+                navigator?.virtualKeyboard?.hide?.();
                 id.set("");
             }
         });
