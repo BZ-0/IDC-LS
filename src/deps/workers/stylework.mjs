@@ -197,14 +197,14 @@ const cloudyShape = WavyShapedCircle();
 //
 const availSize = {
     "--avail-width" : screen.availWidth  + "px",
-    "--avail-height": screen.availHeight + "px"
+    "--avail-height": (screen.availHeight - (navigator?.virtualKeyboard?.boundingRect?.height || 0)) + "px"
 }
 
 //
 const updateOrientation = (e)=>{
     Object.assign(availSize, {
         "--avail-width" : screen.availWidth  + "px",
-        "--avail-height": screen.availHeight + "px"
+        "--avail-height": (screen.availHeight - (navigator?.virtualKeyboard?.boundingRect?.height || 0)) + "px"
     });
 
     //
@@ -282,6 +282,7 @@ const updateDynamic = (e)=>{
 }
 
 //
+navigator?.virtualKeyboard?.addEventListener?.("geometrychange", updateDynamic);
 document.addEventListener("DOMContentLoaded", updateDynamic, {passive: true});
 screen.orientation.addEventListener("change", updateDynamic, {passive: true});
 self.addEventListener("resize", updateDynamic, {passive: true});
