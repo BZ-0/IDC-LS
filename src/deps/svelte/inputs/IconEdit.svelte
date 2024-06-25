@@ -1,6 +1,7 @@
 <script>
     import Field from '@svelte/inputs/Field.svelte';
     import { onFocus } from "@workers/actionRegistry.mjs";
+    import { fade } from "svelte/transition";
 
     // import writable store
     export let {iconItemId} = onFocus;
@@ -35,7 +36,8 @@
 
 {#if $iconItemId}
 
-    <div class="icon-edit solid apply-color-theme" data-icon-edit={$iconItemId}>
+    <div transition:fade={{ delay: 0, duration: 100 }} 
+        class="icon-edit solid apply-color-theme" data-icon-edit={$iconItemId}>
 
         <div class="edit-description"></div>
         <div class="fields">

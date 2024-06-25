@@ -1,6 +1,6 @@
 {#each contextMenus as [id, menu]}
     {#if initiator && (id == initiator?.dataset?.ctx)}
-        <div class="ls-contextmenu solid apply-color-theme" data-name={id}>
+        <div class="ls-contextmenu solid apply-color-theme" data-name={id} transition:fade={{ delay: 0, duration: 100 }} >
             <ul>
                 {#each menu as button}
                     <li class="ctx-button solid hl-1h apply-color-theme" data-action={button.action}>
@@ -17,6 +17,7 @@
 	import LucideIcon from '@svelte/decors/LucideIcon.svelte';
 	import { actionRegistry } from '@workers/actionRegistry.mjs';
 	import { onMount } from 'svelte';
+	import { fade } from "svelte/transition";
 
     //
     export let initiator = null;
