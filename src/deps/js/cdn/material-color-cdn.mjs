@@ -1,7 +1,7 @@
-import cdnImport from "@libs/misc/cdnImport.mjs";
+import cdnImport from "@libs/misc/cdnImport.mjs"
 
 //
-export default await cdnImport(
+export default cdnImport(
     [
         "https://cdn.jsdelivr.net/npm/@importantimport/material-color-utilities/+esm",
     ],

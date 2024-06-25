@@ -4,13 +4,14 @@ export const makeArgs = (
 	iconItems,
 	gridPage,
 	columnsAndRows,
-	iconLists
+	iconLists,
+	iconList
 ) => {
 	return {
 		gridPage: document.querySelector(
 			`.icon-grid[data-id="${gridPage.id}"]`
 		),
-		iconList: gridPage.iconList,
+		iconList: (iconList ?? gridPage.iconList),
 		iconItems,
 		iconLists,
 		iconItem,
@@ -54,7 +55,7 @@ export const fixCell = (
 ) => {
 	const items = iconItems;
 	const preCell = { ...$preCell }; // make non-conflict copy
-	const icons = iconList?.map((id) => iconItems.get(id)) || [];
+	const icons = iconList?.map((id) => iconItems.get(id)).filter(m=>!!m) || [];
 
 	//
 	const checkBusy = (cell) => {
@@ -119,6 +120,8 @@ export const fixCell = (
 		//
 		busy = checkBusy(preCell);
 	}
+	
+	return preCell;
 };
 
 //
@@ -236,8 +239,8 @@ export const putToCell = (
     const inBox = [oxBox[0] / columnsAndRows[0], oxBox[1] / columnsAndRows[1]];
 
     //
-    const preCell = { x: iconItem.cellX, y: iconItem.cellY };
-    (iconItem.pCellX = iconItem.cellX), (iconItem.pCellY = iconItem.cellY);
+    const preCell = { x: iconItem.cellX || 0, y: iconItem.cellY || 0 };
+    (iconItem.pCellX = iconItem.cellX || 0), (iconItem.pCellY = iconItem.cellY || 0);
 
     //
     switch (orientation) {

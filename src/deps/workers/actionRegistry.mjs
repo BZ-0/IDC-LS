@@ -1,5 +1,5 @@
 import { applyForIcon } from '@states/fieldEdit.mjs'
-import { makeArgs, putToCell } from "@states/gridItem.mjs"
+import { fixCell, makeArgs } from "@states/gridItem.mjs"
 import { currentState, focusIconForEdit } from "@states/gridState.mjs"
 import { settings } from "@states/settings.mjs"
 import { writable } from 'svelte/store'
@@ -107,17 +107,19 @@ export const actionRegistry = new Map([
                 currentState.iconItems,
                 gridPage,
                 [settings.columns, settings.rows],
-                currentState.iconLists
+                currentState.iconLists,
+                iconList
             );
 
             //
-            const { x: cellX, y: cellY } = putToCell(args, {
-                x: iconItem.cellX,
-                y: iconItem.cellY,
+            const { x: cellX, y: cellY } = fixCell(args, {
+                x: iconItem.cellX || 0,
+                y: iconItem.cellY || 0,
             });
 
             //
             (iconItem.cellX = cellX || 0), (iconItem.cellY = cellY || 0);
+            (iconItem.pCellX = cellX || 0), (iconItem.pCellY = cellY || 0);
 
             //
             currentState.iconItems.set(iconId, iconItem);

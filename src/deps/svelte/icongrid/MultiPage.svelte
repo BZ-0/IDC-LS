@@ -66,8 +66,8 @@
         const iconId      = iconElement.dataset["id"];
         const iconItem    = {...iconItems.get(iconId)}; // avoid force update
         const gridPage    = gridPages.get(currentPage);
-        const iconList    = iconLists.get(currentPage) || [];
-        const args        = makeArgs(iconItem, iconItems, gridPage, columnsAndRows, iconLists);
+        const iconList  = [...dragBucket, ...(iconLists.get(currentPage) || [])];
+        const args        = makeArgs(iconItem, iconItems, gridPage, columnsAndRows, iconLists, iconList);
 
         //
         const bbox = args.gridPage?.getBoundingClientRect?.();
@@ -93,7 +93,7 @@
 
         //
         dragBucket = dragBucket.filter((id)=>(id!=iconId));
-        iconLists.set(currentPage, [...iconList, iconId]);
+        iconLists.set(currentPage, iconList);
         iconItems.set(iconId, iconItem);
 
         //

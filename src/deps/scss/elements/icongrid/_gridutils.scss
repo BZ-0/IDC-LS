@@ -39,9 +39,16 @@
         @include gm.calculateMetric();
         @extend .align-center;
         @extend .no-contain;
+        @extend .stretch;
 
         //
         touch-action: none !important; 
+
+        //
+        inline-size: 100%;
+        block-size: 100%;
+        min-inline-size: max-content;
+        min-block-size: max-content;
 
         //
         grid-column: auto;
@@ -90,6 +97,10 @@
         touch-action: none !important; 
 
         //
+        min-inline-size: max-content;
+        min-block-size: max-content;
+
+        //
         container-type: size;
         contain: none;
 
@@ -99,6 +110,7 @@
             @extend .align-center;
             
             //
+            --icon-size: 4rem;
             --icon-size: min(100cqmin, 4rem);
 
             //
@@ -108,8 +120,15 @@
 
             //
             aspect-ratio: 1 / 1;
+            
+            //
+            min-inline-size: max-content;
+            min-block-size: max-content;
             inline-size: var(--icon-size);
             block-size: var(--icon-size);
+            max-inline-size: var(--icon-size);
+            max-block-size: var(--icon-size);
+            
             border-radius: calc(var(--icon-size) * 0.5);
 
             // debug

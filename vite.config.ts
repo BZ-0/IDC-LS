@@ -14,12 +14,18 @@ import certificate from "./https/certificate.mjs"
 import pkg from "./package.json"
 import tsconfig from "./tsconfig.json"
 
+
 //
 const __dirname = import.meta.dirname;
 
 const r = (s) => {
     return s;
 };
+
+/*process.env = {
+	...process.env,
+	...loadEnv(mode, process.cwd())
+};*/
 
 //
 const production = process.env.NODE_ENV === 'production';
@@ -70,6 +76,7 @@ const config = <UserConfig>defineConfig({
         }),
     ],
     server: {
+        proxy: false,
         host: "0.0.0.0",
         port: 8000,
         https: {
@@ -81,12 +88,16 @@ const config = <UserConfig>defineConfig({
         },
         hmr: false
     },
+    esbuild: {
+		target: "esnext"
+	},
     build: {
+		target: ["esnext", "es2020"],
         sourcemap: sourceMapsInProduction,
         outDir: "../webapp",
         emptyOutDir: true,
         rollupOptions: {
-            input: "../webapp/index.html",
+            input: "./src/index.html",
         },
     },
     css: {
@@ -94,6 +105,10 @@ const config = <UserConfig>defineConfig({
             plugins: [autoprefixer()],
         },
     },
+    
+    optimizeDeps: {
+		esbuildOptions: { target: "esnext", supported: { bigint: true } },
+	},
 });
 
 // Babel
