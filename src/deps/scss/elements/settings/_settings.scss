@@ -65,6 +65,12 @@
 		.content {
 			@extend .stretch;
 		
+			// stretch or moz-available works buggy
+			@-moz-document url-prefix() {
+				inline-size: 100%;
+				block-size: 100%;
+			}
+		
 			//
 			display: grid;
 			grid-template-columns: minmax(2.5in, max-content) minmax(0px, 1fr);
