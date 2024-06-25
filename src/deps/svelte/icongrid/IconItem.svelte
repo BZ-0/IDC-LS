@@ -65,7 +65,9 @@
     data-action={iconItem.action} 
     data-href={iconItem.href} 
     data-id={iconItem.id} 
-    data-label-id={iconItem.id}>
+    data-label-id={iconItem.id}
+    data-ctx={"icon"}
+    >
     <div use:lgp bind:this={handler} class="icon-design icon-shape">
         <!--<img class="icon-id" alt="IconItem" src="" data-lucide={id}/>-->
         <LucideIcon name={iconItem.icon}/>
