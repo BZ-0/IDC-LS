@@ -64,31 +64,6 @@
             :root { virtual-keyboard: overlays-content; }
         </style>
 
-        <script type="module">
-        //
-        if ("virtualKeyboard" in navigator) {
-            navigator.virtualKeyboard.overlaysContent = true;
-        }
-        
-        //
-        if (typeof navigator != "undefined") {
-            navigator?.serviceWorker?.register?.(new URL('./service.mjs', import.meta.url), {scope: "/"}).then(
-                (registration) => {
-                    console.log('Service worker registration succeeded:', registration);
-                },
-                (error) => {
-                    console.error(`Service worker registration failed: ${error}`);
-                }
-            );
-
-            //
-            navigator?.registerProtocolHandler?.(
-                "web+mxs",
-                location.origin + `/opfs?path=%s`
-            );
-        }
-        </script>
-
         <link rel="icon" type="image/png" href="./favicon.png">
         <link rel="stylesheet" type="text/css" href="./main.scss">
 

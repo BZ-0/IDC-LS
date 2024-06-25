@@ -73,7 +73,24 @@ export const makeWritableProperty = (
     });
 
     //
-    return (new RWWrap(state.w, {
+    const wrap = (new RWWrap(state.w, {
         setter, getter
     }));
+
+    //
+    const accessPrefix = "@";
+
+    //
+    Object.defineProperty(base, `${accessPrefix}${name}`, {
+        configurable: true,
+        get() {
+            return wrap;
+        },
+        set(v) {
+            wrap.set(v);
+        },
+    });
+
+    //
+    return wrap;
 };

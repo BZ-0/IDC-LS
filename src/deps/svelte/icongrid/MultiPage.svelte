@@ -11,24 +11,22 @@
 
     //
     let {rows, columns} = settingsEx;
+    export let columnsAndRows = [$columns, $rows];
+    $: columnsAndRows = [$columns, $rows];
 
     //
     export let dragBucket = [];
     export let currentPage = "home-page";
     export let mainElement = null;
-    export let columnsAndRows = [$columns, $rows];
-
+    
     //
     let {iconLists, iconItems, gridPages} = currentState;
-    let gridPagesArray = Array.from(gridPages.values());
-
-    // TODO: wrapper for writable for get "getter" value
     gridState.iconLists.subscribe((v)=>{ iconLists = v; });
     gridState.iconItems.subscribe((v)=>{ iconItems = v; });
     gridState.gridPages.subscribe((v)=>{ gridPages = v; });
 
     //
-    $: columnsAndRows = [$columns, $rows];
+    let gridPagesArray = Array.from(gridPages.values());
     $: gridPagesArray = Array.from(gridPages.values());
 
     //
