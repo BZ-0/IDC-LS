@@ -44,9 +44,13 @@
         //
         touch-action: none !important; 
 
+        // stretch or moz-available works buggy
+        @-moz-document url-prefix() {
+            inline-size: 100%;
+            block-size: 100%;
+        }
+        
         //
-        inline-size: 100%;
-        block-size: 100%;
         min-inline-size: max-content;
         min-block-size: max-content;
 
