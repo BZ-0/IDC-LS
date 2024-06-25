@@ -1,4 +1,16 @@
-import { readable } from "svelte/store";
+import { readable } from "svelte/store"
+
+//
+export const whenHashChange = ()=>{
+    return readable(location.hash, (set) => {
+        addEventListener("hashchange", ({ newURL, oldURL }) => {
+            set(location.hash);
+        });
+    });
+}
+
+//
+export const readableHash = whenHashChange();
 
 //
 export const whenMedia = (media = "") => {
