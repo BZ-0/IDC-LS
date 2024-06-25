@@ -185,35 +185,48 @@ export const releasePointer = (ev)=>{
     
     //
     if (exists) {
+    
+        //
+        const preventClick = (e)=>{
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            e.preventDefault();
+        };
+        
+        //
+        const emt = [preventClick, {once: true}];
+        const doc = [preventClick, {once: true, capture: true}];
+    
+        //
+        if (exists.holding.length > 0) {
+            ev.stopImmediatePropagation();
+            ev.stopPropagation();
+            ev.preventDefault();
+            
+            //
+            document.addEventListener("click", ...doc);
+            document.addEventListener("contextmenu", ...doc);
+            
+            //
+            setTimeout(()=>{
+                document.removeEventListener("click", ...doc);
+                document.removeEventListener("contextmenu", ...doc);
+            }, 100);
+        }
+
+        //
         exists.holding.map((hm)=>{
             const em = hm.element.deref();
             
             //
-            const preventClick = (e)=>{
-                e.stopImmediatePropagation();
-                e.stopPropagation();
-                e.preventDefault();
-            };
-            
-            //
-            if (Math.hypot(...hm.shifting) > 10) {
-                const emt = [preventClick, {once: true}];
-                const doc = [preventClick, {once: true, capture: true}];
-                
-                //
+            if (Math.hypot(...hm.shifting) > 10 && em) {
                 em?.addEventListener?.("click", ...emt);
                 em?.addEventListener?.("contextmenu", ...emt);
                 
                 //
-                document.addEventListener("click", ...doc);
-                document.addEventListener("contextmenu", ...doc);
-    
-                //
                 setTimeout(()=>{
                     em?.removeEventListener?.("click", ...emt);
                     em?.removeEventListener?.("contextmenu", ...emt);
-                    document.removeEventListener("click", ...doc);
-                    document.removeEventListener("contextmenu", ...doc);
                 }, 100);
             }
 

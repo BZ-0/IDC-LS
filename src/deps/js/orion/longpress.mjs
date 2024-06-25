@@ -3,6 +3,7 @@ export const longpress = (node, threshold = 10) => {
         const scaling =
             parseFloat(document.body.style.getPropertyValue("--scaling")) || 1;
 
+        //
         const pointerId = ev.pointerId;
         let start = Date.now();
         let begin = [ev.pageX / scaling, ev.pageY / scaling];
@@ -16,8 +17,8 @@ export const longpress = (node, threshold = 10) => {
         const cancel = (ev) => {
             if (ev?.pointerId == pointerId || ev?.pointerId == null) {
                 clearTimeout(timeout);
-                node.removeEventListener("pointermove", shifted);
-                node.removeEventListener("pointerup", cancel);
+                document.removeEventListener("pointermove", shifted);
+                document.removeEventListener("pointerup", cancel);
             }
         };
 
@@ -27,6 +28,7 @@ export const longpress = (node, threshold = 10) => {
                 parseFloat(document.body.style.getPropertyValue("--scaling")) ||
                 1;
             if (
+                pointerId == ev.pointerId && 
                 Math.hypot(
                     begin[0] - ev.pageX / scaling,
                     begin[1] - ev.pageY / scaling
@@ -37,8 +39,9 @@ export const longpress = (node, threshold = 10) => {
         };
 
         //
-        node.addEventListener('pointermove', shifted);
-        node.addEventListener('pointerup', cancel);
+        document.addEventListener('pointermove', shifted);
+        document.addEventListener('pointerup', cancel);
+        document.addEventListener('pointercancel', cancel);
     }
     
     //

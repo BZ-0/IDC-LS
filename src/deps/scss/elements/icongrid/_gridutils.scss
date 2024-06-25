@@ -7,6 +7,7 @@
     //
     .icon-grid {
         display: grid;
+        touch-action: none !important; 
 
         //
         grid-template-columns: repeat(var(--columns), minmax(0px, 1fr));
@@ -40,6 +41,9 @@
         @extend .no-contain;
 
         //
+        touch-action: none !important; 
+
+        //
         grid-column: auto;
         grid-column: var(--fc-cell-x);
 
@@ -62,9 +66,11 @@
     //
     .grid-item-label {
         background-color: transparent;
+        touch-action: none !important; 
     
         & > span {
             background-color: transparent;
+            touch-action: none !important; 
             
             display: inline-grid;
             transform: translate(0, 3rem) rotate(calc(0deg - var(--pfrot, 0deg)));
@@ -78,6 +84,7 @@
     .icon-item {
         overflow: visible;
         background-color: transparent;
+        touch-action: none !important; 
 
         //
         & .icon-design {
@@ -100,6 +107,7 @@
 
             // debug
             background-color: var(--current-surface-color);
+            touch-action: none !important; 
 
             //
             will-change: translate, transform, --translate-x, --translate-y;
@@ -120,6 +128,9 @@
             //
             grid-row: auto;
             grid-row: var(--fp-cell-y);
+            
+            //
+            touch-action: none !important; 
         }
     }
 

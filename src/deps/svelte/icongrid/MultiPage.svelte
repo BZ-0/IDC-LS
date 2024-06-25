@@ -114,7 +114,7 @@
 </script>
 
 
-<div bind:this={mainElement} data-ctx="grid" class="layer-2 stretch grid-based-box fixed-avail fixed pe-enable" style="isolation: isolate;" {...$$props}>
+<div bind:this={mainElement} data-ctx="grid" class="layer-2 stretch grid-based-box fixed-avail fixed pe-enable" style="touch-action: none; isolation: isolate;" {...$$props}>
     <canvas is="w-canvas" class="stretch fixed inset-0" data-src="./assets/wallpaper/0.jpg"/>
     
     {#each gridPagesArray as page}
