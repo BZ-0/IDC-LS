@@ -34,10 +34,14 @@ export const fieldEditWrite = {
 
 //
 export const reflectToField = (idOf, evName = "input", value = null) => {
+    idOf ||= fieldEditState.id;
+    if (!idOf) return;
+
+    //
     const onEdit = document.querySelector(
-        `input[data-name=\"${(idOf ||= fieldEditState.id)}\"]`
+        `input[data-name=\"${(idOf)}\"]`
     );
-    if (onEdit) {
+    if (onEdit && onEdit?.dataset?.name == idOf) {
         if (value != null) {
             fieldsData.set(idOf, value);
         }
@@ -68,13 +72,20 @@ export const listenChanges = (field) => {
 //
 export const bindToFieldEdit = (input) => {
     const id = input?.dataset?.edit || "";
-    input?.addEventListener?.("change", (ev) =>
-        reflectToField(id, "change", ev.target.value)
-    );
-    input?.addEventListener?.("input", (ev) =>
-        reflectToField(id, "input", ev.target.value)
-    );
-    if (input) {
+    if (!id) return;
+    
+    //
+    input?.addEventListener?.("change", (ev) => {
+        if (ev.target.dataset.edit == id) { 
+            reflectToField(id, "change", ev.target.value);
+        };
+    });
+    input?.addEventListener?.("input", (ev) => {
+        if (ev.target.dataset.edit == id) { 
+            reflectToField(id, "input", ev.target.value);
+        };
+    });
+    if (input && input.dataset.edit == id) {
         reflectToField(id, "change", input.value);
     }
 };
