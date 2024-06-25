@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { writable } from "svelte/store"
 
 //
 const nullFx = (v) => {
@@ -15,11 +15,14 @@ export const makeWritableProperty = (
         w: writable(initial),
         v: getter(initial),
     };
-
+    
     //
     state.w.subscribe((v) => {
         afterSet?.((state.v = getter(v)));
-    });
+    })
+    
+    //
+    state.w.set(setter(state.v));
 
     //
     Object.defineProperty(base, name, {

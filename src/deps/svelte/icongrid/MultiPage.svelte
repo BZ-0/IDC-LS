@@ -43,7 +43,7 @@
             iconItem.pCellX = iconItem.cellX;
             iconItem.pCellY = iconItem.cellY;
             iconItem.pointerId = ev.detail.pointerId;
-
+            
             //
             const argObj = makeArgs(iconItem, iconItems, gridPages.get(currentPage), columnsAndRows, iconLists);
 
@@ -51,14 +51,13 @@
             iconLists.set(currentPage, iconList.filter((id)=>(id!=iconId)) || []);
             currentState.iconLists = iconLists;
             dragBucket = [...dragBucket, iconId];
-            
         }, {once: true, capture: true, passive: true}];
 
         //
         document.addEventListener(...grabEvent);
         document.addEventListener("pointerup", ()=>{
             document.removeEventListener(...grabEvent, {once: true, capture: true, passive: true});
-        });
+        }, {once: true});
     }
 
     //

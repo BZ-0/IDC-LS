@@ -8,7 +8,7 @@ export const settingsEx = {};
 settingsEx.columns = makeWritableProperty(settings, "columns", {
     initial: parseInt(localStorage.getItem("@settings:@columns")) || 4,
     setter(v) {
-        localStorage.setItem("@settings:@columns", value);
+        localStorage.setItem("@settings:@columns", v);
         return v;
     },
 });
@@ -17,7 +17,7 @@ settingsEx.columns = makeWritableProperty(settings, "columns", {
 settingsEx.rows = makeWritableProperty(settings, "rows", {
     initial: parseInt(localStorage.getItem("@settings:@rows")) || 4,
     setter(v) {
-        localStorage.setItem("@settings:@rows", value);
+        localStorage.setItem("@settings:@rows", v);
         return v;
     },
 });
@@ -26,8 +26,8 @@ settingsEx.rows = makeWritableProperty(settings, "rows", {
 settingsEx.scaling = makeWritableProperty(settings, "scaling", {
     initial: parseFloat(localStorage.getItem("@settings:@scaling")) || 4,
     setter(v) {
-        localStorage.setItem("@settings:@scaling", value);
-        document.body.style.setProperty("--scaling", value || 1);
+        localStorage.setItem("@settings:@scaling", v);
+        document.body.style.setProperty("--scaling", v || 1);
         return v;
     },
 });

@@ -83,9 +83,13 @@ document.addEventListener(
 
         //
         Object.assign(exists, np);
-        pointerMap.set(ev.pointerId, exists);
+        
+        //
+        if (!pointerMap.has(ev.pointerId)) {
+            pointerMap.set(ev.pointerId, exists);
+        }
     },
-    { capture: true, passive: true }
+    { capture: true }
 );
 
 //
@@ -112,6 +116,13 @@ document.addEventListener(
         if (!exists.holding) {
             exists.holding = [];
         }
+        
+        //
+        if (exists.holding.length > 0) {
+            ev.stopImmediatePropagation();
+            ev.stopPropagation();
+            ev.preventDefault();
+        }
 
         //
         if (!exists.edges) {
@@ -120,7 +131,11 @@ document.addEventListener(
 
         //
         Object.assign(exists, np);
-        pointerMap.set(ev.pointerId, exists);
+        
+        //
+        if (!pointerMap.has(ev.pointerId)) {
+            pointerMap.set(ev.pointerId, exists);
+        }
 
         //
         exists.holding.map((hm) => {
@@ -161,13 +176,13 @@ document.addEventListener(
             }
         });
     },
-    { capture: true, passive: true }
+    { capture: true }
 );
 
 //
 export const releasePointer = (ev)=>{
     const exists = pointerMap.get(ev.pointerId);
-
+    
     //
     if (exists) {
         exists.holding.map((hm)=>{
@@ -209,15 +224,15 @@ export const releasePointer = (ev)=>{
             }});
             em?.dispatchEvent?.(nev);
         });
+        
+        //
+        pointerMap.delete(ev.pointerId);
     }
-
-    //
-    pointerMap.delete(ev.pointerId);
 }
 
 //
-document.addEventListener("pointercancel", releasePointer, {capture: true, passive: true});
-document.addEventListener("pointerup", releasePointer, {capture: true, passive: true});
+document.addEventListener("pointercancel", releasePointer, {capture: true});
+document.addEventListener("pointerup", releasePointer, {capture: true});
 
 //
 export const grabForDrag = (element, ev = {pointerId: 0}, {
