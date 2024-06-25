@@ -86,7 +86,9 @@ const config = <UserConfig>defineConfig({
             "Service-Worker-Allowed": "/",
             "Permissions-Policy": "fullscreen=*, window-management=*",
         },
-        hmr: false
+        hmr: {
+            overlay: false
+        }
     },
     esbuild: {
 		target: "esnext"

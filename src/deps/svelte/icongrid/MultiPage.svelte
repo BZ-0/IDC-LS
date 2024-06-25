@@ -67,7 +67,6 @@
     
         //
         const grabEvent = ["pointermove", (evm)=>{
-            console.log(Math.hypot(dragState.startX - evm.pageX, dragState.startY - evm.pageY));
             if (dragState.pointerId == evm.pointerId && Math.hypot(dragState.startX - evm.pageX, dragState.startY - evm.pageY) >= 10) {
                 initGrab(evm); document.removeEventListener(...grabEvent);
             }

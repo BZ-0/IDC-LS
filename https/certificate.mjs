@@ -1,5 +1,5 @@
-import fs from "node:fs/promises";
-import path from "node:path";
+import fs from "node:fs/promises"
+import path from "node:path"
 
 //
 const probeDirectory = async (dirlist, agr = "local/")=>{
@@ -15,6 +15,8 @@ const probe = await probeDirectory([
     "../https/",
     "./https/",
     "./",
+    "./webapp/https/",
+    "../webapp/https/",
     "./dist/https/",
     "../dist/https/"
 ], "local/");
