@@ -9,7 +9,7 @@ import path from "path"
 import sveltePreprocess from "svelte-preprocess"
 import { defineConfig, type UserConfig } from "vite"
 import { VitePWA } from "vite-plugin-pwa"
-import { viteStaticCopy } from "vite-plugin-static-copy";
+import { viteStaticCopy } from "vite-plugin-static-copy"
 import certificate from "./https/certificate.mjs"
 import pkg from "./package.json"
 import tsconfig from "./tsconfig.json"
@@ -79,6 +79,7 @@ const config = <UserConfig>defineConfig({
             "Service-Worker-Allowed": "/",
             "Permissions-Policy": "fullscreen=*, window-management=*",
         },
+        hmr: false
     },
     build: {
         sourcemap: sourceMapsInProduction,
