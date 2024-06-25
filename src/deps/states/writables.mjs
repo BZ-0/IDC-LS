@@ -6,6 +6,42 @@ const nullFx = (v) => {
 };
 
 //
+class RWWrap {
+    #wt = null;
+    #gt = nullFx;
+    #st = nullFx;
+
+    //
+    constructor(wt, {
+        getter = nullFx, 
+        setter= nullFx
+    }) {
+        this.#wt = wt;
+        this.#gt = getter;
+        this.#st = setter;
+    }
+    
+    //
+    subscribe(fx, ...args) {
+        return this.#wt.subscribe((v)=>{
+            fx(this.#gt(v));
+        }, ...args);
+    }
+    
+    //
+    set(v, ...args) {
+        this.#wt.set(this.#st(v), ...args);
+    }
+
+    //
+    update(fx, ...args) {
+        this.#wt.update((v, ...arg0)=>{
+            return this.#st(fx(this.#gt(v), ...arg0));
+        }, ...args);
+    }
+}
+
+//
 export const makeWritableProperty = (
     base = {},
     name = "",
@@ -15,12 +51,12 @@ export const makeWritableProperty = (
         w: writable(initial),
         v: getter(initial),
     };
-    
+
     //
     state.w.subscribe((v) => {
         afterSet?.((state.v = getter(v)));
     })
-    
+
     //
     state.w.set(setter(state.v));
 
@@ -37,5 +73,7 @@ export const makeWritableProperty = (
     });
 
     //
-    return state.w;
+    return (new RWWrap(state.w, {
+        setter, getter
+    }));
 };

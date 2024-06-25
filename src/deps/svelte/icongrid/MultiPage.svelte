@@ -2,7 +2,7 @@
     //
     import { grabForDrag } from "@libs/orion/pointer-api.mjs";
     import { animationSequence, makeArgs, putToCell } from "@states/gridItem.mjs";
-    import { currentState, gridState, makeMap } from "@states/gridState.mjs";
+    import { currentState, gridState } from "@states/gridState.mjs";
     import { settingsEx } from "@states/settings.mjs";
     import { onMount } from "svelte";
     import IconGrid from "./IconGrid.svelte";
@@ -23,9 +23,9 @@
     let gridPagesArray = Array.from(gridPages.values());
 
     // TODO: wrapper for writable for get "getter" value
-    gridState.iconLists.subscribe((v)=>{ iconLists = new Map(v); });
-    gridState.iconItems.subscribe((v)=>{ iconItems = makeMap(v); });
-    gridState.gridPages.subscribe((v)=>{ gridPages = makeMap(v);});
+    gridState.iconLists.subscribe((v)=>{ iconLists = v; });
+    gridState.iconItems.subscribe((v)=>{ iconItems = v; });
+    gridState.gridPages.subscribe((v)=>{ gridPages = v; });
 
     //
     $: columnsAndRows = [$columns, $rows];
