@@ -12,7 +12,9 @@
 		@extend .round-ns;
 	
 		//
-		z-index: 9999;
+		inset: 0px;
+		position: fixed;
+		z-index: 99999;
 	
 		//
 		container-name: ls-settings;
