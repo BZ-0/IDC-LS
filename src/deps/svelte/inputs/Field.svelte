@@ -57,4 +57,4 @@
 </script>
 
 <!-- -->
-<input bind:this={field} value="" type="text" data-name={fieldName} virtualkeyboardpolicy="manual">
+<input bind:this={field} value="" type="text" data-name={fieldName}>

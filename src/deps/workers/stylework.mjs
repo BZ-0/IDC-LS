@@ -301,11 +301,11 @@ document.addEventListener(
                 "all and ((display-mode: fullscreen) or (display-mode: standalone))"
             ).matches
         ) {
-            document?.body
+            /*document?.body
                 ?.requestFullscreen?.({
                     navigationUI: "hide",
                 })
-                ?.catch(console.warn.bind(console));
+                ?.catch(console.warn.bind(console));*/
         }
     },
     { passive: true, capture: true }

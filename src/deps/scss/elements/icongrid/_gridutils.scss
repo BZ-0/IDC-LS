@@ -8,6 +8,7 @@
     .icon-grid {
         display: grid;
         touch-action: none !important; 
+        position: relative;
 
         //
         grid-template-columns: repeat(var(--columns), minmax(0px, 1fr));

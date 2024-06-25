@@ -162,14 +162,14 @@
         @extend .inset-0;
 
         //
-        inline-size: calc(min(var(--avail-width, 100dvi), 100dvi) / var(--scaling));
-        block-size: calc(min(var(--avail-height, 100dvb), 100dvb) / var(--scaling));
+        inline-size: calc(min(var(--avail-width, 100lvi), 100lvi) / var(--scaling));
+        block-size: calc(min(var(--avail-height, 100lvb), 100lvb) / var(--scaling));
     }
 
     // depends from virtual keyboards
     .fit-viewport {
-        inline-size: min(calc(min(var(--avail-width, 100dvi), 100dvi) / var(--scaling)), 100cqi);
-        block-size: min(calc(min(var(--avail-height, 100dvb), 100dvb) / var(--scaling)), 100cqb);
+        inline-size: min(calc(min(var(--avail-width, 100lvi), 100lvi) / var(--scaling)), 100cqi);
+        block-size: min(calc(min(var(--avail-height, 100lvb), 100lvb) / var(--scaling)), 100cqb);
     }
 
     //
@@ -289,8 +289,8 @@
 
         //
         @media all and (display-mode: fullscreen) {
-            --vp-i-size: calc(var(--avail-width, 100dvi) / var(--scaling, 1));
-            --vp-b-size: calc(var(--avail-height, 100dvb) / var(--scaling, 1));
+            --vp-i-size: calc(min(var(--avail-width, 100lvi), 100lvi) / var(--scaling, 1));
+            --vp-b-size: calc(min(var(--avail-height, 100lvb), 100lvb) / var(--scaling, 1));
         }
         
         //

@@ -32,36 +32,59 @@
     $: gridPagesArray = Array.from(gridPages.values());
 
     //
-    const grabItem = (ev)=>{
-        const grabEvent = ["pointermove", ()=>{
-            const iconElement = ev.detail.target.closest(".icon-item");
-            const iconId      = iconElement.dataset["id"];
-            const iconItem    = iconItems.get(iconId);
-            const iconList    = iconLists.get(currentPage);
+    let dragState = {
+        pointerId: -1,
+        startX: 0,
+        startY: 0
+    }
 
-            //
-            iconItem.pCellX = iconItem.cellX;
-            iconItem.pCellY = iconItem.cellY;
-            iconItem.pointerId = ev.detail.pointerId;
-            
-            //
-            const argObj = makeArgs(iconItem, iconItems, gridPages.get(currentPage), columnsAndRows, iconLists);
+    //
+    const initGrab = (ev)=>{
+        const iconElement = ev.target.closest(".icon-item");
+        const iconId      = iconElement.dataset["id"];
+        const iconItem    = iconItems.get(iconId);
+        const iconList    = iconLists.get(currentPage);
 
-            //iconId
-            iconLists.set(currentPage, iconList.filter((id)=>(id!=iconId)) || []);
-            currentState.iconLists = iconLists;
-            dragBucket = [...dragBucket, iconId];
-        }, {once: true, capture: true, passive: true}];
+        //
+        iconItem.pCellX = iconItem.cellX;
+        iconItem.pCellY = iconItem.cellY;
+        iconItem.pointerId = ev.pointerId;
+        
+        //
+        const argObj = makeArgs(iconItem, iconItems, gridPages.get(currentPage), columnsAndRows, iconLists);
+
+        //iconId
+        iconLists.set(currentPage, iconList.filter((id)=>(id!=iconId)) || []);
+        currentState.iconLists = iconLists;
+        dragBucket = [...dragBucket, iconId];
+    }
+
+    //
+    const grabItem = ({detail: ev})=>{
+        dragState.startX = ev.pageX;
+        dragState.startY = ev.pageY;
+        dragState.pointerId = ev.pointerId;
+    
+        //
+        const grabEvent = ["pointermove", (evm)=>{
+            console.log(Math.hypot(dragState.startX - evm.pageX, dragState.startY - evm.pageY));
+            if (dragState.pointerId == evm.pointerId && Math.hypot(dragState.startX - evm.pageX, dragState.startY - evm.pageY) >= 10) {
+                initGrab(evm); document.removeEventListener(...grabEvent);
+            }
+        }, {capture: true, passive: true}];
 
         //
         document.addEventListener(...grabEvent);
         document.addEventListener("pointerup", ()=>{
-            document.removeEventListener(...grabEvent, {once: true, capture: true, passive: true});
+            document.removeEventListener(...grabEvent);
         }, {once: true});
     }
 
     //
     const placeElement = async ({pointer, holding})=>{
+        dragState.pointerId = -1;
+        
+        //
         const iconElement = holding.element.deref();
         const iconId      = iconElement.dataset["id"];
         const iconItem    = {...iconItems.get(iconId)}; // avoid force update
@@ -113,10 +136,11 @@
 
 </script>
 
+<!-- -->
+<canvas is="w-canvas" class="stretch fixed inset-0" data-src="./assets/wallpaper/0.jpg"/>
 
-<div bind:this={mainElement} data-ctx="grid" class="layer-2 stretch grid-based-box fixed-avail fixed pe-enable" style="touch-action: none; isolation: isolate;" {...$$props}>
-    <canvas is="w-canvas" class="stretch fixed inset-0" data-src="./assets/wallpaper/0.jpg"/>
-    
+<!-- -->
+<div bind:this={mainElement} data-ctx="grid" class="layer-2 stretch grid-based-box fixed-avail relative pe-enable" style="touch-action: none; isolation: isolate;" {...$$props}>
     {#each gridPagesArray as page}
         {#if currentPage==page.id}
             
