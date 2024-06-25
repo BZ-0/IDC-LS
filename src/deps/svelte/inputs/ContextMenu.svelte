@@ -43,11 +43,11 @@
 
     //
     document.addEventListener("click", (ev)=>{
-        const forbidSelectors = ".icon-edit .field-edit, .lx-modal";
+        const forbidSelectors = ".icon-edit, .field-edit, .lx-modal";
         const parentAreContextMenu = ev.target.matches(".ls-contextmenu") ? ev.target : ev.target.closest(".ls-contextmenu");
 
         //
-        if (parentAreContextMenu && ev.target.matches("ctx-button")) {
+        if (parentAreContextMenu && ev.target.matches(".ctx-button")) {
             const button = ev.target;
             if (initiator) {
                 actionRegistry.get(button.dataset.action || "")?.(initiator, ev);

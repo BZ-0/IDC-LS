@@ -10,6 +10,11 @@
     export let fieldName = "";
     
     //
+    $: listenChanges(field);
+    $: importFromIcon(onEdit?.focusIconState);
+    $: reflectToField(field?.dataset?.name, "change");
+    
+    //
     const refocus = ()=>{
         requestAnimationFrame(()=>{
             const fieldEditor = document?.querySelector?.(".field-edit input");

@@ -4,13 +4,17 @@
 
     // import writable store
     export let {iconItemId} = onFocus;
+    
+    //
+    export let onEdit = onFocus?.iconItem;
+    $: onEdit = onFocus.focus($iconItemId);
 
     // may cause stack exceeded issue
     // $: iconItemId = onFocus.iconItemId;
 
     //
     document.addEventListener("click", (ev)=>{
-        const forbidSelectors = ".icon-edit .field-edit, .lx-modal";
+        const forbidSelectors = ".icon-edit, .field-edit, .lx-modal";
         const parentAreIconEdit = ev.target.matches(".ls-contextmenu") ? ev.target : ev.target.closest(".ls-contextmenu");
 
         // don't close modal when such selectors...
@@ -38,7 +42,7 @@
             {#each currentFields as field}
                 <div class="edit-field">
                     <div class="edit-label">{field.label}</div>
-                    <div class="field-wrap solid hl-1 apply-color-theme"><Field name={field.id}></Field></div>
+                    <div class="field-wrap solid hl-1 apply-color-theme"><Field onEdit={onEdit} fieldName={field.id}></Field></div>
                 </div>
             {/each}
         </div>

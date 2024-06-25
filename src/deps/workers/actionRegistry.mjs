@@ -1,3 +1,4 @@
+import { applyForIcon } from '@states/fieldEdit.mjs'
 import { putToCell } from "@states/gridItem.mjs"
 import { focusIconForEdit, gridState } from "@states/gridState.mjs"
 import { settings } from "@states/settings.mjs"
@@ -7,6 +8,11 @@ import { writable } from 'svelte/store'
 export let onFocus = {
     iconItem: focusIconForEdit(""),
     iconItemId: writable(""),
+    focus (id){
+        this.iconItem = focusIconForEdit(id);
+        this.iconItemId.set(id);
+        return this.iconItem;
+    }
 };
 
 //
@@ -38,8 +44,7 @@ export const actionRegistry = new Map([
         (from, event) => {
             const id = from?.dataset?.id;
             if (id) {
-                onFocus.iconItem = focusIconForEdit(id);
-                onFocus.iconItemId.set(id);
+                onFocus.focus(id);
             }
         },
     ],
@@ -52,8 +57,7 @@ export const actionRegistry = new Map([
                 gridState.iconItems = gridState.iconItems;
 
                 // do lost focus when deleted
-                onFocus.iconItem = focusIconForEdit("");
-                onFocus.iconItemId.set("");
+                onFocus.focus("");
 
                 //
                 const currentIconGrid =
@@ -124,8 +128,7 @@ export const actionRegistry = new Map([
             gridState.iconLists = gridState.iconLists;
 
             // use editor...
-            onFocus.iconItem = focusIconForEdit(iconId);
-            onFocus.iconItemId.set(iconId);
+            onFocus.focus(iconId);
         },
     ],
     [
@@ -142,7 +145,8 @@ export const actionRegistry = new Map([
 document.addEventListener("click", (ev) => {
     const el = ev.target;
     const pr = el.matches("[data-action]") ? el : el.closest("[data-action]");
-    if (pr?.dataset?.action) {
+    
+    if (pr?.dataset?.action && !pr?.matches(".ctx-button")) {
         actionRegistry.get(pr.dataset.action)?.(pr, ev);
     }
 });

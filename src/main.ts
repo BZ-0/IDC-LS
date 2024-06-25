@@ -14,7 +14,7 @@ const loading = Promise.allSettled([
 //import App from '@tests/ScrollBox.svelte'
 //import App from "@tests/CtxMenu.svelte";
 //import App from "@tests/SettingsTest.svelte"
-import App from "@tests/IconEditTest.svelte"
+import App from "@tests/Candidate.svelte"
 
 //
 const app = new App({

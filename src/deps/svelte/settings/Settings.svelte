@@ -1,21 +1,15 @@
 <script>
 	import { readableHash } from '@states/readables.mjs';
-	import { settings } from "@states/settings.mjs";
+	import { settingsEx } from "@states/settings.mjs";
 	import LucideIcon from '@svelte/decors/LucideIcon.svelte';
 	import Number from '@svelte/inputs/Number.svelte';
 	import { onMount } from 'svelte';
-	import { writable } from 'svelte/store';
 	import { fade } from "svelte/transition";
 	import Block from '../decors/Block.svelte';
 
 	//
-	export let columns = writable(parseInt(localStorage.getItem("@settings:@columns")) || 4);
-	export let rows = writable(parseInt(localStorage.getItem("@settings:@rows")) || 8);
+	export let {columns, rows} = settingsEx;
 	export let currentPage = "";
-
-	//
-	columns.subscribe((v)=>{ settings.columns.set(v); })
-	rows.subscribe((v)=>{ settings.rows.set(v); })
 
 	//
 	const tabs = [{
@@ -35,12 +29,12 @@
 	//
 	onMount(()=>{
 		// default grid-page
-		if (settingsEl.clientWidth >= 96*10) {
+		if ((settingsEl?.clientWidth || 0) >= 96*10) {
 			currentPage = "grid-settings";
 		}
 
 		//
-		tabsEl.addEventListener("click", (ev)=>{
+		document.addEventListener("click", (ev)=>{
 			const {target} = ev;
 			if (target.matches(".ls-tab-item")) {
 				currentPage = target.dataset.page || "";

@@ -60,6 +60,7 @@ export const onInputChange = ({ target }) => {
 
 //
 export const listenChanges = (field) => {
+    if (!field) return;
     field.addEventListener("input", onInputChange);
     field.addEventListener("change", onInputChange);
 };
@@ -80,12 +81,11 @@ export const bindToFieldEdit = (input) => {
 
 //
 export const fieldToData = (idOrInput) => {
-    const idOf =
-        idOrInput?.dataset?.name ?? idOrInput?.dataset?.edit ?? idOrInput;
+    const idOf = (idOrInput?.dataset?.name ?? idOrInput?.dataset?.edit ?? idOrInput) || fieldEditState.id;
     const field =
         typeof idOrInput == "string"
             ? document.querySelector(
-                  `input[data-name=\"${(idOf ||= fieldEditState.id)}\"]`
+                  `input[data-name=\"${(idOf)}\"]`
               )
             : idOrInput;
     if (field?.value != null && idOf && idOf != null && idOf != "undefined") {

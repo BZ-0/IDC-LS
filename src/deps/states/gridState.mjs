@@ -109,23 +109,6 @@ export const makeMap = (array) => {
 };
 
 //
-export const updateIcons = (cs = currentState) => {
-    if (cs.iconItems) {
-        currentState.iconItems = cs.iconItems; // ?? cs;
-    }
-};
-export const updateGrids = (cs = currentState) => {
-    if (cs.gridPages) {
-        currentState.gridPages = cs.gridPages; // ?? cs;
-    }
-};
-export const updateLists = (cs = currentState) => {
-    if (cs.iconLists) {
-        currentState.iconLists = cs.iconLists; // ?? cs;
-    }
-};
-
-//
 export const getIconState = (id = "github") => {
     return currentState.iconItems.get(id);
 };
@@ -136,8 +119,8 @@ export const setIconState = ({ iconItem = null, id = null }) => {
     const idOf = (id ||= iconItem.id);
     if (idOf && iconOf) {
         currentState.iconItems.set(idOf, iconOf);
+        currentState.iconItems = currentState.iconItems;
     }
-    updateIcons();
 };
 
 //

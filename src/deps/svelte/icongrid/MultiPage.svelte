@@ -2,7 +2,7 @@
     //
     import { grabForDrag } from "@libs/orion/pointer-api.mjs";
     import { animationSequence, makeArgs, putToCell } from "@states/gridItem.mjs";
-    import { currentState } from "@states/gridState.mjs";
+    import { currentState, gridState, makeMap } from "@states/gridState.mjs";
     import { settingsEx } from "@states/settings.mjs";
     import { onMount } from "svelte";
     import IconGrid from "./IconGrid.svelte";
@@ -22,11 +22,13 @@
     let {iconLists, iconItems, gridPages} = currentState;
     let gridPagesArray = Array.from(gridPages.values());
 
+    // TODO: wrapper for writable for get "getter" value
+    gridState.iconLists.subscribe((v)=>{ iconLists = new Map(v); });
+    gridState.iconItems.subscribe((v)=>{ iconItems = makeMap(v); });
+    gridState.gridPages.subscribe((v)=>{ gridPages = makeMap(v);});
+
     //
     $: columnsAndRows = [$columns, $rows];
-    $: iconLists = currentState.iconLists;
-    $: iconItems = currentState.iconItems;
-    $: gridPages = currentState.gridPages;
     $: gridPagesArray = Array.from(gridPages.values());
 
     //
@@ -113,7 +115,7 @@
 </script>
 
 
-<div bind:this={mainElement} class="layer-2 stretch grid-based-box fixed-avail fixed" style="isolation: isolate;" {...$$props}>
+<div bind:this={mainElement} data-ctx="grid" class="layer-2 stretch grid-based-box fixed-avail fixed pe-enable" style="isolation: isolate;" {...$$props}>
     <canvas is="w-canvas" class="stretch fixed inset-0" data-src="./assets/wallpaper/0.jpg"/>
     
     {#each gridPagesArray as page}
