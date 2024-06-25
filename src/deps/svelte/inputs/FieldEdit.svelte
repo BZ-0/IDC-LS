@@ -20,7 +20,7 @@
 
     //
     const stillInFocus = (el)=>{
-        return el && (el.matches("input") || [input, copyButton, pasteButton, fieldEdit].indexOf(el) >= 0);
+        return el && (el.matches("input") || [input, copyButton, pasteButton, fieldEdit].filter((l)=>!!l).indexOf(el) >= 0);
     }
 
     //

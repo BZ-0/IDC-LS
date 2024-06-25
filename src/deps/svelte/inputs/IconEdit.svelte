@@ -14,11 +14,11 @@
 
     //
     document.addEventListener("click", (ev)=>{
-        const forbidSelectors = ".icon-edit, .field-edit, .lx-modal";
+        const forbidSelectors = ".icon-edit, .field-edit, .ls-modal";
         const parentAreIconEdit = ev.target.matches(".ls-contextmenu") ? ev.target : ev.target.closest(".ls-contextmenu");
 
         // don't close modal when such selectors...
-        if (!parentAreIconEdit && !(ev.target.matches(forbidSelectors) || ev.target.closest(forbidSelectors))) {
+        if (!parentAreIconEdit && !(ev.target.matches(forbidSelectors) || ev.target.closest(forbidSelectors)) || ev.target.matches("button.edit-delete, button.edit-confirm")) {
             $iconItemId = null;
         }
     });

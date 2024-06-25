@@ -37,8 +37,8 @@
         ev.preventDefault();
 
         // TODO: fix coordinate
-        document.body.style.setProperty("--click-x", ev.pageX, "");
-        document.body.style.setProperty("--click-y", ev.pageY, "");
+        document.body.style.setProperty("--click-x", ev.pageX || 0, "");
+        document.body.style.setProperty("--click-y", ev.pageY || 0, "");
 
         // from data-ctx holders
         const realElement = ev.target.matches("[data-ctx]") ? ev.target : ev.target.closest("[data-ctx]");
@@ -47,7 +47,7 @@
 
     //
     document.addEventListener("click", (ev)=>{
-        const forbidSelectors = ".icon-edit, .field-edit, .lx-modal";
+        const forbidSelectors = ".icon-edit, .field-edit, .ls-modal";
         const parentAreContextMenu = ev.target.matches(".ls-contextmenu") ? ev.target : ev.target.closest(".ls-contextmenu");
 
         //

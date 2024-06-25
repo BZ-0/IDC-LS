@@ -1,82 +1,85 @@
 @use "@scss/core/classlets";
 @use "@scss/fonts/xo_caliburn" as dFont;
 
-//
-.field-edit {
-    display: grid;
-    position: fixed;
-    overflow: hidden;
-    
+@layer ls-inputs {
+
     //
-    inset: 0px !important;
-    inset-block-start: 0px;
-    inset-block-end: auto;
-    inset-block-end: var(--keyboard-inset-bottom, auto);
-    
-    //
-    z-index: 99999;
-    
-    //
-    inline-size: 100svi !important;
-    block-size: 100svb !important;
-    block-size: calc(100svb - var(--keyboard-inset-height, 0px)) !important;
-    
-    //
-    will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset;
-    
-    //
-    pointer-events: none;
-    
-    //
-    grid-template-columns: minmax(0px, 1fr);
-    grid-template-rows: 
-        [empty-space] minmax(0px, 1fr) 
-        [field-edit] minmax(max-content, 4rem);
-    
-    //
-    .field-content {
+    .field-edit {
         display: grid;
-    
+        position: fixed;
+        overflow: hidden;
+        
         //
-        pointer-events: auto;
-        pointer-events: bounding-box;
-
+        inset: 0px !important;
+        inset-block-start: 0px;
+        inset-block-end: auto;
+        inset-block-end: var(--keyboard-inset-bottom, auto);
+        
         //
-        grid-template-columns: minmax(0px, 1fr) minmax(4rem, max-content) minmax(4rem, max-content);
-        max-block-size: 4rem;
-
-        :where(.field-copy, .field-paste) {
-            padding: 1rem;
-        }
-
+        z-index: 99999;
+        
         //
-        .field-wrap {
-            @extend .stretch;
-            
+        inline-size: 100svi !important;
+        block-size: 100svb !important;
+        block-size: calc(100svb - var(--keyboard-inset-height, 0px)) !important;
+        
+        //
+        will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset;
+        
+        //
+        pointer-events: none;
+        
+        //
+        grid-template-columns: minmax(0px, 1fr);
+        grid-template-rows: 
+            [empty-space] minmax(0px, 1fr) 
+            [field-edit] minmax(max-content, 4rem);
+        
+        //
+        .field-content {
+            display: grid;
+        
             //
-            display: flex;
-            flex-direction: row;
-            min-block-size: 4rem;
-            
+            pointer-events: auto;
+            pointer-events: bounding-box;
+
             //
-            input {
+            grid-template-columns: minmax(0px, 1fr) minmax(4rem, max-content) minmax(4rem, max-content);
+            max-block-size: 4rem;
+
+            :where(.field-copy, .field-paste) {
+                padding: 1rem;
+            }
+
+            //
+            .field-wrap {
                 @extend .stretch;
-                @include dFont.applyFont(1.8rem);
-            
+                
                 //
-                background-color: transparent;
-            
-                //
-                padding-inline: 1rem;
+                display: flex;
+                flex-direction: row;
                 min-block-size: 4rem;
                 
                 //
-                pointer-events: auto;
-                pointer-events: bounding-box;
-                user-select: auto;
+                input {
+                    @extend .stretch;
+                    @include dFont.applyFont(1.8rem);
+                
+                    //
+                    background-color: transparent;
+                
+                    //
+                    padding-inline: 1rem;
+                    min-block-size: 4rem;
+                    
+                    //
+                    pointer-events: auto;
+                    pointer-events: bounding-box;
+                    user-select: auto;
+                }
             }
-        }
 
+        }
+        
     }
-    
 }

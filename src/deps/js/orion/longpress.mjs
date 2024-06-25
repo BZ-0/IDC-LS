@@ -1,4 +1,4 @@
-export const longpress = (node, threshold = 10) => {
+export const longpress = (node, threshold = 100) => {
     const handle_mousedown = (ev) => {
         const scaling =
             parseFloat(document.body.style.getPropertyValue("--scaling")) || 1;

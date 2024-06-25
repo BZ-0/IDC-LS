@@ -1,133 +1,136 @@
 @use "@scss/core/classlets";
 @use "@scss/fonts/xo_caliburn" as dFont;
 
-.ls-contextmenu {
-    @extend .align-center;
-    @extend .pe-enable;
+@layer ls-inputs {
 
-    //
-    inset: 0px;
-    position: fixed;
-    padding: 0.5rem;
-    overflow: hidden;
-    border-radius: 0.25rem;
-    box-sizing: border-box;
-    
-    //
-    z-index: 99999;
-
-    //
-    --rx: 0px;
-    --ry: 0px;
-
-    //
-    --rx: calc(var(--click-x, 0) * 1px - calc(50cqi - 50%));
-    --ry: calc(var(--click-y, 0) * 1px - calc(50cqb - 50%));
-
-    //
-    --translate-x: clamp(0px, calc(calc(50cqi - 50%) + var(--rx)), calc(100cqi - 100%));
-    --translate-y: clamp(0px, calc(calc(50cqb - 50%) + var(--ry)), calc(100cqb - 100%));
-
-    //
-    translate: var(--translate-x) var(--translate-y);
-
-    //
-    min-inline-size: max-content;
-    min-block-size: max-content;
-
-    //
-    max-inline-size: 80cqi;
-    max-block-size: 80cqb;
-    inline-size: 16rem;
-    block-size: max-content;
-
-    //
-    ul {
-        @extend .stretch;
+    .ls-contextmenu {
         @extend .align-center;
+        @extend .pe-enable;
 
         //
-        padding: 0px;
-        margin: 0px;
-        position: relative;
-        display: flex;
-        gap: 0px;
+        inset: 0px;
+        position: fixed;
+        padding: 0.5rem;
+        overflow: hidden;
+        border-radius: 0.25rem;
+        box-sizing: border-box;
+        
+        //
+        z-index: 99999;
+
+        //
+        --rx: 0px;
+        --ry: 0px;
+
+        //
+        --rx: calc(var(--click-x, 0) * 1px - calc(50cqi - 50%));
+        --ry: calc(var(--click-y, 0) * 1px - calc(50cqb - 50%));
+
+        //
+        --translate-x: clamp(0px, calc(calc(50cqi - 50%) + var(--rx)), calc(100cqi - 100%));
+        --translate-y: clamp(0px, calc(calc(50cqb - 50%) + var(--ry)), calc(100cqb - 100%));
+
+        //
+        translate: var(--translate-x) var(--translate-y);
 
         //
         min-inline-size: max-content;
         min-block-size: max-content;
-        flex-direction: column;
-        pointer-events: none;
-        
+
         //
-        li {
+        max-inline-size: 80cqi;
+        max-block-size: 80cqb;
+        inline-size: 16rem;
+        block-size: max-content;
+
+        //
+        ul {
             @extend .stretch;
             @extend .align-center;
-            @extend .pe-enable;
-            
+
             //
+            padding: 0px;
+            margin: 0px;
+            position: relative;
+            display: flex;
+            gap: 0px;
+
+            //
+            min-inline-size: max-content;
             min-block-size: max-content;
-            block-size: 3rem;
-            display: grid;
-            grid-template-columns: 
-                [icon] minmax(max-content, 3rem) 
-                [label] minmax(0px, 1fr);
-            grid-template-rows: minmax(max-content, 3rem);
-            cursor: pointer;
-            font-size: 0.8rem;
+            flex-direction: column;
+            pointer-events: none;
             
             //
-            & > .icon-decor {
+            li {
                 @extend .stretch;
                 @extend .align-center;
-                justify-self: center;
-                align-self: center;
-            }
-            
-            //
-            & > :where(.ctx-label, .icon-wrap) {
-                @extend .stretch;
-                @extend .align-center;
+                @extend .pe-enable;
                 
                 //
-                justify-self: center;
-                align-self: center;
-                pointer-events: none;
-                
-                //
-                display: flex;
-                min-inline-size: max-content;
                 min-block-size: max-content;
                 block-size: 3rem;
-                padding: 0.5rem;
+                display: grid;
+                grid-template-columns: 
+                    [icon] minmax(max-content, 3rem) 
+                    [label] minmax(0px, 1fr);
+                grid-template-rows: minmax(max-content, 3rem);
+                cursor: pointer;
+                font-size: 0.8rem;
                 
                 //
-                & .lucide {
+                & > .icon-decor {
                     @extend .stretch;
+                    @extend .align-center;
+                    justify-self: center;
+                    align-self: center;
                 }
                 
                 //
-                & span {
-                    display: inline-block;
-                    block-size: max-content;
-                    inline-size: max-content;
+                & > :where(.ctx-label, .icon-wrap) {
+                    @extend .stretch;
+                    @extend .align-center;
+                    
+                    //
+                    justify-self: center;
+                    align-self: center;
+                    pointer-events: none;
+                    
+                    //
+                    display: flex;
+                    min-inline-size: max-content;
+                    min-block-size: max-content;
+                    block-size: 3rem;
+                    padding: 0.5rem;
+                    
+                    //
+                    & .lucide {
+                        @extend .stretch;
+                    }
+                    
+                    //
+                    & span {
+                        display: inline-block;
+                        block-size: max-content;
+                        inline-size: max-content;
+                    }
                 }
+                
+                & > .ctx-label {
+                    display: flex;
+                    text-align: start;
+                    justify-content: start;
+                    justify-items: start;
+                    justify-self: start;
+                }
+                
+                & > .icon-wrap {
+                    @extend .align-center;
+                    padding: 0.75rem;
+                }
+                
+                
             }
-            
-            & > .ctx-label {
-                display: flex;
-                text-align: start;
-                justify-content: start;
-                justify-items: start;
-                justify-self: start;
-            }
-            
-            & > .icon-wrap {
-                @extend .align-center;
-                padding: 0.75rem;
-            }
-            
-            
         }
     }
 }

@@ -1,6 +1,6 @@
 import { applyForIcon } from '@states/fieldEdit.mjs'
-import { putToCell } from "@states/gridItem.mjs"
-import { focusIconForEdit, gridState } from "@states/gridState.mjs"
+import { makeArgs, putToCell } from "@states/gridItem.mjs"
+import { currentState, focusIconForEdit } from "@states/gridState.mjs"
 import { settings } from "@states/settings.mjs"
 import { writable } from 'svelte/store'
 
@@ -53,8 +53,8 @@ export const actionRegistry = new Map([
         (from, event) => {
             const id = from?.dataset?.id || onFocus?.focusIconState?.id;
             if (id) {
-                gridState.iconItems.delete(id);
-                gridState.iconItems = gridState.iconItems;
+                currentState.iconItems.delete(id);
+                currentState.iconItems = currentState.iconItems;
 
                 // do lost focus when deleted
                 onFocus.focus("");
@@ -65,13 +65,13 @@ export const actionRegistry = new Map([
                     document.querySelector('.icon-grid[data-type="icons"]');
 
                 //
-                const currentGridId = currentIconGrid.dataset.id;
-                const iconList = gridState.iconLists.get(currentPage) || [];
+                const currentPage = currentIconGrid.dataset.id;
+                const iconList = currentState.iconLists.get(currentPage) || [];
 
                 //
                 const indexOf = iconList.indexOf(id);
                 if (indexOf >= 0) { iconList.splice(indexOf, 1); }
-                gridState.iconLists = gridState.iconLists;
+                currentState.iconLists = currentState.iconLists;
             }
         },
     ],
@@ -84,14 +84,14 @@ export const actionRegistry = new Map([
                 document.querySelector('.icon-grid[data-type="icons"]');
 
             //
-            const currentGridId = currentIconGrid.dataset.id;
-
+            const currentPage = currentIconGrid.dataset.id;
+            
             //
             const iconId = UUIDv4();
             const iconItem = {
                 id: iconId,
-                label: "",
-                icon: "",
+                label: "Unknown",
+                icon: "file-question",
                 action: "open-link",
                 href: "#",
                 cellX: 0,
@@ -100,18 +100,18 @@ export const actionRegistry = new Map([
 
             //
             const iconElement = null;
-            const gridPage = gridState.gridPages.get(currentPage);
-            const iconList = gridState.iconLists.get(currentPage) || [];
+            const gridPage = currentState.gridPages.get(currentPage);
+            const iconList = currentState.iconLists.get(currentPage) || [];
             const args = makeArgs(
                 iconItem,
-                iconItems,
+                currentState.iconItems,
                 gridPage,
                 [settings.columns, settings.rows],
-                iconLists
+                currentState.iconLists
             );
 
             //
-            const { cellX = x, cellY = y } = putToCell(args, {
+            const { x: cellX, y: cellY } = putToCell(args, {
                 x: iconItem.cellX,
                 y: iconItem.cellY,
             });
@@ -120,12 +120,12 @@ export const actionRegistry = new Map([
             (iconItem.cellX = cellX || 0), (iconItem.cellY = cellY || 0);
 
             //
-            gridState.iconItems.set(iconId, iconItem);
-            gridState.iconLists.get(currentGridId)?.push?.(iconId);
+            currentState.iconItems.set(iconId, iconItem);
+            currentState.iconLists.get(currentPage)?.push?.(iconId);
             
             // update svelte writer
-            gridState.iconItems = gridState.iconItems;
-            gridState.iconLists = gridState.iconLists;
+            currentState.iconItems = currentState.iconItems;
+            currentState.iconLists = currentState.iconLists;
 
             // use editor...
             onFocus.focus(iconId);
