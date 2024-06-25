@@ -12,12 +12,12 @@ const loading = Promise.allSettled([
 //
 //import App from "@tests/MultiPageTest.svelte";
 //import App from '@tests/ScrollBox.svelte'
-import App from "@tests/Fields.svelte";
+import App from "@tests/CtxMenu.svelte";
 //import App from "@tests/SettingsTest.svelte"
 
 //
 const app = new App({
-	target: document.body,
+    target: document.body,
 });
 
 //

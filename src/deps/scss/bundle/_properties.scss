@@ -120,6 +120,52 @@
         inherits: true;
     }
     
+    
+    //
+    @property --translate-x {
+        syntax: "<length-percentage>";
+        initial-value: 0px;
+        inherits: true;
+    }
+    
+    //
+    @property --translate-y {
+        syntax: "<length-percentage>";
+        initial-value: 0px;
+        inherits: true;
+    }
+    
+    //
+    @property --click-x {
+        syntax: "<number>";
+        initial-value: 0;
+        inherits: true;
+    }
+    
+    //
+    @property --click-y {
+        syntax: "<number>";
+        initial-value: 0;
+        inherits: true;
+    }
+    
+    
+    
+    //
+    @property --ry {
+        syntax: "<length-percentage>";
+        initial-value: 0px;
+        inherits: true;
+    }
+    
+    //
+    @property --rx {
+        syntax: "<length-percentage>";
+        initial-value: 0px;
+        inherits: true;
+    }
+    
+    
     //
     @property --theme-black-mod { syntax: "<color>"; initial-value: black; inherits: true; };
     @property --theme-white-mod { syntax: "<color>"; initial-value: black; inherits: true; };

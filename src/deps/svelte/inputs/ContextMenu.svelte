@@ -1,9 +1,12 @@
 {#each contextMenus as [id, menu]}
     {#if id == initiator?.dataset?.ctx}
-        <div bind:this={ctxMenuElement} class="ls-contextmenu" data-name={id}>
+        <div class="ls-contextmenu solid apply-color-theme" data-name={id}>
             <ul>
                 {#each menu as button}
-                    <li><div class="ctx-button" data-action={button.action}> {button.label} </div></li>
+                    <li class="ctx-button solid hl-1h apply-color-theme" data-action={button.action}>
+                        <div class="icon-wrap" style="grid-column: icon;"><LucideIcon name={button.icon}></LucideIcon></div>
+                        <div class="ctx-label" style="grid-column: label;"> <span>{button.label}</span> </div>
+                    </li>
                 {/each}
             </ul>
         </div>
@@ -11,19 +14,21 @@
 {/each}
 
 <script>
-    import { actionRegistry } from '@workers/actionRegistry.mjs';
-    import { onMount } from 'svelte';
+	import LucideIcon from '@svelte/decors/LucideIcon.svelte';
+	import { actionRegistry } from '@workers/actionRegistry.mjs';
+	import { onMount } from 'svelte';
 
     //
     export let initiator = null;
     export let contextMenus = [
         ["grid", [
-            { action: "change-wallpaper", label: "Change Wallpaper" },
-            { action: "open-settings", label: "Open Settings" }
+            { action: "create-icon", label: "Create Icon", icon: "badge-plus"},
+            { action: "change-wallpaper", label: "Change Wallpaper", icon: "wallpaper" },
+            { action: "open-settings", label: "Open Settings", icon: "settings" }
         ]],
         ["icon", [
-            { action: "edit-icon", label: "Edit Icon" },
-            { action: "delete-icon", label: "Delete Icon" }
+            { action: "edit-icon", label: "Edit Icon", icon: "pencil-line" },
+            { action: "delete-icon", label: "Delete Icon", icon: "badge-x" }
         ]]
     ];
 
@@ -38,12 +43,14 @@
 
     //
     document.addEventListener("click", (ev)=>{
-        const forbidSelectors = ".field-edit, .lx-modal";
+        const forbidSelectors = ".icon-edit .field-edit, .lx-modal";
         const parentAreContextMenu = ev.target.matches(".ls-contextmenu") ? ev.target : ev.target.closest(".ls-contextmenu");
+
+        //
         if (parentAreContextMenu && ev.target.matches("ctx-button")) {
             const button = ev.target;
             if (initiator) {
-                actionRegistry.get(button.dataset.action)?.(initiator, ev);
+                actionRegistry.get(button.dataset.action || "")?.(initiator, ev);
             }
         } else 
 
