@@ -1,5 +1,5 @@
 {#each contextMenus as [id, menu]}
-    {#if id == initiator?.dataset?.ctx}
+    {#if initiator && (id == initiator?.dataset?.ctx)}
         <div class="ls-contextmenu solid apply-color-theme" data-name={id}>
             <ul>
                 {#each menu as button}
@@ -51,6 +51,7 @@
             const button = ev.target;
             if (initiator) {
                 actionRegistry.get(button.dataset.action || "")?.(initiator, ev);
+                initiator = null;
             }
         } else 
 

@@ -1,28 +1,31 @@
-import { writable } from "svelte/store";
+//
+export const settings = {};
+export const settingsEx = {};
 
 //
-export const settings = {
-    columns: writable(
-        parseInt(localStorage.getItem("@settings:@columns")) || 4
-    ),
-    rows: writable(parseInt(localStorage.getItem("@settings:@rows")) || 8),
-    scaling: writable(
-        parseFloat(localStorage.getItem("@settings:@scaling")) || 1
-    ),
-};
-
-//
-settings.columns.subscribe((value) => {
-    localStorage.setItem("@settings:@columns", value);
+settingsEx.columns = makeWritableProperty(settings, "columns", {
+    initial: parseInt(localStorage.getItem("@settings:@columns")) || 4,
+    setter(v) {
+        localStorage.setItem("@settings:@columns", value);
+        return v;
+    },
 });
 
 //
-settings.rows.subscribe((value) => {
-    localStorage.setItem("@settings:@rows", value);
+settingsEx.rows = makeWritableProperty(settings, "rows", {
+    initial: parseInt(localStorage.getItem("@settings:@rows")) || 4,
+    setter(v) {
+        localStorage.setItem("@settings:@rows", value);
+        return v;
+    },
 });
 
 //
-settings.scaling.subscribe((value) => {
-    localStorage.setItem("@settings:@scaling", value);
-    document.body.style.setProperty("--scaling", value || 1);
+settingsEx.scaling = makeWritableProperty(settings, "scaling", {
+    initial: parseFloat(localStorage.getItem("@settings:@scaling")) || 4,
+    setter(v) {
+        localStorage.setItem("@settings:@scaling", value);
+        document.body.style.setProperty("--scaling", value || 1);
+        return v;
+    },
 });

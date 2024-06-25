@@ -3,14 +3,14 @@
     import { grabForDrag } from "@libs/orion/pointer-api.mjs";
     import { animationSequence, makeArgs, putToCell } from "@states/gridItem.mjs";
     import { currentState } from "@states/gridState.mjs";
-    import { settings } from "@states/settings.mjs";
+    import { settingsEx } from "@states/settings.mjs";
     import { onMount } from "svelte";
     import IconGrid from "./IconGrid.svelte";
     import IconItem from "./IconItem.svelte";
     import IconLabel from "./IconLabel.svelte";
 
     //
-    let {rows, columns} = settings;
+    let {rows, columns} = settingsEx;
 
     //
     export let dragBucket = [];

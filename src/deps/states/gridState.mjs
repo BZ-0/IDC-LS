@@ -152,7 +152,12 @@ export const fieldNames = [
 ];
 
 //
-export const focusIconForEdit = (id = "github") => {
+export const focusIconForEdit = (id = "") => {
+    if (!id) {
+        return null;
+    }
+
+    //
     const focusIconState = {};
     const focusIconWrite = {};
 
