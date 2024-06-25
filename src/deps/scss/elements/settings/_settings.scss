@@ -12,6 +12,9 @@
 		@extend .round-ns;
 	
 		//
+		z-index: 9999;
+	
+		//
 		container-name: ls-settings;
 		display: grid;
 		overflow: hidden;

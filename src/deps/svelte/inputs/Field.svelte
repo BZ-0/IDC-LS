@@ -39,9 +39,9 @@
 
     //
     onMount(()=>{
-        if (field) {
+        if (field && onEdit) {
             listenChanges(field);
-            importFromIcon(onEdit.focusIconState);
+            importFromIcon(onEdit?.focusIconState);
             reflectToField(field?.dataset?.name, "change");
             
             //

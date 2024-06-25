@@ -1,0 +1,152 @@
+@use "@scss/core/classlets";
+@use "@scss/fonts/xo_caliburn" as dFont;
+
+.icon-edit {
+    --rx: 0px;
+    --ry: 0px;
+
+    //
+    z-index: 9999;
+
+    //
+    //--rx: calc(var(--click-x, 0) * 1px - 50%);
+    //--ry: calc(var(--click-y, 0) * 1px - 50%);
+
+    min-block-size: max-content;
+    min-inline-size: max-content;
+    
+    //
+    inline-size: 24rem;
+    block-size: max-content;
+    
+    //
+    max-inline-size: stretch;
+    max-block-size: stretch;
+    
+    //
+    --translate-x: calc(calc(50cqi - 50%) + var(--rx));
+    --translate-y: calc(calc(50cqb - 50%) + var(--ry));
+
+    //
+    translate: var(--translate-x) var(--translate-y);
+
+    //
+    inset: 0px;
+    position: fixed;
+
+    //
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    
+    //
+    border-radius: 0.25rem;
+    overflow: hidden;
+    gap: 1rem;
+    
+    //
+    .buttons {
+        @extend .align-center;
+    
+        display: grid;
+        grid-template-columns: minmax(0px, 1fr) minmax(0px, 1fr);
+        grid-template-rows: minmax(2rem, max-content);
+        gap: 1rem;
+        
+        //
+        button {
+            @extend .stretch;
+            @extend .align-center;
+            
+            display: flex;
+        
+            min-block-size: 2rem;
+            block-size: max-content;
+            max-block-size: stretch;
+            
+            cursor: pointer;
+        }
+    }
+    
+    //
+    .fields {
+        @extend .stretch;
+    
+        //
+        block-size: max-content;
+    
+        //
+        display: grid;
+        grid-template-columns: minmax(4rem, max-content) minmax(0px, 1fr);
+        grid-auto-rows: minmax(2rem, max-content);
+        gap: 0.5rem;
+        
+        //
+        .edit-field {
+            @extend .stretch;
+            
+            //
+            display: grid;
+            grid-column: 1 / 2 span;
+            grid-template-columns: subgrid;
+            grid-template-rows: minmax(2rem, max-content);
+            
+            //
+            min-block-size: 2rem;
+            block-size: max-content;
+            inline-size: stretch;
+            
+            //
+            .field-wrap {
+                @extend .stretch;
+                @extend .align-center;
+                
+                //
+                display: flex;
+                border-radius: 0.125rem;
+                overflow: hidden;
+                pointer-events: none;
+                
+                //
+                & input {
+                    @extend .stretch;
+                    @extend .align-center;
+                    @extend .pe-enable;
+                    
+                    //
+                    text-align: start;
+                    justify-self: start;
+                    justify-content: start;
+                    justify-items: start;
+                    
+                    ///
+                    display: flex;
+                    min-block-size: max-content;
+                    min-inline-size: max-content;
+                    
+                    //
+                    max-inline-size: stretch;
+                    background-color: transparent;
+                }
+            }
+            
+            .edit-label {
+                @extend .stretch;
+                @extend .align-center;
+
+                //
+                display: flex;
+                min-block-size: 2rem;
+                block-size: max-content;
+                
+                //
+                justify-self: start;
+                justify-content: start;
+                justify-items: start;
+                text-align: start;
+            }
+        }
+    }
+    
+    
+}

@@ -14,6 +14,9 @@
     inset-block-end: var(--keyboard-inset-bottom, auto);
     
     //
+    z-index: 99999;
+    
+    //
     inline-size: 100svi !important;
     block-size: 100svb !important;
     block-size: calc(100svb - var(--keyboard-inset-height, 0px)) !important;
