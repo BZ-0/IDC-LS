@@ -23,7 +23,7 @@
 
         //
         column-gap: calc(var(--c-gap) * 1rem);
-        row-gap: calc(var(--c-gap) * 1rem);
+        row-gap: calc(var(--r-gap) * 1rem);
         
         //
         pointer-events: none;
@@ -82,9 +82,16 @@
 
     //
     .icon-item {
+        @extend .stretch;
+    
+        //
         overflow: visible;
         background-color: transparent;
         touch-action: none !important; 
+
+        //
+        container-type: size;
+        contain: none;
 
         //
         & .icon-design {
@@ -97,7 +104,7 @@
             //
             clip-path: var(--clip-path);
             cursor: grab;
-            padding: 1rem;
+            padding: calc(var(--icon-size) * 0.3);
 
             //
             aspect-ratio: 1 / 1;

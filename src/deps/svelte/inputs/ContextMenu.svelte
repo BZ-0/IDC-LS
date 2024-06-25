@@ -36,6 +36,10 @@
     document.addEventListener("contextmenu", (ev)=>{
         ev.preventDefault();
 
+        // TODO: fix coordinate
+        document.body.style.setProperty("--click-x", ev.pageX, "");
+        document.body.style.setProperty("--click-y", ev.pageY, "");
+
         // from data-ctx holders
         const realElement = ev.target.matches("[data-ctx]") ? ev.target : ev.target.closest("[data-ctx]");
         if (realElement) { initiator = realElement, contextMenus = contextMenus; }
