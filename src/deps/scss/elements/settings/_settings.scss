@@ -45,7 +45,7 @@
 			box-shadow: 0px 0px 1rem 1px #00000070;
 			
 			//
-			min-inline-size: min(64rem, 100cqi);
+			min-inline-size: min(63rem, 100cqi);
 			min-block-size: min(36rem, 100cqb);
 
 			//
@@ -83,6 +83,9 @@
 			block-size: 3rem;
 			
 			//
+			border-block-end: solid 1px var(--current-surface-color);
+			
+			//
 			display: grid;
 			grid-template-columns: 
 				[menu-button] minmax(3rem, max-content)
@@ -95,7 +98,7 @@
 				text-align: start;
 				justify-content: start;
 				padding: 0.5rem;
-				padding-inline: 2rem;
+				padding-inline: 3rem;
 				cursor: grab;
 			}
 			

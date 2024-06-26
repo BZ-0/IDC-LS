@@ -94,6 +94,20 @@
             background-color: transparent;
         }
     }
+    
+    .themed-accent {
+        --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
+        --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 80%)};
+        
+        //
+        & > :where(.icon-wrap) {
+            --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
+            --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 75%)};
+
+            //
+            background-color: var(--theme-surface-color);
+        }
+    }
 
     // 
     .transparent {

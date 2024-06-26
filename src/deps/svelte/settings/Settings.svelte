@@ -113,7 +113,7 @@
 			<x-scrollbox class="ls-page ls-tabs accent apply-color-theme" bind:this={tabsEl}>
 				
 				{#each tabs as tab}
-					<Block class="block-decor ls-tab-item accent hl-1h cursor-pointer pe-enable" data-page={tab.page}>
+					<Block class="block-decor ls-tab-item accent-themed hl-1h cursor-pointer pe-enable" data-page={tab.page}>
 						<LucideIcon inert={true} slot="icon" name={tab.icon}/>
 						<div inert={true} class="tab-label">{tab.label}</div>
 					</Block>

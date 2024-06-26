@@ -52,7 +52,7 @@
         //
         & > :where(.icon-wrap) {
             //background-color: var(--current-surface-color);
-            background-color: transparent;
+            //background-color: transparent;
             color: var(--current-glyph-color);
         }
         
@@ -89,7 +89,7 @@
             block-size: max-content;
             inline-size: max-content;
             
-            padding: 0.5rem;
+            padding: 0.25rem;
             aspect-ratio: 1 / 1;
         }
     }
