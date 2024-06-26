@@ -1,0 +1,84 @@
+
+@use "@scss/core/classlets";
+@use "@scss/fonts/xo_caliburn" as dFont;
+
+//
+@layer ls-inputs {
+    .ls-checkbox {
+        @extend .align-center;
+        @extend .stretch;
+    
+        //
+        display: flex;
+        position: relative;
+        border-radius: 0.25rem;
+        overflow: hidden;
+        
+        //
+        box-sizing: border-box;
+        min-block-size: max-content;
+        min-inline-size: max-content;
+        block-size: 2.5rem;
+        inline-size: 2.5rem;
+        max-block-size: 2.5rem;
+        max-inline-size: 2.5rem;
+        aspect-ratio: 1 / 1;
+        
+        //
+        background-color: var(--current-surface-color);
+        color: var(--current-glyph-color);
+        
+        //
+        pointer-events: auto;
+        pointer-events: bounding-bpx;
+        
+        //
+        .icon-sign {
+            background-color: transparent !important;
+            
+            //
+            pointer-events: none;
+            position: absolute;
+            inset: 0px;
+            opacity: 0;
+            padding: 0.25rem;
+            
+            //
+            @extend .stretch;
+            
+            //
+            & > * {
+                @extend .stretch;
+                stroke-width: 0.25rem;
+            }
+        }
+        
+        //
+        &:has(input:checked) {
+            --current-glyph-color: var(--theme-surface-color);
+            --current-surface-color: var(--theme-glyph-color);
+            
+            //
+            & .icon-sign {
+                opacity: 1;
+            }
+        }
+
+        //
+        input {
+            @extend .stretch;
+            
+            //
+            position: absolute;
+            inset: 0px;
+            opacity: 0;
+            padding: 0px;
+            cursor: pointer;
+            
+            //
+            pointer-events: auto;
+            pointer-events: bounding-bpx;
+        }
+    }
+
+}

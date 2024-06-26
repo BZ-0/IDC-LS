@@ -3,6 +3,7 @@
 	import { readableHash } from '@states/readables.mjs';
 	import { settingsEx } from "@states/settings.mjs";
 	import LucideIcon from '@svelte/decors/LucideIcon.svelte';
+	import Checkbox from '@svelte/inputs/Checkbox.svelte';
 	import Number from '@svelte/inputs/Number.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from "svelte/transition";
@@ -145,6 +146,17 @@
 								<div class="opt-label">Scaling:</div>
 								<LucideIcon slot="icon" name={"scaling"}/>
 								<Number slot="element" value={scaling} min={0.5} max={1.5} step={0.125}></Number>
+								<!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
+							</Block>
+						</form>
+						
+						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row" transition:fade={{ delay: 0, duration: 100 }}>
+							<div class="form-description"> Experimental Color Scheme: </div>
+
+							<Block class="block-decor">
+								<div class="opt-label">Theming:</div>
+								<LucideIcon slot="icon" name={"scaling"}/>
+								<Checkbox slot="element"></Checkbox>
 								<!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
 							</Block>
 						</form>
