@@ -5,6 +5,36 @@ export const settings = {};
 export const settingsEx = {};
 
 //
+settingsEx.theme = makeWritableProperty(settings, "theme", {
+    initial: parseInt(localStorage.getItem("@settings:@theme")) || 0,
+    setter(v) {
+        const target = document.body;
+        if (v == -1) {
+            target.classList.remove("force-light");
+            target.classList.remove("force-dark");
+            if (!target.classList.contains("force-dark")) {
+                target.classList.add("force-dark");
+            }
+        }
+        if (v == 0) {
+            target.classList.remove("force-light");
+            target.classList.remove("force-dark");
+        }
+        if (v == 1) {
+            target.classList.remove("force-light");
+            target.classList.remove("force-dark");
+            if (!target.classList.contains("force-light")) {
+                target.classList.add("force-light");
+            }
+        }
+        
+        //
+        localStorage.setItem("@settings:@theme", v || 0);
+        return v;
+    },
+});
+
+//
 settingsEx.columns = makeWritableProperty(settings, "columns", {
     initial: parseInt(localStorage.getItem("@settings:@columns")) || 4,
     setter(v) {

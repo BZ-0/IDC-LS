@@ -110,12 +110,22 @@
         contain: size;
         aspect-ratio: 1 / 1;
         pointer-events: none;
+        position: relative;
+        
+        //
+        inset: 0px;
+        translate: 0px 0px;
+        visibility: visible;
+        opacity: 1;
         
         //
         inline-size: auto;
         inline-size: stretch;
         block-size: auto;
         block-size: stretch;
+        
+        //
+        stroke: var(--current-glyph-color);
     }
 
     //

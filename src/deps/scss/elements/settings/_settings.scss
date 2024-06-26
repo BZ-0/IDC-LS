@@ -11,6 +11,7 @@
 	.ls-settings {
 		//
 		@extend .contain-size;
+
 		//
 		--rx: 0px;
 		--ry: 0px;
@@ -35,25 +36,21 @@
             inline-size: 100cqi;
             block-size: 100cqb;
         }
-		
+        
 		//
-		@media all and (width >= 10in) {
+		@media all and (width >= 9in) {
 			border-radius: 0.25rem;
 			
 			//
 			box-shadow: 0px 0px 1rem 1px #00000070;
 			
 			//
-			min-inline-size: 64rem;
-			min-block-size: 36rem;
+			min-inline-size: min(64rem, 100cqi);
+			min-block-size: min(36rem, 100cqb);
 
 			//
 			inline-size: 80rem;
 			block-size: 45rem;
-			
-			//
-			max-inline-size: 100cqi;
-			max-block-size: 100cqb;
 		}
 		
 		//
@@ -95,6 +92,10 @@
 			
 			//
 			& > .title-label {
+				text-align: start;
+				justify-content: start;
+				padding: 0.5rem;
+				padding-inline: 2rem;
 				cursor: grab;
 			}
 			
@@ -116,7 +117,7 @@
 		}
 		
 		//
-		@container ls-settings (inline-size < 10in) {
+		@container ls-settings (inline-size < 9in) {
 			& .content > * { grid-column: 1 / 2 span !important; }
 
 			//
@@ -143,7 +144,8 @@
 		
 		//
 		&[data-current-page="grid-settings"] .ls-tab-item[data-page="grid-settings"],
-		&[data-current-page="display-settings"] .ls-tab-item[data-page="display-settings"] 
+		&[data-current-page="display-settings"] .ls-tab-item[data-page="display-settings"],
+		&[data-current-page="experimental-settings"] .ls-tab-item[data-page="experimental-settings"] 
 		{ @extend .inverse; }
 		
 		//

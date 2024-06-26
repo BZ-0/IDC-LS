@@ -156,8 +156,7 @@
         @extend .pointer-events-none;
     }
     
-    // depends from virtual keyboards
-    .fit-viewport {
+    .vp-vars {
         --vp-i-size: 100dvi;
         --vp-b-size: 100dvb;
 
@@ -166,6 +165,11 @@
             --vp-i-size: max(var(--avail-width, 100dvi), 100dvi);
             --vp-b-size: max(var(--avail-height, 100dvb), 100dvb);
         }
+    }
+    
+    // depends from virtual keyboards
+    .fit-viewport {
+        @extend .vp-vars;
         
         //
         inline-size: var(--vp-i-size, 100dvi);

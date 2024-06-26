@@ -4,7 +4,7 @@
 
 //
 @layer ls-inputs {
-    .number-input {
+    :where(.number-input) {
         display: grid;
         grid-template-columns: minmax(max-content, 1rem) minmax(max-content, 1fr) minmax(max-content, 1rem);
         grid-template-rows: minmax(max-content, 1rem);

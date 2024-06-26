@@ -5,32 +5,32 @@
 
 //
 @layer ls-inputs {
-    :where(.ls-checkbox) {
+    :where(.ls-switch) {
         @extend .align-center;
         @extend .stretch;
     
         //
         container-type: size;
         contain: none;
-
+    
         //
         overflow: visible;
-
+    
         //
         display: flex;
         position: relative;
-        border-radius: 1.5rem;
-
+        border-radius: 0.25rem;
+        
         //
         box-sizing: border-box;
         min-block-size: max-content;
         min-inline-size: max-content;
         block-size: 1.5rem;
-        inline-size: 3rem;
+        inline-size: 5rem;
         max-block-size: 2.5rem;
         max-inline-size: none;
         aspect-ratio: 1 / 1;
-
+        
         //
         background-color: var(--current-surface-color);
         color: var(--current-glyph-color);
@@ -40,8 +40,13 @@
         pointer-events: bounding-bpx;
         
         //
+        .thumb {
+            pointer-events: none;
+        }
+        
+        //
         --thumb-size: 1rem;
-        --space-size: 1.5rem;
+        --space-size: 1.25rem;
         
         //
         .icon-sign {
@@ -50,6 +55,7 @@
             
             display: flex;
             pointer-events: none;
+            stroke: var(--current-glyph-color);
             
             //
             translate: calc(calc(var(--space-size) * 0.5) + calc(100cqi - var(--space-size)) * var(--value-mod) - 50%) calc(50cqb - 50%);
@@ -62,12 +68,13 @@
             //opacity: 0;
             padding: 0.125rem;
             border-radius: calc(var(--thumb-size) * 0.45);
+            //aspect-ratio: 1 / 1;
             
             //
             inline-size: var(--thumb-size);
-            block-size: var(--thumb-size);
+            block-size: 110cqmin;
             max-inline-size: var(--thumb-size);
-            max-block-size: var(--thumb-size);
+            max-block-size: 110cqmin;
             
             //
             & > * {
@@ -81,25 +88,23 @@
         }
         
         //
-        &:has(input:not(checked)) {
-            @extend .solid;
-            --value-mod: 0;
-            
-            .icon-sign, .icon-sign > & {
-                @extend .inverse;
-                stroke: var(--current-glyph-color);
-            }
-        }
-        
-        //
-        &:has(input:checked) {
+        & .track {
+            @extend .stretch;
             @extend .inverse;
-            --value-mod: 1;
             
-            .icon-sign, .icon-sign > & {
-                @extend .solid;
-                stroke: var(--current-glyph-color);
-            }
+            //
+            pointer-events: none;
+            border-radius: 0.25rem 0px 0px 0.25rem;
+            
+            //
+            position: absolute;
+            inset: 0px;
+            inline-size: calc(calc(100cqi - var(--thumb-size) * 0.5) * var(--value-mod));
+            transition: inline-size 100ms linear;
+            
+            //
+            background-color: var(--current-surface-color);
+            color: var(--current-glyph-color);
         }
 
         //

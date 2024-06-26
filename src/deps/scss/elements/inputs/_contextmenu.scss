@@ -111,8 +111,12 @@
                     padding: 0.5rem;
                     
                     //
-                    & .lucide {
+                    & :where(.lucide) {
                         @extend .stretch;
+                        
+                        //
+                        inset: 0px;
+                        translate: 0px 0px;
                     }
                     
                     //

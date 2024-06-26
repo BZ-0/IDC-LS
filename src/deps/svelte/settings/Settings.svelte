@@ -5,12 +5,13 @@
 	import LucideIcon from '@svelte/decors/LucideIcon.svelte';
 	import Checkbox from '@svelte/inputs/Checkbox.svelte';
 	import Number from '@svelte/inputs/Number.svelte';
+	import Switch from '@svelte/inputs/Switch.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from "svelte/transition";
 	import Block from '../decors/Block.svelte';
 
 	//
-	export let {columns, rows, scaling} = settingsEx;
+	export let {columns, rows, scaling, theme} = settingsEx;
 	export let currentPage = "";
 
 	//
@@ -26,6 +27,10 @@
 		"page": "display-settings",
 		"icon": "monitor",
 		"label": "Display Settings"
+	}, {
+		"page": "experimental-settings",
+		"icon": "flask-conical",
+		"label": "Experimental"
 	}];
 	
 	
@@ -65,7 +70,7 @@
 	document.addEventListener("click", (ev)=>{
 		const {target} = ev;
 		if (target.matches(".back-button")) {
-			const lessWidth = (settingsEl?.clientWidth || 96*10) < 96*10
+			const lessWidth = (settingsEl?.clientWidth || 96*9) < 96*9
 			if (lessWidth && currentPage) { currentPage = ""; } else 
 			if ((lessWidth && !currentPage) || !lessWidth) {
 				location.hash = "#";
@@ -79,7 +84,7 @@
 	//
 	onMount(()=>{
 		// default grid-page
-		if ((settingsEl?.clientWidth || 0) >= 96*10) {
+		if ((settingsEl?.clientWidth || 0) >= 96*9) {
 			currentPage = "grid-settings";
 		}
 	});
@@ -98,7 +103,7 @@
 				<LucideIcon inert={true} slot="icon" name={"arrow-left"}/>
 			</div>
 			<div class="title-label" style="grid-column: title-label;">
-				<span>{tabs[currentPage]?.label || ""}</span>
+				<span inert={true}>{tabs.find(({page})=>(page==currentPage))?.label || ""}</span>
 			</div>
 			<div class="menu-button accent hl-2 hl-3h apply-color-theme" style="grid-column: menu-button; aspect-ratio: 1 / 1;">
 				<LucideIcon inert={true} slot="icon" name={"menu"}/>
@@ -152,12 +157,26 @@
 						
 						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row" transition:fade={{ delay: 0, duration: 100 }}>
 							<div class="form-description"> Experimental Color Scheme: </div>
-
+							
 							<Block class="block-decor">
 								<div class="opt-label">Theming:</div>
 								<LucideIcon slot="icon" name={"scaling"}/>
+								<Switch value={theme} slot="element"></Switch>
+							</Block>
+						</form>
+					</div>
+				{/if}
+				
+				{#if ["experimental-settings"].indexOf(currentPage) >= 0}
+					<div class="page-wrap">
+
+						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row" transition:fade={{ delay: 0, duration: 100 }}>
+							<div class="form-description"> Experimental Color Scheme: </div>
+
+							<Block class="block-decor">
+								<div class="opt-label">Test checkbox:</div>
+								<LucideIcon slot="icon" name={"scaling"}/>
 								<Checkbox slot="element"></Checkbox>
-								<!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
 							</Block>
 						</form>
 					</div>
