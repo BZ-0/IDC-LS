@@ -36,6 +36,8 @@
 
     //
     .icon-placement {
+        filter: drop-shadow(0px 0px 0.125rem #000000E0);
+    
         //
         @include gm.calculateMetric();
         @extend .align-center;
@@ -85,12 +87,16 @@
             touch-action: none !important; 
             
             display: inline-grid;
-            transform: translate(0, 3rem) rotate(calc(0deg - var(--pfrot, 0deg)));
+            transform: rotate(calc(0deg - var(--pfrot, 0deg))) translate(0, 2.75rem);
             writing-mode: horizontal-tb;
             
             color: white;
         }
     }
+
+    //.icon-label {
+        //filter: drop-shadow(0px 0px 0.125rem #000000A0)
+    //}
 
     //
     .icon-item {
@@ -113,6 +119,9 @@
         & .icon-design {
             @extend .pe-enable;
             @extend .align-center;
+            
+            //
+            rotate: calc(0deg - var(--pfrot, 0deg));
             
             //
             --icon-size: 4rem;

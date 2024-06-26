@@ -1,5 +1,37 @@
 
 //
+const provide = async (path = "") => {
+    path = path?.url ?? path;
+    const relPath = path.replace(location.origin, "");
+    if (relPath.startsWith("/opfs")) {
+        const params = relPath.split(/\?/i)?.[1] || relPath;
+        const $path = new URLSearchParams(params).get("path");
+        const parts = $path?.split?.("/") || $path || "";
+
+        //
+        let dir = await navigator?.storage
+            ?.getDirectory?.()
+            ?.catch?.(console.warn.bind(console));
+        for (let I = 0; I < parts.length - 1; I++) {
+            if (!parts[I]) continue;
+            dir = await dir
+                ?.getDirectoryHandle?.(parts[I], { create: false })
+                ?.catch?.(console.warn.bind(console));
+            if (!dir) break;
+        }
+
+        //
+        const fileh = await dir?.getFileHandle?.(parts[parts.length - 1], {
+            create: false,
+        });
+        return await fileh?.getFile?.();
+    } else {
+        return fetch(path).then((r) => r.blob());
+    }
+    return null;
+};
+
+//
 const getCorrectOrientation = ()=>{
     let orientationType = screen.orientation.type;
     if (!window.matchMedia("((display-mode: fullscreen) or (display-mode: standalone) or (display-mode: window-controls-overlay))").matches) {
@@ -145,7 +177,7 @@ class WCanvas extends HTMLCanvasElement {
     }
 
     //
-    async #useImageAsSource(blob) { 
+    async #useImageAsSource(blob) {
         const img = (blob instanceof ImageBitmap) ? blob : await createImageBitmap(blob).catch((_)=>null);
         if (img && (blob instanceof Blob || blob instanceof File)) {
             window.dispatchEvent(new CustomEvent("wallpaper", { detail: { blob }}));
@@ -155,8 +187,7 @@ class WCanvas extends HTMLCanvasElement {
 
     //
     #preload(src) {
-        return fetch(src).then(async (rp)=>{
-            const blob = await rp.blob();
+        return provide(src).then(async (blob)=>{
             const img  = await this.#useImageAsSource(blob).catch((_)=>null);
             if (img) { this.image = img; }
         }).catch(console.warn.bind(console));

@@ -25,6 +25,33 @@ export const UUIDv4 = () => {
     );
 };
 
+
+//
+export const pickWallpaperImage = async ()=>{
+    const fpc = (self?.showOpenFilePicker ? new Promise((r)=>r({
+        showOpenFilePicker: window.showOpenFilePicker.bind(window),
+        showSaveFilePicker: window.showSaveFilePicker.bind(window)
+    })) :
+    /* webpackPrefetch: true */ import('@libs/polyfill/showOpenFilePicker.mjs'));
+
+    //
+    const fx = await fpc;
+    return (fx?.showOpenFilePicker ?? window?.showOpenFilePicker)({
+        types: [
+            {
+                description: "wallpaper",
+                accept: {
+                    "image/*": [".png", ".gif", ".jpg", ".jpeg", ".webp", ".jxl"],
+                },
+            },
+        ],
+        startIn: "pictures",
+        multiple: false,
+    })
+    .then(([handle]=[])=>handle?.getFile?.())
+    .catch(console.warn.bind(console));
+}
+
 //
 export const actionRegistry = new Map([
     [
@@ -146,6 +173,16 @@ export const actionRegistry = new Map([
             }
         },
     ],
+    [
+        "change-wallpaper", (from, event)=>{
+            const wallpaper = document.querySelector("canvas[is=\"w-canvas\"]");
+            if (wallpaper) {
+                pickWallpaperImage().catch(console.warn.bind(console)).then((blob)=>{
+                    wallpaper.dataset.src = URL.createObjectURL(blob);
+                });
+            }
+        }
+    ]
 ]);
 
 // support of actions

@@ -1,9 +1,9 @@
-import { sourceColorFromImage } from "@js/workarounds/color-mod.mjs";
-import { hexFromArgb } from "@material/material-color-utilities";
-import { formatCss, formatHex, interpolate, oklch, parse } from "culori";
+import { sourceColorFromImage } from "@js/workarounds/color-mod.mjs"
+import { hexFromArgb } from "@material/material-color-utilities"
+import { formatCss, formatHex, interpolate, oklch, parse } from "culori"
 
 //
-import { setStyleRule } from "./stylework.mjs";
+import { setStyleRule } from "./stylework.mjs"
 
 //
 export const provide = async (path = "", rw = false) => {
@@ -151,8 +151,10 @@ window.addEventListener("wallpaper", (ev) => {
     if (blob)
         colorScheme(blob)
             .then(() => {
-                provide("/opfs?path=images/wallpaper")
+                const filename = "/opfs?path=images/" + (blob.filename || "wallpaper");
+                provide(filename, true)
                     .then(async (fw) => {
+                        localStorage.setItem("@wallpaper", filename);
                         await fw?.write?.(blob);
                         await fw?.flush?.();
                         await fw?.close?.();
