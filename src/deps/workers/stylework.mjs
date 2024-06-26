@@ -105,6 +105,7 @@ const properties = [
     { name: "--ltrans-y", syntax: "<length-percentage>", inherits: true, initialValue: "0px" },
     { name: "--avail-width", syntax: "<length-percentage>", inherits: true, initialValue: "0px" },
     { name: "--avail-height", syntax: "<length-percentage>", inherits: true, initialValue: "0px" },
+    { name: "--pixel-ratio", syntax: "<number>", inherits: true, initialValue: "1" },
 ];
 
 // define properties
@@ -198,6 +199,7 @@ const cloudyShape = WavyShapedCircle();
 const availSize = {
     "--avail-width": (visualViewport?.width || screen.availWidth) + "px",
     "--avail-height": (visualViewport?.height || screen.availHeight) + "px",
+    "--pixel-ratio": devicePixelRatio || 1
 };
 
 //
@@ -205,6 +207,7 @@ const updateOrientation = (e) => {
     Object.assign(availSize, {
         "--avail-width": (visualViewport?.width || screen.availWidth) + "px",
         "--avail-height": (visualViewport?.height || screen.availHeight) + "px",
+        "--pixel-ratio": devicePixelRatio || 1
     });
 
     //
