@@ -60,7 +60,7 @@ export const fixCell = (
 	//
 	const checkBusy = (cell) => {
 		return icons
-			.filter((e) => e != iconItem)
+			.filter((e) => (e != iconItem && e.id != iconItem.id))
 			.find((one) => {
 				return one.cellX == cell.x && one.cellY == cell.y;
 			});
