@@ -66,6 +66,7 @@
                 min-block-size: 2rem;
                 block-size: max-content;
                 max-block-size: stretch;
+                border-radius: 0.125rem;
                 
                 cursor: pointer;
             }
@@ -115,6 +116,10 @@
                         @extend .stretch;
                         @extend .align-center;
                         @extend .pe-enable;
+                        
+                        //
+                        padding-inline: 0.5rem;
+                        padding-block: 0.25rem;
                         
                         //
                         text-align: start;
