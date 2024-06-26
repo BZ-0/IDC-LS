@@ -42,7 +42,7 @@ export const sourceColorFromImage = async (bitmap) => {
     //
     const rect = [0, 0, canvas.width, canvas.height];
     context.save();
-    context.filltSyle = "black";
+    context.fillStyle = "black";
     context.clearRect(...rect);
     context.fillRect(...rect);
     context.filter = Q.filter;
