@@ -90,7 +90,7 @@
             transform: rotate(calc(0deg - var(--pfrot, 0deg))) translate(0, 2.75rem);
             writing-mode: horizontal-tb;
             
-            color: white;
+            color: var(--current-glyph-color, white);
         }
     }
 
