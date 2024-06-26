@@ -60,12 +60,9 @@ class ScrollBar {
         this.scrollbar
             .querySelector(".thumb")
             .addEventListener("pointerdown", (ev) => {
-                const scaling =
-                    parseFloat(document.body.style.getPropertyValue("--scaling")) || 1;
-            
                 if (this.status.pointerId < 0) {
                     this.status.pointerId = ev.pointerId;
-                    this.status.pointerLocation = ev[["pageX", "pageY"][axis]] / scaling;
+                    this.status.pointerLocation = ev[["pageX", "pageY"][axis]];
                     this.status.virtualScroll =
                         this.holder[["scrollLeft", "scrollTop"][axis]];
                 }
@@ -74,15 +71,10 @@ class ScrollBar {
         //
         document.addEventListener("pointermove", (ev) => {
             if (this.status.pointerId == ev.pointerId) {
-                const scaling =
-                    parseFloat(
-                        document.body.style.getPropertyValue("--scaling")
-                    ) || 1;
-
                 const previous = this.holder[["scrollLeft", "scrollTop"][axis]];
 
                 // @ts-ignore
-                const coord = ev[["pageX", "pageY"][axis]] / scaling;
+                const coord = ev[["pageX", "pageY"][axis]];
 
                 //
                 this.status.virtualScroll +=

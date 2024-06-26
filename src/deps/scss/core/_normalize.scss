@@ -68,11 +68,8 @@
         position: relative;
         
         //
-        --ppx: calc(1px / var(--scaling, 1));
-
-        //
         background-color: transparent;
-        zoom: var(--scaling, 1);
+        //zoom: var(--scaling, 1);
 
         // if needs viewport
         container-type: size;

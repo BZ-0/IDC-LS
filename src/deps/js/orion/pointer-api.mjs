@@ -48,14 +48,11 @@ export const pointerMap = new Map([
 document.addEventListener(
     "pointerdown",
     (ev) => {
-        const scaling =
-            parseFloat(document.body.style.getPropertyValue("--scaling")) || 1;
-
         //
         const np = {
             event: ev,
-            current: [ev.pageX / scaling, ev.pageY / scaling],
-            down: [ev.pageX / scaling, ev.pageY / scaling],
+            current: [ev.pageX, ev.pageY],
+            down: [ev.pageX, ev.pageY],
             movement: [0, 0],
         };
 
@@ -96,12 +93,9 @@ document.addEventListener(
 document.addEventListener(
     "pointermove",
     (ev) => {
-        const scaling =
-            parseFloat(document.body.style.getPropertyValue("--scaling")) || 1;
-
         const np = {
             event: ev,
-            current: [ev.pageX / scaling, ev.pageY / scaling],
+            current: [ev.pageX, ev.pageY],
             movement: [0, 0],
         };
 

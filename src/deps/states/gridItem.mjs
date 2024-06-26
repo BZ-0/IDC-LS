@@ -222,10 +222,6 @@ export const putToCell = (
     $last
 ) => {
     // should be relative from grid-box (not absolute or fixed position)
-    const scaling =
-        parseFloat(document.body.style.getPropertyValue("--scaling")) || 1;
-
-    //
     const last = { x: $last.x, y: $last.y };
 
     //

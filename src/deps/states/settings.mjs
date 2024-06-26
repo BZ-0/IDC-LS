@@ -27,7 +27,7 @@ settingsEx.scaling = makeWritableProperty(settings, "scaling", {
     initial: parseFloat(localStorage.getItem("@settings:@scaling")) || 1,
     setter(v) {
         localStorage.setItem("@settings:@scaling", v);
-        document.body.style.setProperty("--scaling", v || 1);
+        document.documentElement.style.setProperty("--scaling", v || 1);
         return v;
     },
 });

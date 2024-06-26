@@ -158,13 +158,13 @@
     
     // depends from virtual keyboards
     .fit-viewport {
-        --vp-i-size: calc(100dvi / var(--scaling, 1));
-        --vp-b-size: calc(100dvb / var(--scaling, 1));
+        --vp-i-size: 100dvi;
+        --vp-b-size: 100dvb;
 
         //
         @media all and ((display-mode: fullscreen) or (display-mode: standalone) or ((hover: none) and (pointer: coarse))) {
-            --vp-i-size: calc(max(var(--avail-width, 100dvi), 100dvi) / var(--scaling, 1));
-            --vp-b-size: calc(max(var(--avail-height, 100dvb), 100dvb) / var(--scaling, 1));
+            --vp-i-size: max(var(--avail-width, 100dvi), 100dvi);
+            --vp-b-size: max(var(--avail-height, 100dvb), 100dvb);
         }
         
         //
