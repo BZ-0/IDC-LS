@@ -155,21 +155,32 @@
     .pe-none {
         @extend .pointer-events-none;
     }
+    
+    // depends from virtual keyboards
+    .fit-viewport {
+        --vp-i-size: calc(100dvi / var(--scaling, 1));
+        --vp-b-size: calc(100dvb / var(--scaling, 1));
 
+        //
+        @media all and ((display-mode: fullscreen) or (display-mode: standalone) or ((hover: none) and (pointer: coarse))) {
+            --vp-i-size: calc(max(var(--avail-width, 100lvi), 100lvi) / var(--scaling, 1));
+            --vp-b-size: calc(max(var(--avail-height, 100lvb), 100lvb) / var(--scaling, 1));
+        }
+        
+        //
+        inline-size: var(--vp-i-size, 100dvi);
+        block-size: var(--vp-b-size, 100dvb);
+        
+        //
+        max-inline-size: var(--vp-i-size, 100dvi);
+        max-block-size: var(--vp-b-size, 100dvb);
+    }
+    
     // not depends from virtual keyboards
     .fixed-avail {
         @extend .fixed;
         @extend .inset-0;
-
-        //
-        inline-size: calc(min(var(--avail-width, 100lvi), 100lvi) / var(--scaling));
-        block-size: calc(min(var(--avail-height, 100lvb), 100lvb) / var(--scaling));
-    }
-
-    // depends from virtual keyboards
-    .fit-viewport {
-        inline-size: min(calc(min(var(--avail-width, 100lvi), 100lvi) / var(--scaling)), 100cqi);
-        block-size: min(calc(min(var(--avail-height, 100lvb), 100lvb) / var(--scaling)), 100cqb);
+        @extend .fit-viewport;
     }
 
     //
@@ -280,26 +291,6 @@
         align-content: center;
         align-items: center;
         text-align: center;
-    }
-
-    //
-    .vp-bounding-box {
-        --vp-i-size: calc(100dvi / var(--scaling, 1));
-        --vp-b-size: calc(100dvb / var(--scaling, 1));
-
-        //
-        @media all and (display-mode: fullscreen) {
-            --vp-i-size: calc(min(var(--avail-width, 100lvi), 100lvi) / var(--scaling, 1));
-            --vp-b-size: calc(min(var(--avail-height, 100lvb), 100lvb) / var(--scaling, 1));
-        }
-        
-        //
-        inline-size: var(--vp-i-size, 100dvi);
-        block-size: var(--vp-b-size, 100dvb);
-        
-        //
-        max-inline-size: var(--vp-i-size, 100dvi);
-        max-block-size: var(--vp-b-size, 100dvb);
     }
 
 }

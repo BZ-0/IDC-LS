@@ -58,7 +58,7 @@
     //
     body {
         //@extend .vp-exclude-keyboard;
-        @extend .vp-bounding-box;
+        @extend .fit-viewport;
 
         //
         background-color: white !important;

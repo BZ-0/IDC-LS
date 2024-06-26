@@ -196,15 +196,15 @@ const cloudyShape = WavyShapedCircle();
 
 //
 const availSize = {
-    "--avail-width": screen.availWidth + "px",
-    "--avail-height": screen.availHeight + "px",
+    "--avail-width": (visualViewport?.width || screen.availWidth) + "px",
+    "--avail-height": (visualViewport?.height || screen.availHeight) + "px",
 };
 
 //
 const updateOrientation = (e) => {
     Object.assign(availSize, {
-        "--avail-width": screen.availWidth + "px",
-        "--avail-height": screen.availHeight + "px",
+        "--avail-width": (visualViewport?.width || screen.availWidth) + "px",
+        "--avail-height": (visualViewport?.height || screen.availHeight) + "px",
     });
 
     //

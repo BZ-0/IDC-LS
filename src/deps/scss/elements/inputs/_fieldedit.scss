@@ -19,9 +19,9 @@
         z-index: 99999;
         
         //
-        inline-size: 100svi !important;
-        block-size: 100svb !important;
-        block-size: calc(100svb - var(--keyboard-inset-height, 0px)) !important;
+        inline-size: 100dvi !important;
+        block-size: 100dvb !important;
+        block-size: calc(100dvb - var(--keyboard-inset-height, 0px)) !important;
         
         //
         will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset;
