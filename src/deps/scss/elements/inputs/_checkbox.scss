@@ -1,6 +1,7 @@
 
 @use "@scss/core/classlets";
 @use "@scss/fonts/xo_caliburn" as dFont;
+@use "@scss/core/themed";
 
 //
 @layer ls-inputs {
@@ -55,8 +56,7 @@
         
         //
         &:has(input:checked) {
-            --current-glyph-color: var(--theme-surface-color);
-            --current-surface-color: var(--theme-glyph-color);
+            @extend .inverse;
             
             //
             & .icon-sign {
