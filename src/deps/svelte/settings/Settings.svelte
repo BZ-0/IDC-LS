@@ -12,6 +12,10 @@
 	export let currentPage = "";
 
 	//
+	let tabsEl = null;
+	let settingsEl = null;
+
+	//
 	const tabs = [{
 		"page": "grid-settings",
 		"icon": "grid",
@@ -23,8 +27,19 @@
 	}];
 
 	//
-	let tabsEl = null;
-	let settingsEl = null;
+	document.addEventListener("click", (ev)=>{
+		const {target} = ev;
+		if (target.matches(".back-button")) {
+			const lessWidth = (settingsEl?.clientWidth || 96*10) < 96*10
+			if (lessWidth && currentPage) { currentPage = ""; } else 
+			if ((lessWidth && !currentPage) || !lessWidth) {
+				location.hash = "#";
+			}
+		}
+		if (target.matches(".ls-tab-item")) {
+			currentPage = target.dataset.page || "";
+		}
+	})
 
 	//
 	onMount(()=>{
@@ -32,14 +47,6 @@
 		if ((settingsEl?.clientWidth || 0) >= 96*10) {
 			currentPage = "grid-settings";
 		}
-
-		//
-		document.addEventListener("click", (ev)=>{
-			const {target} = ev;
-			if (target.matches(".ls-tab-item")) {
-				currentPage = target.dataset.page || "";
-			}
-		})
 	});
 </script>
 
@@ -60,7 +67,7 @@
 		</div>
 		<div class="content apply-color-theme">
 			<div class="ls-page ls-tabs accent apply-color-theme" bind:this={tabsEl}>
-			
+				
 				{#each tabs as tab}
 					<Block class="block-decor ls-tab-item accent hl-1h cursor-pointer pe-enable" data-page={tab.page}>
 						<LucideIcon inert={true} slot="icon" name={tab.icon}/>

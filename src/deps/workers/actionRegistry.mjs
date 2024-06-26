@@ -28,6 +28,11 @@ export const UUIDv4 = () => {
 //
 export const actionRegistry = new Map([
     [
+        "open-settings", (from, event) => {
+            location.hash = "#settings";
+        },
+    ],
+    [
         "default",
         (from, event) => {
             from?.dispatchEvent?.(new CustomEvent("action", { detail: event }));

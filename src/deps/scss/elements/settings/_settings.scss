@@ -9,8 +9,50 @@
 	.ls-settings {
 		//
 		@extend .contain-size;
-		@extend .round-ns;
-	
+		//
+		--rx: 0px;
+		--ry: 0px;
+
+		//
+		//--rx: calc(var(--click-x, 0) * 1px - calc(50cqi - 50%));
+		//--ry: calc(var(--click-y, 0) * 1px - calc(50cqb - 50%));
+
+		//
+		--translate-x: clamp(0px, calc(calc(50cqi - 50%) + var(--rx)), calc(100cqi - 100%));
+		--translate-y: clamp(0px, calc(calc(50cqb - 50%) + var(--ry)), calc(100cqb - 100%));
+
+		//
+		translate: var(--translate-x) var(--translate-y);
+
+		//
+		inline-size: stretch;
+		block-size: stretch;
+		
+		//
+		@-moz-document url-prefix() {
+            inline-size: 100cqi;
+            block-size: 100cqb;
+        }
+		
+		//
+		@media all and (width >= 10in) {
+			border-radius: 0.25rem;
+			
+			//
+			box-shadow: 0px 0px 1rem 1px #00000070;
+			
+			min-inline-size: 1024px;
+			min-block-size: 576px;
+
+			//
+			inline-size: 1280px;
+			block-size: 720px;
+			
+			//
+			max-inline-size: 100cqi;
+			max-block-size: 100cqb;
+		}
+		
 		//
 		inset: 0px;
 		position: fixed;
@@ -32,6 +74,9 @@
 			@extend .align-center;
 			@extend .stretch;
 			
+			//
+			padding: 0px;
+			
 			//grid-column: 1 / 2;
 			grid-row: titlebar;
 			min-block-size: max-content;
@@ -46,10 +91,16 @@
 			grid-template-rows: minmax(0px, 1fr);
 			
 			//
+			& > .title-label {
+				cursor: grab;
+			}
+			
+			//
 			& > * {
 				@extend .align-center;
 				@extend .stretch;
 				
+				//
 				display: flex;
 				grid-row: 1 / 1 span;
 				padding: 0.75rem;
@@ -58,6 +109,32 @@
 			//
 			& > :where(.back-button, .menu-button)  {
 				cursor: pointer;
+			}
+		}
+		
+		//
+		@container ls-settings (inline-size < 10in) {
+			& .content > * { grid-column: 1 / 2 span !important; }
+
+			//
+			&:not([data-current-page=""], :not([data-current-page])) {
+				.ls-tabs {
+					display: none;
+				}
+			}
+
+			//
+			&:is([data-current-page=""], :not([data-current-page])) {
+				.ls-options {
+					display: none;
+				}
+			}
+
+			//
+			& .titlebar > * {
+				padding-inline-start: calc(0.75rem + 1.25rem) !important;
+				padding-inline-start: calc(0.75rem + env(safe-area-inset-top)) !important;
+				padding-inline-start: calc(0.75rem + env(safe-area-inset-top, 1.25rem)) !important;
 			}
 		}
 		
@@ -76,24 +153,7 @@
 			grid-template-columns: minmax(2.5in, max-content) minmax(0px, 1fr);
 			grid-row: content-b;
 			
-			//
-			@container ls-settings (inline-size < 9in) {
-				& > * { grid-column: 1 / 2 span !important; }
-
-				//
-				&:not([data-current-page=""], :not([data-current-page])) {
-					.ls-tabs {
-						display: none;
-					}
-				}
-
-				//
-				&:is([data-current-page=""], :not([data-current-page])) {
-					.ls-options {
-						display: none;
-					}
-				}
-			}
+			
 		}
 
 		//

@@ -39,7 +39,10 @@
     //
     const initGrab = (ev)=>{
         const iconElement = ev.target.closest(".icon-item");
-        const iconId      = iconElement.dataset["id"];
+        const iconId      = iconElement?.dataset?.["id"];
+        if (!iconId) return;
+        
+        //
         const iconItem    = iconItems.get(iconId);
         const iconList    = iconLists.get(currentPage);
 
