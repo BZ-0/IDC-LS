@@ -28,6 +28,11 @@ class ScrollBar {
 
             // @ts-ignore
             this.scrollbar.style.setProperty("--thumbSize", thumbSize, "");
+            if (Math.abs(percentInPx) < 1) {
+                this.scrollbar.style.setProperty("visibility", "collapse", "");
+            } else {
+                this.scrollbar.style.setProperty("visibility", "visible", "");
+            }
 
             // @ts-ignore
             this.scrollbar.style.setProperty("--percentInPx", percentInPx, "");

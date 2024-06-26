@@ -66,7 +66,7 @@
 			</div>
 		</div>
 		<div class="content apply-color-theme">
-			<div class="ls-page ls-tabs accent apply-color-theme" bind:this={tabsEl}>
+			<x-scrollbox class="ls-page ls-tabs accent apply-color-theme" bind:this={tabsEl}>
 				
 				{#each tabs as tab}
 					<Block class="block-decor ls-tab-item accent hl-1h cursor-pointer pe-enable" data-page={tab.page}>
@@ -74,8 +74,8 @@
 						<div inert={true} class="tab-label">{tab.label}</div>
 					</Block>
 				{/each}
-			</div>
-			<div class="ls-page ls-options">
+			</x-scrollbox>
+			<x-scrollbox class="ls-page ls-options">
 				
 				{#if ["grid-settings"].indexOf(currentPage) >= 0}
 					<form data-page data-name="grid-columns-row" transition:fade={{ delay: 0, duration: 100 }}>
@@ -94,7 +94,7 @@
 					</form>
 				{/if}
 				
-			</div>
+			</x-scrollbox>
 		</div>
 
 	</div>

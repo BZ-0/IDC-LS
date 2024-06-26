@@ -1,3 +1,5 @@
+@use "@scss/color/colorvars" as cl;
+@use "@scss/color/colorutils" as cu;
 
 //
 @property --percent {
@@ -56,6 +58,10 @@
         isolation: isolate;
         inset: 0px;
 
+        // debug-only
+        //inline-size: 200px;
+        //block-size: 200px;
+
         //
         contain: content;
         container-type: size;
@@ -64,10 +70,6 @@
         scroll-timeline: --scroll-y block, --scroll-x inline;
         scrollbar-gutter: stable both-edges;
         scrollbar-width: none;
-
-        //
-        inline-size: 200px;
-        block-size: 200px;
 
         //
         :where(.scrollbar-x, .scrollbar-y) {
@@ -90,16 +92,25 @@
             //
             will-change: --percent;
 
+            //
+            touch-action: none;
+
             // only for debug
             & :where(.thumb) {
                 position: static;
-                background-color: black;
                 display: block;
+
+                //
+                border-radius: 0.125rem;
+                background-color: #{cu.theme-mod-up(cl.$baseColor, 60%)};
 
                 //
                 pointer-events: auto;
                 pointer-events: bounding-box;
                 user-select: none;
+                
+                //
+                touch-action: none;
 
                 //
                 cursor: grab;
