@@ -1,4 +1,8 @@
 @use "@scss/core/classlets";
+@use "@scss/color/colorutils" as cu;
+@use "@scss/color/colorvars" as cl;
+
+//
 @use "./gridmisc.scss" as gm;
 
 //
@@ -83,6 +87,9 @@
         touch-action: none !important; 
     
         & > span {
+            @include cu.var-dependent(var(--theme-wallpaper-is-dark));
+        
+            //
             background-color: transparent;
             touch-action: none !important; 
             
@@ -90,7 +97,12 @@
             transform: rotate(calc(0deg - var(--pfrot, 0deg))) translate(0, 2.75rem);
             writing-mode: horizontal-tb;
             
-            color: var(--current-glyph-color, white);
+            //
+            --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
+            --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 90%)};
+            
+            //
+            color: var(--current-surface-color);
         }
     }
 
@@ -119,6 +131,7 @@
         & .icon-design {
             @extend .pe-enable;
             @extend .align-center;
+            @include cu.var-dependent(var(--theme-wallpaper-is-dark));
             
             //
             rotate: calc(0deg - var(--pfrot, 0deg));
@@ -145,8 +158,15 @@
             
             border-radius: calc(var(--icon-size) * 0.5);
 
-            // debug
+            //
+            --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
+            --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 90%)};
+
+            //
+            color: var(--current-glyph-color);
             background-color: var(--current-surface-color);
+            
+            //
             touch-action: none !important; 
 
             //

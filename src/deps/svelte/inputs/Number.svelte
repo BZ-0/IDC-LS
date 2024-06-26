@@ -43,13 +43,13 @@ onMount(()=>{
 
 <!-- -->
 <div class="number-input solid hl-ns round-ns" {...propsFilter($$props)}>
-    <div bind:this={minusBtn} class="icon-wrap f-minus hl-1h">
+    <div bind:this={minusBtn} class="icon-wrap f-minus hl-1 hl-2h">
         <LucideIcon inert={true} name={"chevron-left"}/>
     </div>
-    <div class="input-wrap">
+    <div class="input-wrap hl-ns">
         <input {...propsFilter($$props)} bind:this={input} inert={true} type="number" inputmode="numeric" pattern="\d*" virtualkeyboardpolicy="manual" bind:value={$value}/>
     </div>
-    <div bind:this={plusBtn} class="icon-wrap f-plus hl-1h">
+    <div bind:this={plusBtn} class="icon-wrap f-plus hl-1 hl-2h">
         <LucideIcon inert={true} name={"chevron-right"}/>
     </div>
 </div>

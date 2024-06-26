@@ -172,6 +172,12 @@
         inherits: true;
     }
     
+    //
+    @property --theme-wallpaper-is-dark {
+        syntax: "<number>"; initial-value: 0; inherits: true;
+    }
+    
+    //--highlight-coefficient
     
     //
     @property --theme-black-mod { syntax: "<color>"; initial-value: black; inherits: true; };

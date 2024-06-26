@@ -9,7 +9,7 @@
 	import Block from '../decors/Block.svelte';
 
 	//
-	export let {columns, rows} = settingsEx;
+	export let {columns, rows, scaling} = settingsEx;
 	export let currentPage = "";
 
 	//
@@ -116,21 +116,41 @@
 			<x-scrollbox class="ls-page ls-options">
 				
 				{#if ["grid-settings"].indexOf(currentPage) >= 0}
-					<form data-page data-name="grid-columns-row" transition:fade={{ delay: 0, duration: 100 }}>
-						<Block class="block-decor">
-							<div class="opt-label">Columns:</div>
-							<LucideIcon slot="icon" name={"columns-3"}/>
-							<Number slot="element" value={columns} min={4} max={6} step={1}></Number>
-							<!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
-						</Block>
-						<Block class="block-decor">
-							<div class="opt-label">Rows:</div>
-							<LucideIcon slot="icon" name={"rows-3"}/>
-							<Number slot="element" value={rows} min={8} max={12} step={1}></Number>
-							<!--<RangeSlider slot="element" bind:values={$rows} min={8} max={12} step={1}></RangeSlider>-->
-						</Block>
-					</form>
+					<div class="page-wrap">
+						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row" transition:fade={{ delay: 0, duration: 100 }}>
+							<div class="form-description"> Grid Layout Settings: </div>
+						
+							<Block class="block-decor">
+								<div class="opt-label">Columns:</div>
+								<LucideIcon slot="icon" name={"columns-3"}/>
+								<Number slot="element" value={columns} min={4} max={6} step={1}></Number>
+								<!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
+							</Block>
+							<Block class="block-decor">
+								<div class="opt-label">Rows:</div>
+								<LucideIcon slot="icon" name={"rows-3"}/>
+								<Number slot="element" value={rows} min={8} max={12} step={1}></Number>
+								<!--<RangeSlider slot="element" bind:values={$rows} min={8} max={12} step={1}></RangeSlider>-->
+							</Block>
+						</form>
+					</div>
 				{/if}
+				
+				{#if ["display-settings"].indexOf(currentPage) >= 0}
+					<div class="page-wrap">
+						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row" transition:fade={{ delay: 0, duration: 100 }}>
+							<div class="form-description"> Experimental Display Settings: </div>
+						
+							<Block class="block-decor">
+								<div class="opt-label">Scaling:</div>
+								<LucideIcon slot="icon" name={"scaling"}/>
+								<Number slot="element" value={scaling} min={0.5} max={1.5} step={0.125}></Number>
+								<!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
+							</Block>
+						</form>
+					</div>
+				{/if}
+				
 				
 			</x-scrollbox>
 		</div>

@@ -18,8 +18,7 @@ class ScrollBar {
         const onChanges = () => {
             const thumbSize =
                 this.scrollbar[["offsetWidth", "offsetHeight"][axis]] *
-                (this.holder[["offsetWidth", "offsetHeight"][axis]] /
-                    this.holder[["scrollWidth", "scrollHeight"][axis]]);
+                Math.max(this.holder[["offsetWidth", "offsetHeight"][axis]] / this.holder[["scrollWidth", "scrollHeight"][axis]], 1);
 
             //
             const percentInPx =
@@ -28,12 +27,7 @@ class ScrollBar {
 
             // @ts-ignore
             this.scrollbar.style.setProperty("--thumbSize", thumbSize, "");
-            if (Math.abs(percentInPx) < 1) {
-                this.scrollbar.style.setProperty("visibility", "collapse", "");
-            } else {
-                this.scrollbar.style.setProperty("visibility", "visible", "");
-            }
-
+            
             // @ts-ignore
             this.scrollbar.style.setProperty("--percentInPx", percentInPx, "");
 
@@ -59,6 +53,13 @@ class ScrollBar {
 
             //
             this.holder.dispatchEvent(event);
+            
+            //
+            if (Math.abs(percentInPx) < 1) {
+                this.scrollbar.style.setProperty("visibility", "collapse", "");
+            } else {
+                this.scrollbar.style.setProperty("visibility", "visible", "");
+            }
         };
 
         //
@@ -119,6 +120,10 @@ class ScrollBar {
                 onChanges();
             }
         }).observe(this.holder, { box: "content-box" });
+        
+        //
+        addEventListener("resize", onChanges);
+        requestAnimationFrame(onChanges);
     }
 }
 

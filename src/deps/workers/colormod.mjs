@@ -47,10 +47,12 @@ let surfaceColorI = {};
 let surfaceColorH = "#FFFFFF";
 let surfaceColor = "#FFFFFF";
 let chromaMod = {};
+let cssIsDark = localStorage.getItem("--theme-wallpaper-is-dark") || 0;
 
 //
 setStyleRule(":host, :root, :scope, :where(*)", {
     "--theme-base-color": baseColor,
+    "--theme-wallpaper-is-dark": cssIsDark
 });
 
 //
@@ -91,6 +93,9 @@ export const colorScheme = async (blob) => {
     const commonOkLch = oklch(parse(commonHex));
 
     //
+    const cssIsDark = Math.sign(0.65 - commonOkLch.l) * 0.5 + 0.5;
+
+    //
     baseColorI = interpolate([commonOkLch, chromaOkLch], "oklch", {
         // spline instead of linear interpolation:
     })(0.8);
@@ -128,10 +133,12 @@ export const colorScheme = async (blob) => {
     if (baseColor) {
         setStyleRule(":host, :root, :scope, :where(*)", {
             "--theme-base-color": baseColor,
+            "--theme-wallpaper-is-dark": cssIsDark
         });
 
         //
         localStorage.setItem("--theme-base-color", baseColor);
+        localStorage.setItem("--theme-wallpaper-is-dark", cssIsDark);
     }
 
     //

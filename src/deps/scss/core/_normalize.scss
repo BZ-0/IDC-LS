@@ -105,8 +105,8 @@
     //
     :where(.lucide) {
         display: block;
-        contain-intrinsic-width: 24px;
-        contain-intrinsic-height: 24px;
+        contain-intrinsic-width: 1.5rem;
+        contain-intrinsic-height: 1.5rem;
         contain: size;
         aspect-ratio: 1 / 1;
         pointer-events: none;
