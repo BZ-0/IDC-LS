@@ -33,7 +33,8 @@ class PointerEdge {
 
 //
 export const pointerMap = new Map([
-    [0, {
+    [-1, {
+        id: -1,
         movement: [],
         down: [],
         current: [],
@@ -50,6 +51,7 @@ document.addEventListener(
     (ev) => {
         //
         const np = {
+            id: ev.pointerId,
             event: ev,
             current: [ev.pageX, ev.pageY],
             down: [ev.pageX, ev.pageY],
@@ -94,6 +96,7 @@ document.addEventListener(
     "pointermove",
     (ev) => {
         const np = {
+            id: ev.pointerId,
             event: ev,
             current: [ev.pageX, ev.pageY],
             movement: [0, 0],
@@ -139,6 +142,7 @@ document.addEventListener(
 
             //
             const nev = new CustomEvent("m-dragging", {
+                bubbles: true,
                 detail: {
                     pointer: exists,
                     holding: hm,
@@ -225,10 +229,12 @@ export const releasePointer = (ev)=>{
             }
 
             //
-            const nev = new CustomEvent("m-dragend", { detail: {
-                pointer: exists,
-                holding: hm
-            }});
+            const nev = new CustomEvent("m-dragend", { 
+                bubbles: true,
+                detail: {
+                    pointer: exists,
+                    holding: hm,
+                }});
             em?.dispatchEvent?.(nev);
         });
         
@@ -251,7 +257,7 @@ export const grabForDrag = (element, ev = {pointerId: 0}, {
         exists.event = ev;
 
         //
-        const hm = exists.holding.find((hm)=>(hm.element == element)) || {};
+        const hm = exists.holding.find((hm)=>(hm.element.deref() == element)) || {};
         exists.holding.push(Object.assign(hm, {
             element: new WeakRef(element),
             shifting: [...(hm?.modified || hm?.shifting || shifting || [])]
@@ -259,10 +265,12 @@ export const grabForDrag = (element, ev = {pointerId: 0}, {
 
         // pls, assign "ev.detail.holding.shifting" to initial value (f.e. "ev.detail.holding.modified")
         // note about "ev.detail.holding.element is WeakRef, so use ".deref()"
-        const nev = new CustomEvent("m-dragstart", { detail: {
-            pointer: exists,
-            holding: hm
-        }});
+        const nev = new CustomEvent("m-dragstart", { 
+            bubbles: true,
+            detail: {
+                pointer: exists,
+                holding: hm
+            }});
 
         //
         element?.dispatchEvent?.(nev);

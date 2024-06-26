@@ -1,4 +1,5 @@
 <script>
+	import { grabForDrag } from '@deps/js/orion/pointer-api.mjs';
 	import { readableHash } from '@states/readables.mjs';
 	import { settingsEx } from "@states/settings.mjs";
 	import LucideIcon from '@svelte/decors/LucideIcon.svelte';
@@ -25,6 +26,39 @@
 		"icon": "monitor",
 		"label": "Display Settings"
 	}];
+	
+	
+	//
+	let pointerIdDrag = -1;
+	
+	//
+	document.addEventListener("m-dragging", (ev)=>{
+		const dt = ev.detail;
+		if (settingsEl && dt.pointer.id == pointerIdDrag && (dt.holding.element.deref() == settingsEl)) {
+			const wDiff = (settingsEl.parentNode.offsetWidth - settingsEl.clientWidth);
+			const hDiff = (settingsEl.parentNode.offsetHeight - settingsEl.clientHeight);
+
+			// change drag-state (correction)
+			dt.holding.modified[0] = Math.min(Math.max(dt.holding.shifting[0], -wDiff/2), wDiff/2);
+			dt.holding.modified[1] = Math.min(Math.max(dt.holding.shifting[1], -hDiff/2), hDiff/2);
+		}
+	});
+	
+	//
+	document.addEventListener("pointerdown", (ev)=>{
+		if (ev.target.matches(".title-label")) {
+			pointerIdDrag = ev.pointerId;
+			if (settingsEl) {
+				grabForDrag(settingsEl, ev, {
+					shifting: [
+						parseFloat(settingsEl.style.getPropertyValue("--drag-x")) || 0, 
+						parseFloat(settingsEl.style.getPropertyValue("--drag-y")) || 0
+					]
+				});
+			}
+		}
+	});
+	
 
 	//
 	document.addEventListener("click", (ev)=>{

@@ -14,12 +14,12 @@
 		--ry: 0px;
 
 		//
-		//--rx: calc(var(--click-x, 0) * 1px - calc(50cqi - 50%));
-		//--ry: calc(var(--click-y, 0) * 1px - calc(50cqb - 50%));
+		--rx: calc(var(--drag-x, 0) * 1px);
+		--ry: calc(var(--drag-y, 0) * 1px);
 
 		//
-		--translate-x: clamp(0px, calc(calc(50cqi - 50%) + var(--rx)), calc(100cqi - 100%));
-		--translate-y: clamp(0px, calc(calc(50cqb - 50%) + var(--ry)), calc(100cqb - 100%));
+		--translate-x: clamp(0px, calc(calc(50cqi - 50%) + var(--rx, 0px)), calc(100cqi - 100%));
+		--translate-y: clamp(0px, calc(calc(50cqb - 50%) + var(--ry, 0px)), calc(100cqb - 100%));
 
 		//
 		translate: var(--translate-x) var(--translate-y);
