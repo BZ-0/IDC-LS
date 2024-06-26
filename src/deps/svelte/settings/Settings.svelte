@@ -84,9 +84,13 @@
 	});
 </script>
 
+<script context="module">
+    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+</script>
+
 <!-- -->
 {#if $readableHash == "#settings"}
-	<div bind:this={settingsEl} class="ls-settings" transition:fade={{ delay: 0, duration: 100 }} data-current-page={currentPage} {...$$props}>
+	<div bind:this={settingsEl} class="ls-settings" transition:fade={{ delay: 0, duration: 100 }} data-current-page={currentPage} {...propsFilter($$props)}>
 
 		<div class="titlebar accent apply-color-theme hl-1">
 			<div class="back-button accent hl-2 hl-3h apply-color-theme" style="grid-column: back-button; aspect-ratio: 1 / 1;">

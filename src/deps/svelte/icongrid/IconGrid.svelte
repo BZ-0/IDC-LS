@@ -32,6 +32,11 @@
     });
 </script>
 
+<script context="module">
+    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+</script>
+
+
 <!-- -->
 <div 
     transition:fade={{ delay: 0, duration: 100 }}
@@ -40,6 +45,6 @@
     data-id={id}
     class="icon-grid stretch relative inset-0 orientation-adaptive overflow-visible grid-inside pointer-events-none no-contain inset-0"
     style={`--columns:${columns};--rows:${rows};--grid-w:${gridW};--grid-h:${gridH};`}
-    {...$$props}>
+    {...propsFilter($$props)}>
     <slot></slot>
 </div>

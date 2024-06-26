@@ -1,7 +1,8 @@
-<script>
+<script context="module">
+    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
 </script>
 
-<div class="block-decor solid" {...$$props}>
+<div class="block-decor solid" {...propsFilter($$props)}>
     <div class="icon-wrap hl-1"  inert={true}>
         <div class="icon-box" inert={true}><slot name="icon"></slot></div>
     </div>

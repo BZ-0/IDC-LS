@@ -14,4 +14,8 @@
     }
 </script>
 
-<svelte:component inert=true class="icon-sign" this={icons[fup(camelize(name))]} {...$$props} />
+<script context="module">
+    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+</script>
+
+<svelte:component inert=true class="icon-sign" this={icons[fup(camelize(name))]} {...propsFilter($$props)} />
