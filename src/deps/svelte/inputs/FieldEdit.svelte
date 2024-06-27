@@ -40,16 +40,19 @@
     //
     const refocus = (input, from)=>{
         //if (target?.matches("input"))
+        if (document.activeElement == input) return;
+        
+        //
         const idOf = from?.dataset?.name || from?.dataset?.edit;
         if (idOf) { id.set(idOf); };
-        
+
         //
         if (input && document.activeElement != input) {
             input.style.display = "none";
             input.style.removeProperty("display");
             input.focus();
         }
-        
+
         //
         requestAnimationFrame(()=>{
             if (document.activeElement != input) {
@@ -71,22 +74,55 @@
     });
 
     //
-    document.addEventListener("click", ({target})=>{
+    document.addEventListener("click", (ev)=>{
+        const target = ev.target;
+
+        //
         if (stillInFocus(target)) {
             refocus(input, document?.activeElement);
         } else {
             unfocus({target});
         }
         
-        // TODO: needs to action
-        if (target == copyButton) {
+        //
+        if ([input, copyButton, pasteButton].indexOf(document.activeElement) >= 0) {
+            ev.preventDefault();
         }
         
-        // TODO: needs to action
-        if (target == pasteButton) {
-        }
-    });
+        //
+        requestAnimationFrame(()=>{
+            if (input && document.activeElement == input) {
+                if (target == copyButton && input.selectionStart < input.selectionEnd) {
+                    navigator.clipboard.writeText(input.value.substring(input.selectionStart, input.selectionEnd));
+                }
+                
+                // TODO: needs to action
+                if (target == pasteButton && input.selectionStart <= input.selectionEnd) {
+                    navigator.clipboard.readText().then(
+                        (clipText) => {
+                            const oldStart = input.selectionStart;
+                            const paste = (input.value.substring(0, input.selectionStart) + (clipText || "") + input.value.substring(input.selectionEnd));
+                            input.value = paste;
 
+                            //
+                            input.setSelectionRange(
+                                oldStart + clipText.length, 
+                                oldStart + clipText.length
+                            );
+
+                            //
+                            input.dispatchEvent(new Event("input", {
+                                bubbles: false,
+                                cancelable: true,
+                            }))
+                        },
+                    );
+                }
+            }
+        })
+        
+    });
+    
     //
     onMount(()=>{
         requestAnimationFrame(()=>{
@@ -110,11 +146,11 @@
             <div class="field-wrap solid apply-color-theme">
                 <input bind:this={input} type="text" data-edit={$id||""} bind:value={$value}/>
             </div>
-            <div bind:this={copyButton} class="field-copy solid hl-1 hl-2h apply-color-theme pe-enable">
-                <LucideIcon name="copy"></LucideIcon>
+            <div tabindex="-1" bind:this={copyButton} class="field-copy solid hl-1 hl-2h apply-color-theme pe-enable">
+                <LucideIcon name="copy" tabindex="-1" inert={true}></LucideIcon>
             </div>
-            <div bind:this={pasteButton} class="field-paste solid hl-1 hl-2h apply-color-theme pe-enable">
-                <LucideIcon name="clipboard"></LucideIcon>
+            <div tabindex="-1" bind:this={pasteButton} class="field-paste solid hl-1 hl-2h apply-color-theme pe-enable">
+                <LucideIcon name="clipboard" tabindex="-1" inert={true}></LucideIcon>
             </div>
         </div>
     </div>

@@ -48,7 +48,7 @@ export const reflectToField = (idOf, evName = "input", value = null) => {
         onEdit.value = fieldsData.get(idOf) || "";
         onEdit.dispatchEvent(
             new Event(evName || "input", {
-                bubbles: true,
+                bubbles: false,
                 cancelable: true,
             })
         );
