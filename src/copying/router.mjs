@@ -1,9 +1,9 @@
-import cors from "@fastify/cors";
-import fastifyStatic from "@fastify/static";
-import fs from "fs/promises";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import zlib from "node:zlib";
+import cors from "@fastify/cors"
+import fastifyStatic from "@fastify/static"
+import fs from "fs/promises"
+import path from "node:path"
+import { fileURLToPath } from "node:url"
+import zlib from "node:zlib"
 
 //
 const probeDirectory = async (dirlist, agr = "local/") => {
@@ -77,7 +77,12 @@ export default async function (fastify, options) {
             ].join(", ")
         );
         reply.header("Cache-Control", cacheControl);
-        if (req.routeOptions.url == "/modules/*") {
+        if (
+            req.routeOptions.url.includes("assets/") ||
+            req.routeOptions.url.includes("/assets") || 
+            req.routeOptions.url.includes(".mjs") || 
+            req.routeOptions.url.includes(".js")
+        ) {
             reply.header("Service-Worker-Allowed", "/");
         }
         reply.removeHeader("Clear-Site-Data");
@@ -93,16 +98,8 @@ export default async function (fastify, options) {
         },
         origin: "*",
         allowedHeaders:
-            "Cache-Control, Origin, X-Requested-With, Content-Type, Accept",
+            "Cache-Control, Origin, X-Requested-With, Content-Type, Accept, Service-Worker-Allowed",
         cacheControl,
-    });
-
-    //
-    fastify.register(fastifyStatic, {
-        prefix: "/",
-        root: path.join(__dirname, ""),
-        decorateReply: true,
-        list: true,
     });
 
     //
@@ -118,6 +115,14 @@ export default async function (fastify, options) {
         prefix: `/modules/`,
         root: path.join(__dirname, `modules/`),
         decorateReply: false,
+        list: true,
+    });
+    
+    //
+    fastify.register(fastifyStatic, {
+        prefix: "/",
+        root: path.join(__dirname, ""),
+        decorateReply: true,
         list: true,
     });
 }
