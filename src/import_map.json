@@ -11,6 +11,6 @@
         "@svelte": "./deps/svelte",
         "@workers": "./deps/workers",
         "@tests": "./tests",
-        "@assets": "./assets"
+        "@assets": "../assets"
     }
 }

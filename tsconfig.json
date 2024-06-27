@@ -18,7 +18,7 @@
             "@bundle": ["./src/deps/bundle"],
             "@workers": ["./src/deps/workers"],
             "@tests": ["./src/tests"],
-            "@assets": ["./src/assets"]
+            "@assets": ["./assets"]
         },
         "moduleResolution": "Classic",
         "allowArbitraryExtensions": true,

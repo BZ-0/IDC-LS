@@ -1,3 +1,4 @@
+import { argbFromRgb, Hct, hexFromArgb, QuantizerCelebi } from "@material/material-color-utilities"
 
 //
 const qualityMode = {
@@ -63,11 +64,6 @@ export const sourceColorFromImage = async (bitmap) => {
     //
     const imageBytes = context?.getImageData?.(...rect, { colorType: "unorm8", colorSpace: "srgb" }).data;
     if (!imageBytes) { return [0, 0]; };
-
-    //
-    const { hexFromArgb, QuantizerCelebi, argbFromRgb, Hct } = await import(
-        "@libs/cdn/material-color-cdn.mjs"
-    ).then((m) => m.default);
 
     // Convert Image data to Pixel Array
     const pixels = [];

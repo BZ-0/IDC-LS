@@ -30,7 +30,7 @@ const r = (s) => {
 //
 const production = process.env.NODE_ENV === 'production';
 const config = <UserConfig>defineConfig({
-    root: "./src",
+    root: "./",
 
     alias: {
         "@": r("/src"),
@@ -69,8 +69,16 @@ const config = <UserConfig>defineConfig({
         viteStaticCopy({
             targets: [
                 {
-                    src: path.resolve(__dirname, "./src/copying") + "/[!.]*", // 1️⃣
-                    dest: "./webapp", // 2️⃣
+                    src: "./assets/*",
+                    dest: "./assets", // 2️⃣
+                },
+                {
+                    src: "./src/copying/*",
+                    dest: "./", // 2️⃣
+                },
+                {
+                    src: "./https/*",
+                    dest: "./https/", // 2️⃣
                 },
             ],
         }),
@@ -96,10 +104,10 @@ const config = <UserConfig>defineConfig({
     build: {
 		target: ["esnext", "es2020"],
         sourcemap: sourceMapsInProduction,
-        outDir: "../webapp",
+        outDir: "./webapp",
         emptyOutDir: true,
         rollupOptions: {
-            input: "./src/index.html",
+            input: "./index.html"
         },
     },
     css: {
