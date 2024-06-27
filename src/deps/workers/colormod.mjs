@@ -158,7 +158,7 @@ window.addEventListener("wallpaper", (ev) => {
     if (blob)
         colorScheme(blob)
             .then(() => {
-                const filename = "/opfs?path=images/" + (blob.filename || "wallpaper");
+                const filename = "/opfs?path=images/" + (blob.name || "wallpaper");
                 provide(filename, true)
                     .then(async (fw) => {
                         localStorage.setItem("@wallpaper", filename);

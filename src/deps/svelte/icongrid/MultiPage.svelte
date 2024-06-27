@@ -132,6 +132,27 @@
     //
     onMount(()=>{
         //mainElement
+        
+        //
+        mainElement.addEventListener("dragenter", (ev)=>{
+            ev.preventDefault();
+        });
+        
+        //
+        mainElement.addEventListener("dragover", (ev)=>{
+            ev.preventDefault();
+        });
+        
+        //
+        mainElement.addEventListener("drop", (ev)=>{
+            ev.preventDefault();
+            const {dataTransfer} = ev;
+            const file = dataTransfer?.files?.[0];
+            if (file != null) {
+                const wallpaper = document.querySelector("canvas[is=\"w-canvas\"]");
+                wallpaper?.["$useImageAsSource"]?.(file);
+            }
+        });
     });
 
 </script>

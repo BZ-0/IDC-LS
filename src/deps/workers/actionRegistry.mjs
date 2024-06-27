@@ -178,7 +178,7 @@ export const actionRegistry = new Map([
             const wallpaper = document.querySelector("canvas[is=\"w-canvas\"]");
             if (wallpaper) {
                 pickWallpaperImage().catch(console.warn.bind(console)).then((blob)=>{
-                    wallpaper.dataset.src = URL.createObjectURL(blob);
+                    wallpaper?.["$useImageAsSource"]?.(blob);
                 });
             }
         }

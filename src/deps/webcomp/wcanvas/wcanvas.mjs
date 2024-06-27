@@ -177,9 +177,10 @@ class WCanvas extends HTMLCanvasElement {
     }
 
     //
-    async #useImageAsSource(blob) {
+    async $useImageAsSource(blob) {
         const img = (blob instanceof ImageBitmap) ? blob : await createImageBitmap(blob).catch((_)=>null);
         if (img && (blob instanceof Blob || blob instanceof File)) {
+            this.image = img; this.#render();
             window.dispatchEvent(new CustomEvent("wallpaper", { detail: { blob }}));
         }
         return img;
@@ -188,7 +189,7 @@ class WCanvas extends HTMLCanvasElement {
     //
     #preload(src) {
         return provide(src).then(async (blob)=>{
-            const img  = await this.#useImageAsSource(blob).catch((_)=>null);
+            const img  = await this.$useImageAsSource(blob).catch((_)=>null);
             if (img) { this.image = img; }
         }).catch(console.warn.bind(console));
     }
