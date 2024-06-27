@@ -70,7 +70,7 @@
 	document.addEventListener("click", (ev)=>{
 		const {target} = ev;
 		if (target.matches(".back-button")) {
-			const lessWidth = (settingsEl?.clientWidth || 96*9) < 96*9
+			const lessWidth = (settingsEl?.clientWidth || 96*9) <= 96*9
 			if (lessWidth && currentPage) { currentPage = ""; } else 
 			if ((lessWidth && !currentPage) || !lessWidth) {
 				location.hash = "#";
