@@ -35,69 +35,67 @@ export const exKey = (array) => {
 //
 export const currentState = {};
 
+
+makeWritableProperty(currentState, "gridPages", {
+    initial: exKey([
+        ...(JSON.parse(localStorage.getItem("@pages") || "[]") || []),
+        {
+            id: "home-page",
+            type: "icon-list",
+        },
+    ]),
+    getter: makeKeyMap,
+    setter(v) {
+        const um = unKeyMap(v);
+        if (um) {
+            localStorage.setItem("@pages", JSON.stringify(um));
+        }
+        return um;
+    },
+})
+
 //
-export const gridState = {
-    gridPages: makeWritableProperty(currentState, "gridPages", {
-        initial: exKey([
-            ...(JSON.parse(localStorage.getItem("@pages") || "[]") || []),
-            {
-                id: "home-page",
-                type: "icon-list",
-            },
-        ]),
-        getter: makeKeyMap,
-        setter(v) {
-            const um = unKeyMap(v);
-            if (um) {
-                localStorage.setItem("@pages", JSON.stringify(um));
-            }
-            return um;
-        },
-    }),
+makeWritableProperty(currentState, "iconItems", {
+    initial: exKey([
+        ...(JSON.parse(localStorage.getItem("@icons") || "[]") || []),
+        {
+            id: "github",
+            icon: "github",
+            cellX: 0,
+            cellY: 0,
+            action: "open-link",
+            href: "#",
+            label: "GitHub",
 
-    //
-    iconItems: makeWritableProperty(currentState, "iconItems", {
-        initial: exKey([
-            ...(JSON.parse(localStorage.getItem("@icons") || "[]") || []),
-            {
-                id: "github",
-                icon: "github",
-                cellX: 0,
-                cellY: 0,
-                action: "open-link",
-                href: "#",
-                label: "GitHub",
-
-                // surrogate field - used when edit
-                //parent: "home-page"
-            },
-        ]),
-        getter: makeKeyMap,
-        setter(v) {
-            const um = unKeyMap(v);
-            if (um) {
-                localStorage.setItem("@icons", JSON.stringify(um));
-            }
-            return um;
+            // surrogate field - used when edit
+            //parent: "home-page"
         },
-    }),
+    ]),
+    getter: makeKeyMap,
+    setter(v) {
+        const um = unKeyMap(v);
+        if (um) {
+            localStorage.setItem("@icons", JSON.stringify(um));
+        }
+        return um;
+    },
+})
 
-    //
-    iconLists: makeWritableProperty(currentState, "iconLists", {
-        initial: exKey([
-            ...(JSON.parse(localStorage.getItem("@lists") || "[]") || []),
-            ["home-page", ["github"]],
-        ]),
-        getter: makeListMap,
-        setter(v) {
-            const um = unListMap(v);
-            if (um) {
-                localStorage.setItem("@lists", JSON.stringify(um));
-            }
-            return um;
-        },
-    }),
-};
+//
+makeWritableProperty(currentState, "iconLists", {
+    initial: exKey([
+        ...(JSON.parse(localStorage.getItem("@lists") || "[]") || []),
+        ["home-page", ["github"]],
+    ]),
+    getter: makeListMap,
+    setter(v) {
+        const um = unListMap(v);
+        if (um) {
+            localStorage.setItem("@lists", JSON.stringify(um));
+        }
+        return um;
+    },
+})
 
 //
 export const makeMap = (array) => {

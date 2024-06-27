@@ -2,7 +2,7 @@
     //
     import { grabForDrag } from "@libs/orion/pointer-api.mjs";
     import { animationSequence, makeArgs, putToCell } from "@states/gridItem.mjs";
-    import { currentState, gridState } from "@states/gridState.mjs";
+    import { currentState } from "@states/gridState.mjs";
     import { settings } from "@states/settings.mjs";
     import { onMount } from "svelte";
     import IconGrid from "./IconGrid.svelte";
@@ -21,9 +21,9 @@
     
     //
     let {iconLists, iconItems, gridPages} = currentState;
-    gridState.iconLists.subscribe((v)=>{ iconLists = v; });
-    gridState.iconItems.subscribe((v)=>{ iconItems = v; });
-    gridState.gridPages.subscribe((v)=>{ gridPages = v; });
+    currentState["@iconLists"].subscribe((v)=>{ iconLists = v; });
+    currentState["@iconItems"].subscribe((v)=>{ iconItems = v; });
+    currentState["@gridPages"].subscribe((v)=>{ gridPages = v; });
 
     //
     let gridPagesArray = Array.from(gridPages.values());
