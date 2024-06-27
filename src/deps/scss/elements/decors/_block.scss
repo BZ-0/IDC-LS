@@ -67,6 +67,13 @@
         & > .label-box {
 			justify-content: start;
 			text-align: start;
+			
+			//
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: keep-all;
+            word-wrap: normal;
         }
         
         //

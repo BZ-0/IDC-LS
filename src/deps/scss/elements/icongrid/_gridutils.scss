@@ -9,6 +9,28 @@
 @layer ls-icon-grid {
 
     //
+    .ls-grid-mp {
+        --padding-inline: 1rem;
+        --padding-block: 2rem;
+
+        //
+        padding-inline: var(--padding-inline);
+        padding-block: var(--padding-block);
+
+        //
+        @media (orientation: landscape) {
+            padding-inline: var(--padding-block);
+            padding-block: var(--padding-inline);
+        }
+
+        //
+        @media (orientation: portrait) {
+            padding-inline: var(--padding-inline);
+            padding-block: var(--padding-block);
+        }
+    }
+
+    //
     .icon-grid {
         display: grid;
         touch-action: none !important; 
@@ -83,9 +105,20 @@
 
     //
     .grid-item-label {
+        @extend .align-center;
+        display: flex;
+    
+        //
         background-color: transparent;
         touch-action: none !important; 
     
+        //
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        word-break: keep-all;
+        word-wrap: normal;
+        
+        //
         & > span {
             @include cu.var-dependent(var(--theme-wallpaper-is-dark));
         
@@ -94,7 +127,7 @@
             touch-action: none !important; 
             
             display: inline-grid;
-            transform: rotate(calc(0deg - var(--pfrot, 0deg))) translate(0, 2.75rem);
+            transform: rotate(calc(0deg - var(--pfrot, 0deg))) translate(0, 2.5rem);
             writing-mode: horizontal-tb;
             
             //
@@ -103,6 +136,12 @@
             
             //
             color: var(--current-surface-color);
+            
+            //
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-break: keep-all;
+            word-wrap: normal;
         }
     }
 

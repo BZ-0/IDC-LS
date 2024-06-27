@@ -144,7 +144,7 @@
 <canvas is="w-canvas" class="stretch fixed inset-0" data-src={(localStorage.getItem("@wallpaper") || "../assets/wallpaper/0.jpg")}/>
 
 <!-- -->
-<div bind:this={mainElement} data-ctx="grid" class="layer-2 stretch grid-based-box fixed-avail relative pe-enable" style="touch-action: none; isolation: isolate;" {...propsFilter($$props)}>
+<div bind:this={mainElement} data-ctx="grid" class="ls-grid-mp layer-2 stretch grid-based-box fixed-avail relative pe-enable" style="touch-action: none; isolation: isolate;" {...propsFilter($$props)}>
     {#each gridPagesArray as page}
         {#if currentPage==page.id}
             
