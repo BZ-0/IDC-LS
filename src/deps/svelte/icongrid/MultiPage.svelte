@@ -3,14 +3,14 @@
     import { grabForDrag } from "@libs/orion/pointer-api.mjs";
     import { animationSequence, makeArgs, putToCell } from "@states/gridItem.mjs";
     import { currentState, gridState } from "@states/gridState.mjs";
-    import { settingsEx } from "@states/settings.mjs";
+    import { settings } from "@states/settings.mjs";
     import { onMount } from "svelte";
     import IconGrid from "./IconGrid.svelte";
     import IconItem from "./IconItem.svelte";
     import IconLabel from "./IconLabel.svelte";
 
     //
-    let {rows, columns} = settingsEx;
+    let {"@rows": rows, "@columns": columns} = settings;
     export let columnsAndRows = [$columns, $rows];
     $: columnsAndRows = [$columns, $rows];
 

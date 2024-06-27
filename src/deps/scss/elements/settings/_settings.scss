@@ -117,6 +117,10 @@
             @extend .stretch;
             
             //
+            pointer-events: auto;
+            pointer-events: bounding-box;
+            
+            //
             --padding: 0rem;
             --padding-top: var(--padding, 0rem);
             --padding-top: calc(var(--padding, 0rem) + env(safe-area-inset-top, 0px));
@@ -159,11 +163,13 @@
 
                 //
                 display: flex;
+                
+                //
                 flex-direction: row;
                 text-align: start;
                 justify-content: start;
                 padding: 0.5rem;
-                padding-inline: 0rem;
+                padding-inline: 1rem;
                 min-inline-size: max-content;
                 cursor: grab;
                 
@@ -173,6 +179,10 @@
                 text-overflow: ellipsis;
                 word-break: keep-all;
                 word-wrap: normal;
+                
+                //
+                pointer-events: auto;
+                pointer-events: bounding-box;
             }
             
             //
@@ -186,15 +196,17 @@
                 padding: 1rem;
                 
                 //
-                max-inline-size: 3rem;
-                max-block-size: 3rem;
+                
             }
             
             //
             & > :where(.back-button, .menu-button) {
-                
                 padding: 0.75rem;
                 cursor: pointer;
+                
+                //
+                max-inline-size: 3rem;
+                max-block-size: 3rem;
             }
         }
         

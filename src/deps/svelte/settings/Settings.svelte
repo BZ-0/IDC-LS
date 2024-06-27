@@ -1,7 +1,7 @@
 <script>
 	import { grabForDrag } from '@deps/js/orion/pointer-api.mjs';
 	import { readableHash } from '@states/readables.mjs';
-	import { settingsEx } from "@states/settings.mjs";
+	import { settings } from "@states/settings.mjs";
 	import LucideIcon from '@svelte/decors/LucideIcon.svelte';
 	import Checkbox from '@svelte/inputs/Checkbox.svelte';
 	import Number from '@svelte/inputs/Number.svelte';
@@ -11,7 +11,7 @@
 	import Block from '../decors/Block.svelte';
 
 	//
-	export let {columns, rows, scaling, theme} = settingsEx;
+	export let {"@columns": columns, "@rows": rows, "@scaling": scaling , "@theme": theme} = settings;
 	export let currentPage = "";
 
 	//
@@ -103,7 +103,7 @@
 				<LucideIcon inert={true} slot="icon" name={"arrow-left"}/>
 			</div>
 			<div class="title-label" style="grid-column: title-label;">
-				<span inert={true}>{tabs.find(({page})=>(page==currentPage))?.label || ""}</span>
+				<span tabindex="-1" inert={true}>{tabs.find(({page})=>(page==currentPage))?.label || ""}</span>
 			</div>
 			<div class="menu-button accent hl-2 hl-3h apply-color-theme" style="grid-column: menu-button; aspect-ratio: 1 / 1;">
 				<LucideIcon inert={true} slot="icon" name={"menu"}/>

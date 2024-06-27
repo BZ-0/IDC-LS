@@ -2,10 +2,9 @@ import { makeWritableProperty } from "@states/writables.mjs"
 
 //
 export const settings = {};
-export const settingsEx = {};
 
 //
-settingsEx.theme = makeWritableProperty(settings, "theme", {
+makeWritableProperty(settings, "theme", {
     initial: parseInt(localStorage.getItem("@settings:@theme")) || 0,
     setter(v) {
         const target = document.body;
@@ -35,7 +34,7 @@ settingsEx.theme = makeWritableProperty(settings, "theme", {
 });
 
 //
-settingsEx.columns = makeWritableProperty(settings, "columns", {
+makeWritableProperty(settings, "columns", {
     initial: parseInt(localStorage.getItem("@settings:@columns")) || 4,
     setter(v) {
         localStorage.setItem("@settings:@columns", v || 4);
@@ -44,7 +43,7 @@ settingsEx.columns = makeWritableProperty(settings, "columns", {
 });
 
 //
-settingsEx.rows = makeWritableProperty(settings, "rows", {
+makeWritableProperty(settings, "rows", {
     initial: parseInt(localStorage.getItem("@settings:@rows")) || 8,
     setter(v) {
         localStorage.setItem("@settings:@rows", v || 8);
@@ -53,7 +52,7 @@ settingsEx.rows = makeWritableProperty(settings, "rows", {
 });
 
 //
-settingsEx.scaling = makeWritableProperty(settings, "scaling", {
+makeWritableProperty(settings, "scaling", {
     initial: parseFloat(localStorage.getItem("@settings:@scaling")) || 1,
     setter(v) {
         localStorage.setItem("@settings:@scaling", v);
