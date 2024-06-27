@@ -123,17 +123,28 @@
     }
 
     //
-    :where(.hl-1, .hl-1h, .hl-2, .hl-2h, .hl-3h, .hl-ns) {
+    :where(.hl-1, .hl-1h, .hl-2, .hl-2h, .hl-3h, .hl-ns, .hl-ms) {
         background-color: var(--current-surface-color);
     }
 
     //
-    .hl-1h:hover { --highlight-coefficient: 5; }
-    .hl-2h:hover { --highlight-coefficient: 10; }
-    .hl-3h:hover { --highlight-coefficient: 15; }
-    .hl-1 { --highlight-coefficient: 5; }
-    .hl-2 { --highlight-coefficient: 10; }; 
-    .hl-ns { --highlight-coefficient: 4; }
+    @media not ((hover: none) and (pointer: coarse)) {
+        .hl-1h:hover { --highlight-coefficient: 6; }
+        .hl-2h:hover { --highlight-coefficient: 10; }
+        .hl-3h:hover { --highlight-coefficient: 16; }
+    }
+
+    //
+    @media (hover: none) and (pointer: coarse) {
+        .hl-1h:active { --highlight-coefficient: 6; }
+        .hl-2h:active { --highlight-coefficient: 12; }
+        .hl-3h:active { --highlight-coefficient: 16; }
+    }
+    
+    .hl-1 { --highlight-coefficient: 6; }
+    .hl-2 { --highlight-coefficient: 12; }; 
+    .hl-ns { --highlight-coefficient: 3; }
+    .hl-ms { --highlight-coefficient: 4.5; }
 
     //
     .force-light { --theme-is-dark: 0; color-scheme: light; }

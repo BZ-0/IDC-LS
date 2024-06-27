@@ -31,6 +31,7 @@
         "svelte-range-slider-pips": "^2.3.1",
         "typescript": "^5.5.2",
         "vite": "^5.3.1",
+        "vite-plugin-browser-sync": "^3.0.3",
         "vite-plugin-pwa": "^0.20.0"
     },
     "devDependencies": {

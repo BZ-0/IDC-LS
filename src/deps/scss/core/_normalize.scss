@@ -97,7 +97,13 @@
     //
     :where(canvas, img, picture, video) {
         pointer-events: none;
+        overflow: hidden !important;
         @extend .no-user-select;
+    }
+    
+    //
+    :where(picture) {
+        display: contents;
     }
 
     //

@@ -15,6 +15,11 @@
         @extend .pe-enable;
         
         //
+        & .input-wrap {
+            background-color: var(--current-surface-color);
+        }
+        
+        //
         & input {
             display: inline-block;
             opacity: 1;

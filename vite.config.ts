@@ -5,18 +5,19 @@ const sourceMapsInProduction = true;
 import { svelte } from "@sveltejs/vite-plugin-svelte"
 import legacy from "@vitejs/plugin-legacy"
 import autoprefixer from "autoprefixer"
-import path from "path"
+import path from "node:path"
 import sveltePreprocess from "svelte-preprocess"
 import { defineConfig, type UserConfig } from "vite"
+import VitePluginBrowserSync from 'vite-plugin-browser-sync'
 import { VitePWA } from "vite-plugin-pwa"
 import { viteStaticCopy } from "vite-plugin-static-copy"
 import certificate from "./https/certificate.mjs"
 import pkg from "./package.json"
 import tsconfig from "./tsconfig.json"
 
-
 //
 const __dirname = import.meta.dirname;
+
 
 const r = (s) => {
     return s;
@@ -49,11 +50,13 @@ const config = <UserConfig>defineConfig({
     },
 
     plugins: [
+        VitePluginBrowserSync(),
         svelte({
             emitCss: production,
             preprocess: sveltePreprocess(),
         }),
         VitePWA({
+            injectRegister: null,
             registerType: "autoUpdate",
             devOptions: {
                 enabled: true,
@@ -84,6 +87,7 @@ const config = <UserConfig>defineConfig({
         }),
     ],
     server: {
+        cors: true,
         proxy: false,
         host: "0.0.0.0",
         port: 8000,
@@ -93,9 +97,6 @@ const config = <UserConfig>defineConfig({
         headers: {
             "Service-Worker-Allowed": "/",
             "Permissions-Policy": "fullscreen=*, window-management=*",
-        },
-        hmr: {
-            overlay: false
         }
     },
     esbuild: {

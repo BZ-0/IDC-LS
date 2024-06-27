@@ -46,7 +46,7 @@ onMount(()=>{
     <div bind:this={minusBtn} class="icon-wrap f-minus hl-1 hl-2h">
         <LucideIcon inert={true} name={"chevron-left"}/>
     </div>
-    <div class="input-wrap hl-ns">
+    <div class="input-wrap hl-ms">
         <input {...propsFilter($$props)} bind:this={input} inert={true} type="number" inputmode="numeric" pattern="\d*" virtualkeyboardpolicy="manual" bind:value={$value}/>
     </div>
     <div bind:this={plusBtn} class="icon-wrap f-plus hl-1 hl-2h">

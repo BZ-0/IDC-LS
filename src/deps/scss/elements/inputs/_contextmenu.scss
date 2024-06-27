@@ -84,6 +84,8 @@
                 grid-template-rows: minmax(max-content, 3rem);
                 cursor: pointer;
                 font-size: 0.8rem;
+                border-radius: 0.25rem;
+                overflow: hidden;
                 
                 //
                 & > .icon-decor {

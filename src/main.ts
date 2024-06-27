@@ -1,4 +1,6 @@
         
+import "./main.scss"
+
 //
 if ("virtualKeyboard" in navigator && navigator?.virtualKeyboard) {
     navigator.virtualKeyboard.overlaysContent = true;
@@ -13,7 +15,7 @@ if (typeof navigator != "undefined") {
         (error) => {
             console.error(`Service worker registration failed: ${error}`);
         }
-    );
+    )?.catch?.(console.warn.bind(console));
 
     //
     navigator?.registerProtocolHandler?.(
