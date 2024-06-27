@@ -25,8 +25,8 @@
         box-sizing: border-box;
         min-block-size: max-content;
         min-inline-size: max-content;
-        block-size: 1.5rem;
-        inline-size: 3rem;
+        block-size: 2rem;
+        inline-size: 3.5rem;
         max-block-size: 2.5rem;
         max-inline-size: none;
         aspect-ratio: 1 / 1;
@@ -40,8 +40,8 @@
         pointer-events: bounding-bpx;
         
         //
-        --thumb-size: 1rem;
-        --space-size: 1.5rem;
+        --thumb-size: 1.5rem;
+        --space-size: 2rem;
         
         //
         .icon-sign {
@@ -60,7 +60,7 @@
             position: absolute;
             inset: 0px;
             //opacity: 0;
-            padding: 0.125rem;
+            padding: 0.25rem;
             border-radius: calc(var(--thumb-size) * 0.45);
             
             //
@@ -78,6 +78,8 @@
                 translate: 0px 0px;
                 stroke: var(--current-glyph-color);
             }
+            
+            
         }
         
         //
@@ -85,7 +87,17 @@
             @extend .solid;
             --value-mod: 0;
             
-            .icon-sign, .icon-sign > & {
+            //
+            .icon-sign > .done {
+                display: none;
+            }
+            
+            //
+            .icon-sign > .circle {
+                display: flex;
+            }
+            
+            .icon-sign, .icon-sign > * {
                 @extend .inverse;
                 stroke: var(--current-glyph-color);
             }
@@ -96,7 +108,17 @@
             @extend .inverse;
             --value-mod: 1;
             
-            .icon-sign, .icon-sign > & {
+            //
+            .icon-sign > .done {
+                display: flex;
+            }
+            
+            //
+            .icon-sign > .circle {
+                display: none;
+            }
+            
+            .icon-sign, .icon-sign > * {
                 @extend .solid;
                 stroke: var(--current-glyph-color);
             }

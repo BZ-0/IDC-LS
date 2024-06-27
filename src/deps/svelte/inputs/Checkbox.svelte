@@ -23,5 +23,5 @@
 
 <label bind:this={container} class="ls-checkbox hl-2">
     <input bind:this={element} bind:value={$value} type="checkbox" data-name={fieldName}>
-    <div class="icon-sign hl-2"><LucideIcon name={"check"}/></div>
+    <div class="icon-sign hl-2"><LucideIcon class="done lucide" name={"check"}/> <LucideIcon class="circle lucide" name={"circle"}/> </div>
 </label>

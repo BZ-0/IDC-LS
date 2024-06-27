@@ -116,6 +116,7 @@
 					<Block class="block-decor ls-tab-item accent hl-1h cursor-pointer pe-enable" data-page={tab.page}>
 						<LucideIcon inert={true} slot="icon" name={tab.icon}/>
 						<div inert={true} class="tab-label">{tab.label}</div>
+						<LucideIcon inert={true} slot="element" name={"chevron-right"}/>
 					</Block>
 				{/each}
 			</x-scrollbox>
