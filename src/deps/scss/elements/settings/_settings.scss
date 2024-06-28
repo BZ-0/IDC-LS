@@ -4,211 +4,39 @@
 @use "@scss/core/themed";
 
 //
-@mixin whenMobile {
-    //
-    & .titlebar {
-        --padding: 0.5rem;
-        
-        //
-        & > :where(.back-button, .menu-button) {
-            border-radius: 0.125rem;
-        }
-    }
+@use "./windowed";
 
+//
+@mixin whenMobile {
     //
     & .content > * { grid-column: 1 / 2 span !important; }
 
     //
     &:not([data-current-page=""], :not([data-current-page])) {
         .ls-tabs {
-            display: none;
+            display: none !important;
         }
     }
 
     //
     &:is([data-current-page=""], :not([data-current-page])) {
         .ls-options {
-            display: none;
+            display: none !important;
         }
     }
 }
 
-
 //
-@layer ls-settings {
+@layer ls-windowed {
     
     //
     .ls-settings {
         //
         @extend .contain-size;
-
-        //
-        --rx: 0px;
-        --ry: 0px;
-
-        //
-        --rx: calc(var(--drag-x, 0) * 1px);
-        --ry: calc(var(--drag-y, 0) * 1px);
-
-        //
-        --translate-x: clamp(0px, calc(calc(50cqi - 50%) + var(--rx, 0px)), calc(100cqi - 100%));
-        --translate-y: clamp(0px, calc(calc(50cqb - 50%) + var(--ry, 0px)), calc(100cqb - 100%));
-
-        //
-        translate: var(--translate-x) var(--translate-y);
-
-        //
-        inline-size: stretch;
-        block-size: stretch;
+        @extend .ls-windowed;
         
         //
-        @-moz-document url-prefix() {
-            inline-size: 100cqi;
-            block-size: 100cqb;
-        }
-        
-        //
-        max-inline-size: stretch;
-        max-block-size: stretch;
-        
-        //
-        @-moz-document url-prefix() {
-            max-inline-size: 100cqi;
-            max-block-size: 100cqb;
-        }
-        
-        //
-        @media all and (width >= 9in) {
-            border-radius: 0.25rem;
-            
-            //
-            box-shadow: 0px 0px 1rem 1px #00000070;
-            
-            //
-            min-inline-size: min(64rem, 100cqi);
-            min-block-size: min(36rem, 100cqb);
-
-            //
-            inline-size: 80rem;
-            block-size: 45rem;
-        }
-        
-        //
-        inset: 0px;
-        position: fixed;
-        z-index: 99999;
-    
-        //
-        contain: content;
-        container-type: size;
-        container-name: ls-settings;
-        display: grid;
-        overflow: hidden;
-
-        //
-        grid-template-columns: minmax(0px, 1fr);
-        grid-template-rows: 
-            [titlebar] minmax(3rem, max-content) 
-            [content-b] minmax(0px, 1fr);
-
-        //
-        .titlebar {
-            @extend .align-center;
-            @extend .stretch;
-            
-            //
-            pointer-events: auto;
-            pointer-events: bounding-box;
-            
-            //
-            --padding: 0rem;
-            --padding-top: var(--padding, 0rem);
-            --padding-top: calc(var(--padding, 0rem) + env(safe-area-inset-top, 0px));
-            --padding-left: calc(var(--padding) + env(safe-area-inset-left, 0px));
-            --padding-right: calc(var(--padding) + env(safe-area-inset-right, 0px));
-
-            //
-            box-sizing: border-box;
-            padding: var(--padding, 0px) !important;
-            block-size: calc(3rem + var(--padding-top) + var(--padding));
-            
-            //
-            padding-block-start: var(--padding-top) !important;
-            //padding-inline-start: var(--padding-left) !important;
-            //padding-inline-end: var(--padding-right) !important;
-
-            //
-            align-items: end;
-
-            //grid-column: 1 / 2;
-            grid-row: titlebar;
-            min-block-size: max-content;
-            
-            //
-            border-block-end: solid 1px var(--current-surface-color);
-            gap: 0px;
-            
-            //
-            display: grid;
-            grid-template-columns: 
-                [menu-button] minmax(3rem, max-content)
-                [title-label] minmax(0px, 1fr)
-                [back-button] minmax(3rem, max-content);
-            grid-template-rows: minmax(0px, 1fr);
-            
-            //
-            & > .title-label {
-                @extend .stretch;
-                @extend .align-center;
-
-                //
-                display: flex;
-                
-                //
-                flex-direction: row;
-                text-align: start;
-                justify-content: start;
-                padding: 0.5rem;
-                padding-inline: 1rem;
-                min-inline-size: max-content;
-                cursor: grab;
-                
-                //
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                word-break: keep-all;
-                word-wrap: normal;
-                
-                //
-                pointer-events: auto;
-                pointer-events: bounding-box;
-            }
-            
-            //
-            & > * {
-                @extend .align-center;
-                @extend .stretch;
-                
-                //
-                display: flex;
-                grid-row: 1 / 1 span;
-                padding: 1rem;
-                
-                //
-                
-            }
-            
-            //
-            & > :where(.back-button, .menu-button) {
-                padding: 0.75rem;
-                cursor: pointer;
-                
-                //
-                max-inline-size: 3rem;
-                max-block-size: 3rem;
-            }
-        }
+        container-name: ls-windowed ls-settings !important;
         
         //
         @container ls-settings (width < 9in) {
@@ -245,21 +73,6 @@
         
         //
         .content {
-            @extend .stretch;
-        
-            //
-            max-inline-size: stretch;
-            max-block-size: stretch;
-        
-            // stretch or moz-available works buggy
-            @-moz-document url-prefix() {
-                inline-size: 100%;
-                block-size: 100%;
-                max-inline-size: 100%;
-                max-block-size: 100%;
-            }
-        
-            //
             display: grid;
             grid-template-columns: minmax(18rem, max-content) minmax(0px, 1fr);
             grid-row: content-b;
@@ -279,108 +92,101 @@
                 //
                 background-color: var(--current-surface-color);
             }
-        }
 
-        //
-        .ls-tabs { grid-column: 1 / 1; }
-        .ls-options { grid-column: 2 / 2; position: relative; }
-        
-        //
-        .ls-options {
-            @extend .stretch;
-        
             //
-            max-inline-size: stretch;
-            max-block-size: stretch;
-        
-            // stretch or moz-available works buggy
-            @-moz-document url-prefix() {
-                inline-size: 100%;
-                block-size: 100%;
-                max-inline-size: 100%;
-                max-block-size: 100%;
+            .ls-tabs { grid-column: 1 / 1; }
+            .ls-options { grid-column: 2 / 2; position: relative; }
+
+            //
+            .ls-options {
+                @extend .stretch;
+            
+                //
+                max-inline-size: stretch;
+                max-block-size: stretch;
+            
+                // stretch or moz-available works buggy
+                @-moz-document url-prefix() {
+                    inline-size: 100%;
+                    block-size: 100%;
+                    max-inline-size: 100%;
+                    max-block-size: 100%;
+                }
             }
-    }
-        
-        //
-        .block-decor {
-            padding-inline-end: env(safe-area-inset-right, 0px) !important;
-        }
-        
-        //
-        .page-wrap {
-            inset: 0px;
-            position: absolute;
-        
-            //
-            min-block-size: stretch;
-            min-inline-size: stretch;
+            
             
             //
-            block-size: max-content;
-            inline-size: stretch;
+            .block-decor {
+                padding-inline-end: env(safe-area-inset-right, 0px) !important;
+            }
             
             //
-            max-block-size: none;
-            max-inline-size: stretch;
-        }
-        
-        //
-        .opt-label {
-            display: flex;
+            .page-wrap {
+                inset: 0px;
+                position: absolute;
             
-            //
-            @extend .align-center;
-            @extend .stretch;
-            
-            //
-            justify-content: start;
-            text-align: start;
-            
-            //
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            word-break: keep-all;
-            word-wrap: normal;
-        }
-
-        //
-        
-
-        //
-        .ls-tabs {
-            display: grid;
-            grid-template-columns: minmax(2rem, max-content) minmax(0px, 1fr) minmax(2rem, max-content);
-            grid-auto-rows: minmax(2rem, max-content);
-
-            //
-            padding: 0px;
-            gap: 0px;
-
-            //
-            .ls-tab-item {
-                display: grid;
-
                 //
-                grid-template-columns: subgrid;
-                grid-template-rows: minmax(2rem, max-content);
-                grid-column: 1 / 3 span;
-                grid-row: auto;
-                padding: 0px;
-    
-                //
-                padding-inline-start: env(safe-area-inset-left, 0px) !important;
-    
-                //
-                min-block-size: max-content;
+                min-block-size: stretch;
+                min-inline-size: stretch;
                 
                 //
-                @extend .stretch;
+                block-size: max-content;
+                inline-size: stretch;
+                
+                //
+                max-block-size: none;
+                max-inline-size: stretch;
             }
             
+            //
+            .opt-label {//
+                @extend .align-center;
+                @extend .stretch;
             
-        }
+                //
+                display: flex;
+                justify-content: start;
+                text-align: start;
+                
+                //
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-break: keep-all;
+                word-wrap: normal;
+            }
+
+            //
+            .ls-tabs {
+                display: grid;
+                grid-template-columns: minmax(2rem, max-content) minmax(0px, 1fr) minmax(2rem, max-content);
+                grid-auto-rows: minmax(2rem, max-content);
+
+                //
+                padding: 0px;
+                gap: 0px;
+
+                //
+                .ls-tab-item {
+                    @extend .stretch;
+                    
+                    //
+                    display: grid;
+
+                    //
+                    grid-template-columns: subgrid;
+                    grid-template-rows: minmax(2rem, max-content);
+                    grid-column: 1 / 3 span;
+                    grid-row: auto;
+                    padding: 0px;
         
+                    //
+                    padding-inline-start: env(safe-area-inset-left, 0px) !important;
+        
+                    //
+                    min-block-size: max-content;
+                }
+            }
+        }
     }
 }
