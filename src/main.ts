@@ -1,6 +1,11 @@
         
 import "./main.scss"
 
+document.documentElement.style.setProperty("--theme-base-color", localStorage.getItem("--theme-base-color") || "oklch(50% 0.3 0)", "");
+document.documentElement.style.setProperty("--theme-wallpaper-is-dark", parseInt(localStorage.getItem("--theme-wallpaper-is-dark") || "0") || 0, "");
+
+
+
 //
 if ("virtualKeyboard" in navigator && navigator?.virtualKeyboard) {
     navigator.virtualKeyboard.overlaysContent = true;
@@ -43,10 +48,17 @@ const loading = Promise.allSettled([
 //import App from "@tests/SettingsTest.svelte"
 import App from "@tests/Candidate.svelte"
 
-//
-const app = new App({
-    target: document.body,
+export default  loading.then(()=>{
+    return (new App({
+        target: document.body,
+    }));
 });
 
+
 //
-export default app;
+//const app = new App({
+    //target: document.body,
+//});
+
+//
+//export default app;

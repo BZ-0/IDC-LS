@@ -42,7 +42,22 @@
 
         <style>
             :root { virtual-keyboard: overlays-content; }
+            :root, body {
+                background-color: black;
+                background-color: var(--theme-base-color, black);
+            }
+            
+            ::view-transition {
+                background-color: black;
+                background-color: var(--theme-base-color, black);
+            }
+
+            @view-transition {
+                navigation: auto;
+            }
         </style>
+        
+        
 
         <link rel="icon" type="image/png" href="./src/favicon.png">
         <!--<link rel="stylesheet" type="text/css" href="./src/main.scss">-->

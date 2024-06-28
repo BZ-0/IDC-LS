@@ -5,6 +5,12 @@
 @layer ls-normalize {
 
     //
+    html::view-transition {
+        position: fixed;
+        inset: 0;
+    }
+
+    //
     @media (prefers-reduced-motion: reduce) {
         :where(*),
         ::after,
@@ -76,7 +82,7 @@
         @extend .fit-viewport;
 
         //
-        background-color: white !important;
+        background-color: #000000 !important;
 
         //
         overflow: hidden;

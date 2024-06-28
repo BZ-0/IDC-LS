@@ -47,7 +47,7 @@ let surfaceColorI = {};
 let surfaceColorH = "#FFFFFF";
 let surfaceColor = "#FFFFFF";
 let chromaMod = {};
-let cssIsDark = localStorage.getItem("--theme-wallpaper-is-dark") || 0;
+let cssIsDark = parseInt(localStorage.getItem("--theme-wallpaper-is-dark") || "0") || 0;
 
 //
 setStyleRule(":host, :root, :scope, :where(*)", {

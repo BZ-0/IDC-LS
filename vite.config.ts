@@ -9,6 +9,7 @@ import path from "node:path"
 import sveltePreprocess from "svelte-preprocess"
 import { defineConfig, type UserConfig } from "vite"
 import VitePluginBrowserSync from 'vite-plugin-browser-sync'
+import prefetchPlugin from 'vite-plugin-bundle-prefetch'
 import { VitePWA } from "vite-plugin-pwa"
 import { viteStaticCopy } from "vite-plugin-static-copy"
 import certificate from "./https/certificate.mjs"
@@ -50,6 +51,7 @@ const config = <UserConfig>defineConfig({
     },
 
     plugins: [
+        prefetchPlugin(),
         VitePluginBrowserSync(),
         svelte({
             emitCss: production,
@@ -103,6 +105,7 @@ const config = <UserConfig>defineConfig({
 		target: "esnext"
 	},
     build: {
+        modulePreload: true,
 		target: ["esnext", "es2020"],
         sourcemap: sourceMapsInProduction,
         outDir: "./webapp",
