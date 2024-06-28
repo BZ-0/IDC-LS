@@ -73,7 +73,8 @@
 			const lessWidth = (settingsEl?.clientWidth || 96*9) <= 96*9
 			if (lessWidth && currentPage) { currentPage = ""; } else 
 			if ((lessWidth && !currentPage) || !lessWidth) {
-				location.hash = "#";
+				//location.hash = "#";
+				history.back(); // true way...
 			}
 		}
 		if (target.matches(".ls-tab-item")) {
