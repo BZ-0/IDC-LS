@@ -53,7 +53,7 @@ const config = <UserConfig>defineConfig({
     },
 
     plugins: [
-        analyzer(),
+        //analyzer(),
         compression({
             algorithm: 'brotliCompress'
         }),
