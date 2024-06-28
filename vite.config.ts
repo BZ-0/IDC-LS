@@ -15,6 +15,8 @@ import { viteStaticCopy } from "vite-plugin-static-copy"
 import certificate from "./https/certificate.mjs"
 import pkg from "./package.json"
 import tsconfig from "./tsconfig.json"
+import { compression } from 'vite-plugin-compression2'
+import { analyzer } from 'vite-bundle-analyzer'
 
 //
 const __dirname = import.meta.dirname;
@@ -51,6 +53,10 @@ const config = <UserConfig>defineConfig({
     },
 
     plugins: [
+        analyzer(),
+        compression({
+            algorithm: 'brotliCompress'
+        }),
         prefetchPlugin(),
         VitePluginBrowserSync(),
         svelte({

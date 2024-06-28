@@ -31,11 +31,11 @@
         "svelte-range-slider-pips": "^2.3.1",
         "typescript": "^5.5.2",
         "vite": "^5.3.1",
+        "vite-bundle-analyzer": "^0.10.3",
         "vite-plugin-browser-sync": "^3.0.3",
         "vite-plugin-bundle-prefetch": "^0.0.4",
-        "vite-plugin-pwa": "^0.20.0"
-    },
-    "devDependencies": {
+        "vite-plugin-compression2": "^1.1.1",
+        "vite-plugin-pwa": "^0.20.0",
         "vite-plugin-static-copy": "^1.0.5"
     }
 }
