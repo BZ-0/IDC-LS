@@ -20,7 +20,20 @@
     let handler = null;
     
     //
+    const setCellPosition = (el = element)=>{
+        if (el) {
+            el.style.setProperty("--p-cell-x", iconItem.cellX, "");
+            el.style.setProperty("--p-cell-y", iconItem.cellY, "");
+            el.style.setProperty("--cell-x", iconItem.cellX, "");
+            el.style.setProperty("--cell-y", iconItem.cellY, "");
+        }
+    }
+    
+    //
     onMount(()=>{
+        setCellPosition();
+        
+        // currently, you can't un-use iconItem.pointerId, or else lost multi-touch drag...
         onmount?.(element, iconItem);
 
         //
@@ -30,6 +43,7 @@
 
         //
         element.addEventListener("m-dragstart", (ev)=>{
+            setCellPosition();
             dragstart?.(ev.detail);
         });
 
@@ -40,7 +54,7 @@
 
         //
         element.addEventListener("m-dragend", (ev)=>{
-            iconItem.pointerId = -1;
+            setCellPosition();
             dragend?.(ev.detail);
         });
 
@@ -56,12 +70,6 @@
 <div bind:this={element} 
     inert={inert} 
     class="icon-item icon-placement grid-item auto-space" 
-    style={`
-        --cell-x: ${iconItem.cellX}; 
-        --cell-y: ${iconItem.cellY};
-        --p-cell-x: ${iconItem.pCellX ?? iconItem.cellX};
-        --p-cell-y: ${iconItem.pCellY ?? iconItem.cellY};
-    `}
     data-action={iconItem.action} 
     data-href={iconItem.href} 
     data-id={iconItem.id} 

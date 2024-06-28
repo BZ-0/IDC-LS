@@ -30,42 +30,46 @@
     $: gridPagesArray = Array.from(gridPages.values());
 
     //
-    let dragState = {
-        pointerId: -1,
-        startX: 0,
-        startY: 0
-    }
+    const iconElementMap = new WeakMap([]);
 
     //
     const initGrab = (ev)=>{
         const iconElement = ev.target.closest(".icon-item");
         const iconId      = iconElement?.dataset?.["id"];
         if (!iconId) return;
-        
+
         //
         const iconItem    = iconItems.get(iconId);
         const iconList    = iconLists.get(currentPage);
 
         //
-        iconItem.pCellX = iconItem.cellX;
-        iconItem.pCellY = iconItem.cellY;
         iconItem.pointerId = ev.pointerId;
+        iconItem.currentPage = currentPage;
+        iconElementMap.set(iconItem, iconElement);
+        
+        //
+        if (!iconElement.classList.contains("ls-hidden")) {
+            iconElement.classList.add("ls-hidden");
+        }
         
         //
         const argObj = makeArgs(iconItem, iconItems, gridPages.get(currentPage), columnsAndRows, iconLists);
 
         //iconId
-        iconLists.set(currentPage, iconList.filter((id)=>(id!=iconId)) || []);
-        currentState.iconLists = iconLists;
+        //iconLists.set(currentPage, iconList.filter((id)=>(id!=iconId)) || []);
+        //currentState.iconLists = iconLists;
         dragBucket = [...dragBucket, iconId];
     }
 
     //
     const grabItem = ({detail: ev})=>{
-        dragState.startX = ev.pageX;
-        dragState.startY = ev.pageY;
-        dragState.pointerId = ev.pointerId;
-    
+        //
+        let dragState = {
+            pointerId: ev.pointerId,
+            startX: ev.pageX,
+            startY: ev.pageY
+        }
+
         //
         const grabEvent = ["pointermove", (evm)=>{
             if (dragState.pointerId == evm.pointerId && Math.hypot(dragState.startX - evm.pageX, dragState.startY - evm.pageY) >= 10) {
@@ -82,32 +86,36 @@
 
     //
     const placeElement = async ({pointer, holding})=>{
-        dragState.pointerId = -1;
+        const fakeIconElement = holding.element.deref();
+        const iconId = fakeIconElement.dataset["id"];
+        const iconItem = iconItems.get(iconId); // avoid force update
+        const iconList = iconLists.get(currentPage);
         
         //
-        const iconElement = holding.element.deref();
-        const iconId      = iconElement.dataset["id"];
-        const iconItem    = {...iconItems.get(iconId)}; // avoid force update
+        iconItem.pointerId = -1;
+        
+        //
         const gridPage    = gridPages.get(currentPage);
-        const iconList  = [...dragBucket, ...(iconLists.get(currentPage) || [])];
         const args        = makeArgs(iconItem, iconItems, gridPage, columnsAndRows, iconLists, iconList);
 
         //
         const bbox = args.gridPage?.getBoundingClientRect?.();
-        const xy   = [pointer.current[0] - (bbox?.left || 0), pointer.current[1] - (bbox?.top || 0)];
+        const xy = [pointer.current[0] - (bbox?.left || 0), pointer.current[1] - (bbox?.top || 0)];
+
+        // 
+        const pCellValue = [iconItem.cellX, iconItem.cellY];
 
         //
-        putToCell(args, {
-            x: xy[0], 
-            y: xy[1]
-        });
+        putToCell(args, { x: xy[0], y: xy[1] });
 
-        // dirty hack-fix
-        iconElement.style.setProperty("--cell-x", iconItem.cellX, "");
-        iconElement.style.setProperty("--cell-y", iconItem.cellY, "");
-
+        // 
+        fakeIconElement.style.setProperty("--p-cell-x", pCellValue[0], "");
+        fakeIconElement.style.setProperty("--p-cell-y", pCellValue[1], "");
+        fakeIconElement.style.setProperty("--cell-x", iconItem.cellX, "");
+        fakeIconElement.style.setProperty("--cell-y", iconItem.cellY, "");
+        
         //
-        await iconElement.animate(animationSequence(), {
+        await fakeIconElement.animate(animationSequence(), {
             fill: "none",
             duration: 100,
             rangeStart: "cover 0%",
@@ -115,13 +123,30 @@
         }).finished;
 
         //
-        dragBucket = dragBucket.filter((id)=>(id!=iconId));
-        iconLists.set(currentPage, iconList);
-        iconItems.set(iconId, iconItem);
+        const realIconElement = iconElementMap.get(iconItem);
+        if (realIconElement) {
+            realIconElement.style.setProperty("--cell-x", iconItem.cellX, "");
+            realIconElement.style.setProperty("--cell-y", iconItem.cellY, "");
+            realIconElement.classList.remove("ls-hidden");
+        }
 
         //
-        currentState.iconLists = iconLists;
+        if (iconList.indexOf(iconId) < 0) {
+            const list = iconLists.get(iconItem.currentPage);
+            const index = list.indexOf(iconId);
+            if (index >= 0) { list.splice(index, 1); }
+            
+            //
+            iconList.push(iconId);
+        }
+
+        //
+        iconItems.set(iconId, iconItem);
         currentState.iconItems = iconItems;
+        currentState.iconLists = iconLists;
+        
+        //
+        dragBucket = dragBucket.filter((id)=>(id!=iconId));
     }
 
     // make true value of cells
