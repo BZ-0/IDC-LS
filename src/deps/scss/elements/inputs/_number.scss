@@ -5,9 +5,12 @@
 //
 @layer ls-inputs {
     :where(.number-input) {
+        --block-size: 2.5rem;
+    
+        //
         display: grid;
-        grid-template-columns: minmax(max-content, 1rem) minmax(max-content, 1fr) minmax(max-content, 1rem);
-        grid-template-rows: minmax(max-content, 1rem);
+        grid-template-columns: minmax(var(--block-size), max-content) minmax(max-content, 1fr) minmax(var(--block-size), max-content);
+        grid-template-rows: minmax(var(--block-size), max-content);
         overflow: hidden;
         
         //
@@ -16,11 +19,22 @@
         
         //
         & .input-wrap {
+            @extend .stretch;
+            
+            //
             background-color: var(--current-surface-color);
+            
+            //
+            min-block-size: var(--block-size);
+            max-block-size: var(--block-size);
         }
         
         //
         & input {
+            @extend .stretch;
+            
+            //
+            min-inline-size: 2rem;
             display: inline-block;
             opacity: 1;
             text-align: center;
@@ -32,6 +46,10 @@
             //
             font-size: 0.8rem;
             color: var(--current-glyph-color);
+            
+            //
+            min-block-size: var(--block-size);
+            max-block-size: var(--block-size);
         }
         
         //
@@ -44,6 +62,10 @@
             display: flex;
             padding: 0.5rem;
             background: transparent;
+            
+            //
+            min-block-size: var(--block-size);
+            max-block-size: var(--block-size);
         }
         
         //
