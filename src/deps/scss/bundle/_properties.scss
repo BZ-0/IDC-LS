@@ -201,6 +201,12 @@
     @property --current-chroma-color { syntax: "<color>"; initial-value: black; inherits: true; };
     @property --current-accent-color { syntax: "<color>"; initial-value: black; inherits: true; };
     @property --highlight-coefficient { syntax: "<number>"; initial-value: 0; inherits: true; };
+    
+    //
+    @property --pulse-mod { syntax: "<number>"; initial-value: 1; inherits: true; };
+    @property --pointer-x { syntax: "<number>"; initial-value: 0; inherits: true; };
+    @property --pointer-y { syntax: "<number>"; initial-value: 0; inherits: true; };
+
 
     //
     :root, :host, :scope {

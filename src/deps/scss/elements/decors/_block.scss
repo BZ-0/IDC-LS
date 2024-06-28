@@ -23,11 +23,12 @@
         
         //
         min-block-size: 2rem;
-        
+
         //
         background-color: var(--current-surface-color);
+        accent-color: var(--current-glyph-color);
         color: var(--current-glyph-color);
-        
+
         //
         & > :where(.icon-wrap, .label-box, .in-element) {
             @extend .align-center;
@@ -37,6 +38,7 @@
             background-clip: border-box;
             background-origin: content-box;
             background-color: transparent;
+            background-image: none;
             padding: 0.8rem;
             text-align: start;
             pointer-events: none;

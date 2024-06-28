@@ -1,5 +1,6 @@
 @use "../color/colorvars" as cl;
 @use "../color/colorutils" as cu;
+@use "./effects" as ef;
 
 //
 @layer ls-colors {
@@ -69,6 +70,7 @@
         //
         & > :where(.icon-wrap) {
             background-color: transparent;
+            background-image: none;
         }
     }
     
@@ -80,6 +82,7 @@
         //
         & > :where(.icon-wrap) {
             background-color: transparent;
+            background-image: none;
         }
     }
     
@@ -92,6 +95,7 @@
         //
         & > :where(.icon-wrap) {
             background-color: transparent;
+            background-image: none;
         }
     }
     
@@ -113,18 +117,23 @@
     .transparent {
         --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
         --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 90%)};
+        
+        //
         background-color: transparent;
+        background-image: none;
     }
 
     //
     .apply-color-theme {
         background-color: var(--current-surface-color);
         color: var(--current-glyph-color);
+        accent-color: var(--current-glyph-color);
     }
 
     //
     :where(.hl-1, .hl-1h, .hl-2, .hl-2h, .hl-3h, .hl-ns, .hl-ms) {
         background-color: var(--current-surface-color);
+        @include ef.highlight-animation();
     }
 
     //
