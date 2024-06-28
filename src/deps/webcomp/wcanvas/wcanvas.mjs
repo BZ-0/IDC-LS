@@ -178,9 +178,9 @@ class WCanvas extends HTMLCanvasElement {
 
     //
     async $useImageAsSource(blob) {
-        const img = (blob instanceof ImageBitmap) ? blob : await createImageBitmap(blob).catch((_)=>null);
-        if (img && (blob instanceof Blob || blob instanceof File)) {
-            this.image = img; this.#render();
+        const img = (blob instanceof ImageBitmap) ? blob : (await createImageBitmap(blob).catch((_)=>null));
+        if (blob instanceof Blob || blob instanceof File) {
+            if (img) this.image = img; this.#render();
             window.dispatchEvent(new CustomEvent("wallpaper", { detail: { blob }}));
         }
         return img;
