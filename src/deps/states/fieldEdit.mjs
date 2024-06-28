@@ -6,10 +6,11 @@ export const whenTouch = whenMedia("(hover: none) and (pointer: coarse)");
 
 //
 export const fieldsData = new Map([
-    ["icon", ""],
-    ["label", ""],
-    ["action", ""],
-    ["href", ""],
+    // icon-items
+    ["item-icon", ""],
+    ["item-label", ""],
+    ["item-action", ""],
+    ["item-href", ""],
 ]);
 
 //
@@ -122,12 +123,15 @@ export const focusField = (idOrInput) => {
 //////////////////////////
 
 //
+export const iconFields = ["icon", "label", "action", "href"];
+
+//
 export const importFromIcon = (iconItem) => {
     if (iconItem) {
-        for (const k of fieldsData.keys()) {
+        for (const k of iconFields) {
             const iconField = iconItem[k];
             if (iconField) {
-                fieldsData.set(k, iconField || "");
+                fieldsData.set("item-" + k, iconField || "");
             }
         }
     }
@@ -137,8 +141,8 @@ export const importFromIcon = (iconItem) => {
 export const applyForIcon = (onEdit) => {
     if (onEdit) {
         //fixSubscribe(onEdit);
-        for (const k of fieldsData.keys()) {
-            const field = fieldsData.get(k) || "";
+        for (const k of iconFields) {
+            const field = fieldsData.get("item-" + k) || "";
             onEdit.focusIconWrite[k].set(field);
         }
     }

@@ -5,8 +5,6 @@
 
     // import writable store
     export let {iconItemId} = onFocus;
-    
-    //
     export let onEdit = onFocus?.iconItem;
     $: onEdit = onFocus.focus($iconItemId);
 
@@ -44,7 +42,7 @@
             {#each currentFields as field}
                 <div class="edit-field">
                     <div class="edit-label">{field.label}</div>
-                    <div class="field-wrap solid hl-1 apply-color-theme"><Field onEdit={onEdit} fieldName={field.id}></Field></div>
+                    <div class="field-wrap solid hl-1 apply-color-theme"><Field onEdit={onEdit} fieldName={"item-" + field.id}></Field></div>
                 </div>
             {/each}
         </div>
