@@ -1,1 +1,1 @@
-<canvas is="w-canvas" class="stretch" data-src="@assets/wallpaper/1.jpg"/>
+<canvas is="w-canvas" class="stretch fixed inset-0" data-src={(localStorage.getItem("@wallpaper") || "../assets/wallpaper/0.jpg")}/>

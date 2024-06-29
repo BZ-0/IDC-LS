@@ -164,16 +164,25 @@
     //
     :where(canvas):is([is="w-canvas"]) {
         @extend .stretch;
-        
+        @extend .align-center;
+
         //
         aspect-ratio: auto;
-        display: block;
+        display: flex;
 
         //
         image-rendering: auto;
         image-rendering: optimizeQuality;
         image-rendering: smooth;
         image-rendering: high-quality;
+
+        //
+        object-fit: cover;
+        object-position: center;
+
+        //
+        position: fixed;
+        inset: 0px;
     }
 
 }

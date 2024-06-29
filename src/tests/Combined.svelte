@@ -3,5 +3,6 @@
     import MultiPage from "@svelte/icongrid/MultiPage.svelte";
 </script>
 
-<canvas is="w-canvas" class="fixed stretch layer-0" data-src="@assets/wallpaper/1.jpg"/>
+<canvas is="w-canvas" class="stretch fixed inset-0" data-src={(localStorage.getItem("@wallpaper") || "../assets/wallpaper/0.jpg")}/>
+
 <MultiPage></MultiPage>
