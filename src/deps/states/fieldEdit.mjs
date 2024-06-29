@@ -57,22 +57,8 @@ export const reflectToField = (idOf, evName = "input", value = null) => {
 };
 
 //
-export const onInputChange = ({ target }) => {
-    if (target.value != null) {
-        fieldEditState.value = target.value;
-    }
-};
-
-//
-export const listenChanges = (field) => {
-    if (!field) return;
-    field.addEventListener("input", onInputChange);
-    field.addEventListener("change", onInputChange);
-};
-
-//
 export const fieldToData = (idOrInput) => {
-    const idOf = (idOrInput?.dataset?.name ?? idOrInput?.dataset?.edit ?? idOrInput) || fieldEditState.id;
+    const idOf = idOrInput?.dataset?.name ?? idOrInput?.dataset?.edit ?? (typeof idOrInput == "string" ? idOrInput : fieldEditState.id);
     const field =
         typeof idOrInput == "string"
             ? document.querySelector(
@@ -80,14 +66,15 @@ export const fieldToData = (idOrInput) => {
               )
             : idOrInput;
     if (field?.value != null && idOf && idOf != null && idOf != "undefined") {
+        fieldEditState.id = idOf;
+        fieldEditState.value = field?.value;
         fieldsData.set(idOf, field?.value);
     }
 };
 
 // may possible is input itself
 export const focusField = (idOrInput) => {
-    const idOf =
-        idOrInput?.dataset?.name ?? idOrInput?.dataset?.edit ?? idOrInput;
+    const idOf = idOrInput?.dataset?.name ?? idOrInput?.dataset?.edit ?? (typeof idOrInput == "string" ? idOrInput : fieldEditState.id);
     if (idOf && idOf != null && idOf != "undefined") {
         if (idOrInput?.value != null) {
             fieldsData.set(idOf, idOrInput?.value);

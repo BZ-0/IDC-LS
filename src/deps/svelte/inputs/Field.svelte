@@ -1,5 +1,5 @@
 <script>
-    import { fieldToData, focusField, importFromIcon, listenChanges, reflectToField } from '@states/fieldEdit.mjs';
+    import { fieldToData, focusField, importFromIcon, reflectToField } from '@states/fieldEdit.mjs';
     import { onMount } from 'svelte';
     
     //
@@ -10,7 +10,6 @@
     export let fieldName = "";
     
     //
-    $: listenChanges(field);
     $: importFromIcon(onEdit?.focusIconState);
     $: reflectToField(field?.dataset?.name, "change");
     
@@ -45,7 +44,6 @@
     //
     onMount(()=>{
         if (field && onEdit) {
-            listenChanges(field);
             importFromIcon(onEdit?.focusIconState);
             reflectToField(field.dataset.name, "change");
         }
@@ -60,7 +58,7 @@
 <input 
     bind:this={field} 
     value="" type="text" 
-    on:change={(ev)=>{ fieldToData(field?.dataset?.name)}} 
-    on:input={(ev)=>{ fieldToData(field?.dataset?.name)}}
+    on:change={(ev)=>{ fieldToData(ev.target)}} 
+    on:input={(ev)=>{ fieldToData(ev.target)}}
     data-name={fieldName}
 />
