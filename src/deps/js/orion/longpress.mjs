@@ -6,7 +6,7 @@ export const longpress = (node, threshold = 60) => {
 
         //
         const timeout = setTimeout(() => {
-            node.dispatchEvent(new CustomEvent("longpress", { detail: ev }));
+            node.dispatchEvent(new CustomEvent("long-press", { detail: ev }));
         }, threshold);
 
         //

@@ -31,6 +31,12 @@
 
     //
     const iconElementMap = new WeakMap([]);
+    //const iconItemMap = new WeakMap([]);
+
+    //
+    //const dragStates = new Map([
+        //[iconID, dragState]
+    //]);
 
     //
     const initGrab = (ev)=>{
@@ -45,6 +51,8 @@
         //
         iconItem.pointerId = ev.pointerId;
         iconItem.currentPage = currentPage;
+        
+        //
         iconElementMap.set(iconItem, iconElement);
         
         //
@@ -64,11 +72,11 @@
     //
     const grabItem = ({detail: ev})=>{
         //
-        let dragState = {
+        const dragState = {
             pointerId: ev.pointerId,
             startX: ev.pageX,
             startY: ev.pageY
-        }
+        };
 
         //
         const grabEvent = ["pointermove", (evm)=>{
@@ -92,7 +100,7 @@
         const iconList = iconLists.get(currentPage);
         
         //
-        iconItem.pointerId = -1;
+        delete iconItem.pointerId;
         
         //
         const gridPage    = gridPages.get(currentPage);
@@ -155,8 +163,24 @@
     }
 
     //
+    const observer = new MutationObserver((mutationsList, observer)=>{
+        for (let mutation of mutationsList) {
+            if (mutation.type == "childList") {
+                const validOf = Array.from(mutation.addedNodes).filter((n)=>n?.matches?.("[data-type=\"ghost\"]"));
+                for (const el of validOf) {
+                    grabForDrag(el, iconItems.get(el.dataset.id));
+                }
+            }
+        }
+    });
+
+    //
     onMount(()=>{
         //mainElement
+        observer.observe(mainElement, {
+            childList: true,
+            subtree: true
+        });
         
         //
         mainElement.addEventListener("dragenter", (ev)=>{
@@ -196,7 +220,7 @@
                 {#each iconList as iconId}
                     {@const iconItem = iconItems.get(iconId)}
                     {#if iconItem && iconItem.id}
-                        <IconLabel iconItem={iconItem}></IconLabel>
+                        <IconLabel iconItem={iconItem} data-type="icon-label"></IconLabel>
                     {/if}
                 {/each}
             </IconGrid>
@@ -210,7 +234,8 @@
                             onmount={reCalcPosition}
                             iconItem={iconItem}
                             dragend={placeElement}
-                            longpress={grabItem}
+                            longPress={grabItem}
+                            data-type="icon-item"
                         ></IconItem>
                     {/if}
                 {/each}
@@ -224,10 +249,10 @@
         {@const iconItem = iconItems.get(iconId)}
             {#if iconItem && iconItem.id}
                 <IconItem 
-                    inert=true
+                    inert={true}
                     iconItem={iconItem}
-                    onmount={grabForDrag}
                     dragend={placeElement}
+                    data-type="ghost"
                 ></IconItem>
             {/if}
         {/each}

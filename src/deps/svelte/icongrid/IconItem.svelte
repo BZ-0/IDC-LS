@@ -1,14 +1,20 @@
+
+<script context="module">
+    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+</script>
+
 <script>
     import { longpress as lgp } from "@libs/orion/longpress.mjs";
     import { onMount } from 'svelte';
     import LucideIcon from '../decors/LucideIcon.svelte';
+    
 
     //
     export let iconItem = {};
     export let inert = false;
 
     //
-    export let longpress = ()=>{};
+    export let longPress = ()=>{};
     export let dragstart = ()=>{};
     export let dragging = ()=>{};
     export let dragend = ()=>{};
@@ -37,8 +43,8 @@
         onmount?.(element, iconItem);
 
         //
-        handler.addEventListener("longpress", (ev)=>{
-            longpress?.(ev);
+        handler.addEventListener("long-press", (ev)=>{
+            longPress?.(ev);
         });
 
         //
@@ -68,8 +74,8 @@
 
 <!-- -->
 <div bind:this={element} 
-    inert={inert} 
     class="icon-item icon-placement grid-item auto-space" 
+    {...propsFilter($$props)}
     data-action={iconItem.action} 
     data-href={iconItem.href} 
     data-id={iconItem.id} 
