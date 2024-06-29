@@ -28,6 +28,10 @@
 		"icon": "monitor",
 		"label": "Display Settings"
 	}, {
+		"page": "all-settings",
+		"icon": "cog",
+		"label": "All Settings"
+	}, {
 		"page": "experimental-settings",
 		"icon": "flask-conical",
 		"label": "Experimental"
@@ -123,9 +127,9 @@
 			</x-scrollbox>
 			<x-scrollbox class="ls-page ls-options">
 				
-				{#if ["grid-settings"].indexOf(currentPage) >= 0}
-					<div class="page-wrap">
-						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row" transition:fade={{ delay: 0, duration: 100 }}>
+				<div class="page-wrap" transition:fade={{ key: currentPage, delay: 0, duration: 100 }}>
+					{#if ["grid-settings", "all-settings"].indexOf(currentPage) >= 0}
+						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row">
 							<div class="form-description"> Grid Layout Settings: </div>
 						
 							<Block class="block-decor">
@@ -141,12 +145,10 @@
 								<!--<RangeSlider slot="element" bind:values={$rows} min={8} max={12} step={1}></RangeSlider>-->
 							</Block>
 						</form>
-					</div>
-				{/if}
+					{/if}
 				
-				{#if ["display-settings"].indexOf(currentPage) >= 0}
-					<div class="page-wrap">
-						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row" transition:fade={{ delay: 0, duration: 100 }}>
+					{#if ["display-settings", "all-settings"].indexOf(currentPage) >= 0}
+						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row">
 							<div class="form-description"> Experimental Display Settings: </div>
 						
 							<Block class="block-decor">
@@ -157,7 +159,7 @@
 							</Block>
 						</form>
 						
-						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row" transition:fade={{ delay: 0, duration: 100 }}>
+						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row">
 							<div class="form-description"> Experimental Color Scheme: </div>
 							
 							<Block class="block-decor">
@@ -166,13 +168,10 @@
 								<Switch value={theme} slot="element"></Switch>
 							</Block>
 						</form>
-					</div>
-				{/if}
-				
-				{#if ["experimental-settings"].indexOf(currentPage) >= 0}
-					<div class="page-wrap">
+					{/if}
 
-						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row" transition:fade={{ delay: 0, duration: 100 }}>
+					{#if ["experimental-settings"].indexOf(currentPage) >= 0}
+						<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row">
 							<div class="form-description"> Experimental Color Scheme: </div>
 
 							<Block class="block-decor">
@@ -181,8 +180,8 @@
 								<Checkbox slot="element"></Checkbox>
 							</Block>
 						</form>
-					</div>
-				{/if}
+					{/if}
+				</div>
 				
 				
 			</x-scrollbox>
