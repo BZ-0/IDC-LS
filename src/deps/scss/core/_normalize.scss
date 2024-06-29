@@ -131,25 +131,26 @@
     
     //
     :where(.lucide) {
+        @extend .stretch;
+    
+        //
         display: block;
-        contain-intrinsic-width: 1.5rem;
-        contain-intrinsic-height: 1.5rem;
+        contain-intrinsic-width: 24px;
+        contain-intrinsic-height: 24px;
         contain: size;
         aspect-ratio: 1 / 1;
         pointer-events: none;
         position: relative;
         
         //
+        object-fit: contain;
+        object-position: center center;
+        
+        //
         inset: 0px;
         translate: 0px 0px;
         visibility: visible;
         opacity: 1;
-        
-        //
-        inline-size: auto;
-        inline-size: stretch;
-        block-size: auto;
-        block-size: stretch;
         
         //
         stroke: var(--current-glyph-color);
@@ -162,16 +163,7 @@
 
     //
     :where(canvas):is([is="w-canvas"]) {
-        min-inline-size: 100cqi;
-        min-block-size: 100cqb;
-        
-        //
-        inline-size: 100%;
-        block-size: 100%;
-        
-        //
-        inline-size: stretch;
-        block-size: stretch;
+        @extend .stretch;
         
         //
         aspect-ratio: auto;

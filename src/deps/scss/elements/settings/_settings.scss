@@ -101,18 +101,6 @@
             //
             .ls-options {
                 @extend .stretch;
-            
-                //
-                max-inline-size: stretch;
-                max-block-size: stretch;
-            
-                // stretch or moz-available works buggy
-                @-moz-document url-prefix() {
-                    inline-size: 100%;
-                    block-size: 100%;
-                    max-inline-size: 100%;
-                    max-block-size: 100%;
-                }
             }
             
             

@@ -26,6 +26,14 @@
         max-inline-size: stretch;
         max-block-size: none;
         max-block-size: stretch;
+        
+        // stretch or moz-available works buggy
+        @-moz-document url-prefix() {
+            inline-size: min(100%, 100cqi);
+            block-size: min(100%, 100cqb);
+            max-inline-size: min(100%, 100cqi);
+            max-block-size: min(100%, 100cqb);
+        }
     }
 
     //

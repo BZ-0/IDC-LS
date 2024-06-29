@@ -61,9 +61,9 @@
         }
         
         //rangeSlider
-        & > .icon-wrap  { grid-column: 1 / 1; grid-row: 1 / 1; inline-size: stretch; block-size: stretch; }
-        & > .label-box  { grid-column: 2 / 2; grid-row: 1 / 1; inline-size: stretch; block-size: stretch; justify-self: start; }
-        & > .in-element { grid-column: 3 / 3; grid-row: 1 / 1; inline-size: stretch; block-size: stretch; }
+        & > .icon-wrap  { @extend .stretch; grid-column: 1 / 1; grid-row: 1 / 1; }
+        & > .label-box  { @extend .stretch; grid-column: 2 / 2; grid-row: 1 / 1; justify-self: start; }
+        & > .in-element { @extend .stretch; grid-column: 3 / 3; grid-row: 1 / 1; }
         
         //
         & > .label-box {
