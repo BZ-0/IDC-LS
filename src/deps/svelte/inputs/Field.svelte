@@ -47,14 +47,20 @@
         if (field && onEdit) {
             listenChanges(field);
             importFromIcon(onEdit?.focusIconState);
-            reflectToField(field?.dataset?.name, "change");
-            
-            //
-            field.addEventListener("change", (ev)=>{ fieldToData(field?.dataset?.name); });
-            field.addEventListener("input", (ev)=>{ fieldToData(field?.dataset?.name); });
+            reflectToField(field.dataset.name, "change");
         }
     });
 </script>
 
 <!-- -->
-<input bind:this={field} value="" type="text" data-name={fieldName}>
+<script context="module">
+    </script>
+
+<!-- -->
+<input 
+    bind:this={field} 
+    value="" type="text" 
+    on:change={(ev)=>{ fieldToData(field?.dataset?.name)}} 
+    on:input={(ev)=>{ fieldToData(field?.dataset?.name)}}
+    data-name={fieldName}
+/>

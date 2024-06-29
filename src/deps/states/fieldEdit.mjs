@@ -43,7 +43,7 @@ export const reflectToField = (idOf, evName = "input", value = null) => {
         `input[data-name=\"${(idOf)}\"]`
     );
     if (onEdit && onEdit?.dataset?.name == idOf) {
-        if (value != null) {
+        if (value) {
             fieldsData.set(idOf, value);
         }
         onEdit.value = fieldsData.get(idOf) || "";
@@ -68,27 +68,6 @@ export const listenChanges = (field) => {
     if (!field) return;
     field.addEventListener("input", onInputChange);
     field.addEventListener("change", onInputChange);
-};
-
-//
-export const bindToFieldEdit = (input) => {
-    const id = input?.dataset?.edit || "";
-    if (!id) return;
-    
-    //
-    input?.addEventListener?.("change", (ev) => {
-        if (ev.target.dataset.edit == id) { 
-            reflectToField(id, "change", ev.target.value);
-        };
-    });
-    input?.addEventListener?.("input", (ev) => {
-        if (ev.target.dataset.edit == id) { 
-            reflectToField(id, "input", ev.target.value);
-        };
-    });
-    if (input && input.dataset.edit == id) {
-        reflectToField(id, "change", input.value);
-    }
 };
 
 //

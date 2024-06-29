@@ -1,5 +1,5 @@
 <script>
-    import { bindToFieldEdit, fieldEditWrite, whenTouch } from "@states/fieldEdit.mjs";
+    import { fieldEditWrite, reflectToField, whenTouch } from "@states/fieldEdit.mjs";
     import LucideIcon from '@svelte/decors/LucideIcon.svelte';
     import { onMount } from 'svelte';
     import { fade } from "svelte/transition";
@@ -12,8 +12,7 @@
     id.subscribe((v)=>{
         requestAnimationFrame(()=>{
             if (v && input) {
-                bindToFieldEdit(input); 
-                input.focus();
+                if (document.activeElement != input) { input.focus(); }
             }
         });
     });
@@ -127,11 +126,17 @@
     onMount(()=>{
         requestAnimationFrame(()=>{
             if (input) {
-                bindToFieldEdit(input); 
+                //indToFieldEdit(input); 
+                reflectToField(id, "change", input.value);
                 refocus(input);
             }
         });
     });
+</script>
+
+<!-- -->
+<script context="module">
+    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
 </script>
 
 <!-- -->
@@ -141,10 +146,18 @@
         bind:this={fieldEdit} 
         class="field-edit fixed" 
         data-edit={$id||""}
+        {...propsFilter($$props)}
     >
         <div class="field-content stretch solid apply-color-theme" style="grid-row: field-edit;">
             <div class="field-wrap solid apply-color-theme">
-                <input bind:this={input} type="text" data-edit={$id||""} bind:value={$value}/>
+                <input 
+                on:input={(ev) => { reflectToField(ev.target.dataset.edit, "input", ev.target.value); }}
+                on:change={(ev) => { reflectToField(ev.target.dataset.edit, "change", ev.target.value); }}
+                bind:value={$value}
+                bind:this={input} 
+                type="text" 
+                data-edit={$id||""} 
+            />
             </div>
             <div tabindex="-1" bind:this={copyButton} class="field-copy solid hl-1 hl-2h apply-color-theme pe-enable">
                 <LucideIcon name="copy" tabindex="-1" inert={true}></LucideIcon>

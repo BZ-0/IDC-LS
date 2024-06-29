@@ -32,11 +32,18 @@
     
 </script>
 
+<!-- -->
+<script context="module">
+    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+</script>
+
 {#if $iconItemId}
-
-    <div transition:fade={{ delay: 0, duration: 100 }} 
-        class="icon-edit solid apply-color-theme" data-icon-edit={$iconItemId}>
-
+    <div 
+        transition:fade={{ delay: 0, duration: 100 }} 
+        class="icon-edit solid apply-color-theme" 
+        data-icon-edit={$iconItemId}
+        {...propsFilter($$props)}
+    >
         <div class="edit-description"></div>
         <div class="fields">
             {#each currentFields as field}
@@ -50,7 +57,5 @@
             <button type="button" class="edit-delete  solid hl-2 apply-color-theme" data-action="delete-icon">Delete</button>
             <button type="button" class="edit-confirm solid hl-2 apply-color-theme" data-action="confirm-edit">Confirm</button>
         </div>
-
     </div>
-
 {/if}
