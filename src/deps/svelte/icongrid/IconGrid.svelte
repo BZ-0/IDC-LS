@@ -14,21 +14,22 @@
     let gridH = 0;
 
     //
-    onMount(()=>{
-        gridW = element?.offsetWidth;
-        gridH = element?.offsetHeight;
-
-        //
-        new ResizeObserver((entries)=>{
-            if (entries.length > 0) {
-                for (const entry of entries) {
-                    if (entry && entry.contentBoxSize) {
-                        gridW = element?.offsetWidth;
-                        gridH = element?.offsetHeight;
-                    }
+    const observer = new ResizeObserver((entries)=>{
+        if (entries.length > 0) {
+            for (const entry of entries) {
+                if (entry && entry.contentBoxSize) {
+                    element?.style.setProperty?.("--grid-w", gridW = element?.offsetWidth  || entry.contentBoxSize?.[0]?.inlineSize, "");
+                    element?.style.setProperty?.("--grid-h", gridH = element?.offsetHeight || entry.contentBoxSize?.[0]?.blockSize, "");
                 }
             }
-        }, {box: "content-box"}).observe(element);
+        }
+    }, {box: "content-box"})
+
+    //
+    onMount(()=>{
+        element?.style.setProperty?.("--grid-w", gridW = element?.offsetWidth, "");
+        element?.style.setProperty?.("--grid-h", gridH = element?.offsetHeight, "");
+        observer.observe(element);
     });
 </script>
 

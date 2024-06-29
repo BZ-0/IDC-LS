@@ -168,9 +168,6 @@
             @include cu.var-dependent(var(--theme-wallpaper-is-dark));
             
             //
-            rotate: calc(0deg - var(--pfrot, 0deg));
-            
-            //
             --icon-size: 4rem;
             --icon-size: min(100cqmin, 4rem);
 
@@ -205,7 +202,7 @@
 
             //
             will-change: translate, transform, --translate-x, --translate-y;
-            translate: var(--translate-x) var(--translate-y);
+            transform: rotate(calc(0deg - var(--pfrot, 0deg))) translate(var(--translate-x), var(--translate-y));
     
             //
             display: flex;
