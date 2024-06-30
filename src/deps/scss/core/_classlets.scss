@@ -306,4 +306,21 @@
         text-align: center;
     }
 
+    ///
+    .no-wrap {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: keep-all;
+        word-wrap: normal;
+    }
+    
+    //
+    .align-inline-left {
+        text-align: start;
+        justify-self: start;
+        justify-content: start;
+        justify-items: start;
+    }
+
 }

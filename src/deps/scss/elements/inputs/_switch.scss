@@ -2,34 +2,29 @@
 @use "@scss/core/classlets";
 @use "@scss/fonts/xo_caliburn" as dFont;
 @use "@scss/core/themed";
+@use "@scss/core/utils" as u;
 
 //
 @layer ls-inputs {
     :where(.ls-switch) {
         @extend .align-center;
         @extend .stretch;
-    
+
         //
         container-type: size;
         contain: none;
-    
-        //
-        overflow: visible;
-    
+
         //
         display: flex;
+        overflow: visible;
         position: relative;
         border-radius: 0.25rem;
-        
-        //
         box-sizing: border-box;
-        min-block-size: max-content;
-        min-inline-size: max-content;
-        block-size: 1.5rem;
-        inline-size: 5rem;
-        max-block-size: 2.5rem;
-        max-inline-size: none;
         aspect-ratio: 1 / 1;
+
+        //
+        @include u.clamped-width(max-content, 5rem, none);
+        @include u.clamped-height(max-content, 1.5rem, 2.5rem);
         
         //
         background-color: var(--current-surface-color);

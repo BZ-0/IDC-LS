@@ -1,6 +1,7 @@
 @use "@scss/color/colorvars" as cl;
 @use "@scss/color/colorutils" as cu;
 @use "@scss/core/classlets";
+@use "@scss/core/utils" as u;
 
 //
 @layer ls-decors {
@@ -40,7 +41,6 @@
             background-color: transparent;
             background-image: none;
             padding: 0.8rem;
-            text-align: start;
             pointer-events: none;
             box-sizing: border-box;
         }
@@ -62,20 +62,13 @@
         
         //rangeSlider
         & > .icon-wrap  { @extend .stretch; grid-column: 1 / 1; grid-row: 1 / 1; }
-        & > .label-box  { @extend .stretch; grid-column: 2 / 2; grid-row: 1 / 1; justify-self: start; }
+        & > .label-box  { @extend .stretch; grid-column: 2 / 2; grid-row: 1 / 1; }
         & > .in-element { @extend .stretch; grid-column: 3 / 3; grid-row: 1 / 1; }
         
         //
         & > .label-box {
-			justify-content: start;
-			text-align: start;
-			
-			//
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            word-break: keep-all;
-            word-wrap: normal;
+			@extend .align-inline-left;
+			@extend .no-wrap;
         }
         
         //
@@ -91,15 +84,10 @@
         
         //
         & > .icon-wrap > .icon-box {
-            min-block-size: 2rem;
-            max-block-size: stretch;
-            
-            min-inline-size: 2rem;
-            max-inline-size: stretch;
-            
-            block-size: max-content;
-            inline-size: max-content;
-            
+            @include u.clamped-width(2rem, max-content, stretch);
+            @include u.clamped-height(2rem, max-content, stretch);
+
+            //
             padding: 0.25rem;
             aspect-ratio: 1 / 1;
         }

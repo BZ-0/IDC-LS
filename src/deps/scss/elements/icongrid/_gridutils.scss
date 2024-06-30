@@ -1,6 +1,7 @@
 @use "@scss/core/classlets";
 @use "@scss/color/colorutils" as cu;
 @use "@scss/color/colorvars" as cl;
+@use "@scss/core/utils" as u;
 
 //
 @use "./gridmisc.scss" as gm;
@@ -107,15 +108,14 @@
         background-color: transparent;
         touch-action: none !important; 
     
-        //
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        word-break: keep-all;
-        word-wrap: normal;
+        @extend .no-wrap;
         
         //
         & > span {
             @include cu.var-dependent(var(--theme-wallpaper-is-dark));
+        
+            //
+            @extend .no-wrap;
         
             //
             background-color: transparent;
@@ -131,12 +131,6 @@
             
             //
             color: var(--current-surface-color);
-            
-            //
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            word-break: keep-all;
-            word-wrap: normal;
         }
     }
 
@@ -166,6 +160,8 @@
             @extend .pe-enable;
             @extend .align-center;
             @include cu.var-dependent(var(--theme-wallpaper-is-dark));
+            @include u.clamped-width(max-content, var(--icon-size), var(--icon-size));
+            @include u.clamped-height(max-content, var(--icon-size), var(--icon-size));
             
             //
             --icon-size: 4rem;
@@ -180,16 +176,6 @@
             aspect-ratio: 1 / 1;
             
             //
-            min-inline-size: max-content;
-            min-block-size: max-content;
-            inline-size: var(--icon-size);
-            block-size: var(--icon-size);
-            max-inline-size: var(--icon-size);
-            max-block-size: var(--icon-size);
-            
-            border-radius: calc(var(--icon-size) * 0.5);
-
-            //
             --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)};
             --theme-surface-color: #{cu.theme-mod-up(cl.$baseColor, 90%)};
 
@@ -198,6 +184,7 @@
             background-color: var(--current-surface-color);
             
             //
+            border-radius: calc(var(--icon-size) * 0.5);
             touch-action: none !important; 
 
             //

@@ -1,6 +1,7 @@
 @use "@scss/core/classlets";
 @use "@scss/color/colorvars" as cl;
 @use "@scss/color/colorutils" as cu;
+@use "@scss/core/utils" as u;
 
 //
 @layer ls-inputs {
@@ -22,11 +23,10 @@
             @extend .stretch;
             
             //
-            background-color: var(--current-surface-color);
+            @include u.clamped-height(var(--block-size), stretch, var(--block-size));
             
             //
-            min-block-size: var(--block-size);
-            max-block-size: var(--block-size);
+            background-color: var(--current-surface-color);
         }
         
         //
@@ -48,8 +48,7 @@
             color: var(--current-glyph-color);
             
             //
-            min-block-size: var(--block-size);
-            max-block-size: var(--block-size);
+            @include u.clamped-height(var(--block-size), stretch, var(--block-size));
         }
         
         //
@@ -64,8 +63,7 @@
             background: transparent;
             
             //
-            min-block-size: var(--block-size);
-            max-block-size: var(--block-size);
+            @include u.clamped-height(var(--block-size), stretch, var(--block-size));
         }
         
         //

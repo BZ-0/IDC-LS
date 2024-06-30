@@ -1,4 +1,5 @@
 @use "@scss/core/classlets";
+@use "@scss/core/utils" as u;
 @use "@scss/fonts/xo_caliburn" as dFont;
 
 //
@@ -6,25 +7,11 @@
     .icon-edit {
         --rx: 0px;
         --ry: 0px;
-
-        //
-        z-index: 9999;
-
-        //
-        //--rx: calc(var(--click-x, 0) * 1px - 50%);
-        //--ry: calc(var(--click-y, 0) * 1px - 50%);
-
-        min-block-size: max-content;
-        min-inline-size: max-content;
         
         //
-        inline-size: 24rem;
-        block-size: max-content;
-        
-        //
-        max-inline-size: stretch;
-        max-block-size: stretch;
-        
+        @include u.clamped-width(max-content, 24rem, stretch);
+        @include u.clamped-height(max-content, max-content, stretch);
+
         //
         --translate-x: calc(calc(50cqi - 50%) + var(--rx));
         --translate-y: calc(calc(50cqb - 50%) + var(--ry));
@@ -32,19 +19,20 @@
         //
         translate: var(--translate-x) var(--translate-y);
         box-shadow: 0px 0px 1rem 1px #00000070;
+        
+        //
+        display: flex;
+        padding: 1rem;
+        z-index: 9999;
+        overflow: hidden;
 
         //
         inset: 0px;
         position: fixed;
-
-        //
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
         
         //
+        flex-direction: column;
         border-radius: 0.25rem;
-        overflow: hidden;
         gap: 1rem;
         
         //
@@ -61,13 +49,14 @@
                 @extend .stretch;
                 @extend .align-center;
                 
+                //
+                @include u.clamped-height(2rem, max-content, stretch);
+                
+                //
                 display: flex;
-            
-                min-block-size: 2rem;
-                block-size: max-content;
-                max-block-size: stretch;
                 border-radius: 0.125rem;
                 
+                //
                 cursor: pointer;
             }
         }
@@ -116,16 +105,11 @@
                         @extend .stretch;
                         @extend .align-center;
                         @extend .pe-enable;
+                        @extend .align-inline-left;
                         
                         //
                         padding-inline: 0.5rem;
                         padding-block: 0.25rem;
-                        
-                        //
-                        text-align: start;
-                        justify-self: start;
-                        justify-content: start;
-                        justify-items: start;
                         
                         ///
                         display: flex;
@@ -139,27 +123,17 @@
                     }
                 }
                 
+                //
                 .edit-label {
                     @extend .stretch;
                     @extend .align-center;
+                    @extend .align-inline-left;
+                    @extend .no-wrap;
 
                     //
                     display: flex;
                     min-block-size: 2rem;
                     block-size: max-content;
-                    
-                    //
-                    justify-self: start;
-                    justify-content: start;
-                    justify-items: start;
-                    text-align: start;
-                    
-                    //
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    word-break: keep-all;
-                    word-wrap: normal;
                 }
             }
         }

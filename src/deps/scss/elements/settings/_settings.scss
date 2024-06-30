@@ -2,6 +2,7 @@
 @use "@scss/color/colorutils" as cu;
 @use "@scss/core/classlets";
 @use "@scss/core/themed";
+@use "@scss/core/utils" as u;
 
 //
 @use "./windowed";
@@ -113,36 +114,21 @@
             .page-wrap {
                 inset: 0px;
                 position: absolute;
-            
+
                 //
-                min-block-size: stretch;
-                min-inline-size: stretch;
-                
-                //
-                block-size: max-content;
-                inline-size: stretch;
-                
-                //
-                max-block-size: none;
-                max-inline-size: stretch;
+                @include u.clamped-width(stretch, stretch, stretch);
+                @include u.clamped-height(stretch, max-content, none);
             }
             
             //
             .opt-label {//
                 @extend .align-center;
                 @extend .stretch;
-            
-                //
-                display: flex;
-                justify-content: start;
-                text-align: start;
+                @extend .no-wrap;
+                @extend .align-inline-left;
                 
                 //
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                word-break: keep-all;
-                word-wrap: normal;
+                display: flex;
             }
 
             //

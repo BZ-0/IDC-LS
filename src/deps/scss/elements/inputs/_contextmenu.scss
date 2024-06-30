@@ -1,6 +1,8 @@
 @use "@scss/core/classlets";
 @use "@scss/fonts/xo_caliburn" as dFont;
+@use "@scss/core/utils" as u;
 
+//
 @layer ls-inputs {
 
     .ls-contextmenu {
@@ -38,17 +40,11 @@
 
         //
         translate: var(--translate-x) var(--translate-y);
-
-        //
-        min-inline-size: max-content;
-        min-block-size: max-content;
         box-shadow: 0px 0px 1rem 1px #00000070;
-
+        
         //
-        max-inline-size: 80cqi;
-        max-block-size: 80cqb;
-        inline-size: 16rem;
-        block-size: max-content;
+        @include u.clamped-width(max-content, 16rem, 80cqi);
+        @include u.clamped-height(max-content, max-content, 80cqb);
 
         //
         ul {
@@ -91,6 +87,8 @@
                 & > .icon-decor {
                     @extend .stretch;
                     @extend .align-center;
+                    
+                    //
                     justify-self: center;
                     align-self: center;
                 }
@@ -130,18 +128,11 @@
                 }
                 
                 & > .ctx-label {
-                    display: flex;
-                    text-align: start;
-                    justify-content: start;
-                    justify-items: start;
-                    justify-self: start;
+                    @extend .align-inline-left;
+                    @extend .no-wrap;
                     
                     //
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    word-break: keep-all;
-                    word-wrap: normal;
+                    display: flex;
                 }
                 
                 & > .icon-wrap {
