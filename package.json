@@ -26,6 +26,7 @@
         "eslint-config-prettier": "^9.1.0",
         "fastify": "^4.28.0",
         "glob": "^10.4.2",
+        "jsox": "^1.2.119",
         "lucide-svelte": "^0.395.0",
         "rimraf": "^5.0.7",
         "sass": "^1.77.6",
