@@ -5,6 +5,9 @@ import { settings } from "@states/settings.mjs"
 import { writable } from 'svelte/store'
 
 //
+import { exportSettings, importSettings, pickBinaryFromFS, saveBinaryToFS } from "@states/importExport.mjs"
+
+//
 export let onFocus = {
     iconItem: focusIconForEdit(""),
     iconItemId: writable(""),
@@ -54,6 +57,16 @@ export const pickWallpaperImage = async ()=>{
 
 //
 export const actionRegistry = new Map([
+    [
+        "export-settings", async ()=>{
+            await saveBinaryToFS((await exportSettings().catch(console.warn.bind(console))) || "").catch(console.warn.bind(console))
+        }
+    ],
+    [
+        "import-settings", async ()=>{
+            await importSettings((await pickBinaryFromFS().catch(console.warn.bind(console))) || "").catch(console.warn.bind(console))
+        }
+    ],
     [
         "open-settings", (from, event) => {
             location.hash = "#settings";

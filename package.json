@@ -21,6 +21,7 @@
         "@vitejs/plugin-legacy": "^5.4.1",
         "@xl-soft/ui": "^2.2.7-stable",
         "autoprefixer": "^10.4.16",
+        "cbor-x": "^1.5.9",
         "culori": "^4.0.1",
         "eslint-config-prettier": "^9.1.0",
         "fastify": "^4.28.0",
@@ -40,5 +41,8 @@
         "vite-plugin-compression2": "^1.1.1",
         "vite-plugin-pwa": "^0.20.0",
         "vite-plugin-static-copy": "^1.0.5"
+    },
+    "devDependencies": {
+        "vite-plugin-node-polyfills": "^0.22.0"
     }
 }

@@ -10,13 +10,13 @@ import sveltePreprocess from "svelte-preprocess"
 import { defineConfig, type UserConfig } from "vite"
 import VitePluginBrowserSync from 'vite-plugin-browser-sync'
 import prefetchPlugin from 'vite-plugin-bundle-prefetch'
+import { compression } from 'vite-plugin-compression2'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import { VitePWA } from "vite-plugin-pwa"
 import { viteStaticCopy } from "vite-plugin-static-copy"
 import certificate from "./https/certificate.mjs"
 import pkg from "./package.json"
 import tsconfig from "./tsconfig.json"
-import { compression } from 'vite-plugin-compression2'
-import { analyzer } from 'vite-bundle-analyzer'
 
 //
 const __dirname = import.meta.dirname;
@@ -54,6 +54,7 @@ const config = <UserConfig>defineConfig({
 
     plugins: [
         //analyzer(),
+        nodePolyfills(),
         compression({
             algorithm: 'brotliCompress'
         }),

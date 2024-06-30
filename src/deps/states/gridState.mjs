@@ -70,6 +70,30 @@ makeWritableProperty(currentState, "iconItems", {
             // surrogate field - used when edit
             //parent: "home-page"
         },
+        {
+            id: "export",
+            icon: "download",
+            cellX: 1,
+            cellY: 0,
+            action: "export-settings",
+            href: "#",
+            label: "Export Settings",
+
+            // surrogate field - used when edit
+            //parent: "home-page"
+        },
+        {
+            id: "import",
+            icon: "upload",
+            cellX: 2,
+            cellY: 0,
+            action: "import-settings",
+            href: "#",
+            label: "Import Settings",
+
+            // surrogate field - used when edit
+            //parent: "home-page"
+        },
     ]),
     getter: makeKeyMap,
     setter(v) {
@@ -85,7 +109,7 @@ makeWritableProperty(currentState, "iconItems", {
 makeWritableProperty(currentState, "iconLists", {
     initial: exKey([
         ...(JSON.parse(localStorage.getItem("@lists") || "[]") || []),
-        ["home-page", ["github"]],
+        ["home-page", ["github", "import", "export"]],
     ]),
     getter: makeListMap,
     setter(v) {
