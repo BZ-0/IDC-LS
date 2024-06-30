@@ -33,6 +33,7 @@
         //
         & > :where(.icon-wrap, .label-box, .in-element) {
             @extend .align-center;
+            @extend .pe-none;
             
             //
             box-sizing: border-box;
@@ -41,7 +42,6 @@
             background-color: transparent;
             background-image: none;
             padding: 0.8rem;
-            pointer-events: none;
             box-sizing: border-box;
         }
         

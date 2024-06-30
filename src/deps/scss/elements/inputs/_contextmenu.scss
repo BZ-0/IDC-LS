@@ -50,6 +50,7 @@
         ul {
             @extend .stretch;
             @extend .align-center;
+            @extend .pe-none;
 
             //
             padding: 0px;
@@ -62,7 +63,6 @@
             min-inline-size: max-content;
             min-block-size: max-content;
             flex-direction: column;
-            pointer-events: none;
             
             //
             li {
@@ -97,11 +97,11 @@
                 & > :where(.ctx-label, .icon-wrap) {
                     @extend .stretch;
                     @extend .align-center;
+                    @extend .pe-none;
                     
                     //
                     justify-self: center;
                     align-self: center;
-                    pointer-events: none;
                     
                     //
                     display: flex;

@@ -93,12 +93,12 @@
                 .field-wrap {
                     @extend .stretch;
                     @extend .align-center;
+                    @extend .pe-none;
                     
                     //
                     display: flex;
                     border-radius: 0.125rem;
                     overflow: hidden;
-                    pointer-events: none;
                     
                     //
                     & input {

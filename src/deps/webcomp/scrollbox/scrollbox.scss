@@ -1,5 +1,6 @@
 @use "@scss/color/colorvars" as cl;
 @use "@scss/color/colorutils" as cu;
+@use "@scss/core/classlets";
 
 //
 @property --percent {
@@ -73,12 +74,14 @@
 
         //
         :where(.scrollbar-x, .scrollbar-y) {
+            @extend .pe-none;
+        
+            //
             position: fixed;
             display: block;
             inset: 0px;
 
             //
-            pointer-events: none;
             user-select: none;
 
             //
@@ -97,6 +100,9 @@
 
             // only for debug
             & :where(.thumb) {
+                @extend .pe-enable;
+                //
+            
                 position: static;
                 display: block;
 
@@ -105,11 +111,7 @@
                 background-color: #{cu.theme-mod-up(cl.$baseColor, 60%)};
 
                 //
-                pointer-events: auto;
-                pointer-events: bounding-box;
                 user-select: none;
-                
-                //
                 touch-action: none;
 
                 //

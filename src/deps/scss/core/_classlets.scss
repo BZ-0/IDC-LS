@@ -165,6 +165,9 @@
         @extend .pointer-events-none;
     }
     
+    //
+    
+    
     .vp-vars {
         --vp-i-size: 100dvi;
         --vp-b-size: 100dvb;
@@ -304,9 +307,10 @@
         align-content: center;
         align-items: center;
         text-align: center;
+        vertical-align: center;
     }
 
-    ///
+    //
     .no-wrap {
         white-space: nowrap;
         overflow: hidden;

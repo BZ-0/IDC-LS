@@ -76,10 +76,7 @@
         .titlebar {
             @extend .align-center;
             @extend .stretch;
-            
-            //
-            pointer-events: auto;
-            pointer-events: bounding-box;
+            @extend .pe-enable;
             
             //
             gap: 0px;
@@ -123,6 +120,7 @@
                 @extend .align-center;
                 @extend .no-wrap;
                 @extend .align-inline-left;
+                @extend .pe-enable;
 
                 //
                 display: flex;
@@ -133,10 +131,6 @@
                 padding-inline: 1rem;
                 min-inline-size: max-content;
                 cursor: grab;
-                
-                //
-                pointer-events: auto;
-                pointer-events: bounding-box;
             }
             
             //
