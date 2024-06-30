@@ -106,6 +106,8 @@ const config = <UserConfig>defineConfig({
         headers: {
             "Service-Worker-Allowed": "/",
             "Permissions-Policy": "fullscreen=*, window-management=*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cross-Origin-Opener-Policy": "same-origin"
         }
     },
     esbuild: {
