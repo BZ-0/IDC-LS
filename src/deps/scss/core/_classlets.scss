@@ -302,12 +302,19 @@
     
     //
     .align-center {
+        // FLEX/GRID
         justify-content: center;
         justify-items: center;
         align-content: center;
         align-items: center;
+        
+        // Legacy
         text-align: center;
         vertical-align: center;
+        
+        // EXPERIMENTAL!
+        place-content: center;
+        place-items: center;
     }
 
     //
