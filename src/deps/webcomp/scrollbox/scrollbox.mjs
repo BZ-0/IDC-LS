@@ -18,7 +18,7 @@ class ScrollBar {
         const onChanges = () => {
             const thumbSize =
                 this.scrollbar[["offsetWidth", "offsetHeight"][axis]] *
-                Math.max(this.holder[["offsetWidth", "offsetHeight"][axis]] / this.holder[["scrollWidth", "scrollHeight"][axis]], 1);
+                Math.min(this.holder[["offsetWidth", "offsetHeight"][axis]] / this.holder[["scrollWidth", "scrollHeight"][axis]], 1);
 
             //
             const percentInPx =
@@ -114,6 +114,8 @@ class ScrollBar {
         document.addEventListener("pointercancel", stopScroll, {});
 
         //
+        this.holder.addEventListener("pointerleave", onChanges);
+        this.holder.addEventListener("pointerenter", onChanges);
         this.holder.addEventListener("scroll", onChanges);
         new ResizeObserver((entries) => {
             if (entries) {
