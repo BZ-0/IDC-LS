@@ -76,6 +76,7 @@
 
         //
         touch-action: none !important; 
+        overflow: visible;
         
         //
         min-inline-size: max-content;
@@ -104,13 +105,17 @@
     //
     .grid-item-label {
         @extend .align-center;
+        @extend .no-wrap;
+        
+        //
         display: flex;
     
         //
         background-color: transparent;
         touch-action: none !important; 
     
-        @extend .no-wrap;
+        //
+        overflow: visible;
         
         //
         & > span {
