@@ -1,5 +1,8 @@
 {
     "imports": {
+        "@orion": "./src/deps/js/orion",
+        "@ax": "./src/deps/js/ax",
+
         "@src": "./src",
         "@apps": "./src/apps",
         "@complex": "./src/deps/complex",

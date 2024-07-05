@@ -1,9 +1,9 @@
-import { sourceColorFromImage } from "@js/workarounds/color-mod.mjs"
-import { hexFromArgb } from "@material/material-color-utilities"
-import { formatCss, formatHex, interpolate, oklch, parse } from "culori"
+import { sourceColorFromImage } from "@js/workarounds/color-mod.mjs";
+import { hexFromArgb } from "@material/material-color-utilities";
+import { formatCss, formatHex, interpolate, oklch, parse } from "culori";
 
 //
-import { setStyleRule } from "./stylework.mjs"
+import { setStyleRule } from "../js/orion/stylework.mjs";
 
 //
 export const provide = async (path = "", rw = false) => {
@@ -47,12 +47,13 @@ let surfaceColorI = {};
 let surfaceColorH = "#FFFFFF";
 let surfaceColor = "#FFFFFF";
 let chromaMod = {};
-let cssIsDark = parseInt(localStorage.getItem("--theme-wallpaper-is-dark") || "0") || 0;
+let cssIsDark =
+    parseInt(localStorage.getItem("--theme-wallpaper-is-dark") || "0") || 0;
 
 //
 setStyleRule(":host, :root, :scope, :where(*)", {
     "--theme-base-color": baseColor,
-    "--theme-wallpaper-is-dark": cssIsDark
+    "--theme-wallpaper-is-dark": cssIsDark,
 });
 
 //
@@ -133,7 +134,7 @@ export const colorScheme = async (blob) => {
     if (baseColor) {
         setStyleRule(":host, :root, :scope, :where(*)", {
             "--theme-base-color": baseColor,
-            "--theme-wallpaper-is-dark": cssIsDark
+            "--theme-wallpaper-is-dark": cssIsDark,
         });
 
         //
@@ -158,7 +159,8 @@ window.addEventListener("wallpaper", (ev) => {
     if (blob)
         colorScheme(blob)
             .then(() => {
-                const filename = "/opfs?path=images/" + (blob.name || "wallpaper");
+                const filename =
+                    "/opfs?path=images/" + (blob.name || "wallpaper");
                 provide(filename, true)
                     .then(async (fw) => {
                         localStorage.setItem("@wallpaper", filename);
@@ -170,7 +172,6 @@ window.addEventListener("wallpaper", (ev) => {
             })
             .catch(console.warn.bind(console));
 });
-
 
 //
 /*

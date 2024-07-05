@@ -3,6 +3,9 @@
 @use "@scss/core/colors";
 @use "@scss/core/themed";
 
+// WebComp Mods
+@use "@scss/webcomp/scrollbox";
+
 // Svelte Components
 @use "@scss/elements/icongrid/gridutils";
 @use "@scss/elements/settings/settings";

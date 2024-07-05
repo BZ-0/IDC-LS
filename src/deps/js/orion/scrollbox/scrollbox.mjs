@@ -1,5 +1,5 @@
-import html from "./scrollbox.html?raw"
-import styles from "./scrollbox.scss?inline"
+import styles from "./scrollbox.css?inline";
+import html from "./scrollbox.html?raw";
 
 //
 class ScrollBar {
@@ -18,7 +18,11 @@ class ScrollBar {
         const onChanges = () => {
             const thumbSize =
                 this.scrollbar[["offsetWidth", "offsetHeight"][axis]] *
-                Math.min(this.holder[["offsetWidth", "offsetHeight"][axis]] / this.holder[["scrollWidth", "scrollHeight"][axis]], 1);
+                Math.min(
+                    this.holder[["offsetWidth", "offsetHeight"][axis]] /
+                        this.holder[["scrollWidth", "scrollHeight"][axis]],
+                    1
+                );
 
             //
             const percentInPx =
@@ -27,7 +31,7 @@ class ScrollBar {
 
             // @ts-ignore
             this.scrollbar.style.setProperty("--thumbSize", thumbSize, "");
-            
+
             // @ts-ignore
             this.scrollbar.style.setProperty("--percentInPx", percentInPx, "");
 
@@ -53,7 +57,7 @@ class ScrollBar {
 
             //
             this.holder.dispatchEvent(event);
-            
+
             //
             if (Math.abs(percentInPx) < 1) {
                 this.scrollbar.style.setProperty("visibility", "collapse", "");
@@ -122,7 +126,7 @@ class ScrollBar {
                 onChanges();
             }
         }).observe(this.holder, { box: "content-box" });
-        
+
         //
         addEventListener("resize", onChanges);
         requestAnimationFrame(onChanges);

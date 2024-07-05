@@ -6,6 +6,9 @@
         "target": "esnext",
         "baseUrl": ".",
         "paths": {
+            "@orion": ["./src/deps/js/orion"],
+            "@ax": ["./src/deps/js/ax"],
+
             "@src": ["./src"],
             "@apps": ["./src/apps"],
             "@deps": ["./src/deps"],

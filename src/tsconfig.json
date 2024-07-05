@@ -3,6 +3,10 @@
     "compilerOptions": {
         "paths": {
             "@src": ["./"],
+
+            "@orion": ["./deps/js/orion"],
+            "@ax": ["./deps/js/ax"],
+
             "@deps": ["./deps"],
             "@apps": ["./apps"],
             "@scss": ["./deps/scss"],
