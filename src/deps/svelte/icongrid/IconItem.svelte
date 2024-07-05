@@ -38,24 +38,35 @@
     let gestureControl = null;//new AxGesture(handler);
 
     //
+    const observer = new MutationObserver((mutationsList, observer)=>{
+        for (let mutation of mutationsList) {
+            if (mutation.type == "childList") {
+                const validOf = Array.from(mutation.addedNodes).filter((n)=>(n == handler));
+                for (const el of validOf) {
+                    gestureControl = new AxGesture(handler);
+                    gestureControl.longPress({
+                        anyPointer: true,
+                        mouseImmediate: true,
+                        minHoldTime: 60 * 3600,
+                        maxHoldTime: 100
+                    }, longPress);
+                }
+            }
+        }
+    });
+    
+    //
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    //
     onMount(()=>{
         setCellPosition();
         
         // currently, you can't un-use iconItem.pointerId, or else lost multi-touch drag...
         onmount?.(element, iconItem);
-
-        //
-        requestAnimationFrame(()=>{
-            if (handler) {
-                gestureControl = new AxGesture(handler);
-                gestureControl.longPress({
-                    anyPointer: true,
-                    mouseImmediate: true,
-                    minHoldTime: 60 * 3600,
-                    maxHoldTime: 100
-                }, longPress);
-            }
-        });
 
         //
         element.addEventListener("m-dragstart", (ev)=>{

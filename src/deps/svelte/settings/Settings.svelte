@@ -72,21 +72,34 @@
 
 	//
 	let gestureControl = null;
+
+    //
+    const observer = new MutationObserver((mutationsList, observer)=>{
+        for (let mutation of mutationsList) {
+            if (mutation.type == "childList") {
+                const validOf = Array.from(mutation.addedNodes).filter((n)=>(n == settingsEl));
+                for (const el of validOf) {
+					gestureControl = new AxGesture(settingsEl);
+					gestureControl.draggable({
+						handler: settingsEl.querySelector(".title-label")
+					});
+                }
+            }
+        }
+    });
+    
+    //
+    observer.observe(document.body, {
+		childList: true,
+		subtree: true
+	});
+
+	//
 	onMount(()=>{
 		// default grid-page
 		if ((settingsEl?.clientWidth || 0) >= 96*9) {
 			currentPage = "grid-settings";
 		}
-		
-		//
-		requestAnimationFrame(()=>{
-			if (settingsEl) {
-				gestureControl = new AxGesture(settingsEl);
-				gestureControl.draggable({
-					handler: settingsEl.querySelector(".title-label")
-				});
-			}
-		});
 	});
 </script>
 
