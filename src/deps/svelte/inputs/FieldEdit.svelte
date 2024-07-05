@@ -1,8 +1,8 @@
 <script>
-    import { fieldEditWrite, reflectToField, whenTouch } from "@states/fieldEdit.mjs";
+    import {fieldEditWrite, reflectToField, whenTouch} from "@states/fieldEdit.mjs";
     import LucideIcon from '@svelte/decors/LucideIcon.svelte';
-    import { onMount } from 'svelte';
-    import { fade } from "svelte/transition";
+    import {onMount} from 'svelte';
+    import {fade} from "svelte/transition";
 
     //
     let {id, value} = fieldEditWrite;
@@ -136,7 +136,7 @@
 
 <!-- -->
 <script context="module">
-    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+    import {propsFilter} from "@unite/utils/utils.mjs";
 </script>
 
 <!-- -->

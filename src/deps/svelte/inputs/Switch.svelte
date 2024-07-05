@@ -1,7 +1,7 @@
 <script>
     import LucideIcon from '@svelte/decors/LucideIcon.svelte';
-    import { onMount } from 'svelte';
-    import { writable } from "svelte/store";
+    import {onMount} from 'svelte';
+    import {writable} from "svelte/store";
 
     //
     export let fieldName = "";
@@ -25,7 +25,7 @@
 
 <!-- -->
 <script context="module">
-    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+    import {propsFilter} from "@unite/utils/utils.mjs";
 </script>
 
 <!-- -->

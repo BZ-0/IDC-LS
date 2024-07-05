@@ -1,5 +1,5 @@
 <script context="module">
-    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+    import {propsFilter} from "@unite/utils/utils.mjs";
 </script>
 
 <div class="block-decor solid" {...propsFilter($$props)}>

@@ -1,151 +1,144 @@
 //
+import {getCorrectOrientation} from "@unite/utils/utils.mjs";
+
+//
 export const makeArgs = (
-	iconItem,
-	iconItems,
-	gridPage,
-	columnsAndRows,
-	iconLists,
-	iconList
+    iconItem,
+    iconItems,
+    gridPage,
+    columnsAndRows,
+    iconLists,
+    iconList
 ) => {
-	return {
-		gridPage: document.querySelector(
-			`.icon-grid[data-id="${gridPage.id}"]`
-		),
-		iconList: (iconList ?? gridPage.iconList),
-		iconItems,
-		iconLists,
-		iconItem,
-		columnsAndRows,
-	};
+    return {
+        gridPage: document.querySelector(
+            `.icon-grid[data-id="${gridPage.id}"]`
+        ),
+        iconList: iconList ?? gridPage.iconList,
+        iconItems,
+        iconLists,
+        iconItem,
+        columnsAndRows,
+    };
 };
 
 //
 const or_mod = {
-	"landscape-primary": [1, 1, 1],
-	"landscape-secondary": [1, 1, 1],
-	"portrait-primary": [1, 1, 0],
-	"portrait-secondary": [-1, -1, 0],
+    "landscape-primary": [1, 1, 1],
+    "landscape-secondary": [1, 1, 1],
+    "portrait-primary": [1, 1, 0],
+    "portrait-secondary": [-1, -1, 0],
 };
 
 //
 export const getParent = (e) => {
-	const parent = e.parentNode || e.parentElement || e?.getRootNode?.()?.host;
-	return parent.shadowRoot && e.slot != null
-		? parent.shadowRoot.querySelector(
-				e.slot ? `slot[name=\"${e.slot}\"]` : `slot:not([name])`
-		  ).parentNode
-		: parent;
-};
-
-//
-export const getCorrectOrientation = () => {
-	let orientationType = screen.orientation.type;
-	if (matchMedia("(orientation: portrait)").matches) {
-		orientationType = orientationType.replace("landscape", "portrait");
-	} else if (matchMedia("(orientation: landscape)").matches) {
-		orientationType = orientationType.replace("portrait", "landscape");
-	}
-	return orientationType;
+    const parent = e.parentNode || e.parentElement || e?.getRootNode?.()?.host;
+    return parent.shadowRoot && e.slot != null
+        ? parent.shadowRoot.querySelector(
+              e.slot ? `slot[name=\"${e.slot}\"]` : `slot:not([name])`
+          ).parentNode
+        : parent;
 };
 
 //
 export const fixCell = (
-	{ gridPage, iconItem, iconList, columnsAndRows, iconItems, iconLists },
-	$preCell
+    { gridPage, iconItem, iconList, columnsAndRows, iconItems, iconLists },
+    $preCell
 ) => {
-	const items = iconItems;
-	const preCell = { ...$preCell }; // make non-conflict copy
-	const icons = iconList?.map((id) => iconItems.get(id)).filter(m=>!!m) || [];
+    const items = iconItems;
+    const preCell = { ...$preCell }; // make non-conflict copy
+    const icons =
+        iconList?.map((id) => iconItems.get(id)).filter((m) => !!m) || [];
 
-	//
-	const checkBusy = (cell) => {
-		return icons
-			.filter((e) => (e != iconItem && e.id != iconItem.id))
-			.find((one) => {
-				return one.cellX == cell.x && one.cellY == cell.y;
-			});
-	};
+    //
+    const checkBusy = (cell) => {
+        return icons
+            .filter((e) => e != iconItem && e.id != iconItem.id)
+            .find((one) => {
+                return one.cellX == cell.x && one.cellY == cell.y;
+            });
+    };
 
-	//
-	if (!checkBusy(preCell)) {
-		iconItem.cellX = preCell.x;
-		iconItem.cellY = preCell.y;
-		return { x: iconItem.cellX, y: iconItem.cellY };
-	}
+    //
+    if (!checkBusy(preCell)) {
+        iconItem.cellX = preCell.x;
+        iconItem.cellY = preCell.y;
+        return { x: iconItem.cellX, y: iconItem.cellY };
+    }
 
-	//
-	const columns = columnsAndRows[0] || 4;
-	const rows = columnsAndRows[1] || 8;
+    //
+    const columns = columnsAndRows[0] || 4;
+    const rows = columnsAndRows[1] || 8;
 
-	//
-	const variants = [
-		{ x: preCell.x + 1, y: preCell.y },
-		{ x: preCell.x - 1, y: preCell.y },
-		{ x: preCell.x, y: preCell.y + 1 },
-		{ x: preCell.x, y: preCell.y - 1 },
-	].filter((v) => {
-		return v.x >= 0 && v.x < columns && v.y >= 0 && v.y < rows;
-	});
+    //
+    const variants = [
+        { x: preCell.x + 1, y: preCell.y },
+        { x: preCell.x - 1, y: preCell.y },
+        { x: preCell.x, y: preCell.y + 1 },
+        { x: preCell.x, y: preCell.y - 1 },
+    ].filter((v) => {
+        return v.x >= 0 && v.x < columns && v.y >= 0 && v.y < rows;
+    });
 
-	//
-	const suitable = variants.find((v) => !checkBusy(v));
-	if (suitable) {
-		iconItem.cellX = suitable.x;
-		iconItem.cellY = suitable.y;
-		return { x: iconItem.cellX, y: iconItem.cellY };
-	}
+    //
+    const suitable = variants.find((v) => !checkBusy(v));
+    if (suitable) {
+        iconItem.cellX = suitable.x;
+        iconItem.cellY = suitable.y;
+        return { x: iconItem.cellX, y: iconItem.cellY };
+    }
 
-	//
-	let exceed = 0;
-	let busy = checkBusy(preCell);
-	while (busy && exceed++ < columns * rows) {
-		if (!busy) {
-			iconItem.cellX = preCell.x;
-			iconItem.cellY = preCell.y;
-			return { x: iconItem.cellX, y: iconItem.cellY };
-		}
+    //
+    let exceed = 0;
+    let busy = checkBusy(preCell);
+    while (busy && exceed++ < columns * rows) {
+        if (!busy) {
+            iconItem.cellX = preCell.x;
+            iconItem.cellY = preCell.y;
+            return { x: iconItem.cellX, y: iconItem.cellY };
+        }
 
-		//
-		preCell.x++;
-		if (preCell.x >= columns) {
-			preCell.x = 0;
-			preCell.y++;
+        //
+        preCell.x++;
+        if (preCell.x >= columns) {
+            preCell.x = 0;
+            preCell.y++;
 
-			//
-			if (preCell.y >= rows) {
-				preCell.y = 0;
-			}
-		}
+            //
+            if (preCell.y >= rows) {
+                preCell.y = 0;
+            }
+        }
 
-		//
-		busy = checkBusy(preCell);
-	}
-	
-	return preCell;
+        //
+        busy = checkBusy(preCell);
+    }
+
+    return preCell;
 };
 
 //
 CSS?.registerProperty?.({
-	name: "--translate-x",
-	syntax: "<length-percentage>",
-	inherits: true,
-	initialValue: "0px",
+    name: "--translate-x",
+    syntax: "<length-percentage>",
+    inherits: true,
+    initialValue: "0px",
 });
 
 //
 CSS?.registerProperty?.({
-	name: "--translate-y",
-	syntax: "<length-percentage>",
-	inherits: true,
-	initialValue: "0px",
+    name: "--translate-y",
+    syntax: "<length-percentage>",
+    inherits: true,
+    initialValue: "0px",
 });
 
 //
 const isMobile = () => {
-    const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    const regex =
+        /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
     return regex.test(navigator.userAgent);
-}
-
+};
 
 //
 const getOrientedPoint = () => {
@@ -153,42 +146,40 @@ const getOrientedPoint = () => {
     switch (orientation) {
         case "portrait-primary":
             return {
-                "--translate-x":
-                    `calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * 1px)`,
-                "--translate-y":
-                    `calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * 1px)`,
+                "--translate-x": `calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * 1px)`,
+                "--translate-y": `calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * 1px)`,
             };
 
         case "portrait-secondary":
             return {
-                "--translate-x":
-                    `calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * -1px)`,
-                "--translate-y":
-                    `calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * -1px)`,
+                "--translate-x": `calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * -1px)`,
+                "--translate-y": `calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * -1px)`,
             };
 
         case "landscape-primary":
             return {
-                "--translate-x":
-                    `calc(calc(calc(var(--grid-${isMobile() ? "h" : "w"}) / var(--f-row)) * var(--vect-y)) * 1px)`,
-                "--translate-y":
-                    `calc(calc(calc(var(--grid-${isMobile() ? "w" : "h"}) / var(--f-col)) * var(--vect-x)) * -1px)`,
-            }
+                "--translate-x": `calc(calc(calc(var(--grid-${
+                    isMobile() ? "h" : "w"
+                }) / var(--f-row)) * var(--vect-y)) * 1px)`,
+                "--translate-y": `calc(calc(calc(var(--grid-${
+                    isMobile() ? "w" : "h"
+                }) / var(--f-col)) * var(--vect-x)) * -1px)`,
+            };
 
         case "landscape-secondary":
             return {
-                "--translate-x":
-                    `calc(calc(calc(var(--grid-${isMobile() ? "h" : "w"}) / var(--f-row)) * var(--vect-y)) * -1px)`,
-                "--translate-y":
-                    `calc(calc(calc(var(--grid-${isMobile() ? "w" : "h"}) / var(--f-col)) * var(--vect-x)) * 1px)`,
+                "--translate-x": `calc(calc(calc(var(--grid-${
+                    isMobile() ? "h" : "w"
+                }) / var(--f-row)) * var(--vect-y)) * -1px)`,
+                "--translate-y": `calc(calc(calc(var(--grid-${
+                    isMobile() ? "w" : "h"
+                }) / var(--f-col)) * var(--vect-x)) * 1px)`,
             };
 
         default:
             return {
-                "--translate-x":
-                    `calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * 1px)`,
-                "--translate-y":
-                    `calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * 1px)`,
+                "--translate-x": `calc(calc(calc(var(--grid-w) / var(--f-col)) * var(--vect-x)) * 1px)`,
+                "--translate-y": `calc(calc(calc(var(--grid-h) / var(--f-row)) * var(--vect-y)) * 1px)`,
             };
     }
 };
@@ -243,7 +234,8 @@ export const putToCell = (
 
     //
     const preCell = { x: iconItem.cellX || 0, y: iconItem.cellY || 0 };
-    (iconItem.pCellX = iconItem.cellX || 0), (iconItem.pCellY = iconItem.cellY || 0);
+    (iconItem.pCellX = iconItem.cellX || 0),
+        (iconItem.pCellY = iconItem.cellY || 0);
 
     //
     switch (orientation) {

@@ -1,17 +1,11 @@
 {
 	"imports": {
         "@src": "./",
-
-        "@orion": "./deps/js/orion",
-        "@ax": "./deps/js/ax",
-
         "@deps": "./deps",
         "@apps": "./apps",
         "@scss": "./deps/scss",
-        "@js": "./deps/js",
-        "@libs": "./deps/js",
         "@states": "./deps/states",
-        "@webcomp": "./deps/webcomp",
+        "@unite": "./deps/unite",
         "@svelte": "./deps/svelte",
         "@workers": "./deps/workers",
         "@tests": "./tests",

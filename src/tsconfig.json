@@ -3,17 +3,11 @@
     "compilerOptions": {
         "paths": {
             "@src": ["./"],
-
-            "@orion": ["./deps/js/orion"],
-            "@ax": ["./deps/js/ax"],
-
             "@deps": ["./deps"],
             "@apps": ["./apps"],
             "@scss": ["./deps/scss"],
-            "@js": ["./deps/js"],
-            "@libs": ["./deps/js"],
+            "@unite": ["./deps/unite"],
             "@states": ["./deps/states"],
-            "@webcomp": ["./deps/webcomp"],
             "@svelte": ["./deps/svelte"],
             "@bundle": ["./deps/bundle"],
             "@workers": ["./deps/workers"],

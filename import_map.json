@@ -1,13 +1,14 @@
 {
     "imports": {
-        "@orion": "./src/deps/js/orion",
-        "@ax": "./src/deps/js/ax",
-
-        "@src": "./src",
+        "@src": "./src/",
+        "@deps": "./src/deps",
         "@apps": "./src/apps",
-        "@complex": "./src/deps/complex",
-        "@bundle": "./src/deps/bundle",
-        "@modifiers": "./src/deps/modifiers",
-        "@libraries": "./src/deps/libraries"
+        "@scss": "./src/deps/scss",
+        "@states": "./src/deps/states",
+        "@unite": "./src/deps/unite",
+        "@svelte": "./src/deps/svelte",
+        "@workers": "./src/deps/workers",
+        "@tests": "./src/tests",
+        "@assets": "./assets"
     }
 }

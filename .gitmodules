@@ -1,6 +1,3 @@
-[submodule "src/deps/libraries/js/ax"]
-    path = src/deps/libraries/js/ax
-    url = https://github.com/BZ-0/ax.js.git
-[submodule "src/deps/libraries/js/orion"]
-    path = src/deps/libraries/js/orion
-    url = https://github.com/BZ-0/orion.js.git
+[submodule "src/deps/unite"]
+	path = src/deps/unite
+	url = https://github.com/BZ-0/unite.js.git

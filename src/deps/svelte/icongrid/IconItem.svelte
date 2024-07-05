@@ -1,13 +1,12 @@
 
 <script context="module">
-    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+    import {propsFilter} from "@unite/utils/utils.mjs";
 </script>
 
 <script>
-    import { longpress as lgp } from "@libs/orion/longpress.mjs";
-    import { onMount } from 'svelte';
+    import AxGesture from "@unite/interact/gesture.mjs";
+    import {onMount} from 'svelte';
     import LucideIcon from '../decors/LucideIcon.svelte';
-    
 
     //
     export let iconItem = {};
@@ -34,7 +33,10 @@
             el.style.setProperty("--cell-y", iconItem.cellY, "");
         }
     }
-    
+
+    //
+    let gestureControl = null;//new AxGesture(handler);
+
     //
     onMount(()=>{
         setCellPosition();
@@ -43,8 +45,16 @@
         onmount?.(element, iconItem);
 
         //
-        handler.addEventListener("long-press", (ev)=>{
-            longPress?.(ev);
+        requestAnimationFrame(()=>{
+            if (handler) {
+                gestureControl = new AxGesture(handler);
+                gestureControl.longPress({
+                    anyPointer: true,
+                    mouseImmediate: true,
+                    minHoldTime: 60 * 3600,
+                    maxHoldTime: 100
+                }, longPress);
+            }
         });
 
         //
@@ -82,7 +92,7 @@
     data-label-id={iconItem.id}
     data-ctx={"icon"}
     >
-    <div use:lgp bind:this={handler} class="icon-design icon-shape">
+    <div bind:this={handler} class="icon-design icon-shape">
         <!--<img class="icon-id" alt="IconItem" src="" data-lucide={id}/>-->
         <LucideIcon name={iconItem.icon}/>
     </div>

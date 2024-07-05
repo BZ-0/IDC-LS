@@ -6,17 +6,12 @@
         "target": "esnext",
         "baseUrl": ".",
         "paths": {
-            "@orion": ["./src/deps/js/orion"],
-            "@ax": ["./src/deps/js/ax"],
-
             "@src": ["./src"],
             "@apps": ["./src/apps"],
             "@deps": ["./src/deps"],
             "@scss": ["./src/deps/scss"],
-            "@js": ["./src/deps/js"],
-            "@libs": ["./src/deps/js"],
+            "@unite": ["./src/deps/unite"],
             "@states": ["./src/deps/states"],
-            "@webcomp": ["./src/deps/webcomp"],
             "@svelte": ["./src/deps/svelte"],
             "@bundle": ["./src/deps/bundle"],
             "@workers": ["./src/deps/workers"],

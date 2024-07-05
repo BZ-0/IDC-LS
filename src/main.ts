@@ -1,6 +1,7 @@
         
 import "./main.scss";
 
+//
 document.documentElement.style.setProperty("--theme-base-color", localStorage.getItem("--theme-base-color") || "oklch(50% 0.3 0)", "");
 document.documentElement.style.setProperty("--theme-wallpaper-is-dark", parseInt(localStorage.getItem("--theme-wallpaper-is-dark") || "0") || 0, "");
 
@@ -32,36 +33,23 @@ if (typeof navigator != "undefined") {
     );
 }
 
-
 // use workers
 const loading = Promise.allSettled([
     import("@states/gridState.mjs"),
-    import("@orion/stylework.mjs"),
     import("@workers/actionRegistry.mjs"),
-    import("@orion/scrollbox/scrollbox.mjs"),
-    import("@orion/wcanvas.mjs").then(
+    import("@unite/scrollbox/scrollbox.mjs"),
+    import("@unite/dom/stylework.mjs"),
+    import("@unite/dom/wcanvas.mjs").then(
         (_) => import("@workers/colormod.mjs")
     ),
 ]);
 
 //
-//import App from "@tests/MultiPageTest.svelte";
-//import App from '@tests/ScrollBox.svelte'
-//import App from "@tests/CtxMenu.svelte";
-//import App from "@tests/SettingsTest.svelte"
 import App from "@tests/Candidate.svelte";
 
+//
 export default  loading.then(()=>{
     return (new App({
         target: document.body,
     }));
 });
-
-
-//
-//const app = new App({
-    //target: document.body,
-//});
-
-//
-//export default app;

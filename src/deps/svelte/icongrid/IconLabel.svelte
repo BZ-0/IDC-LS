@@ -3,7 +3,7 @@
 </script>
 
 <script context="module">
-    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+    import {propsFilter} from "@unite/utils/utils.mjs";
 </script>
 
 <!-- -->

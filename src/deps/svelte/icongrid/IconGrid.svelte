@@ -1,6 +1,6 @@
 <script>
-    import { onMount } from "svelte";
-    import { fade } from "svelte/transition";
+    import {onMount} from "svelte";
+    import {fade} from "svelte/transition";
 
     //
     export let id = "";
@@ -34,7 +34,7 @@
 </script>
 
 <script context="module">
-    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+    import {propsFilter} from "@unite/utils/utils.mjs";
 </script>
 
 

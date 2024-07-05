@@ -1,9 +1,9 @@
-import { sourceColorFromImage } from "@js/workarounds/color-mod.mjs";
+import { sourceColorFromImage } from "@deps/workarounds/color-mod.mjs";
 import { hexFromArgb } from "@material/material-color-utilities";
 import { formatCss, formatHex, interpolate, oklch, parse } from "culori";
 
 //
-import { setStyleRule } from "../js/orion/stylework.mjs";
+import { setStyleRule } from "@unite/dom/stylework.mjs";
 
 //
 export const provide = async (path = "", rw = false) => {

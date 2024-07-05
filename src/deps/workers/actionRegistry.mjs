@@ -1,21 +1,26 @@
-import { applyForIcon } from '@states/fieldEdit.mjs'
-import { fixCell, makeArgs } from "@states/gridItem.mjs"
-import { currentState, focusIconForEdit } from "@states/gridState.mjs"
-import { settings } from "@states/settings.mjs"
-import { writable } from 'svelte/store'
+import { applyForIcon } from "@states/fieldEdit.mjs";
+import { fixCell, makeArgs } from "@states/gridItem.mjs";
+import { currentState, focusIconForEdit } from "@states/gridState.mjs";
+import { settings } from "@states/settings.mjs";
+import { writable } from "svelte/store";
 
 //
-import { exportSettings, importSettings, pickBinaryFromFS, saveBinaryToFS } from "@states/importExport.mjs"
+import {
+    exportSettings,
+    importSettings,
+    pickBinaryFromFS,
+    saveBinaryToFS,
+} from "@states/importExport.mjs";
 
 //
 export let onFocus = {
     iconItem: focusIconForEdit(""),
     iconItemId: writable(""),
-    focus (id){
+    focus(id) {
         this.iconItem = focusIconForEdit(id);
         this.iconItemId.set(id);
         return this.iconItem;
-    }
+    },
 };
 
 //
@@ -28,14 +33,18 @@ export const UUIDv4 = () => {
     );
 };
 
-
 //
-export const pickWallpaperImage = async ()=>{
-    const fpc = (self?.showOpenFilePicker ? new Promise((r)=>r({
-        showOpenFilePicker: window.showOpenFilePicker.bind(window),
-        showSaveFilePicker: window.showSaveFilePicker.bind(window)
-    })) :
-    /* webpackPrefetch: true */ import('@libs/polyfill/showOpenFilePicker.mjs'));
+export const pickWallpaperImage = async () => {
+    const fpc = self?.showOpenFilePicker
+        ? new Promise((r) =>
+              r({
+                  showOpenFilePicker: window.showOpenFilePicker.bind(window),
+                  showSaveFilePicker: window.showSaveFilePicker.bind(window),
+              })
+          )
+        : /* webpackPrefetch: true */ import(
+              "@deps/polyfill/showOpenFilePicker.mjs"
+          );
 
     //
     const fx = await fpc;
@@ -44,31 +53,46 @@ export const pickWallpaperImage = async ()=>{
             {
                 description: "wallpaper",
                 accept: {
-                    "image/*": [".png", ".gif", ".jpg", ".jpeg", ".webp", ".jxl"],
+                    "image/*": [
+                        ".png",
+                        ".gif",
+                        ".jpg",
+                        ".jpeg",
+                        ".webp",
+                        ".jxl",
+                    ],
                 },
             },
         ],
         startIn: "pictures",
         multiple: false,
     })
-    .then(([handle]=[])=>handle?.getFile?.())
-    .catch(console.warn.bind(console));
-}
+        .then(([handle] = []) => handle?.getFile?.())
+        .catch(console.warn.bind(console));
+};
 
 //
 export const actionRegistry = new Map([
     [
-        "export-settings", async ()=>{
-            await saveBinaryToFS((await exportSettings().catch(console.warn.bind(console))) || "").catch(console.warn.bind(console))
-        }
+        "export-settings",
+        async () => {
+            await saveBinaryToFS(
+                (await exportSettings().catch(console.warn.bind(console))) || ""
+            ).catch(console.warn.bind(console));
+        },
     ],
     [
-        "import-settings", async ()=>{
-            await importSettings((await pickBinaryFromFS().catch(console.warn.bind(console))) || "").catch(console.warn.bind(console))
-        }
+        "import-settings",
+        async () => {
+            await importSettings(
+                (await pickBinaryFromFS().catch(console.warn.bind(console))) ||
+                    ""
+            ).catch(console.warn.bind(console));
+        },
     ],
     [
-        "open-settings", (from, event) => {
+        "open-settings",
+        (from, event) => {
             location.hash = "#settings";
         },
     ],
@@ -115,7 +139,9 @@ export const actionRegistry = new Map([
 
                 //
                 const indexOf = iconList.indexOf(id);
-                if (indexOf >= 0) { iconList.splice(indexOf, 1); }
+                if (indexOf >= 0) {
+                    iconList.splice(indexOf, 1);
+                }
                 currentState.iconLists = currentState.iconLists;
             }
         },
@@ -130,7 +156,7 @@ export const actionRegistry = new Map([
 
             //
             const currentPage = currentIconGrid.dataset.id;
-            
+
             //
             const iconId = UUIDv4();
             const iconItem = {
@@ -169,7 +195,7 @@ export const actionRegistry = new Map([
             //
             currentState.iconItems.set(iconId, iconItem);
             currentState.iconLists.get(currentPage)?.push?.(iconId);
-            
+
             // update svelte writer
             currentState.iconItems = currentState.iconItems;
             currentState.iconLists = currentState.iconLists;
@@ -187,22 +213,25 @@ export const actionRegistry = new Map([
         },
     ],
     [
-        "change-wallpaper", (from, event)=>{
-            const wallpaper = document.querySelector("canvas[is=\"w-canvas\"]");
+        "change-wallpaper",
+        (from, event) => {
+            const wallpaper = document.querySelector('canvas[is="w-canvas"]');
             if (wallpaper) {
-                pickWallpaperImage().catch(console.warn.bind(console)).then((blob)=>{
-                    wallpaper?.["$useImageAsSource"]?.(blob);
-                });
+                pickWallpaperImage()
+                    .catch(console.warn.bind(console))
+                    .then((blob) => {
+                        wallpaper?.["$useImageAsSource"]?.(blob);
+                    });
             }
-        }
-    ]
+        },
+    ],
 ]);
 
 // support of actions
 document.addEventListener("click", (ev) => {
     const el = ev.target;
     const pr = el.matches("[data-action]") ? el : el.closest("[data-action]");
-    
+
     if (pr?.dataset?.action && !pr?.matches(".ctx-button")) {
         actionRegistry.get(pr.dataset.action)?.(pr, ev);
     }

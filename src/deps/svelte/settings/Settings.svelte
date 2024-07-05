@@ -1,13 +1,13 @@
 <script>
-	import { grabForDrag } from '@deps/js/orion/pointer-api.mjs';
-	import { readableHash } from '@states/readables.mjs';
-	import { settings } from "@states/settings.mjs";
+	import {readableHash} from '@states/readables.mjs';
+	import {settings} from "@states/settings.mjs";
 	import LucideIcon from '@svelte/decors/LucideIcon.svelte';
 	import Checkbox from '@svelte/inputs/Checkbox.svelte';
 	import Number from '@svelte/inputs/Number.svelte';
 	import Switch from '@svelte/inputs/Switch.svelte';
-	import { onMount } from 'svelte';
-	import { fade } from "svelte/transition";
+	import AxGesture from "@unite/interact/gesture.mjs";
+	import {onMount} from 'svelte';
+	import {fade} from "svelte/transition";
 	import Block from '../decors/Block.svelte';
 
 	//
@@ -55,22 +55,6 @@
 	});
 	
 	//
-	document.addEventListener("pointerdown", (ev)=>{
-		if (ev.target.matches(".title-label")) {
-			pointerIdDrag = ev.pointerId;
-			if (settingsEl) {
-				grabForDrag(settingsEl, ev, {
-					shifting: [
-						parseFloat(settingsEl.style.getPropertyValue("--drag-x")) || 0, 
-						parseFloat(settingsEl.style.getPropertyValue("--drag-y")) || 0
-					]
-				});
-			}
-		}
-	});
-	
-
-	//
 	document.addEventListener("click", (ev)=>{
 		const {target} = ev;
 		if (target.matches(".back-button")) {
@@ -87,16 +71,27 @@
 	})
 
 	//
+	let gestureControl = null;
 	onMount(()=>{
 		// default grid-page
 		if ((settingsEl?.clientWidth || 0) >= 96*9) {
 			currentPage = "grid-settings";
 		}
+		
+		//
+		requestAnimationFrame(()=>{
+			if (settingsEl) {
+				gestureControl = new AxGesture(settingsEl);
+				gestureControl.draggable({
+					handler: settingsEl.querySelector(".title-label")
+				});
+			}
+		});
 	});
 </script>
 
 <script context="module">
-    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+    import {propsFilter} from "@unite/utils/utils.mjs";
 </script>
 
 <!-- -->

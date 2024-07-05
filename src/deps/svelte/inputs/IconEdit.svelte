@@ -1,7 +1,7 @@
 <script>
     import Field from '@svelte/inputs/Field.svelte';
-    import { onFocus } from "@workers/actionRegistry.mjs";
-    import { fade } from "svelte/transition";
+    import {onFocus} from "@workers/actionRegistry.mjs";
+    import {fade} from "svelte/transition";
 
     // import writable store
     export let {iconItemId} = onFocus;
@@ -34,7 +34,7 @@
 
 <!-- -->
 <script context="module">
-    import { propsFilter } from "@libs/svelte/propsFilter.mjs";
+    import {propsFilter} from "@unite/utils/utils.mjs";
 </script>
 
 {#if $iconItemId}
