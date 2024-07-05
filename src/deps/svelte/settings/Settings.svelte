@@ -83,6 +83,15 @@
 					gestureControl.draggable({
 						handler: settingsEl.querySelector(".title-label")
 					});
+					
+					//
+					gestureControl.resizable({
+						handler: settingsEl.querySelector(".resize")
+					});
+					
+					// center manually
+					settingsEl.style.setProperty("--drag-x", -(settingsEl.clientWidth / 2) + settingsEl.parentNode.offsetWidth / 2, "");
+					settingsEl.style.setProperty("--drag-y", -(settingsEl.clientHeight / 2) + settingsEl.parentNode.offsetHeight / 2, "");
                 }
             }
         }
@@ -193,6 +202,10 @@
 				
 				
 			</x-scrollbox>
+		</div>
+
+		<div class="resize">
+			
 		</div>
 
 	</div>

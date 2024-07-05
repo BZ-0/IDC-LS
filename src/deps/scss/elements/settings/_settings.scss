@@ -62,6 +62,23 @@
         { @extend .inverse; }
         
         //
+        position: relative;
+        
+        //
+        & .resize {
+            position: absolute;
+            inset: auto;
+            inset-inline-end: 0px;
+            inset-block-end: 0px;
+            inline-size: 1rem;
+            block-size: 1rem;
+            
+            //
+            background-color: transparent;
+            cursor: nwse-resize;
+        }
+        
+        //
         .ls-tab-item .in-element {
             box-sizing: border-box;
             max-block-size: 4rem;
