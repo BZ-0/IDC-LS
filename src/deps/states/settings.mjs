@@ -7,7 +7,7 @@ export const settings = {};
 makeWritableProperty(settings, "theme", {
     initial: parseInt(localStorage.getItem("@settings:@theme")) || 0,
     setter(v) {
-        const target = document.body;
+        const target = document.documentElement;
         if (v == -1) {
             target.classList.remove("force-light");
             target.classList.remove("force-dark");
@@ -34,9 +34,36 @@ makeWritableProperty(settings, "theme", {
 });
 
 //
+makeWritableProperty(settings, "orientation", {
+    initial: parseInt(localStorage.getItem("@settings:@orientation")) || "auto",
+    setter(v) {
+        document.documentElement.dataset["orientation"] = v || "auto";
+        localStorage.setItem("@settings:@orientation", v || "auto");
+        (async () => {
+            switch (v || "auto") {
+                case "auto":
+                    await screen.orientation.lock("any");
+                    await screen.orientation.unlock();
+                    break;
+
+                case "lock":
+                    await screen.orientation.lock(screen.orientation.type);
+                    break;
+
+                default:
+                    await screen.orientation.lock(v || "auto");
+                    break;
+            }
+        })().catch(console.warn.bind(console));
+        return v;
+    },
+});
+
+//
 makeWritableProperty(settings, "columns", {
     initial: parseInt(localStorage.getItem("@settings:@columns")) || 4,
     setter(v) {
+        document.documentElement.style.setProperty("--columns", v || 4);
         localStorage.setItem("@settings:@columns", v || 4);
         return v;
     },
@@ -46,6 +73,7 @@ makeWritableProperty(settings, "columns", {
 makeWritableProperty(settings, "rows", {
     initial: parseInt(localStorage.getItem("@settings:@rows")) || 8,
     setter(v) {
+        document.documentElement.style.setProperty("--rows", v || 8);
         localStorage.setItem("@settings:@rows", v || 8);
         return v;
     },

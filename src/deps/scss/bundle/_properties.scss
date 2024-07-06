@@ -227,6 +227,12 @@
     }
 
     //
+    :root, :where(html) {
+        container-type: size;
+        container-name: html root !important;
+    }
+
+    //
     :root, :host, :scope, :where(body) {
         will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset;
         
