@@ -1,4 +1,4 @@
-import { makeWritableProperty } from "@states/writables.mjs"
+import { makeWritableProperty } from "@states/writables.mjs";
 
 //
 export const settings = {};
@@ -26,7 +26,7 @@ makeWritableProperty(settings, "theme", {
                 target.classList.add("force-light");
             }
         }
-        
+
         //
         localStorage.setItem("@settings:@theme", v || 0);
         return v;
@@ -60,3 +60,42 @@ makeWritableProperty(settings, "scaling", {
         return v;
     },
 });
+
+//
+makeWritableProperty(settings, "use-zoom", {
+    initial: !!localStorage.getItem("@settings:@use-zoom") || false,
+    setter(v) {
+        localStorage.setItem("@settings:@use-zoom", v);
+
+        //
+        document.documentElement.classList.remove("__exp-use-zoom");
+        document.documentElement.classList.remove("__use_font-size");
+
+        //
+        if (!!v) {
+            document.documentElement.classList.remove("__use_font-size");
+            document.documentElement.classList.add("__exp-use-zoom");
+        } else {
+            document.documentElement.classList.remove("__exp-use-zoom");
+            document.documentElement.classList.add("__use_font-size");
+        }
+
+        //
+        return v;
+    },
+});
+
+//
+{
+    document.documentElement.classList.remove("__exp-use-zoom");
+    document.documentElement.classList.remove("__use_font-size");
+
+    //
+    if (!!localStorage.getItem("@settings:@use-zoom") || false) {
+        document.documentElement.classList.remove("__use_font-size");
+        document.documentElement.classList.add("__exp-use-zoom");
+    } else {
+        document.documentElement.classList.remove("__exp-use-zoom");
+        document.documentElement.classList.add("__use_font-size");
+    }
+}

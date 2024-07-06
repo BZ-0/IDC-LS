@@ -4,6 +4,7 @@
     import {currentState} from "@states/gridState.mjs";
     import {settings} from "@states/settings.mjs";
     import {grabForDrag} from "@unite/interact/pointer-api.mjs";
+    import {zoomOf} from "@unite/utils/utils";
     import {onMount} from "svelte";
     import IconGrid from "./IconGrid.svelte";
     import IconItem from "./IconItem.svelte";
@@ -74,13 +75,16 @@
         //
         const dragState = {
             pointerId: ev.pointerId,
-            startX: ev.pageX,
-            startY: ev.pageY
+            startX: ev.clientX / zoomOf(),
+            startY: ev.pageY / zoomOf()
         };
 
         //
         const grabEvent = ["pointermove", (evm)=>{
-            if (dragState.pointerId == evm.pointerId && Math.hypot(dragState.startX - evm.pageX, dragState.startY - evm.pageY) >= 10) {
+            if (dragState.pointerId == evm.pointerId && Math.hypot(
+                dragState.startX - (evm.clientX / zoomOf()), 
+                dragState.startY - (evm.pageY / zoomOf())
+            ) >= 10) {
                 initGrab(evm); document.removeEventListener(...grabEvent);
             }
         }, {capture: true, passive: true}];

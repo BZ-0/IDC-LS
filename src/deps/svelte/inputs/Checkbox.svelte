@@ -5,13 +5,13 @@
 
     //
     export let fieldName = "";
-    export let value = $$props?.value || writable(0);
+    export let value = $$props?.value || writable(false);
     export let element = null;
     export let container = null;
 
     //
     const _whenChange = (ev)=>{
-        value?.set?.(ev.target.valueAsNumber);
+        value?.set?.(ev.target.checked);
     }
 
     //
@@ -31,6 +31,6 @@
         {...propsFilter($$props)}
         on:change={_whenChange}
         on:input={_whenChange}
-        bind:this={element} bind:value={$value} type="checkbox" data-name={fieldName}>
+        bind:this={element} bind:checked={$value} type="checkbox" data-name={fieldName}>
     <div class="icon-sign hl-2"><LucideIcon class="done lucide" name={"check"}/> <LucideIcon class="circle lucide" name={"circle"}/> </div>
 </label>

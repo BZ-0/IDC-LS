@@ -11,7 +11,7 @@
 	import Block from '../decors/Block.svelte';
 
 	//
-	export let {"@columns": columns, "@rows": rows, "@scaling": scaling , "@theme": theme} = settings;
+	export let {"@columns": columns, "@rows": rows, "@scaling": scaling , "@theme": theme, "@use-zoom": useZoom} = settings;
 	export let currentPage = "";
 
 	//
@@ -192,9 +192,9 @@
 							<div class="form-description"> Experimental Color Scheme: </div>
 
 							<Block class="block-decor">
-								<div class="opt-label">Test checkbox:</div>
-								<LucideIcon slot="icon" name={"scaling"}/>
-								<Checkbox slot="element"></Checkbox>
+								<div class="opt-label">Use `zoom` property?:</div>
+								<LucideIcon slot="icon" name={"scan-search"}/>
+								<Checkbox value={useZoom} slot="element"></Checkbox>
 							</Block>
 						</form>
 					{/if}

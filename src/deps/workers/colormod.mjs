@@ -181,9 +181,9 @@ document.addEventListener("mousemove", (ev)=>{
     ev.stopPropagation();
     
     //
-    Array.from(document.elementsFromPoint(ev.pageX, ev.pageY)).filter((el)=>el.matches(allowedSelectors)).map((el)=>{
+    Array.from(document.elementsFromPoint(ev.clientX, ev.pageY)).filter((el)=>el.matches(allowedSelectors)).map((el)=>{
         const box = el.getBoundingClientRect();
-        el.style.setProperty("--pointer-x", ev.pageX - box.left);
+        el.style.setProperty("--pointer-x", ev.clientX - box.left);
         el.style.setProperty("--pointer-y", ev.pageY - box.top);
     });
 }, {capture: true});

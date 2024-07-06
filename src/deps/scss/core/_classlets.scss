@@ -166,8 +166,6 @@
     }
     
     //
-    
-    
     .vp-vars {
         --vp-i-size: 100dvi;
         --vp-b-size: 100dvb;
@@ -184,12 +182,24 @@
         @extend .vp-vars;
         
         //
-        inline-size: var(--vp-i-size, 100dvi);
-        block-size: var(--vp-b-size, 100dvb);
+        inline-size: var(--vp-i-size);
+        block-size: var(--vp-b-size);
         
         //
-        max-inline-size: var(--vp-i-size, 100dvi);
-        max-block-size: var(--vp-b-size, 100dvb);
+        max-inline-size: var(--vp-i-size);
+        max-block-size: var(--vp-b-size);
+    }
+    
+    //
+    .__exp-use-zoom .vp-vars {
+        --vp-i-size: calc(100dvi / var(--scaling, 1));
+        --vp-b-size: calc(100dvb / var(--scaling, 1));
+
+        //
+        @media all and ((display-mode: fullscreen) or (display-mode: standalone) or ((hover: none) and (pointer: coarse))) {
+            --vp-i-size: max(calc(var(--avail-width) / var(--scaling, 1)), calc(100dvi / var(--scaling, 1)));
+            --vp-b-size: max(calc(var(--avail-height) / var(--scaling, 1)), calc(100dvb / var(--scaling, 1)));
+        }
     }
     
     // not depends from virtual keyboards

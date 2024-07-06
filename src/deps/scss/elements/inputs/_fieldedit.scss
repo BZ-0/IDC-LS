@@ -3,6 +3,8 @@
 
 @layer ls-inputs {
 
+    
+
     //
     .field-edit {
         @extend .pe-none;
@@ -88,5 +90,11 @@
 
         }
         
+    }
+    
+    .__exp-use-zoom .field-edit {
+        inline-size: calc(100dvi / var(--scaling, 1)) !important;
+        block-size:  calc(100dvb / var(--scaling, 1)) !important;
+        block-size: calc(calc(100dvb / var(--scaling, 1)) - var(--keyboard-inset-height, 0px)) !important;
     }
 }

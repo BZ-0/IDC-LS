@@ -15,9 +15,10 @@
 
 <script>
 	import LucideIcon from '@svelte/decors/LucideIcon.svelte';
-	import { actionRegistry } from '@workers/actionRegistry.mjs';
-	import { onMount } from 'svelte';
-	import { fade } from "svelte/transition";
+	import {zoomOf} from "@unite/utils/utils";
+	import {actionRegistry} from '@workers/actionRegistry.mjs';
+	import {onMount} from 'svelte';
+	import {fade} from "svelte/transition";
 
     //
     export let initiator = null;
@@ -38,8 +39,8 @@
         ev.preventDefault();
 
         // TODO: fix coordinate
-        document.body.style.setProperty("--click-x", ev.pageX || 0, "");
-        document.body.style.setProperty("--click-y", ev.pageY || 0, "");
+        document.body.style.setProperty("--click-x", (ev.clientX || 0) / zoomOf(), "");
+        document.body.style.setProperty("--click-y", (ev.pageY || 0) / zoomOf(), "");
 
         // from data-ctx holders
         const realElement = ev.target.matches("[data-ctx]") ? ev.target : ev.target.closest("[data-ctx]");
