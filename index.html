@@ -41,6 +41,16 @@
         <link rel="manifest" href="./src/manifest-pwa.json">
 
         <style>
+            @viewport {
+                zoom: auto;
+                viewport-fit: cover;
+                min-zoom: auto;
+                max-zoom: auto;
+                user-zoom: fixed;
+                orientation: auto;
+                virtual-keyboard: overlays-content;
+            }
+        
             :root { virtual-keyboard: overlays-content; }
             :root, body {
                 background-color: black;
