@@ -24,7 +24,7 @@
     }
 
     //
-    document.addEventListener("click", (ev)=>{
+    document.documentElement.addEventListener("click", (ev)=>{
         if (ev.target == field) {
             const name = field?.dataset?.name;
             if (name) { focusField(name); }
@@ -33,7 +33,7 @@
     });
 
     //
-    document.addEventListener("focusin", (ev)=>{
+    document.documentElement.addEventListener("focusin", (ev)=>{
         // TODO: when mobile...
         if (ev.target == field) {
             focusField(field?.dataset?.name);

@@ -61,19 +61,19 @@
     }
 
     //
-    document.addEventListener("focusout", ({target})=>{
+    document.documentElement.addEventListener("focusout", ({target})=>{
         if (target == input) { unfocus({target}); }
     });
 
     //
-    document.addEventListener("focusin", ({target})=>{
+    document.documentElement.addEventListener("focusin", ({target})=>{
         if (!stillInFocus(target)) {
             if (document.activeElement != input) { refocus(input); }
         }
     });
 
     //
-    document.addEventListener("click", (ev)=>{
+    document.documentElement.addEventListener("click", (ev)=>{
         const target = ev.target;
 
         //

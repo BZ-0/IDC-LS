@@ -35,12 +35,12 @@
     ];
 
     //
-    document.addEventListener("contextmenu", (ev)=>{
+    document.documentElement.addEventListener("contextmenu", (ev)=>{
         ev.preventDefault();
 
         // TODO: fix coordinate
         document.body.style.setProperty("--click-x", (ev.clientX || 0) / zoomOf(), "");
-        document.body.style.setProperty("--click-y", (ev.pageY || 0) / zoomOf(), "");
+        document.body.style.setProperty("--click-y", (ev.clientY || 0) / zoomOf(), "");
 
         // from data-ctx holders
         const realElement = ev.target.matches("[data-ctx]") ? ev.target : ev.target.closest("[data-ctx]");
@@ -48,7 +48,7 @@
     });
 
     //
-    document.addEventListener("click", (ev)=>{
+    document.documentElement.addEventListener("click", (ev)=>{
         const forbidSelectors = ".icon-edit, .field-edit, .ls-modal";
         const parentAreContextMenu = ev.target.matches(".ls-contextmenu") ? ev.target : ev.target.closest(".ls-contextmenu");
 

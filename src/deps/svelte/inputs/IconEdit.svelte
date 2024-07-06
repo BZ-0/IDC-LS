@@ -12,7 +12,7 @@
     // $: iconItemId = onFocus.iconItemId;
 
     //
-    document.addEventListener("click", (ev)=>{
+    document.documentElement.addEventListener("click", (ev)=>{
         const forbidSelectors = ".icon-edit, .field-edit, .ls-modal";
         const parentAreIconEdit = ev.target.matches(".ls-contextmenu") ? ev.target : ev.target.closest(".ls-contextmenu");
 

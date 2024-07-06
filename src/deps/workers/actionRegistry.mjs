@@ -228,7 +228,7 @@ export const actionRegistry = new Map([
 ]);
 
 // support of actions
-document.addEventListener("click", (ev) => {
+document.documentElement.addEventListener("click", (ev) => {
     const el = ev.target;
     const pr = el.matches("[data-action]") ? el : el.closest("[data-action]");
 

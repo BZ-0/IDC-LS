@@ -1,10 +1,10 @@
 <script>
+	import {zoomOf} from "@unite/utils/utils";
     //
     import {animationSequence, makeArgs, putToCell} from "@states/gridItem.mjs";
     import {currentState} from "@states/gridState.mjs";
     import {settings} from "@states/settings.mjs";
     import {grabForDrag} from "@unite/interact/pointer-api.mjs";
-    import {zoomOf} from "@unite/utils/utils";
     import {onMount} from "svelte";
     import IconGrid from "./IconGrid.svelte";
     import IconItem from "./IconItem.svelte";
@@ -41,6 +41,9 @@
 
     //
     const initGrab = (ev)=>{
+        ev?.stopPropagation?.();
+        
+        //
         const iconElement = ev.target.closest(".icon-item");
         const iconId      = iconElement?.dataset?.["id"];
         if (!iconId) return;
@@ -76,23 +79,23 @@
         const dragState = {
             pointerId: ev.pointerId,
             startX: ev.clientX / zoomOf(),
-            startY: ev.pageY / zoomOf()
+            startY: ev.clientY / zoomOf()
         };
 
         //
         const grabEvent = ["pointermove", (evm)=>{
             if (dragState.pointerId == evm.pointerId && Math.hypot(
                 dragState.startX - (evm.clientX / zoomOf()), 
-                dragState.startY - (evm.pageY / zoomOf())
+                dragState.startY - (evm.clientY / zoomOf())
             ) >= 10) {
-                initGrab(evm); document.removeEventListener(...grabEvent);
+                initGrab(evm); document.documentElement.removeEventListener(...grabEvent);
             }
         }, {capture: true, passive: true}];
 
         //
-        document.addEventListener(...grabEvent);
-        document.addEventListener("pointerup", ()=>{
-            document.removeEventListener(...grabEvent);
+        document.documentElement.addEventListener(...grabEvent);
+        document.documentElement.addEventListener("pointerup", ()=>{
+            document.documentElement.removeEventListener(...grabEvent);
         }, {once: true});
     }
 

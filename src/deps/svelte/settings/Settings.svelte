@@ -42,7 +42,7 @@
 	let pointerIdDrag = -1;
 	
 	//
-	document.addEventListener("m-dragging", (ev)=>{
+	document.documentElement.addEventListener("m-dragging", (ev)=>{
 		const dt = ev.detail;
 		if (settingsEl && dt.pointer.id == pointerIdDrag && (dt.holding.element.deref() == settingsEl)) {
 			const wDiff = (settingsEl.parentNode.offsetWidth - settingsEl.clientWidth);
@@ -55,7 +55,7 @@
 	});
 	
 	//
-	document.addEventListener("click", (ev)=>{
+	document.documentElement.addEventListener("click", (ev)=>{
 		const {target} = ev;
 		if (target.matches(".back-button")) {
 			const lessWidth = (settingsEl?.clientWidth || 96*9) <= 96*9

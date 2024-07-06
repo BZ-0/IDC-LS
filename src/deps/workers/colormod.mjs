@@ -177,14 +177,14 @@ window.addEventListener("wallpaper", (ev) => {
 /*
 const allowedSelectors = ".hl-1, .hl-1h, .hl-2, .hl-2h, .hl-3h, .hl-ns, .hl-ms";
 // make pointer-x and pointer-y available by CSS
-document.addEventListener("mousemove", (ev)=>{
+document.documentElement.addEventListener("mousemove", (ev)=>{
     ev.stopPropagation();
     
     //
-    Array.from(document.elementsFromPoint(ev.clientX, ev.pageY)).filter((el)=>el.matches(allowedSelectors)).map((el)=>{
+    Array.from(document.elementsFromPoint(ev.clientX, ev.clientY)).filter((el)=>el.matches(allowedSelectors)).map((el)=>{
         const box = el.getBoundingClientRect();
         el.style.setProperty("--pointer-x", ev.clientX - box.left);
-        el.style.setProperty("--pointer-y", ev.pageY - box.top);
+        el.style.setProperty("--pointer-y", ev.clientY - box.top);
     });
 }, {capture: true});
 */

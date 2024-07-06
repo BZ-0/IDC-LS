@@ -6,7 +6,7 @@ document.documentElement.style.setProperty("--theme-base-color", localStorage.ge
 document.documentElement.style.setProperty("--theme-wallpaper-is-dark", parseInt(localStorage.getItem("--theme-wallpaper-is-dark") || "0") || 0, "");
 
 // avoid any dragging when no-needed...
-document.addEventListener("dragstart", (ev)=>{
+document.documentElement.addEventListener("dragstart", (ev) => {
     ev.preventDefault();
 }, {passive: false, capture: true});
 
