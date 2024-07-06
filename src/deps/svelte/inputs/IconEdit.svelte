@@ -1,6 +1,6 @@
 <script>
 	import Field from '@svelte/inputs/Field.svelte';
-	import {zoomOf} from "@unite/utils/utils";
+	import {zoomOf} from "@unite/utils/utils.mjs";
 	import {onFocus} from "@workers/actionRegistry.mjs";
 	import {fade} from "svelte/transition";
 
@@ -23,14 +23,15 @@
 
         // don't close modal when such selectors...
         if (!whenContextMenu && 
-            !matches(document.activeElement, forbidSelectors) && (
-            !matches(ev.target, forbidSelectors) || 
-            (
-                ev.target.matches("button.edit-delete, button.edit-confirm") && 
-                document.elementFromPoint(ev.clientX / zoomOf(), ev.clientY / zoomOf()) == ev.target
-            ))) {
+            !matches(document.activeElement, forbidSelectors) && 
+            !matches(ev.target, forbidSelectors)) {
                 $iconItemId = null;
             }
+        
+        //
+        if (matches(ev.target, "button.edit-delete, button.edit-confirm") && document.elementFromPoint(ev.clientX / zoomOf(), ev.clientY / zoomOf()) == ev.target) {
+            $iconItemId = null;
+        }
     });
     
     //
