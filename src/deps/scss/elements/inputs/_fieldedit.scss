@@ -3,11 +3,10 @@
 
 @layer ls-inputs {
 
-    
-
     //
     .field-edit {
         @extend .pe-none;
+        @extend .vp-vars-keyboard-dependent;
     
         //
         display: grid;

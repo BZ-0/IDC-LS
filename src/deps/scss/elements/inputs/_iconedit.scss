@@ -9,8 +9,8 @@
         --ry: 0px;
         
         //
-        @include u.clamped-width(max-content, 24rem, stretch);
-        @include u.clamped-height(max-content, max-content, stretch);
+        @include u.clamped-width(max-content, 24rem, var(--vp-i-size, 100dvi));
+        @include u.clamped-height(max-content, max-content, var(--vp-b-size, 100dvb));
 
         //
         --translate-x: calc(calc(50cqi - 50%) + var(--rx));
@@ -34,6 +34,10 @@
         flex-direction: column;
         border-radius: 0.25rem;
         gap: 1rem;
+        
+        //
+        pointer-events: auto !important;
+        pointer-events: bounding-box !important;
         
         //
         .buttons {

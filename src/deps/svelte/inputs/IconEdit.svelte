@@ -11,15 +11,25 @@
     // may cause stack exceeded issue
     // $: iconItemId = onFocus.iconItemId;
 
+    const matches = (element, selector)=>{
+        return element.matches(selector) || element.closest(selector);
+    }
+
     //
     document.addEventListener("click", (ev)=>{
-        const forbidSelectors = ".icon-edit, .field-edit, .field-content, .ls-modal";
-        const parentAreIconEdit = ev.target.matches(".ls-contextmenu") ? ev.target : ev.target.closest(".ls-contextmenu");
+        const forbidSelectors = ".icon-edit, .field-edit, .field-content, .ls-modal, input";
+        const whenContextMenu = ev.target.matches(".ls-contextmenu") ? ev.target : ev.target.closest(".ls-contextmenu");
 
         // don't close modal when such selectors...
-        if (!parentAreIconEdit && !(ev.target.matches(forbidSelectors) || ev.target.closest(forbidSelectors)) || ev.target.matches("button.edit-delete, button.edit-confirm")) {
-            $iconItemId = null;
-        }
+        if (!whenContextMenu && 
+            !matches(document.activeElement, forbidSelectors) && (
+            !matches(ev.target, forbidSelectors) || 
+            (
+                ev.target.matches("button.edit-delete, button.edit-confirm") && 
+                document.elementFromPoint(ev.clientX, ev.clientY) == ev.target
+            ))) {
+                $iconItemId = null;
+            }
     });
     
     //
