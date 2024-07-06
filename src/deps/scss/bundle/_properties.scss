@@ -211,17 +211,17 @@
     @property --pointer-x { syntax: "<number>"; initial-value: 0; inherits: true; };
     @property --pointer-y { syntax: "<number>"; initial-value: 0; inherits: true; };
 
-
     //
-    :root, :host, :scope {
+    :root, :host, :scope, :where(body) {
         --keyboard-inset-bottom: calc(env(keyboard-inset-bottom, 0px) / var(--scaling, 1));
         --keyboard-inset-height: calc(env(keyboard-inset-height, 0px) / var(--scaling, 1));
 
         //
         will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset;
 
-        //
+        // WARNING! "ZOOM" available only from Chrome 128 to working it correctly!
         font-size: calc(16px * var(--scaling, 1));
+        //zoom: var(--scaling, 1);
         --ppx: calc(1px / var(--scaling, 1));
     }
 }
