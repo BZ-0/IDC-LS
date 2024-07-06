@@ -1,26 +1,23 @@
 {
-  "extends": [
-    "development"
-  ],
-  "hints": {
-    "compat-api/css": [
-      "default",
-      {
-        "ignore": [
-          "@property",
-          "@layer",
-          "@viewport",
-          "@viewport",
-          "@viewport"
-        ]
-      }
-    ],
-    "meta-viewport": "off"
-  },
-  "browserslist": [
-    "last 1 chrome version",
-    "last 1 firefox version",
-    "not chrome <= 125",
-    "not firefox <= 126"
-  ]
+    "extends": ["development"],
+    "hints": {
+        "compat-api/css": [
+            "default",
+            {
+                "ignore": [
+                    "@property",
+                    "@layer",
+                    "@viewport",
+                    "@view-transition"
+                ]
+            }
+        ],
+        "meta-viewport": "off"
+    },
+    "browserslist": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "not chrome <= 125",
+        "not firefox <= 126"
+    ]
 }

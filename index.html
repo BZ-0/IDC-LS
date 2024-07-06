@@ -51,7 +51,10 @@
                 virtual-keyboard: overlays-content;
             }
         
-            :root { virtual-keyboard: overlays-content; }
+            @view-transition {
+                navigation: auto;
+            }
+        
             :root, body {
                 background-color: black;
                 background-color: var(--theme-base-color, black);
@@ -60,10 +63,6 @@
             ::view-transition {
                 background-color: black;
                 background-color: var(--theme-base-color, black);
-            }
-
-            @view-transition {
-                navigation: auto;
             }
         </style>
         
