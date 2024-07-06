@@ -1,7 +1,8 @@
 <script>
-    import Field from '@svelte/inputs/Field.svelte';
-    import {onFocus} from "@workers/actionRegistry.mjs";
-    import {fade} from "svelte/transition";
+	import Field from '@svelte/inputs/Field.svelte';
+	import {zoomOf} from "@unite/utils/utils";
+	import {onFocus} from "@workers/actionRegistry.mjs";
+	import {fade} from "svelte/transition";
 
     // import writable store
     export let {iconItemId} = onFocus;
@@ -26,7 +27,7 @@
             !matches(ev.target, forbidSelectors) || 
             (
                 ev.target.matches("button.edit-delete, button.edit-confirm") && 
-                document.elementFromPoint(ev.clientX, ev.clientY) == ev.target
+                document.elementFromPoint(ev.clientX / zoomOf(), ev.clientY / zoomOf()) == ev.target
             ))) {
                 $iconItemId = null;
             }
