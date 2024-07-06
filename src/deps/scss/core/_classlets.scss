@@ -165,35 +165,8 @@
         @extend .pointer-events-none;
     }
     
-    //
-    .vp-vars-keyboard-dependent {
-        --vp-i-size: 100dvi !important;
-        --vp-b-size: 100dvb !important;
-
-        //
-        @media all and ((display-mode: fullscreen) or (display-mode: standalone)) {
-            --vp-i-size: min(var(--avail-width, 100lvi), 100lvi) !important;
-            --vp-b-size: min(var(--avail-height, 100lvb), 100lvb) !important;
-        }
-    }
     
-    //
-    .vp-vars {
-        --vp-i-size: 100dvi;
-        --vp-b-size: 100dvb;
-
-        //
-        @media (hover: none) and (pointer: coarse) {
-            --vp-i-size: var(--visual-width, 100dvi);
-            --vp-b-size: var(--visual-height, 100dvb);
-        }
-
-        //
-        @media all and ((display-mode: fullscreen) or (display-mode: standalone)) {
-            --vp-i-size: min(var(--avail-width, 100lvi), 100lvi);
-            --vp-b-size: min(var(--avail-height, 100lvb), 100lvb);
-        }
-    }
+    
     
     // depends from virtual keyboards
     .fit-viewport {
@@ -209,26 +182,37 @@
     }
     
     //
-    .__exp-use-zoom .vp-vars {
-        --vp-i-size: calc(100dvi / var(--scaling, 1));
-        --vp-b-size: calc(100dvb / var(--scaling, 1));
+    .vp-vars {
+        --vp-i-size: calc(100dvi / var(--zoom, 1));
+        --vp-b-size: calc(100dvb / var(--zoom, 1));
 
         //
         @media (hover: none) and (pointer: coarse) {
-            --vp-i-size: calc(100dvi / var(--scaling, 1));
-            --vp-b-size: calc(100dvb / var(--scaling, 1));
-            
-            //
-            --vp-i-size: calc(var(--visual-width, 100dvi) / var(--scaling, 1));
-            --vp-b-size: calc(var(--visual-height, 100dvb) / var(--scaling, 1));
+            --vp-i-size: calc(var(--visual-width, 100dvi) / var(--zoom, 1));
+            --vp-b-size: calc(var(--visual-height, 100dvb) / var(--zoom, 1));
         }
 
         //
         @media all and ((display-mode: fullscreen) or (display-mode: standalone)) {
-            --vp-i-size: min(calc(var(--avail-width) / var(--scaling, 1)), calc(100lvi / var(--scaling, 1)));
-            --vp-b-size: min(calc(var(--avail-height) / var(--scaling, 1)), calc(100lvb / var(--scaling, 1)));
+            --vp-i-size: min(calc(var(--avail-width) / var(--zoom, 1)), calc(100lvi / var(--zoom, 1)));
+            --vp-b-size: min(calc(var(--avail-height) / var(--zoom, 1)), calc(100lvb / var(--zoom, 1)));
         }
     }
+    
+    //
+    .vp-vars-keyboard-dependent {
+        --vp-i-size: calc(100dvi / var(--zoom, 1));
+        --vp-b-size: calc(100dvb / var(--zoom, 1));
+        
+        //
+        @media all and ((display-mode: fullscreen) or (display-mode: standalone)) {
+            --vp-i-size: min(calc(var(--avail-width) / var(--zoom, 1)), calc(100dvi / var(--zoom, 1)));
+            --vp-b-size: min(calc(var(--avail-height) / var(--zoom, 1)), calc(100dvb / var(--zoom, 1)));
+        }
+    }
+    
+    
+    
     
     // not depends from virtual keyboards
     .fixed-avail {
