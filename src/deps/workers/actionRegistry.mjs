@@ -125,9 +125,6 @@ export const actionRegistry = new Map([
                 currentState.iconItems.delete(id);
                 currentState.iconItems = currentState.iconItems;
 
-                // do lost focus when deleted
-                onFocus.focus("");
-
                 //
                 const currentIconGrid =
                     from?.closest('.icon-grid[data-type="icons"]') ||
@@ -138,11 +135,11 @@ export const actionRegistry = new Map([
                 const iconList = currentState.iconLists.get(currentPage) || [];
 
                 //
-                const indexOf = iconList.indexOf(id);
-                if (indexOf >= 0) {
-                    iconList.splice(indexOf, 1);
-                }
+                currentState.iconLists.set(iconList.filter((idc) => id != idc));
                 currentState.iconLists = currentState.iconLists;
+
+                // do lost focus when deleted
+                onFocus.focus("");
             }
         },
     ],

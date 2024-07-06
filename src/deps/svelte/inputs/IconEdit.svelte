@@ -54,8 +54,8 @@
             {/each}
         </div>
         <div class="buttons">
-            <button type="button" class="edit-delete  solid hl-2 apply-color-theme" data-action="delete-icon">Delete</button>
-            <button type="button" class="edit-confirm solid hl-2 apply-color-theme" data-action="confirm-edit">Confirm</button>
+            <button type="button" class="edit-delete  solid hl-2 apply-color-theme" data-id={$iconItemId} data-action="delete-icon">Delete</button>
+            <button type="button" class="edit-confirm solid hl-2 apply-color-theme" data-id={$iconItemId} data-action="confirm-edit">Confirm</button>
         </div>
     </div>
 {/if}
