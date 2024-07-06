@@ -196,7 +196,7 @@
         --vp-b-size: calc(100dvb / var(--scaling, 1)) !important;
 
         //
-        @media all and ((display-mode: fullscreen) or (display-mode: standalone) or ((hover: none) and (pointer: coarse))) {
+        @media all and ((display-mode: fullscreen) or (display-mode: standalone)) {
             --vp-i-size: min(calc(var(--avail-width) / var(--scaling, 1)), calc(100lvi / var(--scaling, 1))) !important;
             --vp-b-size: min(calc(var(--avail-height) / var(--scaling, 1)), calc(100lvb / var(--scaling, 1))) !important;
         }
