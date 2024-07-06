@@ -12,8 +12,8 @@
     // $: iconItemId = onFocus.iconItemId;
 
     //
-    document.documentElement.addEventListener("click", (ev)=>{
-        const forbidSelectors = ".icon-edit, .field-edit, .ls-modal";
+    document.addEventListener("click", (ev)=>{
+        const forbidSelectors = ".icon-edit, .field-edit, .field-content, .ls-modal";
         const parentAreIconEdit = ev.target.matches(".ls-contextmenu") ? ev.target : ev.target.closest(".ls-contextmenu");
 
         // don't close modal when such selectors...

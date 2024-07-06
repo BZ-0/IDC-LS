@@ -172,8 +172,8 @@
 
         //
         @media all and ((display-mode: fullscreen) or (display-mode: standalone) or ((hover: none) and (pointer: coarse))) {
-            --vp-i-size: max(var(--avail-width, 100dvi), 100dvi);
-            --vp-b-size: max(var(--avail-height, 100dvb), 100dvb);
+            --vp-i-size: min(var(--avail-width, 100lvi), 100lvi);
+            --vp-b-size: min(var(--avail-height, 100lvb), 100lvb);
         }
     }
     
@@ -192,13 +192,13 @@
     
     //
     .__exp-use-zoom .vp-vars {
-        --vp-i-size: calc(100dvi / var(--scaling, 1));
-        --vp-b-size: calc(100dvb / var(--scaling, 1));
+        --vp-i-size: calc(100dvi / var(--scaling, 1)) !important;
+        --vp-b-size: calc(100dvb / var(--scaling, 1)) !important;
 
         //
         @media all and ((display-mode: fullscreen) or (display-mode: standalone) or ((hover: none) and (pointer: coarse))) {
-            --vp-i-size: max(calc(var(--avail-width) / var(--scaling, 1)), calc(100dvi / var(--scaling, 1)));
-            --vp-b-size: max(calc(var(--avail-height) / var(--scaling, 1)), calc(100dvb / var(--scaling, 1)));
+            --vp-i-size: min(calc(var(--avail-width) / var(--scaling, 1)), calc(100lvi / var(--scaling, 1))) !important;
+            --vp-b-size: min(calc(var(--avail-height) / var(--scaling, 1)), calc(100lvb / var(--scaling, 1))) !important;
         }
     }
     
@@ -214,9 +214,27 @@
         cursor: pointer;
     }
 
+    //
+    .align-center {
+        // FLEX/GRID
+        justify-content: center;
+        justify-items: center;
+        align-content: center;
+        align-items: center;
+        
+        // Legacy
+        text-align: center;
+        vertical-align: center;
+        
+        // EXPERIMENTAL!
+        place-content: center;
+        place-items: center;
+    }
+
     // bit-complex element
     .grid-based-box {
         @extend .stretch;
+        @extend .align-center;
 
         //
         container-type: size;
@@ -237,9 +255,20 @@
         overflow: visible;
 
         //
+        align-items: start;
+        align-content: start;
+        align-self: start;
+
+        //
         & > :where(*) {
             @extend .contained;
             @extend .grid-inside;
+            @extend .align-center;
+            
+            //
+            align-items: start;
+            align-content: start;
+            align-self: start;
         }
     }
     
@@ -308,23 +337,6 @@
     //
     .round-ns {
         border-radius: 0.2rem;
-    }
-    
-    //
-    .align-center {
-        // FLEX/GRID
-        justify-content: center;
-        justify-items: center;
-        align-content: center;
-        align-items: center;
-        
-        // Legacy
-        text-align: center;
-        vertical-align: center;
-        
-        // EXPERIMENTAL!
-        place-content: center;
-        place-items: center;
     }
 
     //

@@ -24,9 +24,9 @@
         z-index: 99999;
         
         //
-        inline-size: 100dvi !important;
-        block-size: 100dvb !important;
-        block-size: calc(100dvb - var(--keyboard-inset-height, 0px)) !important;
+        inline-size: var(--vp-i-size, 100dvi) !important;
+        block-size: var(--vp-b-size, 100dvb) !important;
+        block-size: calc(var(--vp-b-size, 100dvb) - var(--keyboard-inset-height, 0px)) !important;
         
         //
         will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset;
@@ -90,11 +90,5 @@
 
         }
         
-    }
-    
-    .__exp-use-zoom .field-edit {
-        inline-size: calc(100dvi / var(--scaling, 1)) !important;
-        block-size:  calc(100dvb / var(--scaling, 1)) !important;
-        block-size: calc(calc(100dvb / var(--scaling, 1)) - var(--keyboard-inset-height, 0px)) !important;
     }
 }

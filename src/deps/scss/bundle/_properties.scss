@@ -225,8 +225,8 @@
 
     //
     :root, :host, :scope, :where(body) {
-        --keyboard-inset-bottom: calc(env(keyboard-inset-bottom, 0px) / var(--scaling, 1));
-        --keyboard-inset-height: calc(env(keyboard-inset-height, 0px) / var(--scaling, 1));
+        --keyboard-inset-bottom: env(keyboard-inset-bottom, 0px);
+        --keyboard-inset-height: env(keyboard-inset-height, 0px);
 
         //
         will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset;

@@ -41,6 +41,10 @@
         position: relative;
 
         //
+        inline-size: 100cqi;
+        block-size: 100cqb;
+
+        //
         grid-template-columns: repeat(var(--columns), minmax(0px, 1fr));
         grid-template-rows: repeat(var(--rows), minmax(0px, 1fr));
 
@@ -62,6 +66,11 @@
         //
         background-color: transparent;
         background-image: none;
+        
+        //
+        align-items: start;
+        align-content: start;
+        align-self: start;
     }
 
     //

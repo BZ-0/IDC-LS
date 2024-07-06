@@ -61,23 +61,23 @@
     }
 
     //
-    document.documentElement.addEventListener("focusout", ({target})=>{
+    document.addEventListener("focusout", ({target})=>{
         if (target == input) { unfocus({target}); }
     });
 
     //
-    document.documentElement.addEventListener("focusin", ({target})=>{
+    document.addEventListener("focusin", ({target})=>{
         if (!stillInFocus(target)) {
             if (document.activeElement != input) { refocus(input); }
         }
     });
 
     //
-    document.documentElement.addEventListener("click", (ev)=>{
+    document.addEventListener("click", (ev)=>{
         const target = ev.target;
 
         //
-        if (stillInFocus(target)) {
+        if (stillInFocus(target) || target.matches(".field-edit, .field-content, .icon-edit, input.ls-modal")) {
             refocus(input, document?.activeElement);
         } else {
             unfocus({target});

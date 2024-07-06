@@ -49,7 +49,7 @@
 
     //
     document.documentElement.addEventListener("click", (ev)=>{
-        const forbidSelectors = ".icon-edit, .field-edit, .ls-modal";
+        const forbidSelectors = ".icon-edit, .field-edit, .field-content, .ls-modal";
         const parentAreContextMenu = ev.target.matches(".ls-contextmenu") ? ev.target : ev.target.closest(".ls-contextmenu");
 
         //

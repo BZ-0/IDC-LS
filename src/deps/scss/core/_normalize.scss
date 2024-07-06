@@ -173,6 +173,11 @@
         @extend .align-center;
 
         //
+        align-items: start;
+        align-content: start;
+        align-self: start;
+
+        //
         aspect-ratio: auto;
         display: flex;
 
