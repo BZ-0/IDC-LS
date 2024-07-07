@@ -1,15 +1,34 @@
 <script>
+    import {settings} from "@states/settings.mjs";
     import {onMount} from "svelte";
     import {fade} from "svelte/transition";
 
     //
+    let {
+        "@rows": rows, 
+        "@columns": columns
+    } = settings;
+    let element = null;
+
+    // 
+    rows.subscribe((v)=>{
+        if (element) {
+            element.style.setProperty("--rows", v, "");
+        }
+    });
+    
+    //
+    columns.subscribe((v)=>{
+        if (element) {
+            element.style.setProperty("--columns", v, "");
+        }
+    });
+
+    //
     export let id = "";
-    export let columns = 4;
-    export let rows = 8;
     export let type = "";
 
     //
-    let element = null;
     let gridW = 0;
     let gridH = 0;
 
@@ -45,7 +64,6 @@
     data-type={type}
     data-id={id}
     class="icon-grid stretch relative inset-0 orientation-adaptive overflow-visible grid-inside pointer-events-none no-contain inset-0"
-    style={`--columns:${columns};--rows:${rows};--grid-w:${gridW};--grid-h:${gridH};`}
     {...propsFilter($$props)}>
     <slot></slot>
 </div>
