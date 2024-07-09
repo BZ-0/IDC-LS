@@ -1,3 +1,0 @@
-[submodule "src/deps/unite"]
-	path = src/deps/unite
-	url = https://github.com/BZ-0/unite.js.git
