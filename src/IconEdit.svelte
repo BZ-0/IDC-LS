@@ -4,9 +4,10 @@
     import Frame from "@unite/design/Frame.svelte";
     import {writable} from "svelte/store";
     import type {Writable} from "svelte/store";
+    import type { GridItemType } from "@unite/grid/GridItemUtils.ts";
     
     //
-    export let gridItem: Writable<GridItem> = writable<GridItem>(null);
+    export let gridItem: Writable<GridItemType> = writable<GridItemType>(null);
     export let actionMap = new Map<string, Function>();
     
     //
@@ -14,16 +15,16 @@
     let itemId = "";
     
     //
-    $: itemId = gridItem.id;
+    $: itemId = $gridItem?.id||"";
     
     //
-    const confirmWrap = (ev)=>{
+    const confirmWrap = (ev: PointerEvent | MouseEvent)=>{
         gridItem.set(null);
         confirm();
     }
     
     //
-    const deleteWrap = (ev)=>{
+    const deleteWrap = (ev: PointerEvent| MouseEvent)=>{
         actionMap.get("delete-icon")?.({
             initiator: document.querySelector(`.ux-grid-item[data-type=\"items\"][data-id=\"${itemId}\"]`)
         });
@@ -31,7 +32,7 @@
 </script>
 
 <!-- -->
-<Frame focused={!!$gridItem} class="ux-modal-frame ls-item-edit" data-item={$gridItem?.id||""}>
+<Frame focused={$gridItem} class="ux-modal-frame ls-item-edit" data-item={$gridItem?.id||""}>
     <ItemEdit whatEdit={$gridItem} data-item={$gridItem?.id||""} bind:confirm={confirm}></ItemEdit>
     <div class="ls-but">
         <button type="button" class="delete-btn" on:click={deleteWrap}>Delete Icon</button>

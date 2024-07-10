@@ -1,20 +1,18 @@
 <script lang="ts" type="ts">
-	import GridItem from "@unite/grid/GridItem.svelte";
-    import MultiPage from "@unite/grid/MultiPage.svelte";
-    import IconEdit from "src/_IconEdit.svelte";
-    import Settings from "src/_Settings.svelte";
+	import type { GridItemType } from "@unite/grid/GridItemUtils.ts";
     import {writable} from "svelte/store";
     import type {Writable} from "svelte/store";
+    import actionMap, {onEditItem} from "./ActionMap.ts";
+    import {state} from "./GridState.ts";
     
     //
+    import MultiPage from "@unite/grid/MultiPage.svelte";
     import IconEdit from "./IconEdit.svelte";
+    import Settings from "./Settings.svelte";
     
     //
-    export let actionMap = new Map<string, Function>();
     export let wallpaperURL = "";
-    
-    //
-    let gridItem: Writable<GridItem> = writable<GridItem>(null);
+    export let currentPage = "main";
     
 </script>
 
@@ -22,6 +20,6 @@
 <w-canvas data-src={wallpaperURL}></w-canvas>
 
 <!-- -->
-<MultiPage actionMap={actionMap}></MultiPage>
+<MultiPage state={state} actionMap={actionMap} current={currentPage}></MultiPage>
 <Settings actionMap={actionMap}></Settings>
-<IconEdit actionMap={actionMap} gridItem={gridItem}></IconEdit>
+<IconEdit actionMap={actionMap} gridItem={onEditItem}></IconEdit>
