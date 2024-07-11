@@ -5,6 +5,7 @@
     import {writable} from "svelte/store";
     import type {Writable} from "svelte/store";
     import type { GridItemType } from "@unite/grid/GridItemUtils.ts";
+    import {state} from "./GridState.ts";
     
     //
     export let gridItem: Writable<GridItemType> = writable<GridItemType>(null);
@@ -19,8 +20,9 @@
     
     //
     const confirmWrap = (ev: PointerEvent | MouseEvent)=>{
+        confirm(); 
+        state.items.set($gridItem?.id || "", $gridItem);
         gridItem.set(null);
-        confirm();
     }
     
     //
@@ -29,11 +31,20 @@
             initiator: document.querySelector(`.ux-grid-item[data-type=\"items\"][data-id=\"${itemId}\"]`)
         });
     }
+    
+    //
+    const fieldSet: Field[] = [
+        {"name": "icon", "label": "Icon: ", "icon": "", "value": ""},
+        {"name": "label", "label": "Label: ", "icon": "", "value": "RX"},
+        {"name": "action", "label": "Action: ", "icon": "", "value": "RX"},
+    ]
+    
+    
 </script>
 
 <!-- -->
-<Frame focused={$gridItem} class="ux-modal-frame ls-item-edit" data-item={$gridItem?.id||""}>
-    <ItemEdit whatEdit={$gridItem} data-item={$gridItem?.id||""} bind:confirm={confirm}></ItemEdit>
+<Frame focused={gridItem} class="ux-modal-frame ls-item-edit" data-item={$gridItem?.id||""}>
+    <ItemEdit whatEdit={$gridItem} data-item={$gridItem?.id||""} fields={fieldSet} bind:confirm={confirm}></ItemEdit>
     <div class="ls-but">
         <button type="button" class="delete-btn" on:click={deleteWrap}>Delete Icon</button>
         <button type="button" class="confirm-btn" on:click={confirmWrap}>Apply Change</button>

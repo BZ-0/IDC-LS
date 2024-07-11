@@ -16,8 +16,10 @@ const actionMap = new Map<string, Function>([
 
 
     ["edit-item", ({initiator}) => {
+        console.log(initiator);
         if (initiator) {
-            onEditItem.set(state.items.get(initiator.dataset.id || ""));
+            const item = state.items.get(initiator.dataset.id || "");
+            onEditItem.set(item);
         }
     }],
 
