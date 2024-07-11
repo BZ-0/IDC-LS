@@ -1,5 +1,5 @@
 <script lang="ts" type="ts">
-	import ContextMenu from "./../unite/contextmenu/ContextMenu.svelte";
+	import ContextMenu from "@unite/contextmenu/ContextMenu.svelte";
 	import type { GridItemType } from "@unite/grid/GridItemUtils.ts";
     import {writable} from "svelte/store";
     import type {Writable} from "svelte/store";
@@ -12,20 +12,27 @@
     import Settings from "./Settings.svelte";
     
     //
-    export let wallpaperURL = "";
+    export let wallpaperURL = (localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg");
     export let currentPage = "main";
     
     //
     const itemCtxList = [{
-        icon: "gear",
+        icon: "pencil-line",
         name: "Edit Item",
         action: "edit-item"
+    }];
+    
+    //
+    const gridCtxList = [{
+        icon: "wallpaper",
+        name: "Wallpaper",
+        action: "change-wallpaper"
     }];
     
 </script>
 
 <!-- -->
-<w-canvas data-src={wallpaperURL}></w-canvas>
+<canvas is="w-canvas" data-src={wallpaperURL}></canvas>
 
 <!-- -->
 <MultiPage state={state} actionMap={actionMap} current={currentPage}></MultiPage>
@@ -34,3 +41,4 @@
 <!-- -->
 <IconEdit actionMap={actionMap} gridItem={onEditItem}></IconEdit>
 <ContextMenu actionMap={actionMap} ctxList={itemCtxList} ctxName={"grid-item"}></ContextMenu>
+<ContextMenu actionMap={actionMap} ctxList={gridCtxList} ctxName={"grid-space"}></ContextMenu>

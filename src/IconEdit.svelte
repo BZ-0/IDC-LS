@@ -34,9 +34,10 @@
     
     //
     const fieldSet: Field[] = [
-        {"name": "icon", "label": "Icon: ", "icon": "", "value": ""},
-        {"name": "label", "label": "Label: ", "icon": "", "value": "RX"},
-        {"name": "action", "label": "Action: ", "icon": "", "value": "RX"},
+        {"name": "label", "label": "Label: ", "icon": "", "value": ""},
+        {"name": "icon", "label": "IconID: ", "icon": "", "value": ""},
+        {"name": "action", "label": "Action: ", "icon": "", "value": ""},
+        {"name": "href", "label": "HREF: ", "icon": "", "value": ""},
     ]
     
     
@@ -50,3 +51,20 @@
         <button type="button" class="confirm-btn" on:click={confirmWrap}>Apply Change</button>
     </div>
 </Frame>
+
+<style lang="scss" type="scss">
+
+//
+.ls-but {
+    inline-size: stretch;
+    block-size: stretch;
+
+    display: grid;
+    grid-template-columns: minmax(0px, 1fr) minmax(0px, 1fr);
+    grid-template-rows: minmax(0px, max-content);
+    
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
+</style>
