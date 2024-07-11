@@ -13,15 +13,15 @@
     import {observeBySelector} from "../unite/dom/Observer.ts";
 
     //
-    const columns = writable(layout[0] || 4);
-    const rows = writable(layout[1] || 8);
+    const columns = writable(settings.columns);
+    const rows = writable(settings.rows);
     const scaling = writable(settings.scaling);
     const useZoom = writable(settings.useZoom);
     const theme = writable(settings.theme);
 
     //
-    $: layout[0] = $columns;
-    $: layout[1] = $rows;
+    $: settings.columns = $columns;
+    $: settings.rows = $rows;
 	$: settings.scaling = $scaling;
 	$: settings.useZoom = $useZoom;
 	$: settings.theme = $theme;

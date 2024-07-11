@@ -56,12 +56,6 @@ state.grids.set("main", state.grids.get("main") || makeReactiveObject({
 }));
 
 //
-for (const gp of state.grids.values()) {
-    gp.size = size;
-    gp.layout = layout;
-};
-
-//
 state.items.set("github", state.items.get("github") || makeReactiveObject({
     id: "github",
     cell: [0, 0],
@@ -83,31 +77,30 @@ state.lists?.["@subscribe"]?.((v, prop) => {
 });
 
 //
+settings?.["@subscribe"]?.((v) => {layout[0] = v;}, "columns");
+settings?.["@subscribe"]?.((v) => {layout[1] = v;}, "rows");
+
+//
 layout?.["@subscribe"]?.((v, p) => {
-    requestAnimationFrame(() => {
-        settings[["columns", "rows"][p]] = v;
-        localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
-    });
+    for (const gp of state.grids.values()) {
+        gp.size = size;
+        gp.layout = layout;
+    };
+    localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
 });
 
 //
 state.grids?.["@subscribe"]?.(() => {
-    requestAnimationFrame(() => {
-        localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
-    });
+    localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
 });
 
 //
 state.items?.["@subscribe"]?.(() => {
-    requestAnimationFrame(() => {
-        localStorage.setItem("@itemsState", JSOX.stringify(Array.from(state.items.values())));
-    });
+    localStorage.setItem("@itemsState", JSOX.stringify(Array.from(state.items.values())));
 });
 
 //
 state?.["@subscribe"]?.(() => {
-    requestAnimationFrame(() => {
-        localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
-        localStorage.setItem("@itemsState", JSOX.stringify(Array.from(state.items.values())));
-    });
+    localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
+    localStorage.setItem("@itemsState", JSOX.stringify(Array.from(state.items.values())));
 });
