@@ -8,6 +8,9 @@ import {parse} from "svelte/compiler";
 import {get} from "svelte/store";
 
 //
+import {settings} from "./CurrentState.ts";
+
+//
 import type {GridItemType, GridsStateType, GridPageType} from "@unite/grid/GridItemUtils.ts";
 
 //
@@ -26,7 +29,7 @@ export const fromMap = <K, V>(map: Map<K, V>): V[] => {
 };
 
 //
-export const layout: [number, number] = makeReactiveObject([4, 8]);
+export const layout: [number, number] = makeReactiveObject([settings.columns || 4, settings.rows || 8]);
 export const size: [number, number] = makeReactiveObject([0, 0]);
 
 //
@@ -45,12 +48,12 @@ state.grids.set("backup", {
 });
 
 //
-state.grids.set("main", state.grids.get("main") || {
+state.grids.set("main", state.grids.get("main") || makeReactiveObject({
     id: "main",
     size: size,
     layout: layout,
     list: ["github"]
-});
+}));
 
 //
 for (const gp of state.grids.values()) {
@@ -59,13 +62,15 @@ for (const gp of state.grids.values()) {
 };
 
 //
-state.items.set("github", state.items.get("github") || {
+state.items.set("github", state.items.get("github") || makeReactiveObject({
     id: "github",
     cell: [0, 0],
     icon: "github",
     label: "GitHub",
-    pointerId: -1
-});
+    pointerId: -1,
+    action: "open-link",
+    href: "https://github.com/"
+}));
 
 
 //
@@ -78,8 +83,9 @@ state.lists?.["@subscribe"]?.((v, prop) => {
 });
 
 //
-layout?.["@subscribe"]?.(() => {
+layout?.["@subscribe"]?.((v, p) => {
     requestAnimationFrame(() => {
+        settings[["columns", "rows"][p]] = v;
         localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
     });
 });

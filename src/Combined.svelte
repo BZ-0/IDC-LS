@@ -10,6 +10,7 @@
     import MultiPage from "@unite/grid/MultiPage.svelte";
     import IconEdit from "./IconEdit.svelte";
     import Settings from "./Settings.svelte";
+    import InputEditor from "@unite/editor/InputEditor.svelte";
     
     //
     export let wallpaperURL = (localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg");
@@ -46,3 +47,6 @@
 <IconEdit actionMap={actionMap} gridItem={onEditItem}></IconEdit>
 <ContextMenu actionMap={actionMap} ctxList={itemCtxList} ctxName={"grid-item"}></ContextMenu>
 <ContextMenu actionMap={actionMap} ctxList={gridCtxList} ctxName={"grid-space"}></ContextMenu>
+
+<!-- -->
+<InputEditor></InputEditor>
