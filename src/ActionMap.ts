@@ -1,7 +1,8 @@
 import {writable} from "svelte/store";
 import {state} from "./GridState.ts";
 import type {GridItemType} from "@unite/grid/GridItemUtils.ts";
-
+import {makeReactiveObject} from "@unite/reactive/ReactiveObject.ts";
+import {redirectCell} from "@unite/grid/GridItemUtils.ts";
 
 //
 export const onEditItem = writable<GridItemType>(null);
@@ -78,12 +79,50 @@ const actionMap = new Map<string, Function>([
 
 
     ["delete-item", ({initiator}) => {
+        if (initiator) {
+            const ID = initiator.dataset.id || "";
 
+            //
+            state.items.delete(ID);
+            state.items = state.items;
+            onEditItem.set(null);
+
+            //
+            for (const L of state.lists) {
+                L[1].delete(ID);
+                state.lists.set(...L);
+            }
+            state.lists = state.lists;
+        }
     }],
 
 
-    ["add-item", ({}) => {
+    ["add-item", ({initiator}) => {
+        if (initiator && initiator.dataset.currentPage) {
+            const currentPage = initiator.dataset.currentPage;
+            const newItem = makeReactiveObject({
+                id: UUIDv4(),
+                cell: [0, 0],
+                icon: "file-question",
+                label: "Untitled",
+                pointerId: -1,
+                action: "open-link",
+                href: "#"
+            });
 
+            //
+            state.items.set(newItem.id, newItem);
+            state.items = state.items;
+            onEditItem.set(newItem);
+
+            //
+            state.lists.get(currentPage)?.add?.(newItem.id);
+            state.lists.set(currentPage, state.lists.get(currentPage));
+            state.lists = state.lists;
+
+            //
+            redirectCell({item: newItem, items: state.items, page: state.grids.get(currentPage)}, newItem.cell);
+        }
     }],
 
 

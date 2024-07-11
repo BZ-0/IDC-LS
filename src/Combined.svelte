@@ -20,11 +20,19 @@
     const itemCtxList = [{
         icon: "pencil-line",
         name: "Edit Item",
-        action: "edit-item"
+        action: "edit-item",
+    }, {
+        icon: "badge-x",
+        name: "Delete Item",
+        action: "delete-item"
     }];
     
     //
     const gridCtxList = [{
+        icon: "badge-plus",
+        name: "Add Item",
+        action: "add-item"
+    }, {
         icon: "wallpaper",
         name: "Wallpaper",
         action: "change-wallpaper"

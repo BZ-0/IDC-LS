@@ -14,8 +14,18 @@ import {settings} from "./CurrentState.ts";
 import type {GridItemType, GridsStateType, GridPageType} from "@unite/grid/GridItemUtils.ts";
 
 //
+const isArrayLike = (a) => {
+    return (
+        a != null &&
+        typeof (a[Symbol.iterator]) === 'function' &&
+        typeof (a.length) === 'number' &&
+        typeof (a) !== 'string'
+    );
+}
+
+//
 export const toMapSet = <K, V>(list) => {
-    return createReactiveMap<K, V>(list.map(([id, list]) => [id, createReactiveSet(list)]));
+    return createReactiveMap<K, V>(list.map(([id, list2]) => [id, createReactiveSet((isArrayLike(list2) ? Array.from(list2) : null) || [])]));
 };
 
 //
@@ -25,7 +35,7 @@ export const toMap = <K, V>(list) => {
 
 //
 export const fromMap = <K, V>(map: Map<K, V>): V[] => {
-    return Array.from(map.values());
+    return Array.from(map.values() || []);
 };
 
 //
@@ -52,20 +62,19 @@ state.grids.set("main", state.grids.get("main") || makeReactiveObject({
     id: "main",
     size: size,
     layout: layout,
-    list: ["github"]
+    list: ["settings"]
 }));
 
 //
-state.items.set("github", state.items.get("github") || makeReactiveObject({
-    id: "github",
+state.items.set("settings", state.items.get("settings") || makeReactiveObject({
+    id: "settings",
     cell: [0, 0],
-    icon: "github",
-    label: "GitHub",
+    icon: "settings",
+    label: "Settings",
     pointerId: -1,
-    action: "open-link",
-    href: "https://github.com/"
+    action: "open-settings",
+    href: "#settings"
 }));
-
 
 //
 state.lists = toMapSet(Array.from(state.grids?.values?.() || []).map((gs: GridPageType) => [gs?.id || "", gs?.list || []]));
@@ -73,7 +82,7 @@ state.lists = toMapSet(Array.from(state.grids?.values?.() || []).map((gs: GridPa
 //
 state.lists?.["@subscribe"]?.((v, prop) => {
     const changed = state.grids.get(prop);
-    if (changed) {changed.list = v;}
+    if (changed) {changed.list = [...(v?.["@extract"] || v || [])];}
 });
 
 //

@@ -27,7 +27,7 @@
     
     //
     const deleteWrap = (ev: PointerEvent| MouseEvent)=>{
-        actionMap.get("delete-icon")?.({
+        actionMap.get("delete-item")?.({
             initiator: document.querySelector(`.ux-grid-item[data-type=\"items\"][data-id=\"${itemId}\"]`)
         });
     }
