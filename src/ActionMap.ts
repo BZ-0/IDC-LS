@@ -60,6 +60,10 @@ export const pickWallpaperImage = async () => {
 //
 const actionMap = new Map<string, Function>([
 
+    ["open-settings", ({initiator}) => {
+        location.hash = "#settings";
+    }],
+
     ["open-link", ({initiator}) => {
 
     }],

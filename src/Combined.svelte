@@ -27,6 +27,10 @@
         icon: "wallpaper",
         name: "Wallpaper",
         action: "change-wallpaper"
+    }, {
+        icon: "settings",
+        name: "Settings",
+        action: "open-settings"
     }];
     
 </script>

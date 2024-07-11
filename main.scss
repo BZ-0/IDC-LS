@@ -20,3 +20,11 @@
 @use "@unite/forms/ItemEdit";
 @use "@unite/editor/InputEditor";
 @use "@unite/appframe/AppFrame";
+
+//
+@use "@unite/scrollbox/ScrollBox";
+
+//
+@use "@unite/inputs/Checkbox";
+@use "@unite/inputs/Number";
+@use "@unite/inputs/Switch";

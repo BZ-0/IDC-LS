@@ -78,17 +78,30 @@ state.lists?.["@subscribe"]?.((v, prop) => {
 });
 
 //
+layout?.["@subscribe"]?.(() => {
+    requestAnimationFrame(() => {
+        localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
+    });
+});
+
+//
 state.grids?.["@subscribe"]?.(() => {
-    localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
+    requestAnimationFrame(() => {
+        localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
+    });
 });
 
 //
 state.items?.["@subscribe"]?.(() => {
-    localStorage.setItem("@itemsState", JSOX.stringify(Array.from(state.items.values())));
+    requestAnimationFrame(() => {
+        localStorage.setItem("@itemsState", JSOX.stringify(Array.from(state.items.values())));
+    });
 });
 
 //
 state?.["@subscribe"]?.(() => {
-    localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
-    localStorage.setItem("@itemsState", JSOX.stringify(Array.from(state.items.values())));
+    requestAnimationFrame(() => {
+        localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
+        localStorage.setItem("@itemsState", JSOX.stringify(Array.from(state.items.values())));
+    });
 });
