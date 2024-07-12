@@ -62,7 +62,7 @@
         "publish": null,
         "win": {
             "target": "portable",
-            "icon": "../src/assets/icons/gpt/512x.png"
+            "icon": "../src/assets/icons/home/512x.png"
         }
     },
     "config": {
@@ -70,7 +70,7 @@
             "makers": [],
             "publishers": [],
             "packagerConfig": {
-                "icon": "../src/assets/icons/gpt/512x.png"
+                "icon": "../src/assets/icons/home/512x.png"
             }
         }
     }

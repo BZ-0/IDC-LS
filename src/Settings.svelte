@@ -113,7 +113,7 @@
 			
 			<div class="page-wrap" transition:fade={{ key: currentPage, delay: 0, duration: 100 }}>
 				{#if ["grid-settings", "all-settings"].indexOf(currentPage) >= 0}
-					<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row">
+					<form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
 						<div class="form-description"> Grid Layout Settings: </div>
 					
 						<Block class="ux-block-decor">
@@ -132,7 +132,7 @@
 				{/if}
 			
 				{#if ["display-settings", "all-settings"].indexOf(currentPage) >= 0}
-					<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row">
+					<form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
 						<div class="form-description"> Experimental Display Settings: </div>
 					
 						<Block class="ux-block-decor">
@@ -143,7 +143,7 @@
 						</Block>
 					</form>
 					
-					<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row">
+					<form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
 						<div class="form-description"> Experimental Color Scheme: </div>
 						
 						<Block class="ux-block-decor">
@@ -155,7 +155,7 @@
 				{/if}
 
 				{#if ["experimental-settings"].indexOf(currentPage) >= 0}
-					<form data-page class="form-wrap solid hl-ns" data-name="grid-columns-row">
+					<form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
 						<div class="form-description"> Experimental Color Scheme: </div>
 
 						<Block class="ux-block-decor">

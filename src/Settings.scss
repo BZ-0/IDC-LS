@@ -96,11 +96,19 @@
         //
         .page-wrap {
             inset: 0px;
-            position: absolute;
+            //position: absolute;
+            position: relative;
     
             //
             @include u.clamped-width(stretch, stretch, stretch);
             @include u.clamped-height(stretch, max-content, none);
+            
+            // stretch or moz-available works buggy
+            @-moz-document url-prefix() {
+                inline-size: min(100%, 100cqi);
+                max-inline-size: min(100%, 100cqi);
+                max-block-size: min(100%, 100cqb);
+            }
         }
         
         //
