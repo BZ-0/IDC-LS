@@ -7,7 +7,7 @@ export const settings = makeReactiveObject({
     theme: parseInt(localStorage.getItem("@settings:@theme")) || 0,
     orientation: parseInt(localStorage.getItem("@settings:@orientation")) || "auto",
     scaling: parseFloat(localStorage.getItem("@settings:@scaling")) || 1,
-    useZoom: !!localStorage.getItem("@settings:@use-zoom") || true
+    useZoom: !!localStorage.getItem("@settings:@use-zoom") ?? true
 });
 
 

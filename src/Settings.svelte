@@ -16,14 +16,14 @@
     const columns = writable(settings.columns);
     const rows = writable(settings.rows);
     const scaling = writable(settings.scaling);
-    const useZoom = writable(settings.useZoom);
+    const useZoom = writable(settings.useZoom ?? true);
     const theme = writable(settings.theme);
 
     //
     $: settings.columns = $columns;
     $: settings.rows = $rows;
 	$: settings.scaling = $scaling;
-	$: settings.useZoom = $useZoom;
+	$: settings.useZoom = $useZoom ?? true;
 	$: settings.theme = $theme;
 
 	//
@@ -60,7 +60,8 @@
 	document.documentElement.addEventListener("click", (ev)=>{
 		const {target} = ev;
 		if (target.matches(".ls-tab-item")) {
-			currentPage = target.dataset.page || "";
+			const _ = target.dataset.page || "";
+			if (_ != currentPage) { currentPage = _; };
 		}
 	})
 
@@ -103,7 +104,7 @@
 			{#each tabs as tab}
 				<Block class="ux-block-decor ux-default-theme hl-1 hl-2h ls-tab-item cursor-pointer pe-enable" data-page={tab.page}>
 					<LucideIcon inert={true} slot="icon" name={tab.icon}/>
-					<div inert={true} class="tab-label">{tab.label}</div>
+					<span inert={true} class="tab-label">{tab.label}</span>
 					<LucideIcon inert={true} slot="element" name={"chevron-right"}/>
 				</Block>
 			{/each}
@@ -116,13 +117,13 @@
 						<div class="form-description"> Grid Layout Settings: </div>
 					
 						<Block class="ux-block-decor">
-							<div class="opt-label">Columns:</div>
+							<span class="opt-label">Columns:</span>
 							<LucideIcon slot="icon" name={"columns-3"}/>
 							<Number slot="element" value={columns} min={4} max={6} step={1}></Number>
 							<!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
 						</Block>
 						<Block class="ux-block-decor">
-							<div class="opt-label">Rows:</div>
+							<span class="opt-label">Rows:</span>
 							<LucideIcon slot="icon" name={"rows-3"}/>
 							<Number slot="element" value={rows} min={8} max={12} step={1}></Number>
 							<!--<RangeSlider slot="element" bind:values={$rows} min={8} max={12} step={1}></RangeSlider>-->
@@ -135,7 +136,7 @@
 						<div class="form-description"> Experimental Display Settings: </div>
 					
 						<Block class="ux-block-decor">
-							<div class="opt-label">Scaling:</div>
+							<span class="opt-label">Scaling:</span>
 							<LucideIcon slot="icon" name={"scaling"}/>
 							<Number slot="element" value={scaling} min={0.5} max={1.5} step={0.125}></Number>
 							<!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
@@ -146,7 +147,7 @@
 						<div class="form-description"> Experimental Color Scheme: </div>
 						
 						<Block class="ux-block-decor">
-							<div class="opt-label">Theming:</div>
+							<span class="opt-label">Theming:</span>
 							<LucideIcon slot="icon" name={"scaling"}/>
 							<Switch value={theme} slot="element"></Switch>
 						</Block>
@@ -158,7 +159,7 @@
 						<div class="form-description"> Experimental Color Scheme: </div>
 
 						<Block class="ux-block-decor">
-							<div class="opt-label">Use `zoom` property?:</div>
+							<span class="opt-label">Use `zoom` property?:</span>
 							<LucideIcon slot="icon" name={"scan-search"}/>
 							<Checkbox value={useZoom} slot="element"></Checkbox>
 						</Block>

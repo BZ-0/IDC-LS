@@ -70,6 +70,16 @@ const actionMap = new Map<string, Function>([
     }],
 
 
+    [
+        "open-link",
+        ({
+            initiator
+        }) => {
+            window.open(initiator.dataset.href, (!initiator.dataset.href || initiator.dataset.href.startsWith("#")) ? "_self" : "_blank");
+        },
+    ],
+
+
     ["edit-item", ({initiator}) => {
         if (initiator) {
             const item = state.items.get(initiator.dataset.id || "");

@@ -12,7 +12,7 @@
         "composite": true,
         "lib": ["dom", "esnext", "webworker"],
         "module": "ESNext",
-        "target": "ES2021",
+        "target": "ES2022",
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
         "moduleResolution": "Bundler",

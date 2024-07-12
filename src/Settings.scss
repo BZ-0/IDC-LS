@@ -44,6 +44,7 @@
         .form-description {
             @extend .stretch;
             @extend .align-center;
+            @extend .no-wrap;
         
             //
             display: flex;
