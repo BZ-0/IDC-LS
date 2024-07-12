@@ -42,39 +42,13 @@ export const fromMap = <K, V>(map: Map<K, V>): V[] => {
 export const layout: [number, number] = makeReactiveObject([settings.columns || 4, settings.rows || 8]);
 export const size: [number, number] = makeReactiveObject([0, 0]);
 
-//
+/* TODO: makeObjectAssignable */
+// TODO! make Object.assign based!
 export const state: GridsStateType = makeReactiveObject({
     grids: toMap(JSOX.parse(localStorage.getItem("@gridsState") || "[]")),
     items: toMap(JSOX.parse(localStorage.getItem("@itemsState") || "[]")),
     lists: new Map<string, Set<string>>()
 });
-
-//
-state.grids.set("backup", {
-    id: "backup",
-    size: size,
-    layout: layout,
-    list: []
-});
-
-//
-state.grids.set("main", state.grids.get("main") || makeReactiveObject({
-    id: "main",
-    size: size,
-    layout: layout,
-    list: ["settings"]
-}));
-
-//
-state.items.set("settings", state.items.get("settings") || makeReactiveObject({
-    id: "settings",
-    cell: [0, 0],
-    icon: "settings",
-    label: "Settings",
-    pointerId: -1,
-    action: "open-settings",
-    href: "#settings"
-}));
 
 //
 state.lists = toMapSet(Array.from(state.grids?.values?.() || []).map((gs: GridPageType) => [gs?.id || "", gs?.list || []]));
@@ -112,7 +86,71 @@ state.items?.["@subscribe"]?.(() => {
 });
 
 //
-state?.["@subscribe"]?.(() => {
-    localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
-    localStorage.setItem("@itemsState", JSOX.stringify(Array.from(state.items.values())));
+state?.["@subscribe"]?.((v, prop) => {
+    if (prop == "grids") localStorage.setItem("@gridsState", JSOX.stringify(Array.from(v?.values() || v)));
+    if (prop == "items") localStorage.setItem("@itemsState", JSOX.stringify(Array.from(v?.values() || v)));
 });
+
+
+
+
+//
+state.grids.set("backup", {
+    id: "backup",
+    size: size,
+    layout: layout,
+    list: []
+});
+
+//
+state.grids.set("main", state.grids.get("main") || makeReactiveObject({
+    id: "main",
+    size: size,
+    layout: layout,
+    list: ["settings"]
+}));
+
+
+//
+state.items.set("import", state.items.get("import") || makeReactiveObject({
+    id: "import",
+    cell: [1, 0],
+    icon: "upload",
+    label: "Import Data",
+    pointerId: -1,
+    action: "import-data",
+    href: "#"
+}));
+
+//
+state.items.set("export", state.items.get("export") || makeReactiveObject({
+    id: "export",
+    cell: [2, 0],
+    icon: "download",
+    label: "Export Data",
+    pointerId: -1,
+    action: "export-data",
+    href: "#"
+}));
+
+
+//
+state.items.set("settings", state.items.get("settings") || makeReactiveObject({
+    id: "settings",
+    cell: [0, 0],
+    icon: "settings",
+    label: "Settings",
+    pointerId: -1,
+    action: "open-settings",
+    href: "#settings"
+}));
+
+
+
+
+//
+const ls = state.lists.get("main");
+ls.add("settings");
+ls.add("import");
+ls.add("export");
+state.lists.set("main", ls);

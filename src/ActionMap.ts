@@ -5,6 +5,14 @@ import {makeReactiveObject} from "@unite/reactive/ReactiveObject.ts";
 import {redirectCell} from "@unite/grid/GridItemUtils.ts";
 
 //
+import {
+    exportSettings,
+    importSettings,
+    pickBinaryFromFS,
+    saveBinaryToFS,
+} from "./ImportExport.ts";
+
+//
 export const onEditItem = writable<GridItemType>(null);
 
 
@@ -60,6 +68,29 @@ export const pickWallpaperImage = async () => {
 
 //
 const actionMap = new Map<string, Function>([
+
+    [
+        "export-data",
+        async () => {
+            await saveBinaryToFS(
+                (await exportSettings().catch(console.warn.bind(console))) || ""
+            ).catch(console.warn.bind(console));
+        },
+    ],
+    [
+        "import-data",
+        async () => {
+            await importSettings(
+                (await pickBinaryFromFS().catch(console.warn.bind(console))) ||
+                ""
+            ).catch(console.warn.bind(console)).then(() => {
+                setTimeout(() => location.reload(true), 100);
+            });
+
+
+        },
+    ],
+
 
     ["open-settings", ({initiator}) => {
         location.hash = "#settings";
