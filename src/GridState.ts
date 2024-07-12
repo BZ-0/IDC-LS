@@ -90,11 +90,14 @@ settings?.["@subscribe"]?.((v) => {layout[0] = v;}, "columns");
 settings?.["@subscribe"]?.((v) => {layout[1] = v;}, "rows");
 
 //
+size?.["@subscribe"]?.((v, p) => {
+    for (const gp of state.grids.values()) {gp.size = size;};
+    //localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
+});
+
+//
 layout?.["@subscribe"]?.((v, p) => {
-    for (const gp of state.grids.values()) {
-        gp.size = size;
-        gp.layout = layout;
-    };
+    for (const gp of state.grids.values()) {gp.layout = layout;};
     localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
 });
 
