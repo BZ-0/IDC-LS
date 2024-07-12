@@ -153,16 +153,17 @@ const actionMap = new Map<string, Function>([
 
             //
             state.items.set(newItem.id, newItem);
-            state.items = state.items;
-            onEditItem.set(newItem);
-
-            //
             state.lists.get(currentPage)?.add?.(newItem.id);
-            state.lists.set(currentPage, state.lists.get(currentPage));
-            state.lists = state.lists;
 
             //
             redirectCell({item: newItem, items: state.items, page: state.grids.get(currentPage)}, newItem.cell);
+
+            //
+            state.items = state.items;
+            state.lists = state.lists;
+
+            //
+            onEditItem.set(newItem);
         }
     }],
 

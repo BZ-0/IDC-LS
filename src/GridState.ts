@@ -4,6 +4,7 @@ import {JSOX} from 'jsox';
 import {createReactiveMap} from "@unite/reactive/ReactiveMap.ts";
 import {makeReactiveObject} from "@unite/reactive/ReactiveObject.ts";
 import {createReactiveSet} from "@unite/reactive/ReactiveSet.ts";
+import {makeObjectAssignable} from "@unite/reactive/AssignObject.ts";
 import {parse} from "svelte/compiler";
 import {get} from "svelte/store";
 
@@ -43,21 +44,11 @@ export const layout: [number, number] = makeReactiveObject([settings.columns || 
 export const size: [number, number] = makeReactiveObject([0, 0]);
 
 /* TODO: makeObjectAssignable */
-// TODO! make Object.assign based!
-export const state: GridsStateType = makeReactiveObject({
+export const state: GridsStateType = makeReactiveObject(makeObjectAssignable({
     grids: toMap(JSOX.parse(localStorage.getItem("@gridsState") || "[]")),
     items: toMap(JSOX.parse(localStorage.getItem("@itemsState") || "[]")),
-    lists: new Map<string, Set<string>>()
-});
-
-//
-state.lists = toMapSet(Array.from(state.grids?.values?.() || []).map((gs: GridPageType) => [gs?.id || "", gs?.list || []]));
-
-//
-state.lists?.["@subscribe"]?.((v, prop) => {
-    const changed = state.grids.get(prop);
-    if (changed) {changed.list = [...(v?.["@extract"] || v || [])];}
-});
+    lists: createReactiveMap<string, Set<string>>()
+}));
 
 //
 settings?.["@subscribe"]?.((v) => {layout[0] = v;}, "columns");
@@ -86,15 +77,6 @@ state.items?.["@subscribe"]?.(() => {
 });
 
 //
-state?.["@subscribe"]?.((v, prop) => {
-    if (prop == "grids") localStorage.setItem("@gridsState", JSOX.stringify(Array.from(v?.values() || v)));
-    if (prop == "items") localStorage.setItem("@itemsState", JSOX.stringify(Array.from(v?.values() || v)));
-});
-
-
-
-
-//
 state.grids.set("backup", {
     id: "backup",
     size: size,
@@ -107,9 +89,27 @@ state.grids.set("main", state.grids.get("main") || makeReactiveObject({
     id: "main",
     size: size,
     layout: layout,
-    list: ["settings"]
+    list: ["settings", "import", "export"]
 }));
 
+//
+state.lists = toMapSet(Array.from(state.grids?.values?.() || []).map((gs: GridPageType) => [gs?.id || "", gs?.list || []]));
+state.lists?.["@subscribe"]?.((v, prop) => {
+    const changed = state.grids.get(prop);
+    if (changed) {
+        changed.list = [...(v?.["@extract"] || v || [])];
+        state.grids.set(prop, changed);
+    }
+
+    //
+    localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids?.values() || v)));
+});
+
+//
+state?.["@subscribe"]?.((v, prop) => {
+    if (prop == "grids") localStorage.setItem("@gridsState", JSOX.stringify(Array.from(v?.values() || v)));
+    if (prop == "items") localStorage.setItem("@itemsState", JSOX.stringify(Array.from(v?.values() || v)));
+});
 
 //
 state.items.set("import", state.items.get("import") || makeReactiveObject({
@@ -144,9 +144,6 @@ state.items.set("settings", state.items.get("settings") || makeReactiveObject({
     action: "open-settings",
     href: "#settings"
 }));
-
-
-
 
 //
 const ls = state.lists.get("main");
