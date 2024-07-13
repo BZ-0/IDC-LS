@@ -6,7 +6,9 @@ document.documentElement.style.setProperty("--theme-wallpaper-is-dark", localSto
 
 // avoid any dragging when no-needed...
 document.documentElement.addEventListener("dragstart", (ev) => {
-    ev.preventDefault();
+    if ((ev?.target as HTMLElement)?.matches?.("div, img, picture, canvas, video, svg")) {
+        ev.preventDefault();
+    }
 }, {passive: false, capture: true});
 
 //
