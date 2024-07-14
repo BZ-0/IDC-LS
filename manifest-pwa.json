@@ -27,9 +27,15 @@
     "permissions": ["window-management", "fullscreen", "theme"],
     "icons": [
         {
-            "src": "../assets/icons/home/512x.png",
+            "src": "../assets/icons/home/512c.png",
             "sizes": "512x512",
             "type": "image/png"
+        },
+        {
+            "src": "../assets/icons/home/512x.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ],
     "related_applications": [

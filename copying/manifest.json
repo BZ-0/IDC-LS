@@ -20,7 +20,7 @@
         "theme"
     ],
     "icons": {
-        "512": "./assets/icons/home/512x.png"
+        "512": "./assets/icons/home/512c.png"
     },
     "related_applications": [
         {"platform": "play", "id": "*", "url": "*://*/*"},
