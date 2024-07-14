@@ -95,7 +95,7 @@
 
 <!-- -->
 
-    <div class="ux-title-label ux-solid-transparent hl-1">
+    <div class="ux-title-label ux-solid-transparent">
         <span tabindex="-1" inert={true}>{tabs.find(({page})=>(page==currentPage))?.label || ""}</span>
     </div>
 
