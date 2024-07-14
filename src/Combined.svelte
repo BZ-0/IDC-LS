@@ -5,6 +5,7 @@
     import type {Writable} from "svelte/store";
     import actionMap, {onEditItem} from "./ActionMap.ts";
     import {state} from "./GridState.ts";
+    import AppFrame from "@unite/appframe/AppFrame.svelte";
     
     //
     import MultiPage from "@unite/grid/MultiPage.svelte";
@@ -49,7 +50,11 @@
 
 <!-- -->
 <MultiPage state={state} actionMap={actionMap} current={currentPage}></MultiPage>
+
+<!-- TODO: resolve title-bar problem -->
+<AppFrame hashIdName="#settings">
 <Settings actionMap={actionMap}></Settings>
+</AppFrame>
 
 <!-- -->
 <IconEdit actionMap={actionMap} gridItem={onEditItem}></IconEdit>

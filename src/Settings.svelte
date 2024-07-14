@@ -7,7 +7,6 @@
 	import {onMount} from 'svelte';
 	import {fade} from "svelte/transition";
 	import Block from '@unite/design/Block.svelte';
-    import AppFrame from "@unite/appframe/AppFrame.svelte";
     import {writable} from "svelte/store";
 	import {settings} from "./CurrentState.ts";
     import {observeBySelector} from "../unite/dom/Observer.ts";
@@ -95,8 +94,10 @@
 </script>
 
 <!-- -->
-<AppFrame hashIdName="#settings">
-    <span slot="title-name" tabindex="-1" inert={true}>{tabs.find(({page})=>(page==currentPage))?.label || ""}</span>
+
+    <div class="ux-title-label ux-solid-transparent">
+        <span tabindex="-1" inert={true}>{tabs.find(({page})=>(page==currentPage))?.label || ""}</span>
+    </div>
 
 	<div class="ux-content stretch" id="settings" bind:this={settingsEl} data-current-page={currentPage}>
 		<x-scrollbox class="ls-page ls-tabs stretch hl-1" bind:this={tabsEl}>
@@ -170,7 +171,6 @@
 			
 		</x-scrollbox>
 	</div>
-</AppFrame>
 
 <style type="scss" lang="scss">
 
