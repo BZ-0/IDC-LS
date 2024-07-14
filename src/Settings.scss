@@ -1,6 +1,7 @@
 @use "@unite/core/ClassLets";
 @use "@unite/core/Utils" as u;
 @use "@unite/design/ColorTheme";
+@use "@unite/core/Detector" as d;
 
 @layer ls-settings {
 
@@ -61,27 +62,6 @@
         .ls-tabs { grid-column: 1 / 1; }
         .ls-options { grid-column: 2 / 2; position: relative; }
         .ls-page { pointer-events: none; grid-row: 1 / 1 span; }
-    
-    	//
-        @container ls-settings (inline-size < 9in) {
-            .ls-page { grid-column: 1 / 2 span; }
-            
-            //
-            &:is([data-current-page=""], :not([data-current-page])) {
-                .ls-options {
-                    //@extend .ux-hidden;
-                    display: none !important;
-                }
-            }
-            
-            //
-            &:is([data-current-page]):not([data-current-page=""]) {
-                .ls-tabs {
-                    //@extend .ux-hidden;
-                    display: none !important;
-                }
-            }
-        }
     
         //
         .ls-options {
@@ -151,6 +131,28 @@
     
                 //
                 min-block-size: max-content;
+            }
+        }
+        
+        //
+        @container #{d.$isNotWide} 
+        {
+            .ls-page { grid-column: 1 / 2 span; }
+            
+            //
+            &:is([data-current-page=""], :not([data-current-page])) {
+                .ls-options {
+                    //@extend .ux-hidden;
+                    display: none !important;
+                }
+            }
+            
+            //
+            &:is([data-current-page]):not([data-current-page=""]) {
+                .ls-tabs {
+                    //@extend .ux-hidden;
+                    display: none !important;
+                }
             }
         }
     }
