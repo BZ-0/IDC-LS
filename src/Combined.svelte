@@ -12,6 +12,7 @@
     import IconEdit from "./IconEdit.svelte";
     import Settings from "./Settings.svelte";
     import InputEditor from "@unite/editor/InputEditor.svelte";
+    import StatusBar from "@unite/appframe/StatusBar.svelte";
     
     //
     export let wallpaperURL = (localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg");
@@ -63,3 +64,5 @@
 
 <!-- -->
 <InputEditor></InputEditor>
+
+<StatusBar></StatusBar>

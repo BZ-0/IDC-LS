@@ -77,26 +77,31 @@ const attemp = (req, event) => {
     if (relPath.startsWith("/opfs")) {
         return (async () => {
             const filex = provide(relPath);
-            const result = sendResponse(new Response(await filex)).catch(
-                (_) => null
-            );
+            const result = sendResponse(new Response(await filex)).catch(console.warn.bind(console));
             event?.waitUntil?.(result);
             return result;
         })();
     } else {
+        // @ts-ignore
+        const ctime = !navigator.onLine || (navigator?.connection?.effectiveType == "slow-2g") ? 10 : NETWORK_TIMEOUT_MS;
         const fc = new Promise((resolve, reject) =>
-            setTimeout(() => reject(null), NETWORK_TIMEOUT_MS)
+            setTimeout(() => reject(null), ctime)
         ).catch(_WARN_);
         const fp = fetch(req?.url ?? req, {
             cache: "no-store",
-            signal: AbortSignal.timeout(NETWORK_TIMEOUT_MS + 8000),
+            signal: AbortSignal.timeout(ctime + 8000),
             mode: isSameOrigin(req?.url ?? req) ? "same-origin" : "cors",
         })
             .then(sendResponse)
             .catch((_) => null);
 
         //
-        const promised = Promise.race([fp, fc]).catch((_) => null);
+        const fpb = async (rl)=>(rl||await fc);
+        const fcb = async (rl)=>(rl||await fp);
+        const promised = Promise.any([
+            fp.then(fpb).catch(fpb), 
+            fc.then(fcb).catch(fcb)
+        ]).catch((_) => null);
         event?.waitUntil?.(promised);
         return promised;
     }
