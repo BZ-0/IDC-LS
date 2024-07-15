@@ -13,6 +13,7 @@
     import Settings from "./Settings.svelte";
     import InputEditor from "@unite/editor/InputEditor.svelte";
     import StatusBar from "@unite/appframe/StatusBar.svelte";
+    import TaskBar from "@unite/appframe/TaskBar.svelte";
     
     //
     export let wallpaperURL = (localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg");
@@ -53,9 +54,14 @@
 <MultiPage state={state} actionMap={actionMap} current={currentPage}></MultiPage>
 
 <!-- TODO: resolve title-bar problem -->
-<AppFrame hashIdName="#settings" windowManager={windowManager}>
-<Settings actionMap={actionMap}></Settings>
-</AppFrame>
+
+<TaskBar windowManager={windowManager}>
+
+    <AppFrame hashIdName="#settings" windowManager={windowManager}>
+        <Settings windowManager={windowManager} actionMap={actionMap}></Settings>
+    </AppFrame>
+
+</TaskBar>
 
 <!-- -->
 <IconEdit actionMap={actionMap} gridItem={onEditItem}></IconEdit>

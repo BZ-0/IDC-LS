@@ -11,6 +11,15 @@
 	import {settings} from "./CurrentState.ts";
     import {observeBySelector} from "../unite/dom/Observer.ts";
 
+	//
+	export let windowManager = null;
+	
+	//
+	windowManager.addTask("#settings", {
+		icon: "settings",
+		label: "Settings"
+	});
+
     //
     const columns = writable(settings.columns);
     const rows = writable(settings.rows);
