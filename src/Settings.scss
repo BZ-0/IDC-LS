@@ -3,6 +3,7 @@
 @use "@unite/design/ColorTheme";
 @use "@unite/core/Detector" as d;
 
+//
 @layer ls-settings {
 
     //
@@ -21,14 +22,14 @@
         .ls-tab-item {
             max-block-size: 4rem;
         }
-        
+
         //
         &[data-current-page="all-settings"] .ls-tab-item[data-page="all-settings"],
         &[data-current-page="grid-settings"] .ls-tab-item[data-page="grid-settings"],
         &[data-current-page="display-settings"] .ls-tab-item[data-page="display-settings"],
         &[data-current-page="experimental-settings"] .ls-tab-item[data-page="experimental-settings"] 
         { @extend .ux-inverse; }
-        
+
         //
         .ls-tab-item .in-element {
             box-sizing: border-box;
@@ -40,7 +41,7 @@
                 @extend .stretch;
             }
         }
-        
+
         //
         .form-description {
             @extend .stretch;
@@ -57,7 +58,7 @@
             //
             background-color: var(--current-surface-color);
         }
-    
+
         //
         .ls-tabs { grid-column: 1 / 1; }
         .ls-options { grid-column: 2 / 2; position: relative; }

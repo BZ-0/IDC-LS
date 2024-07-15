@@ -3,7 +3,7 @@
 	import type { GridItemType } from "@unite/grid/GridItemUtils.ts";
     import {writable} from "svelte/store";
     import type {Writable} from "svelte/store";
-    import actionMap, {onEditItem} from "./ActionMap.ts";
+    import actionMap, {onEditItem, windowManager} from "./ActionMap.ts";
     import {state} from "./GridState.ts";
     import AppFrame from "@unite/appframe/AppFrame.svelte";
     
@@ -53,7 +53,7 @@
 <MultiPage state={state} actionMap={actionMap} current={currentPage}></MultiPage>
 
 <!-- TODO: resolve title-bar problem -->
-<AppFrame hashIdName="#settings">
+<AppFrame hashIdName="#settings" windowManager={windowManager}>
 <Settings actionMap={actionMap}></Settings>
 </AppFrame>
 
