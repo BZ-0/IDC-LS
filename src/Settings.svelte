@@ -17,7 +17,8 @@
 	//
 	windowManager.addTask("#settings", {
 		icon: "settings",
-		label: "Settings"
+		label: "Settings",
+		detached: false
 	});
 
     //
@@ -75,8 +76,10 @@
 
 	//
 	document.documentElement?.addEventListener?.("ux-back", (ev)=>{
-        const lessWidth = (settingsEl?.clientWidth || 96*9) < 96*9;
-        if (lessWidth && currentPage) { currentPage = ""; ev.preventDefault(); ev.stopPropagation(); ev.stopImmediatePropagation(); }
+		if (ev.target == settingsEl) {
+            const lessWidth = (settingsEl?.clientWidth || 96*9) < 96*9;
+            if (lessWidth && currentPage) { currentPage = ""; ev.preventDefault(); ev.stopPropagation(); ev.stopImmediatePropagation(); }
+		}
 	});
 
 	//
@@ -126,13 +129,13 @@
 					<form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
 						<div class="form-description"> Grid Layout Settings: </div>
 					
-						<Block class="ux-block-decor">
+						<Block class="ux-block-decor pe-none">
 							<span class="opt-label">Columns:</span>
 							<LucideIcon slot="icon" name={"columns-3"}/>
 							<Number slot="element" value={columns} min={4} max={6} step={1}></Number>
 							<!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
 						</Block>
-						<Block class="ux-block-decor">
+						<Block class="ux-block-decor pe-none">
 							<span class="opt-label">Rows:</span>
 							<LucideIcon slot="icon" name={"rows-3"}/>
 							<Number slot="element" value={rows} min={8} max={12} step={1}></Number>
@@ -145,7 +148,7 @@
 					<form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
 						<div class="form-description"> Experimental Display Settings: </div>
 					
-						<Block class="ux-block-decor">
+						<Block class="ux-block-decor pe-none">
 							<span class="opt-label">Scaling:</span>
 							<LucideIcon slot="icon" name={"scaling"}/>
 							<Number slot="element" value={scaling} min={0.5} max={1.5} step={0.125}></Number>
@@ -156,7 +159,7 @@
 					<form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
 						<div class="form-description"> Experimental Color Scheme: </div>
 						
-						<Block class="ux-block-decor">
+						<Block class="ux-block-decor pe-none">
 							<span class="opt-label">Theming:</span>
 							<LucideIcon slot="icon" name={"scaling"}/>
 							<Switch value={theme} slot="element"></Switch>
@@ -168,7 +171,7 @@
 					<form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
 						<div class="form-description"> Experimental Color Scheme: </div>
 
-						<Block class="ux-block-decor">
+						<Block class="ux-block-decor pe-none">
 							<span class="opt-label">Use `zoom` property?:</span>
 							<LucideIcon slot="icon" name={"scan-search"}/>
 							<Checkbox value={useZoom} slot="element"></Checkbox>

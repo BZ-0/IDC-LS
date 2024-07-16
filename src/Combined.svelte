@@ -14,6 +14,7 @@
     import InputEditor from "@unite/editor/InputEditor.svelte";
     import StatusBar from "@unite/appframe/StatusBar.svelte";
     import TaskBar from "@unite/appframe/TaskBar.svelte";
+    import Manager from "./Manager.svelte";
     
     //
     export let wallpaperURL = (localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg");
@@ -59,6 +60,10 @@
 
     <AppFrame hashIdName="#settings" windowManager={windowManager}>
         <Settings windowManager={windowManager} actionMap={actionMap}></Settings>
+    </AppFrame>
+    
+    <AppFrame hashIdName="#manager" windowManager={windowManager}>
+        <Manager windowManager={windowManager} actionMap={actionMap}></Manager>
     </AppFrame>
 
 </TaskBar>
