@@ -23,7 +23,7 @@
 
 	//
 	//export let {"@columns": columns, "@rows": rows, "@scaling": scaling , "@theme": theme, "@use-zoom": useZoom} = settings;
-	export let currentPage = "";
+	export let currentPage = "wallpapers";
 
 	//
 	let tabsEl = null;
@@ -42,7 +42,7 @@
 	//
 	document.documentElement.addEventListener("click", (ev)=>{
 		const {target} = ev;
-		if (target.matches(".ls-tab-item")) {
+		if (target.matches("#manager .ls-tab-item")) {
 			const _ = target.dataset.page || "";
 			if (_ != currentPage) { currentPage = _; };
 		}
@@ -59,19 +59,13 @@
 	//
 	observeBySelector(document.body, "#manager", ({addedNodes})=>{
 		settingsEl ||= addedNodes[0];
-		
-		//
-		if ((settingsEl?.clientWidth || 0) >= 96*9) {
-			currentPage ||= "grid-settings";
-		}
+		currentPage ||= "wallpapers";
 	});
 
 	//
 	onMount(()=>{
 		// default grid-page
-		if ((settingsEl?.clientWidth || 0) >= 96*9) {
-			currentPage ||= "grid-settings";
-		}
+		currentPage ||= "wallpapers";
 	});
 </script>
 

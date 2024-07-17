@@ -68,7 +68,7 @@
 	//
 	document.documentElement.addEventListener("click", (ev)=>{
 		const {target} = ev;
-		if (target.matches(".ls-tab-item")) {
+		if (target.matches("#settings .ls-tab-item")) {
 			const _ = target.dataset.page || "";
 			if (_ != currentPage) { currentPage = _; };
 		}

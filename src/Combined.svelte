@@ -13,7 +13,7 @@
     import Settings from "./Settings.svelte";
     import InputEditor from "@unite/editor/InputEditor.svelte";
     import StatusBar from "@unite/appframe/StatusBar.svelte";
-    import TaskBar from "@unite/appframe/TaskBar.svelte";
+    import WManager from "@unite/appframe/WindowManager.svelte";
     import Manager from "./Manager.svelte";
     
     //
@@ -56,7 +56,7 @@
 
 <!-- TODO: resolve title-bar problem -->
 
-<TaskBar windowManager={windowManager}>
+<WManager windowManager={windowManager}>
 
     <AppFrame hashIdName="#settings" windowManager={windowManager}>
         <Settings windowManager={windowManager} actionMap={actionMap}></Settings>
@@ -66,7 +66,7 @@
         <Manager windowManager={windowManager} actionMap={actionMap}></Manager>
     </AppFrame>
 
-</TaskBar>
+</WManager>
 
 <!-- -->
 <IconEdit actionMap={actionMap} gridItem={onEditItem}></IconEdit>
