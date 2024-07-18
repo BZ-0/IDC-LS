@@ -17,6 +17,7 @@ import {
 
 //
 export const onEditItem = writable<GridItemType>(null);
+export const controlCenterPage = writable("settings");
 
 
 //
@@ -98,7 +99,15 @@ const actionMap = new Map<string, Function>([
     ],
 
 
+
+    ["open-manager", ({initiator}) => {
+        controlCenterPage.set("wallpapers");
+        location.hash = "#control-center";
+        //windowManager.focusTask("#control-center");
+    }],
+
     ["open-settings", ({initiator}) => {
+        controlCenterPage.set("settings");
         location.hash = "#control-center";
         //windowManager.focusTask("#control-center");
     }],

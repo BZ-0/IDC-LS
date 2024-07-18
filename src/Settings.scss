@@ -9,6 +9,9 @@
     //
     #settings {
         
+        .back-act {
+        }
+        
         //
         .form-description {
             @extend .stretch;
@@ -17,10 +20,14 @@
         
             //
             display: flex;
-            padding: 1rem;
+            padding: 2rem;
             opacity: 0.6;
-            padding-block-end: 0rem;
+            padding-block-end: 0.5rem;
+            padding-inline: min(2rem, 5cqi);
             font-size: 0.8rem;
+            
+            //
+            justify-content: start !important;
             
             //
             background-color: var(--current-surface-color);
@@ -35,6 +42,7 @@
             
             //
             display: flex;
+            
         }
         
     }

@@ -13,6 +13,7 @@
     //
     import Manager from "./Manager.svelte";
     import Settings from "./Settings.svelte";
+    import {MOC, MOCElement} from "@unite/utils/Utils.ts";
 
     //
     export let appId = "#control-center";
@@ -47,6 +48,8 @@
     //
     document.documentElement.addEventListener("click", (ev)=>{
         const {target} = ev;
+        
+        //
         if (target.matches(appId + " .ls-tab-item")) {
             const _ = target.dataset.page || "";
             if (_ != $currentPage) { currentPage.set(_); };
@@ -58,7 +61,7 @@
         } else 
         
         // just hide panel when clicking to nothing
-        if (target.closest(appId) && !(target.closest(".ls-panel") || target.matches(".ls-panel"))) {
+        if (MOC(target, appId) ? !MOC(target, ".ls-panel") : true) {
             panelOpen = false;
         }
     })

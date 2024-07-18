@@ -3,7 +3,7 @@
 	import type { GridItemType } from "@unite/grid/GridItemUtils.ts";
     import {writable} from "svelte/store";
     import type {Writable} from "svelte/store";
-    import actionMap, {onEditItem} from "./ActionMap.ts";
+    import actionMap, {onEditItem, controlCenterPage } from "./ActionMap.ts";
     import {state} from "./GridState.ts";
     import AppFrame from "@unite/appframe/AppFrame.svelte";
     
@@ -55,7 +55,7 @@
 
 <!-- -->
 <AppFrame hashIdName="#control-center">
-    <ControlCenter actionMap={actionMap}></ControlCenter>
+    <ControlCenter actionMap={actionMap} currentPage={controlCenterPage}></ControlCenter>
 </AppFrame>
 
 

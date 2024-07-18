@@ -89,7 +89,7 @@ state.grids.set("main", state.grids.get("main") || makeReactiveObject({
     id: "main",
     size: size,
     layout: layout,
-    list: ["settings", "import", "export"]
+    list: ["settings", "import", "export", "wallpapers"]
 }));
 
 //
@@ -142,12 +142,26 @@ state.items.set("settings", state.items.get("settings") || makeReactiveObject({
     label: "Settings",
     pointerId: -1,
     action: "open-settings",
-    href: "#settings"
+    href: "#control-center"
 }));
+
+
+//
+state.items.set("wallpapers", state.items.get("wallpapers") || makeReactiveObject({
+    id: "wallpapers",
+    cell: [3, 0],
+    icon: "wallpaper",
+    label: "Wallpapers",
+    pointerId: -1,
+    action: "open-manager",
+    href: "#control-center"
+}));
+
 
 //
 const ls = state.lists.get("main");
 ls.add("settings");
 ls.add("import");
 ls.add("export");
+ls.add("wallpapers");
 state.lists.set("main", ls);

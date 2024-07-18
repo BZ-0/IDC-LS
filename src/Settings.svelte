@@ -36,7 +36,14 @@
 <div class="ls-screen" id="settings">
 
     <div class="ls-nav ux-solid hl-1">
-        
+
+    
+        <div class="f-space"></div>
+    
+        <button class="back-act hl-1 hl-2h">
+            <div inert={true} class="icon"><LucideIcon slot="icon" name={"arrow-left"}/></div>
+            <div inert={true} class="name">Back</div>
+        </button>
     </div>
     <x-scrollbox class="ux-space" transition:fade={{ key: currentPage, delay: 0, duration: 100 }}>
         <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
