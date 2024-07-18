@@ -58,10 +58,6 @@
 		"icon": "cog",
 		"label": "All Settings"
 	}, {
-		"page": "experimental-settings",
-		"icon": "flask-conical",
-		"label": "Experimental"
-	}, {
 		"page": "wallpapers",
 		"icon": "wallpaper",
 		"label": "Wallpapers"
@@ -168,18 +164,6 @@
 							<span class="opt-label">Theming:</span>
 							<LucideIcon slot="icon" name={"scaling"}/>
 							<Switch value={theme} slot="element"></Switch>
-						</Block>
-					</form>
-				{/if}
-
-				{#if ["experimental-settings"].indexOf(currentPage) >= 0}
-					<form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
-						<div class="form-description"> Experimental Color Scheme: </div>
-
-						<Block class="ux-block-decor pe-none">
-							<span class="opt-label">Use `zoom` property?:</span>
-							<LucideIcon slot="icon" name={"scan-search"}/>
-							<Checkbox value={useZoom} slot="element"></Checkbox>
 						</Block>
 					</form>
 				{/if}

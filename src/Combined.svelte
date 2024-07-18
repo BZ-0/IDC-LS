@@ -12,7 +12,7 @@
     import IconEdit from "./IconEdit.svelte";
     import Settings from "./Settings.svelte";
     import InputEditor from "@unite/editor/InputEditor.svelte";
-    import StatusBar from "@unite/appframe/StatusBar.svelte";
+    import StatusBar from "@unite/statusbar/StatusBar.svelte";
     //import WManager from "@unite/appframe/WindowManager.svelte";
     
     //
