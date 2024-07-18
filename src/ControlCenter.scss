@@ -1,0 +1,80 @@
+@use "@unite/core/ClassLets";
+@use "@unite/core/Utils" as u;
+@use "@unite/design/ColorTheme";
+@use "@unite/core/Detector" as d;
+
+//
+@layer ls-control-center {
+
+    //
+    #control-center {
+        @extend .contain-size;
+
+    	//
+        display: grid;
+        grid-template-columns: 0px minmax(0px, 1fr);
+        grid-template-rows: minmax(0px, 1fr);
+        container-name: ls-settings;
+        container-type: size;
+        position: relative;
+        overflow: hidden;
+
+        //
+        &[data-current-page="wallpapers"] .ls-tab-item[data-page="wallpapers"], 
+        &[data-current-page="settings"] .ls-tab-item[data-page="settings"]
+        { @extend .ux-inverse; }
+
+        //
+        .ls-screen { 
+            @extend .stretch; 
+            grid-column: 2 / 2 span;
+        }
+
+        //
+        .ls-panel {
+            @extend .stretch; 
+            
+            //
+            display: flex;
+            flex-direction: column;
+            grid-column: 1 / 1 span;
+            
+            //
+            inline-size: min(16rem, 100cqi);
+            
+            //
+            @media #{d.$isMobile} {
+                inline-size: 100cqi;
+            }
+            
+            //
+            max-inline-size: none;
+            
+            //
+            z-index: 9;
+            box-shadow: 0px 0px 1rem rgb(from #000000 r g b / 0.2);
+    
+            //
+            padding: 0px;
+            gap: 0px;
+    
+            //
+            .ls-tab-item {
+                @extend .stretch;
+
+                //
+                display: flex;
+
+                //
+                grid-column: 1 / 3 span;
+                grid-row: auto;
+                padding: 0px;
+
+                //
+                min-block-size: max-content;
+                block-size: 4rem;
+                max-block-size: 4rem;
+            }
+        }
+    }
+}

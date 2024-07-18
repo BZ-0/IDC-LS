@@ -10,7 +10,7 @@
     //
     import MultiPage from "@unite/grid/MultiPage.svelte";
     import IconEdit from "./IconEdit.svelte";
-    import Settings from "./Settings.svelte";
+    import ControlCenter from "./ControlCenter.svelte";
     import InputEditor from "@unite/editor/InputEditor.svelte";
     import StatusBar from "@unite/statusbar/StatusBar.svelte";
     //import WManager from "@unite/appframe/WindowManager.svelte";
@@ -53,10 +53,9 @@
 <!-- -->
 <MultiPage state={state} actionMap={actionMap} current={currentPage}></MultiPage>
 
-
 <!-- -->
-<AppFrame hashIdName="#settings">
-    <Settings actionMap={actionMap}></Settings>
+<AppFrame hashIdName="#control-center">
+    <ControlCenter actionMap={actionMap}></ControlCenter>
 </AppFrame>
 
 

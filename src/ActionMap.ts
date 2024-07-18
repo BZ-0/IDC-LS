@@ -99,8 +99,8 @@ const actionMap = new Map<string, Function>([
 
 
     ["open-settings", ({initiator}) => {
-        location.hash = "#settings";
-        //windowManager.focusTask("#settings");
+        location.hash = "#control-center";
+        //windowManager.focusTask("#control-center");
     }],
 
     //

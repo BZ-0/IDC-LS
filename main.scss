@@ -1,3 +1,7 @@
 @use "./order";
 @use "@unite/index";
+
+//
+@use "./src/ControlCenter.scss";
 @use "./src/Settings.scss";
+@use "./src/Manager.scss";
