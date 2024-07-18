@@ -33,12 +33,12 @@
 </script>
 
 <!-- -->
-<div class="ls-screen">
+<div class="ls-screen" id="settings">
 
     <div class="ls-nav ux-solid hl-1">
         
     </div>
-    <x-scrollbox class="ux-space" id="settings" transition:fade={{ key: currentPage, delay: 0, duration: 100 }}>
+    <x-scrollbox class="ux-space" transition:fade={{ key: currentPage, delay: 0, duration: 100 }}>
         <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
             <div class="form-description"> Grid Layout Settings: </div>
     

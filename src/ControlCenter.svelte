@@ -1,10 +1,11 @@
 <script>
+	import { currentLocationHash } from "@unite/dom/Realtime.ts";
     import LucideIcon from '@unite/design/WLucideIcon.svelte';
     import Block from '@unite/design/Block.svelte';
     
     //
     import {observeBySelector} from "@unite/dom/Observer.ts"
-    
+
     //
     import { writable } from "svelte/store";
     import { fade } from "svelte/transition";

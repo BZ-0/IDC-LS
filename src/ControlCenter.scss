@@ -32,23 +32,27 @@
             
             //
             grid-template-columns: minmax(0px, 1fr);
-            grid-template-rows: minmax(0px, 2rem);
+            grid-template-rows: minmax(0px, 2.5rem);
             
             //
-            .ux-space {
+            .ls-space {
                 @extend .stretch;
                 
                 grid-row: 2 / 2 span;
             }
             
             //
-            .ux-nav {
+            .ls-nav {
                 @extend .stretch; 
+                @extend .align-center;
                 
                 //
                 display: flex;
                 flex-direction: row;
                 grid-row: 1 / 1 span;
+                
+                //
+                justify-content: start;
             }
         }
 
@@ -63,13 +67,6 @@
             
             //
             inline-size: min(16rem, 100cqi);
-            
-            //
-            @media #{d.$isMobile} {
-                inline-size: 100cqi;
-            }
-            
-            //
             max-inline-size: none;
             
             //
@@ -96,6 +93,11 @@
                 min-block-size: max-content;
                 block-size: 4rem;
                 max-block-size: 4rem;
+            }
+            
+            //
+            @media #{d.$isMobile} {
+                inline-size: 100cqi;
             }
         }
     }
