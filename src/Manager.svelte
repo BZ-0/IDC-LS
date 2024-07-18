@@ -1,31 +1,19 @@
 <script context="module">
     import {propsFilter} from "@unite/utils/Utils.ts";
-</script>
-
-<!-- Second Season: Finale -->
-<script>
-    import LucideIcon from '@unite/design/WLucideIcon.svelte';
-    import Block from '@unite/design/Block.svelte';
     
     //
-    import { onMount } from 'svelte';
-    import { writable } from "svelte/store";
-    import { fade } from "svelte/transition";
-
-    //
-    import { pickWallpaperImage } from "./ActionMap.ts";
-
-    //
-    let selectedFilename = null;
-    let files = new Map([]);
-    
-    //
+    const files = new Map([]);
     const fileList = writable(files);
     
     //
-    const getFileList = async ()=>{
-        const root = await navigator?.storage?.getDirectory?.();
-        const wall = await root?.getDirectoryHandle?.("images");
+    const getFileList = async (exists)=>{
+        let wall = null;
+        
+        //
+        if (exists) { wall = exists; } else {
+            const root = await navigator?.storage?.getDirectory?.();
+            wall = await root?.getDirectoryHandle?.("images");
+        }
         
         //
         const it = await wall?.entries();//getFileHandle()
@@ -35,16 +23,15 @@
             if (!v) break; entries.push(v);
         }
         
+        //
         if (entries) {
-            files = new Map(await Promise.all(entries.filter(([fn,fm])=>(fm instanceof FileSystemFileHandle)).map(async ([fn,fm])=>{
-                return [fn, await fm.getFile()];
-            })));
+            await Promise.all(entries.filter(([fn,fm])=>(fm instanceof FileSystemFileHandle)).map(async ([fn,fm])=>{
+                files.set(fn, await fm.getFile());
+            }));
             fileList.set(files);
         }
         return files;
     }
-
-
 
     // Function to download data to a file
     export const downloadImage = async (file) => {
@@ -102,8 +89,24 @@
         }
     };
 
+</script>
 
+<!-- Second Season: Finale -->
+<script>
+    import LucideIcon from '@unite/design/WLucideIcon.svelte';
+    import Block from '@unite/design/Block.svelte';
+    
+    //
+    import { onMount } from 'svelte';
+    import { writable } from "svelte/store";
+    import { fade } from "svelte/transition";
 
+    //
+    import { pickWallpaperImage } from "./ActionMap.ts";
+
+    //
+    let selectedFilename = null;
+    
     //
     document.documentElement.addEventListener("click", (ev)=>{
         if (ev.target.matches("#manager .file")) {
@@ -126,6 +129,7 @@
                     const wallpaper = document.querySelector("canvas[is=\"w-canvas\"]");
                     wallpaper?.["$useImageAsSource"]?.(file, true).then((file)=>{
                         files.set(selectedFilename, file);
+                        fileList.set(files);
                     });
                 }
             }
@@ -155,9 +159,10 @@
                         //
                         files.set(fn, blob);
                         selectedFilename = fn;
+                        fileList.set(files);
                         
                         //
-                        await getFileList();
+                        await getFileList(wall);
                     }
                 });
         }
@@ -173,9 +178,10 @@
                     //
                     files.delete(selectedFilename);
                     selectedFilename = null;
+                    fileList.set(files);
                     
                     //
-                    await getFileList();
+                    await getFileList(wall);
                 }
             })();
         }
