@@ -34,7 +34,7 @@
     }
 
     // Function to download data to a file
-    export const downloadImage = async (file) => {
+    const downloadImage = async (file) => {
         const filename = file.name || "wallpaper";
     
         //
@@ -107,68 +107,69 @@
     //
     let selectedFilename = null;
     
+    
     //
-    document.documentElement.addEventListener("click", (ev)=>{
-        if (ev.target.matches("#manager .file")) {
-            document.querySelectorAll("#manager .file").forEach((el)=>{
-                el.classList.remove("selected");
-            });
-            
-            //
-            ev.target.classList.add("selected");
-            
-            //
-            selectedFilename = ev.target.dataset.filename;
-        }
+    const selectFileEv = (ev)=>{
+        document.querySelectorAll("#manager .file").forEach((el)=>{
+            el.classList.remove("selected");
+        });
         
         //
-        if (ev.target.matches("#manager .use-item")) {
-            if (selectedFilename && files.has(selectedFilename)) {
-                const file = files.get(selectedFilename);
-                if (file != null) {
-                    const wallpaper = document.querySelector("canvas[is=\"w-canvas\"]");
-                    wallpaper?.["$useImageAsSource"]?.(file, true).then((file)=>{
-                        files.set(selectedFilename, file);
-                        fileList.set(files);
-                    });
-                }
+        ev.target.classList.add("selected");
+        
+        //
+        selectedFilename = ev.target.dataset.filename;
+    }
+    
+    //
+    const useItemEv = (ev)=>{
+        if (selectedFilename && files.has(selectedFilename)) {
+            const file = files.get(selectedFilename);
+            if (file != null) {
+                const wallpaper = document.querySelector("canvas[is=\"w-canvas\"]");
+                wallpaper?.["$useImageAsSource"]?.(file, true).then((file)=>{
+                    files.set(selectedFilename, file);
+                    fileList.set(files);
+                });
             }
         }
-        
-        //
-        if (ev.target.matches("#manager .add-item")) {
-            pickWallpaperImage()
-                .catch(console.warn.bind(console))
-                .then(async (blob) => {
-                    if (blob) {
-                        //
-                        const root = await navigator?.storage?.getDirectory?.();
-                        const wall = await root?.getDirectoryHandle?.("images");
-                        
-                        //
-                        const fn = blob?.name || "wallpaper";
-                        const fw = await (await wall?.getFileHandle?.(fn, {
-                            create: true,
-                        }))?.createWritable?.();
-                        
-                        //
-                        await fw?.write?.(blob);
-                        await fw?.flush?.();
-                        await fw?.close?.();
-                        
-                        //
-                        files.set(fn, blob);
-                        selectedFilename = fn;
-                        fileList.set(files);
-                        
-                        //
-                        await getFileList(wall);
-                    }
-                });
-        }
-        
-        //
-        if (ev.target.matches("#manager .remove-item") && selectedFilename) {
+    }
+    
+    //
+    const addItemEv = (ev)=>{
+        pickWallpaperImage()
+            .catch(console.warn.bind(console))
+            .then(async (blob) => {
+                if (blob) {
+                    //
+                    const root = await navigator?.storage?.getDirectory?.();
+                    const wall = await root?.getDirectoryHandle?.("images");
+                    
+                    //
+                    const fn = blob?.name || "wallpaper";
+                    const fw = await (await wall?.getFileHandle?.(fn, {
+                        create: true,
+                    }))?.createWritable?.();
+                    
+                    //
+                    await fw?.write?.(blob);
+                    await fw?.flush?.();
+                    await fw?.close?.();
+                    
+                    //
+                    files.set(fn, blob);
+                    selectedFilename = fn;
+                    fileList.set(files);
+                    
+                    //
+                    await getFileList(wall);
+                }
+            });
+    }
+    
+    //
+    const removeItemEv = (ev)=>{
+        if (selectedFilename) {
             (async ()=>{
                 if (("/opfs?path=images/" + (selectedFilename || "wallpaper")) != localStorage.getItem("@wallpaper")) {
                     const root = await navigator?.storage?.getDirectory?.();
@@ -185,23 +186,14 @@
                 }
             })();
         }
-        
-        //
-        if (ev.target.matches("#manager .download-item") && selectedFilename) {
-            if (selectedFilename && files.has(selectedFilename)) {
-                downloadImage(files.get(selectedFilename));
-            }
+    }
+    
+    //
+    const downloadItemEv = (ev)=>{
+        if (selectedFilename && files.has(selectedFilename)) {
+            downloadImage(files.get(selectedFilename));
         }
-        
-        //
-        if (ev.target.matches("#manager button")) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            ev.stopImmediatePropagation();
-        
-            //setTimeout(getFileList, 1000);
-        }
-    });
+    }
 
     //
     onMount(()=>{
@@ -214,22 +206,22 @@
 <div class="ls-screen" id="manager">
 
     <div class="ls-nav ux-solid hl-1">
-        <button class="use-item hl-1 hl-2h">
+        <button class="use-item hl-1 hl-2h" on:click={useItemEv}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-play"}/></div>
             <div inert={true} class="name">Use as Wallpaper</div>
         </button>
         
-        <button class="add-item hl-1 hl-2h">
+        <button class="add-item hl-1 hl-2h" on:click={addItemEv}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-up"}/></div>
             <div inert={true} class="name">Load Image</div>
         </button>
         
-        <button class="remove-item hl-1 hl-2h">
+        <button class="remove-item hl-1 hl-2h" on:click={removeItemEv}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-off"}/></div>
             <div inert={true} class="name">Remove Image</div>
         </button>
         
-        <button class="download-item hl-1 hl-2h">
+        <button class="download-item hl-1 hl-2h" on:click={downloadItemEv}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-down"}/></div>
             <div inert={true} class="name">Download Image</div>
         </button>
@@ -238,7 +230,9 @@
         
         <div class="file-list">
             {#each $fileList.entries() as [name, file]}
-                <div class={`file hl-1h ${ selectedFilename == file.name ? "selected" : "" }`} data-filename={file.name}>
+                <!-- svelte-ignore a11y_click_events_have_key_events -->
+                <!-- svelte-ignore a11y_no_static_element_interactions -->
+                <div on:click={selectFileEv} class={`file hl-1h ${ selectedFilename == file.name ? "selected" : "" }`} data-filename={file.name}>
                     <div inert={true} class="icon">
                         <LucideIcon name={"wallpaper"}/>
                     </div>
