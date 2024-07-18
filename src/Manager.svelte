@@ -155,7 +155,9 @@
                         //
                         files.set(fn, blob);
                         selectedFilename = fn;
-                        fileList.set(files);
+                        
+                        //
+                        await getFileList();
                     }
                 });
         }
@@ -171,7 +173,9 @@
                     //
                     files.delete(selectedFilename);
                     selectedFilename = null;
-                    fileList.set(files);
+                    
+                    //
+                    await getFileList();
                 }
             })();
         }
@@ -184,9 +188,9 @@
         }
         
         //
-        if (ev.target.matches("#manager button")) {
-            setTimeout(getFileList, 1000);
-        }
+        //if (ev.target.matches("#manager button")) {
+            //setTimeout(getFileList, 1000);
+        //}
     });
 
     //
