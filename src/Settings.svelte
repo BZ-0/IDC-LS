@@ -9,13 +9,14 @@
 	import Block from '@unite/design/Block.svelte';
     import {writable} from "svelte/store";
 	import {settings} from "./CurrentState.ts";
-    import {observeBySelector} from "../unite/dom/Observer.ts";
+    import {observeBySelector} from "../unite/dom/Observer.ts"
+	import Manager from "./Manager.svelte";
 
 	//
 	export let windowManager = null;
 	
 	//
-	windowManager.addTask("#settings", {
+	windowManager?.addTask?.("#settings", {
 		icon: "settings",
 		label: "Settings",
 		detached: false
@@ -60,6 +61,10 @@
 		"page": "experimental-settings",
 		"icon": "flask-conical",
 		"label": "Experimental"
+	}, {
+		"page": "wallpapers",
+		"icon": "wallpaper",
+		"label": "Wallpapers"
 	}];
 
 	//
@@ -177,6 +182,10 @@
 							<Checkbox value={useZoom} slot="element"></Checkbox>
 						</Block>
 					</form>
+				{/if}
+				
+				{#if ["wallpapers"].indexOf(currentPage) >= 0}
+					<Manager></Manager>
 				{/if}
 			</div>
 			

@@ -5,7 +5,7 @@ import {makeReactiveObject} from "@unite/reactive/ReactiveObject.ts";
 import {redirectCell} from "@unite/grid/GridItemUtils.ts";
 
 //
-import {WindowManager} from "@unite/appframe/WindowManager.mjs";
+//import {WindowManager} from "@unite/dwm/WindowManager.mjs";
 
 //
 import {
@@ -69,7 +69,7 @@ export const pickWallpaperImage = async () => {
 };
 
 //
-export const windowManager = new WindowManager();
+//export const windowManager = new WindowManager();
 
 
 //
@@ -99,8 +99,8 @@ const actionMap = new Map<string, Function>([
 
 
     ["open-settings", ({initiator}) => {
-        //location.hash = "#settings";
-        windowManager.focusTask("#settings");
+        location.hash = "#settings";
+        //windowManager.focusTask("#settings");
     }],
 
     //

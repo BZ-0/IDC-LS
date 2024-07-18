@@ -3,7 +3,7 @@
 	import type { GridItemType } from "@unite/grid/GridItemUtils.ts";
     import {writable} from "svelte/store";
     import type {Writable} from "svelte/store";
-    import actionMap, {onEditItem, windowManager} from "./ActionMap.ts";
+    import actionMap, {onEditItem} from "./ActionMap.ts";
     import {state} from "./GridState.ts";
     import AppFrame from "@unite/appframe/AppFrame.svelte";
     
@@ -13,8 +13,7 @@
     import Settings from "./Settings.svelte";
     import InputEditor from "@unite/editor/InputEditor.svelte";
     import StatusBar from "@unite/appframe/StatusBar.svelte";
-    import WManager from "@unite/appframe/WindowManager.svelte";
-    import Manager from "./Manager.svelte";
+    //import WManager from "@unite/appframe/WindowManager.svelte";
     
     //
     export let wallpaperURL = (localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg");
@@ -54,19 +53,12 @@
 <!-- -->
 <MultiPage state={state} actionMap={actionMap} current={currentPage}></MultiPage>
 
-<!-- TODO: resolve title-bar problem -->
 
-<WManager windowManager={windowManager}>
+<!-- -->
+<AppFrame hashIdName="#settings">
+    <Settings actionMap={actionMap}></Settings>
+</AppFrame>
 
-    <AppFrame hashIdName="#settings" windowManager={windowManager}>
-        <Settings windowManager={windowManager} actionMap={actionMap}></Settings>
-    </AppFrame>
-    
-    <AppFrame hashIdName="#manager" windowManager={windowManager}>
-        <Manager windowManager={windowManager} actionMap={actionMap}></Manager>
-    </AppFrame>
-
-</WManager>
 
 <!-- -->
 <IconEdit actionMap={actionMap} gridItem={onEditItem}></IconEdit>
