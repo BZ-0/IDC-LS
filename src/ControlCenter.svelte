@@ -30,7 +30,7 @@
     let controlEl = null;
     
     //
-    let panelOpen = matchMedia("(width < 9in) or (orientation: portrait)");
+    let panelOpen = false;//matchMedia("(width < 9in) or (orientation: portrait)");
 
     //
     const tabs = [{
