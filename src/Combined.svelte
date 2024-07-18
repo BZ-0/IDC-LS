@@ -38,7 +38,7 @@
     }, {
         icon: "wallpaper",
         name: "Wallpaper",
-        action: "change-wallpaper"
+        action: "open-manager"
     }, {
         icon: "settings",
         name: "Settings",

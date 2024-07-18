@@ -188,9 +188,13 @@
         }
         
         //
-        //if (ev.target.matches("#manager button")) {
+        if (ev.target.matches("#manager button")) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            ev.stopImmediatePropagation();
+        
             //setTimeout(getFileList, 1000);
-        //}
+        }
     });
 
     //
