@@ -33,42 +33,49 @@
 </script>
 
 <!-- -->
-<x-scrollbox class="ls-screen" id="settings" transition:fade={{ key: currentPage, delay: 0, duration: 100 }}>
-    <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
-        <div class="form-description"> Grid Layout Settings: </div>
+<div class="ls-screen">
 
-        <Block class="ux-block-decor pe-none">
-            <span class="opt-label">Columns:</span>
-            <LucideIcon slot="icon" name={"columns-3"}/>
-            <Number slot="element" value={columns} min={4} max={6} step={1}></Number>
-            <!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
-        </Block>
-        <Block class="ux-block-decor pe-none">
-            <span class="opt-label">Rows:</span>
-            <LucideIcon slot="icon" name={"rows-3"}/>
-            <Number slot="element" value={rows} min={8} max={12} step={1}></Number>
-            <!--<RangeSlider slot="element" bind:values={$rows} min={8} max={12} step={1}></RangeSlider>-->
-        </Block>
-    </form>
-
-    <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
-        <div class="form-description"> Experimental Display Settings: </div>
-    
-        <Block class="ux-block-decor pe-none">
-            <span class="opt-label">Scaling:</span>
-            <LucideIcon slot="icon" name={"scaling"}/>
-            <Number slot="element" value={scaling} min={0.5} max={1.5} step={0.125}></Number>
-            <!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
-        </Block>
-    </form>
-
-    <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
-        <div class="form-description"> Experimental Color Scheme: </div>
+    <div class="ls-nav ux-solid hl-1">
         
-        <Block class="ux-block-decor pe-none">
-            <span class="opt-label">Theming:</span>
-            <LucideIcon slot="icon" name={"scaling"}/>
-            <Switch value={theme} slot="element"></Switch>
-        </Block>
-    </form>
-</x-scrollbox>
+    </div>
+    <x-scrollbox class="ux-space" id="settings" transition:fade={{ key: currentPage, delay: 0, duration: 100 }}>
+        <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
+            <div class="form-description"> Grid Layout Settings: </div>
+    
+            <Block class="ux-block-decor pe-none">
+                <span class="opt-label">Columns:</span>
+                <LucideIcon slot="icon" name={"columns-3"}/>
+                <Number slot="element" value={columns} min={4} max={6} step={1}></Number>
+                <!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
+            </Block>
+            <Block class="ux-block-decor pe-none">
+                <span class="opt-label">Rows:</span>
+                <LucideIcon slot="icon" name={"rows-3"}/>
+                <Number slot="element" value={rows} min={8} max={12} step={1}></Number>
+                <!--<RangeSlider slot="element" bind:values={$rows} min={8} max={12} step={1}></RangeSlider>-->
+            </Block>
+        </form>
+    
+        <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
+            <div class="form-description"> Experimental Display Settings: </div>
+        
+            <Block class="ux-block-decor pe-none">
+                <span class="opt-label">Scaling:</span>
+                <LucideIcon slot="icon" name={"scaling"}/>
+                <Number slot="element" value={scaling} min={0.5} max={1.5} step={0.125}></Number>
+                <!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
+            </Block>
+        </form>
+    
+        <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
+            <div class="form-description"> Experimental Color Scheme: </div>
+            
+            <Block class="ux-block-decor pe-none">
+                <span class="opt-label">Theming:</span>
+                <LucideIcon slot="icon" name={"scaling"}/>
+                <Switch value={theme} slot="element"></Switch>
+            </Block>
+        </form>
+    </x-scrollbox>
+
+</div>

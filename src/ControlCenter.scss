@@ -28,6 +28,28 @@
         .ls-screen { 
             @extend .stretch; 
             grid-column: 2 / 2 span;
+            display: grid;
+            
+            //
+            grid-template-columns: minmax(0px, 1fr);
+            grid-template-rows: minmax(0px, 2rem);
+            
+            //
+            .ux-space {
+                @extend .stretch;
+                
+                grid-row: 2 / 2 span;
+            }
+            
+            //
+            .ux-nav {
+                @extend .stretch; 
+                
+                //
+                display: flex;
+                flex-direction: row;
+                grid-row: 1 / 1 span;
+            }
         }
 
         //
