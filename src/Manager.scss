@@ -12,6 +12,7 @@
         //
         button {
             @extend .align-center;
+            @extend .no-wrap;
         
             //
             padding: 0.5rem;
@@ -21,7 +22,10 @@
             block-size: stretch;
             max-block-size: 3rem;
             padding-inline: 1rem;
-            gap: 0.5rem;
+            gap: 0.4rem;
+            
+            //
+            font-size: clamp(0.5rem, 2cqi, 0.8rem);
             
             //
             & * {
@@ -40,6 +44,7 @@
         .file-list {
             @extend .stretch;
             @extend .align-center;
+            @extend .no-wrap;
             
             //
             display: grid;
@@ -53,6 +58,7 @@
                 @extend .stretch;
                 @extend .align-center;
                 @extend .pe-enable;
+                @extend .no-wrap;
                 
                 //
                 cursor: pointer;
@@ -69,6 +75,7 @@
                 //
                 & * {
                     background-color: transparent;
+                    @extend .no-wrap;
                 }
                 
                 //
