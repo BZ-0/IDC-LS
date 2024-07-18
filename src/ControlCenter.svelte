@@ -17,7 +17,7 @@
     //
     export let appId = "#control-center";
     export let windowManager = null;
-    export let currentPage = "settings";
+    export let currentPage = writable("settings");
     
     //
     windowManager?.addTask?.(appId, {
@@ -49,7 +49,7 @@
         const {target} = ev;
         if (target.matches(appId + " .ls-tab-item")) {
             const _ = target.dataset.page || "";
-            if (_ != currentPage) { currentPage = _; };
+            if (_ != $currentPage) { currentPage.set(_); };
             
             // unable to switch without hiding
             if (controlEl?.clientWidth <= 96 * 9) {
@@ -85,13 +85,13 @@
 
 <!-- -->
 <div class="ux-title-label ux-solid-transparent">
-    <span tabindex="-1" inert={true}>{tabs.find(({page})=>(page==currentPage))?.label || ""}</span>
+    <span tabindex="-1" inert={true}>{tabs.find(({page})=>(page==$currentPage))?.label || ""}</span>
 </div>
 
-<div class="ux-content stretch" id={appId.replace("#","")} bind:this={controlEl} data-current-page={currentPage}>
+<div class="ux-content stretch" id={appId.replace("#","")} bind:this={controlEl} data-current-page={$currentPage}>
 
     {#if panelOpen}
-        <x-scrollbox class="ls-panel hl-1" bind:this={panelEl} transition:fade={{ key: currentPage, delay: 0, duration: 100 }}>
+        <x-scrollbox class="ls-panel hl-1" bind:this={panelEl} transition:fade={{ key: $currentPage, delay: 0, duration: 100 }}>
             {#each tabs as tab}
                 <Block class="ux-block-decor ux-default-theme hl-2h ls-tab-item cursor-pointer pe-enable" data-page={tab.page}>
                     <LucideIcon inert={true} slot="icon" name={tab.icon}/>
@@ -102,11 +102,11 @@
         </x-scrollbox>
     {/if}
     
-    {#if ["settings"].indexOf(currentPage) >= 0}
+    {#if ["settings"].indexOf($currentPage) >= 0}
         <Settings></Settings>
     {/if}
     
-    {#if ["wallpapers"].indexOf(currentPage) >= 0}
+    {#if ["wallpapers"].indexOf($currentPage) >= 0}
         <Manager></Manager>
     {/if}
     

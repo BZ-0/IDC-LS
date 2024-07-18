@@ -54,6 +54,9 @@
             font-size: 0.8rem;
             
             //
+            align-content: start;
+            
+            //
             .file {
                 @extend .stretch;
                 @extend .align-center;

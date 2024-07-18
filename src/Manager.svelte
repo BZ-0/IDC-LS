@@ -122,10 +122,11 @@
         if (ev.target.matches("#manager .use-item")) {
             if (selectedFilename && files.has(selectedFilename)) {
                 const file = files.get(selectedFilename);
-                
                 if (file != null) {
                     const wallpaper = document.querySelector("canvas[is=\"w-canvas\"]");
-                    wallpaper?.["$useImageAsSource"]?.(file);
+                    wallpaper?.["$useImageAsSource"]?.(file, true).then((file)=>{
+                        files.set(selectedFilename, file);
+                    });
                 }
             }
         }
@@ -153,6 +154,7 @@
                         
                         //
                         files.set(fn, blob);
+                        selectedFilename = fn;
                         fileList.set(files);
                     }
                 });
@@ -168,6 +170,7 @@
                     
                     //
                     files.delete(selectedFilename);
+                    selectedFilename = null;
                     fileList.set(files);
                 }
             })();
@@ -178,6 +181,11 @@
             if (selectedFilename && files.has(selectedFilename)) {
                 downloadImage(files.get(selectedFilename));
             }
+        }
+        
+        //
+        if (ev.target.matches("#manager button")) {
+            setTimeout(getFileList, 1000);
         }
     });
 
@@ -216,7 +224,7 @@
         
         <div class="file-list">
             {#each $fileList.entries() as [name, file]}
-                <div class="file hl-1h" data-filename={file.name}>
+                <div class={`file hl-1h ${ selectedFilename == file.name ? "selected" : "" }`} data-filename={file.name}>
                     <div inert={true} class="icon">
                         <LucideIcon name={"wallpaper"}/>
                     </div>
