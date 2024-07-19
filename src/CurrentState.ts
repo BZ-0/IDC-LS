@@ -67,16 +67,12 @@ settings?.["@subscribe"]?.((v) => {
     (async () => {
         switch (v || "auto") {
             case "auto":
-                await screen.orientation.lock("any");
+                await screen.orientation.lock(screen.orientation.type);
                 await screen.orientation.unlock();
                 break;
 
-            case "lock":
-                await screen.orientation.lock(screen.orientation.type);
-                break;
-
             default:
-                await screen.orientation.lock(v || "auto");
+                await screen.orientation.lock(v || "any");
                 break;
         }
     })().catch(console.warn.bind(console));
