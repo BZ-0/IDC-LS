@@ -52,7 +52,7 @@
         //
         if (target.matches(appId + " .ls-tab-item")) {
             const _ = target.dataset.page || "";
-            if (_ != $currentPage) { currentPage.set(_); };
+            if (_ != $currentPage) { currentPage?.set?.(_); };
             
             // unable to switch without hiding
             if (controlEl?.clientWidth <= 96 * 9) {

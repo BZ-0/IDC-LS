@@ -226,7 +226,7 @@
             <div inert={true} class="name">Download Image</div>
         </button>
     </div>
-    <x-scrollbox class="ux-space" transition:fade={{ key: currentPage, delay: 0, duration: 100 }}>
+    <x-scrollbox class="ux-space" transition:fade={{ delay: 0, duration: 100 }}>
         
         <div class="file-list">
             {#each $fileList.entries() as [name, file]}

@@ -45,7 +45,7 @@
             <div inert={true} class="name">Back</div>
         </button>
     </div>
-    <x-scrollbox class="ux-space" transition:fade={{ key: currentPage, delay: 0, duration: 100 }}>
+    <x-scrollbox class="ux-space" transition:fade={{ delay: 0, duration: 100 }}>
         <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
             <div class="form-description"> Grid Layout Settings: </div>
     

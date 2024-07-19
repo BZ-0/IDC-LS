@@ -101,13 +101,13 @@ const actionMap = new Map<string, Function>([
 
 
     ["open-manager", ({initiator}) => {
-        controlCenterPage.set("wallpapers");
+        controlCenterPage?.set?.("wallpapers");
         location.hash = "#control-center";
         //windowManager.focusTask("#control-center");
     }],
 
     ["open-settings", ({initiator}) => {
-        controlCenterPage.set("settings");
+        controlCenterPage?.set?.("settings");
         location.hash = "#control-center";
         //windowManager.focusTask("#control-center");
     }],
