@@ -43,6 +43,10 @@
         icon: "settings",
         name: "Settings",
         action: "open-settings"
+    }, {
+        icon: "fullscreen",
+        name: "Fullscreen",
+        action: "fullscreen"
     }];
     
 </script>

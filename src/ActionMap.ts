@@ -4,6 +4,10 @@ import type {GridItemType} from "@unite/grid/GridItemUtils.ts";
 import {makeReactiveObject} from "@unite/reactive/ReactiveObject.ts";
 import {redirectCell} from "@unite/grid/GridItemUtils.ts";
 
+
+import Timer from "@unite/performance/Time.ts";
+
+
 //
 //import {WindowManager} from "@unite/dwm/WindowManager.mjs";
 
@@ -98,6 +102,18 @@ const actionMap = new Map<string, Function>([
         },
     ],
 
+
+    ["fullscreen", Timer.protect(() => {
+        //
+        if (!document.fullscreenElement) {
+            document.documentElement?.requestFullscreen?.({
+                navigationUI: "hide",
+            })?.catch?.(console.warn.bind(console));
+        } else
+            if (document.exitFullscreen) {
+                document?.exitFullscreen?.();
+            }
+    }, 100)],
 
 
     ["open-manager", ({initiator}) => {
