@@ -27,7 +27,11 @@
         //
         .ls-screen { 
             @extend .stretch; 
+            @extend .ux-solid;
+            
+            //
             grid-column: 2 / 2 span;
+            grid-row: 1 / 1 span;
             display: grid;
             
             //
