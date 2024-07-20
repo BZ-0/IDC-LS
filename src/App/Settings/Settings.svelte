@@ -1,15 +1,15 @@
 <script>
-    import LucideIcon from '@unite/svelte/UI/design/WLucideIcon.svelte';
-    import Block from '@unite/svelte/UI/design/Block.svelte';
+    import LucideIcon from '@idc/UI/design/WLucideIcon.svelte';
+    import Block from '@idc/UI/design/block/Block.svelte';
 
     //
-    import Checkbox from '@unite/svelte/UI/inputs/Checkbox.svelte';
-    import Number from '@unite/svelte/UI/inputs/Number.svelte';
-    import Switch from '@unite/svelte/UI/inputs/Switch.svelte';
+    import Checkbox from '@idc/UI/inputs/checkbox/Checkbox.svelte';
+    import Number from '@idc/UI/inputs/number/Number.svelte';
+    import Switch from '@idc/UI/inputs/switch/Switch.svelte';
 
     //
-    import { state, layout, size } from "./GridState.ts";
-    import { settings } from "./CurrentState.ts";
+    import { state, layout, size } from "../../State/GridState.ts";
+    import { settings } from "../../State/CurrentState.ts";
 
     //
     import { onMount } from 'svelte';

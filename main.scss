@@ -2,6 +2,18 @@
 @use "@unite/index";
 
 //
-@use "./src/ControlCenter.scss";
-@use "./src/Settings.scss";
-@use "./src/Manager.scss";
+@use "./src/UI/design/block/Block";
+@use "./src/UI/design/frame/Frame";
+@use "./src/UI/forms/ItemEdit";
+@use "./src/UI/editor/InputEditor";
+@use "./src/UI/inputs/checkbox/Checkbox";
+@use "./src/UI/inputs/number/Number";
+@use "./src/UI/inputs/switch/Switch";
+@use "./src/UI/appframe/AppFrame";
+@use "./src/UI/statusbar/StatusBar";
+@use "./src/UI/grid/GridDesign";
+
+//
+@use "./src/App/ControlCenter/ControlCenter.scss";
+@use "./src/App/Settings/Settings.scss";
+@use "./src/App/Manager/Manager.scss";

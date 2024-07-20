@@ -42,6 +42,7 @@ const config = <UserConfig>defineConfig({
         alias: {
             "@": path.resolve("./"),
             "@src": path.resolve("src/"),
+            "@idc": path.resolve("src/"),
             "@unite": path.resolve("unite/")
         },
     },

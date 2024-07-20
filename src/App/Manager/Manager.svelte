@@ -93,8 +93,8 @@
 
 <!-- Second Season: Finale -->
 <script>
-    import LucideIcon from '@unite/svelte/UI/design/WLucideIcon.svelte';
-    import Block from '@unite/svelte/UI/design/Block.svelte';
+    import LucideIcon from '@idc/UI/design/WLucideIcon.svelte';
+    import Block from '@idc/UI/design/block/Block.svelte';
     
     //
     import { onMount } from 'svelte';
@@ -102,7 +102,7 @@
     import { fade } from "svelte/transition";
 
     //
-    import { pickWallpaperImage } from "./ActionMap.ts";
+    import { pickWallpaperImage } from "@idc/State/ActionMap.ts";
 
     //
     let selectedFilename = null;

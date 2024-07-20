@@ -4,18 +4,20 @@
     import type {Writable} from "svelte/store";
     
     //
-    import ContextMenu from "@unite/svelte/UI/contextmenu/ContextMenu.svelte";
-	import type { GridItemType } from "@unite/svelte/UI/utils/GridItemUtils.ts";
-    import AppFrame from "@unite/svelte/UI/appframe/AppFrame.svelte";
-    import MultiPage from "@unite/svelte/UI/grid/MultiPage.svelte";
-    import InputEditor from "@unite/svelte/UI/editor/InputEditor.svelte";
-    import StatusBar from "@unite/svelte/UI/statusbar/StatusBar.svelte";
+    import ContextMenu from "./UI/contextmenu/ContextMenu.svelte";
+	import type { GridItemType } from "./UI/utils/GridItemUtils.ts";
+    import AppFrame from "./UI/appframe/AppFrame.svelte";
+    import MultiPage from "./UI/grid/MultiPage.svelte";
+    import InputEditor from "./UI/editor/InputEditor.svelte";
+    import StatusBar from "./UI/statusbar/StatusBar.svelte";
     
     //
-    import actionMap, {onEditItem, controlCenterPage } from "./ActionMap.ts";
-    import {state} from "./GridState.ts";
-    import IconEdit from "./IconEdit.svelte";
-    import ControlCenter from "./ControlCenter.svelte";
+    import actionMap, {onEditItem, controlCenterPage } from "./State/ActionMap.ts";
+    import {state} from "./State/GridState.ts";
+
+    //
+    import IconEdit from "./App/Editors/IconEdit.svelte";
+    import ControlCenter from "./App/ControlCenter/ControlCenter.svelte";
     
     //
     export let wallpaperURL = (localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg");

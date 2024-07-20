@@ -1,11 +1,11 @@
 <script type="ts" lang="ts">
-	import ItemEdit from "@unite/svelte/UI/forms/ItemEdit.svelte";
-	import GridItem from "@unite/svelte/UI/grid/GridItem.svelte";
-    import Frame from "@unite/svelte/UI/design/Frame.svelte";
+	import ItemEdit from "@idc/UI/forms/ItemEdit.svelte";
+	import GridItem from "@idc/UI/grid/GridItem.svelte";
+    import Frame from "@idc/UI/design/frame/Frame.svelte";
     import type { GridItemType } from "@unite/scripts/utils/GridItemUtils.ts";
 
     //
-    import {state} from "./GridState.ts";
+    import {state} from "@idc/State/GridState.ts";
     
     //
     import {writable} from "svelte/store";

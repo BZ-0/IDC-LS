@@ -42,7 +42,7 @@ const loading = Promise.allSettled([
 ]);
 
 //
-import App from "./src/Combined.svelte";
+import App from "./src/Main.svelte";
 import {mount} from 'svelte';
 
 //

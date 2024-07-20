@@ -5,6 +5,7 @@
         "types": ["./global.d.ts"],
         "paths": {
             "@": ["./"],
+            "@idc": ["./src/"],
             "@src": ["./src/"],
             "@unite": ["./unite/"]
         },
