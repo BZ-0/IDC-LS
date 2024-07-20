@@ -5,7 +5,7 @@
 //
 @use "@unite/scss/design/ColorVars" as cl;
 @use "@unite/scss/design/ColorUtils" as cu;
-@use "@unite/scss/design/ColorTheme";
+@use "@unite/scss/design/ColorTheme" as tm;
 
 //
 @layer ux-app-frame {
@@ -131,7 +131,6 @@
             @extend .align-center;
             @extend .align-inline-left;
             @extend .no-wrap;
-            @extend .ux-solid;
 
             //
             display: flex;
@@ -150,15 +149,13 @@
             
             //
             &:where(.ux-title-handle) {
-                @extend .ux-solid;
                 @extend .pe-enable;
             }
             
             //
             &:where(.ux-title-label) {
                 @extend .pe-none;
-                @extend .ux-solid-transparent;
-                
+
                 //
                 grid-row: titlebar;
             }
@@ -216,8 +213,6 @@
         //
         & > .ux-status {
             @extend .stretch;
-            @extend .ux-solid;
-            @extend .hl-2;
             
             //
             grid-row: status;
@@ -227,7 +222,6 @@
         //
         & > .ux-content {
             @extend .stretch;
-            @extend .ux-solid;
             
             //
             grid-row: content-b;

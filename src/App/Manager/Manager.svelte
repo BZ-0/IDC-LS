@@ -205,23 +205,23 @@
 <!-- -->
 <div class="ls-screen" id="manager">
 
-    <div class="ls-nav ux-solid hl-1">
-        <button class="use-item hl-1 hl-2h" on:click={useItemEv}>
+    <div class="ls-nav" data-scheme="ux-solid-transparent" data-highlight="1" data-highlight-hover="2">
+        <button class="use-item" data-highlight="1" data-highlight-hover="2" on:click={useItemEv}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-play"}/></div>
             <div inert={true} class="name">Use as Wallpaper</div>
         </button>
         
-        <button class="add-item hl-1 hl-2h" on:click={addItemEv}>
+        <button class="add-item" data-highlight="1" data-highlight-hover="2" on:click={addItemEv}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-up"}/></div>
             <div inert={true} class="name">Load Image</div>
         </button>
         
-        <button class="remove-item hl-1 hl-2h" on:click={removeItemEv}>
+        <button class="remove-item" data-highlight="1" data-highlight-hover="2" on:click={removeItemEv}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-off"}/></div>
             <div inert={true} class="name">Remove Image</div>
         </button>
         
-        <button class="download-item hl-1 hl-2h" on:click={downloadItemEv}>
+        <button class="download-item" data-highlight="1" data-highlight-hover="2" on:click={downloadItemEv}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-down"}/></div>
             <div inert={true} class="name">Download Image</div>
         </button>

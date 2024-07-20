@@ -35,7 +35,7 @@
 <!-- -->
 <div class="ls-screen" id="settings">
 
-    <div class="ls-nav ux-solid hl-1">
+    <div class="ls-nav" data-scheme="solid" data-highlight="1">
 
     
         <div class="f-space"></div>

@@ -3,7 +3,7 @@
 @use "@unite/scss/core/Detector" as d;
 
 //
-@use "@unite/scss/design/ColorTheme";
+@use "@unite/scss/design/ColorTheme" as tm;
 
 //
 @layer ls-control-center {
@@ -29,7 +29,7 @@
         //
         .ls-screen { 
             @extend .stretch; 
-            @extend .ux-solid;
+            @include tm.ux-solid;
             
             //
             grid-column: 2 / 2 span;

@@ -170,28 +170,24 @@
 
 <!-- -->
 {#if !$isInactive && $currentLocationHash == hashIdName}
-    <div {...propsFilter($$props)} bind:this={frameElement} class="ux-frame ux-app-frame ux-default-theme ux-solid hl-1 ux-detached" transition:fade={{ delay: 0, duration: 100 }}>
+    <div {...propsFilter($$props)} bind:this={frameElement} data-scheme="solid" class="ux-frame ux-app-frame ux-default-theme hl-1 ux-detached" transition:fade={{ delay: 0, duration: 100 }}>
 
-        <div class="titlebar ux-solid hl-1">
-            <div class="back-button hl-1h hl-2 hl-3h ux-solid" style="grid-column: back-button; aspect-ratio: 1 / 1;">
+        <div class="titlebar" data-scheme="solid" data-highlight="2">
+            <div class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;">
                 <LucideIcon inert={true} slot="icon" name={"chevron-down"}/>
             </div>
-            <div class="ux-title-handle hl-2 ux-solid">
+            <div class="ux-title-handle hl-2">
                 
             </div>
-            <div class="menu-button accent hl-2 hl-3h ux-solid" style="grid-column: menu-button; aspect-ratio: 1 / 1;">
+            <div class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;">
                 <LucideIcon inert={true} slot="icon" name={"menu"}/>
             </div>
         </div>
         
         <slot></slot>
-        
-        <!--<div class="content-box stretch ux-solid-transparent">
-            <slot></slot>
-        </div>-->
 
         <div class="ux-status"></div>
-        <div class="ux-resize ux-solid-transparent"></div>
+        <div class="ux-resize" data-scheme="transparent"></div>
 
     </div>
 {/if}

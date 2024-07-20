@@ -1,7 +1,7 @@
-<script type="ts" lang="ts">
+<script type="ts" lang="ts" context="module">
     import { observeBySelector} from "@unite/scripts/dom/Observer.ts";
     import { MOC, propsFilter } from "@unite/scripts/utils/Utils.ts";
-    import LucideIcon from "../design/WLucideIcon.svelte";
+    import LucideIcon from "@idc/UI/design/WLucideIcon.svelte";
     import {writable} from "svelte/store";
     import {onMount} from "svelte";
 
@@ -12,10 +12,8 @@
 
     //
     let input: HTMLInputElement | null = null, copyButton: HTMLButtonElement | null = null, pasteButton: HTMLButtonElement | null = null, fieldEdit: HTMLDivElement | null = null;
-
-    //
-    export let targetInput: HTMLInputElement | null = null;
-    export let value = writable("");
+    let targetInput: HTMLInputElement | null = null;
+    let value = writable("");
 
     //
     const isInputOrIn = (el)=>{
@@ -34,18 +32,6 @@
     });
 
     //
-    onMount(()=>{
-        if (fieldEdit) {
-            input ||= fieldEdit?.querySelector("input") || null;
-            copyButton ||= fieldEdit?.querySelector(".field-copy") || null;
-            pasteButton ||= fieldEdit?.querySelector(".field-paste") || null;
-            
-            //
-            if (document.activeElement != input) { input?.focus?.(); }
-        }
-    });
-
-    //
     const unfocus = (target: HTMLInputElement | null)=>{
         if (!isInputOrIn(target || targetInput)) {
 
@@ -59,8 +45,10 @@
             input?.blur?.();
 
             //
+            fieldEdit?.setAttribute("data-hidden", true);
+
+            //
             targetInput = null;
-            input = null;
         }
     }
 
@@ -96,8 +84,10 @@
         //
         if (matchMedia("(hover: none) and (pointer: coarse)").matches) {
             if ((from as HTMLElement)?.matches?.(TextInputSelector) && (!input || from != input) && !MOC(from as HTMLElement, IsEditorInputSelector)) {
-                
                 targetInput = from;
+
+                //
+                fieldEdit?.setAttribute("data-hidden", false);
             }
         }
         
@@ -119,6 +109,13 @@
             }))
         }
     }
+
+    //
+    document.addEventListener("input", (ev)=>{
+        //reflect
+        const {target} = ev;
+        if (target == input) { reflect(ev); }
+    });
 
     //
     document.addEventListener("focusout", (ev)=>{
@@ -201,35 +198,29 @@
 </script>
 
 
-{#if targetInput}
-    <div 
-        bind:this={fieldEdit} 
-        class="ux-editor ux-transparent fixed" 
-        {...propsFilter($$props)}
-    >
-        <div data-scheme="solid" class="field-content stretch ux-default-theme" style="grid-row: field-edit;">
-            <div class="field-wrap">
-                <input 
-                    autofocus={true}
-                    autocomplete="off"
-                    on:click={reflect}
-                    on:input={reflect}
-                    on:change={reflect}
-                    bind:value={$value}
-                    bind:this={input} 
-                    type="text"
-                    maxlength="1024"
-                />
-            </div>
-            <button type="button" tabindex="-1" bind:this={copyButton} data-scheme="solid" data-highlight="2" class="field-copy pe-enable">
-                <LucideIcon name="copy" tabindex="-1" inert={true}></LucideIcon>
-            </button>
-            <button type="button" tabindex="-1" bind:this={pasteButton} data-scheme="solid" data-highlight="2" class="field-paste pe-enable">
-                <LucideIcon name="clipboard" tabindex="-1" inert={true}></LucideIcon>
-            </button>
+<div 
+    class="ux-editor fixed" 
+    data-hidden={true}
+    data-scheme="transparent"
+    {...propsFilter($$props)}
+>
+    <div data-scheme="solid" class="field-content stretch" style="grid-row: field-edit;">
+        <div class="field-wrap">
+            <input 
+                autofocus={true}
+                autocomplete="off"
+                type="text"
+                maxlength="1024"
+            />
         </div>
+        <button type="button" tabindex="-1" bind:this={copyButton} data-scheme="solid" data-highlight="2" class="field-copy pe-enable">
+            <LucideIcon name="copy" tabindex="-1" inert={true}></LucideIcon>
+        </button>
+        <button type="button" tabindex="-1" bind:this={pasteButton} data-scheme="solid" data-highlight="2" class="field-paste pe-enable">
+            <LucideIcon name="clipboard" tabindex="-1" inert={true}></LucideIcon>
+        </button>
     </div>
-{/if}
+</div>
 
 <!-- TEST ONLY! -->
 <!--<input type="text" name="text" />

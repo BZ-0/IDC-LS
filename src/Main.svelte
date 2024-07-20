@@ -8,7 +8,7 @@
 	import type { GridItemType } from "./UI/utils/GridItemUtils.ts";
     import AppFrame from "./UI/appframe/AppFrame.svelte";
     import MultiPage from "./UI/grid/MultiPage.svelte";
-    import InputEditor from "./UI/editor/InputEditor.svelte";
+    import InputEditor from "./UI2/InputEdit/InputEdit.svelte";
     import StatusBar from "./UI/statusbar/StatusBar.svelte";
     
     //
