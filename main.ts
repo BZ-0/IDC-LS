@@ -37,6 +37,12 @@ if (typeof navigator != "undefined") {
 
 // use workers
 const loading = Promise.allSettled([
+    import("@idc/UI2/AppFrame/AppFrame.ts"),
+    import("@idc/UI2/ContextMenu/ContextMenu.ts"),
+    import("@idc/UI2/Desktop/DesktopGrid.ts"),
+    import("@idc/UI2/InputEdit/InputEdit.ts"),
+    import("@idc/UI2/ItemEdit/ItemEdit.ts"),
+
     import("@unite/wcomp/scrollbox/ScrollBox.ts"),
     import("@unite/scripts/stylework/Bundle.ts")
 ]);

@@ -34,16 +34,15 @@
         if (!(modalFrame == target || target.matches(FocusSelector) || target.closest(FocusSelector)) && !(document?.activeElement?.matches(DNBSelector) || target.matches(DNBSelector) || target.closest(DNBSelector)) || target.matches(".ux-modal-frame button")) {
             // @ts-ignore
             focused?.set?.(false);
+            //modalFrame.dataset.hidden = true;
         }
     });
     
 </script>
 
 <!-- -->
-{#if $focused}
-    <div class="ux-modal-frame" transition:fade={{ delay: 0, duration: 100 }} bind:this={modalFrame} {...propsFilter($$props)}>
-        <div class="cut-space">
-            <slot></slot>
-        </div>
+<div data-hidden={!$focused} class="ux-modal-frame" transition:fade={{ delay: 0, duration: 100 }} bind:this={modalFrame} {...propsFilter($$props)}>
+    <div class="cut-space">
+        <slot></slot>
     </div>
-{/if}
+</div>

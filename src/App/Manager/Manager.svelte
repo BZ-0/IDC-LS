@@ -93,8 +93,8 @@
 
 <!-- Second Season: Finale -->
 <script>
-    import LucideIcon from '@idc/UI/design/WLucideIcon.svelte';
-    import Block from '@idc/UI/design/block/Block.svelte';
+    import LucideIcon from '@idc/UI2/Design/WLucideIcon.svelte';
+    import Block from '@idc/UI2/Design/Block/Block.svelte';
     
     //
     import { onMount } from 'svelte';

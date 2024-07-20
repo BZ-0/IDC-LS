@@ -2,16 +2,16 @@
 @use "@unite/index";
 
 //
-@use "./src/UI/design/block/Block";
-@use "./src/UI/design/frame/Frame";
-@use "./src/UI/forms/ItemEdit";
-@use "./src/UI/editor/InputEditor";
-@use "./src/UI/inputs/checkbox/Checkbox";
-@use "./src/UI/inputs/number/Number";
-@use "./src/UI/inputs/switch/Switch";
-@use "./src/UI/appframe/AppFrame";
-@use "./src/UI/statusbar/StatusBar";
-@use "./src/UI/grid/GridDesign";
+@use "./src/UI2/Design/Block/Block";
+@use "./src/UI2/Design/frame/Frame";
+@use "./src/UI2/ItemEdit/ItemEdit";
+@use "./src/UI2/InputEdit/InputEdit";
+@use "./src/UI2/Inputs/CheckBox/CheckBox";
+@use "./src/UI2/Inputs/Number/Number";
+@use "./src/UI2/Inputs/Switch/Switch";
+@use "./src/UI2/AppFrame/AppFrame";
+@use "./src/UI2/StatusBar/StatusBar";
+@use "./src/UI2/Desktop/GridDesign";
 
 //
 @use "./src/App/ControlCenter/ControlCenter.scss";

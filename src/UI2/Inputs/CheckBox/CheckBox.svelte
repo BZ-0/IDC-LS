@@ -1,10 +1,10 @@
 <script>
-    import LucideIcon from '@idc/UI/design/WLucideIcon.svelte';
+    import LucideIcon from '@idc/UI2/Design/WLucideIcon.svelte';
     import {onMount} from 'svelte';
     import {writable} from "svelte/store";
 
     //
-    export let value = $$props?.value ?? writable(false);
+    export let value = $$props?.value || writable(false);
     export let element = null;
     export let container = null;
 

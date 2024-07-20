@@ -9,15 +9,14 @@
     import {state} from "./State/GridState.ts";
 
     //
-    import ContextMenu from "./UI/contextmenu/ContextMenu.svelte";
-	import type { GridItemType } from "./UI/utils/GridItemUtils.ts";
-    import AppFrame from "./UI/appframe/AppFrame.svelte";
+    import ContextMenu from "./UI2/ContextMenu/ContextMenu.svelte";
+    import AppFrame from "./UI2/AppFrame/AppFrame.svelte";
     import DesktopGrid from "./UI2/Desktop/DesktopGrid.svelte";
     import InputEditor from "./UI2/InputEdit/InputEdit.svelte";
-    import StatusBar from "./UI/statusbar/StatusBar.svelte";
-    
+    import StatusBar from "./UI2/StatusBar/StatusBar.svelte";
+    import ItemEdit from "./UI2/ItemEdit/IconEdit.svelte";
+
     //
-    import IconEdit from "./App/Editors/IconEdit.svelte";
     import ControlCenter from "./App/ControlCenter/ControlCenter.svelte";
     
     //
@@ -67,9 +66,8 @@
     <ControlCenter actionMap={actionMap} currentPage={controlCenterPage}></ControlCenter>
 </AppFrame>
 
-
 <!-- -->
-<IconEdit actionMap={actionMap} gridItem={onEditItem}></IconEdit>
+<ItemEdit actionMap={actionMap} gridItem={onEditItem}></ItemEdit>
 <ContextMenu actionMap={actionMap} ctxList={itemCtxList} ctxName={"grid-item"}></ContextMenu>
 <ContextMenu actionMap={actionMap} ctxList={gridCtxList} ctxName={"grid-space"}></ContextMenu>
 

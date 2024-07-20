@@ -1,11 +1,11 @@
 <script>
-    import LucideIcon from '@idc/UI/design/WLucideIcon.svelte';
-    import Block from '@idc/UI/design/block/Block.svelte';
+    import LucideIcon from '@idc/UI2/Design/WLucideIcon.svelte';
+    import Block from '@idc/UI2/Design/Block/Block.svelte';
 
     //
-    import Checkbox from '@idc/UI/inputs/checkbox/Checkbox.svelte';
-    import Number from '@idc/UI/inputs/number/Number.svelte';
-    import Switch from '@idc/UI/inputs/switch/Switch.svelte';
+    import Checkbox from '@idc/UI2/Inputs/CheckBox/CheckBox.svelte';
+    import Number from '@idc/UI2/Inputs/Number/Number.svelte';
+    import Switch from '@idc/UI2/Inputs/Switch/Switch.svelte';
 
     //
     import { state, layout, size } from "../../State/GridState.ts";

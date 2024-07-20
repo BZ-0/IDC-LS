@@ -1,11 +1,13 @@
 <script type="ts" lang="ts">
     import {onMount} from "svelte";
     import type {Field} from "./ItemEdit.ts";
+    import { observeBySelector } from "../../../unite/scripts/dom/Observer.ts";
     
     //
     export let whatEdit: object | any | null = null;
     export let fields: Field[] = [];
-    
+    let form = null;
+
     //
     export const confirm = ()=>{
         if (whatEdit) {
@@ -39,21 +41,29 @@
     //
     onMount(()=>{
         synchronize();
+
+        //
+        observeBySelector(form, ".ux-field-block", ()=>{
+            synchronize();
+        });
     });
+
+    
 
 </script>
 
 <!-- -->
-{#if whatEdit}
-    <form class="ux-edit-form" autocomplete="off">
-        <div class="ux-edit-desc">
-            <slot name="description"/>
-        </div>
+<form bind:this={form} class="ux-edit-form" autocomplete="off">
+    <div class="ux-edit-desc">
+        <slot name="description"/>
+    </div>
+    {#if whatEdit}
         {#each fields as F(F.name)}
             <div class="ux-field-block">
                 <div inert={true} class="field-label">{F.label}</div>
-                <input type="text" maxlength="1024" autocomplete="off" bind:value={F.value} name={F.name} data-name={F.name} on:change={confirm} class="field-input hl-1 hl-2h"/>
+                <input data-highlight="1" data-highlight-hover="2" type="text" maxlength="1024" autocomplete="off" bind:value={F.value} name={F.name} data-name={F.name} on:change={confirm} class="field-input hl-1 hl-2h"/>
             </div>
         {/each}
-    </form>
-{/if}
+    {/if}
+</form>
+

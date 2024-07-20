@@ -1,12 +1,14 @@
 <script type="ts" lang="ts">
-	import ItemEdit from "@idc/UI2/ItemEdit/ItemEdit.svelte";
-	import GridItem from "@idc/UI2/Desktop/GridItem.svelte";
-    import Frame from "@idc/UI2/Design/frame/Frame.svelte";
+    import ItemEdit from "./ItemEdit.svelte";
+    import GridItem from "@idc/UI2/Desktop/GridItem.svelte";
+    import Frame from "@idc/UI2/Design/Frame/Frame.svelte";
+
+    //
     import type { GridItemType } from "@unite/scripts/utils/GridItemUtils.ts";
 
     //
     import {state} from "@idc/State/GridState.ts";
-    
+
     //
     import {writable} from "svelte/store";
     import type {Writable} from "svelte/store";
@@ -48,7 +50,7 @@
 </script>
 
 <!-- -->
-<Frame class="ux-modal-frame ls-item-edit" data-item={$gridItem?.id||""}>
+<Frame focused={gridItem} class="ux-modal-frame ls-item-edit" data-item={$gridItem?.id||""}>
     <ItemEdit whatEdit={$gridItem} data-item={$gridItem?.id||""} fields={fieldSet} bind:confirm={confirm}></ItemEdit>
     <div class="ls-but">
         <button type="button" class="delete-btn" on:click={deleteWrap}>Delete Icon</button>

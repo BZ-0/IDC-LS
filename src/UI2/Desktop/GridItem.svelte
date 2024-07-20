@@ -1,6 +1,6 @@
 <script type="ts" lang="ts">
     import {onMount} from 'svelte';
-    import LucideIcon from "@idc/UI/design/WLucideIcon.svelte";
+    import LucideIcon from "@idc/UI2/Design/WLucideIcon.svelte";
     import GestureControl from "@unite/scripts/interact/Gesture.ts";
     import type {GridItemType} from "@unite/scripts/utils/GridItemUtils.ts";
 

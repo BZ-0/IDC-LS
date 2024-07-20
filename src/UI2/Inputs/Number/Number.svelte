@@ -1,12 +1,13 @@
 <script>
-import LucideIcon from '@idc/UI/design/WLucideIcon.svelte';
+import LucideIcon from '@idc/UI2/Design/WLucideIcon.svelte';
+import { writable } from "svelte/store";
 
 //
-let value = $$props?.value;
+let value = $$props?.value || writable(0);
 let input = null;
 
 //
-$: value = $$props?.value;
+$: value = $$props?.value || writable(0);
 
 //
 const onchangeInternal = (ev)=>{
