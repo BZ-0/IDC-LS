@@ -28,6 +28,7 @@ jobs:
       run: |
         git submodule sync --recursive
         npm install --include=dev
+        npm install -g vite
 
     - name: Build
       run: |
