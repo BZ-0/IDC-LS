@@ -3,7 +3,7 @@
 @use "@unite/scss/core/Detector" as d;
 
 //
-@use "@unite/scss/design/ColorTheme";
+@use "@unite/scss/design/ColorTheme" as tm;
 
 //
 @layer ls-manager {
@@ -56,7 +56,7 @@
                 
                 //
                 &.selected {
-                    @extend .ux-inverse;
+                    @include tm.ux-inverse;
                 }
                 
                 //

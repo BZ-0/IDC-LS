@@ -33,7 +33,7 @@
 </script>
 
 <!-- -->
-<label bind:this={container} class="ux-switch hl-1">
+<label bind:this={container} class="ux-switch" data-scheme data-highlight="1">
     <input 
         on:change={_whenChange} 
         on:input={_whenChange} 
@@ -43,7 +43,7 @@
         data-name={fieldName} 
         min={-1} max={1} step={1}
         {...propsFilter($$props)}>
-    <div class="fill hl-1"></div>
-    <div class="track hl-1"></div>
-    <div class="thumb icon-sign hl-2"><LucideIcon name={"circle"}/></div>
+    <div class="fill" data-scheme data-highlight="1"></div>
+    <div class="track" data-scheme data-highlight="1"></div>
+    <div class="thumb icon-sign" data-scheme data-highlight="1"><LucideIcon name={"circle"}/></div>
 </label>

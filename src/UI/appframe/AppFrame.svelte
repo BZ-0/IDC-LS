@@ -170,13 +170,13 @@
 
 <!-- -->
 {#if !$isInactive && $currentLocationHash == hashIdName}
-    <div {...propsFilter($$props)} bind:this={frameElement} data-scheme="solid" class="ux-frame ux-app-frame ux-default-theme hl-1 ux-detached" transition:fade={{ delay: 0, duration: 100 }}>
+    <div {...propsFilter($$props)} bind:this={frameElement} data-scheme="solid" class="ux-frame ux-app-frame ux-default-theme ux-detached" transition:fade={{ delay: 0, duration: 100 }}>
 
-        <div class="titlebar" data-scheme="solid" data-highlight="2">
+        <div class="titlebar" data-highlight="2" data-transparent>
             <div class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;">
                 <LucideIcon inert={true} slot="icon" name={"chevron-down"}/>
             </div>
-            <div class="ux-title-handle hl-2">
+            <div class="ux-title-handle">
                 
             </div>
             <div class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;">
@@ -186,8 +186,8 @@
         
         <slot></slot>
 
-        <div class="ux-status"></div>
-        <div class="ux-resize" data-scheme="transparent"></div>
+        <div class="ux-status" data-highlight="2"></div>
+        <div class="ux-resize"></div>
 
     </div>
 {/if}

@@ -2,7 +2,7 @@
 @use "@unite/scss/core/Utils" as u;
 
 //
-@use "@unite/scss/design/ColorTheme";
+@use "@unite/scss/design/ColorTheme" as tm;
 @use "@unite/scss/design/ColorVars" as cl;
 @use "@unite/scss/design/ColorUtils" as cu;
 
@@ -160,8 +160,10 @@
         //
         & .track {
             @extend .stretch;
-            @extend .ux-inverse;
             @extend .pe-none;
+
+            //
+            @include tm.ux-inverse;
             
             //
             grid-column: 2 / 2;

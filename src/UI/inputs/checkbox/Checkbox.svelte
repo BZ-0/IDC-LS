@@ -45,12 +45,12 @@
 </script>
 
 <!-- -->
-<label bind:this={container} class="ux-checkbox hl-2">
+<label bind:this={container} class="ux-checkbox" data-scheme data-highlight="1">
     <input 
         type="checkbox"
         on:input={_change}
         on:change={_change}
         on:click={_click}
         bind:this={element}/>
-    <div class="icon-sign hl-2"><LucideIcon class="done lucide" name={"check"}/> <LucideIcon class="circle lucide" name={"circle"}/> </div>
+    <div class="icon-sign" data-scheme><LucideIcon class="done lucide" name={"check"}/> <LucideIcon class="circle lucide" name={"circle"}/> </div>
 </label>

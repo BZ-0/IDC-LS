@@ -94,9 +94,9 @@
 <div class="ux-content stretch" id={appId.replace("#","")} bind:this={controlEl} data-current-page={$currentPage}>
 
     {#if panelOpen}
-        <x-scrollbox class="ls-panel hl-1" bind:this={panelEl} transition:fade={{ key: $currentPage, delay: 0, duration: 100 }}>
+        <x-scrollbox data-scheme="solid" data-highlight="2" class="ls-panel" bind:this={panelEl} transition:fade={{ key: $currentPage, delay: 0, duration: 100 }}>
             {#each tabs as tab}
-                <Block class="ux-block-decor ux-default-theme hl-2h ls-tab-item cursor-pointer pe-enable" data-page={tab.page}>
+                <Block class="ux-block-decor ls-tab-item cursor-pointer pe-enable" data-scheme data-highlight="2" data-page={tab.page}>
                     <LucideIcon inert={true} slot="icon" name={tab.icon}/>
                     <span inert={true} class="tab-label">{tab.label}</span>
                     <LucideIcon inert={true} slot="element" name={"chevron-right"}/>

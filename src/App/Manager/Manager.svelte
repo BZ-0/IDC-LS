@@ -205,23 +205,23 @@
 <!-- -->
 <div class="ls-screen" id="manager">
 
-    <div class="ls-nav" data-scheme="ux-solid-transparent" data-highlight="1" data-highlight-hover="2">
-        <button class="use-item" data-highlight="1" data-highlight-hover="2" on:click={useItemEv}>
+    <div class="ls-nav" data-scheme="ux-solid-transparent" data-highlight="1">
+        <button class="use-item" data-transparent data-highlight-hover="2" on:click={useItemEv}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-play"}/></div>
             <div inert={true} class="name">Use as Wallpaper</div>
         </button>
         
-        <button class="add-item" data-highlight="1" data-highlight-hover="2" on:click={addItemEv}>
+        <button class="add-item" data-transparent data-highlight-hover="2" on:click={addItemEv}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-up"}/></div>
             <div inert={true} class="name">Load Image</div>
         </button>
         
-        <button class="remove-item" data-highlight="1" data-highlight-hover="2" on:click={removeItemEv}>
+        <button class="remove-item" data-transparent data-highlight-hover="2" on:click={removeItemEv}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-off"}/></div>
             <div inert={true} class="name">Remove Image</div>
         </button>
         
-        <button class="download-item" data-highlight="1" data-highlight-hover="2" on:click={downloadItemEv}>
+        <button class="download-item" data-transparent data-highlight-hover="2" on:click={downloadItemEv}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-down"}/></div>
             <div inert={true} class="name">Download Image</div>
         </button>
@@ -232,7 +232,7 @@
             {#each $fileList.entries() as [name, file]}
                 <!-- svelte-ignore a11y_click_events_have_key_events -->
                 <!-- svelte-ignore a11y_no_static_element_interactions -->
-                <div on:click={selectFileEv} class={`file hl-1h ${ selectedFilename == file.name ? "selected" : "" }`} data-filename={file.name}>
+                <div on:click={selectFileEv} class={`file ${ selectedFilename == file.name ? "selected" : "" }`} data-scheme data-highlight-hover="1" data-filename={file.name}>
                     <div inert={true} class="icon">
                         <LucideIcon name={"wallpaper"}/>
                     </div>

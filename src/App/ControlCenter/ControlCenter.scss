@@ -24,7 +24,7 @@
         //
         &[data-current-page="wallpapers"] .ls-tab-item[data-page="wallpapers"], 
         &[data-current-page="settings"] .ls-tab-item[data-page="settings"]
-        { @extend .ux-inverse; }
+        { @include tm.ux-inverse; }
 
         //
         .ls-screen { 

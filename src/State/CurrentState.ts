@@ -36,24 +36,9 @@ settings?.["@subscribe"]?.((v) => {
 
     //
     const target = document.documentElement;
-    if (v == -1) {
-        target.classList.remove("force-light");
-        target.classList.remove("force-dark");
-        if (!target.classList.contains("force-dark")) {
-            target.classList.add("force-dark");
-        }
-    }
-    if (v == 0) {
-        target.classList.remove("force-light");
-        target.classList.remove("force-dark");
-    }
-    if (v == 1) {
-        target.classList.remove("force-light");
-        target.classList.remove("force-dark");
-        if (!target.classList.contains("force-light")) {
-            target.classList.add("force-light");
-        }
-    }
+    if (v == -1) { target.setAttribute("data-theme", "dark"); }
+    if (v ==  0) { target.removeAttribute("data-theme"); }
+    if (v ==  1) { target.setAttribute("data-theme", "light"); }
 
     //
     localStorage.setItem("@settings:@theme", v || 0);

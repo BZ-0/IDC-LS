@@ -220,7 +220,7 @@
 
 
 <!-- -->
-<div bind:this={target} data-current-page={current} data-ctx="grid-space" class="ux-grid-pages stretch grid-based-box ux-transparent pe-enable">
+<div bind:this={target} data-current-page={current} data-ctx="grid-space" data-scheme="accent-inverse" class="ux-grid-pages stretch grid-based-box pe-enable" data-transparent>
     {#if lists && grids}
         <GridPage list={lists.get(current)} gridPage={grids.get(current)} items={items} type="labels"></GridPage>
         <GridPage list={lists.get(current)} gridPage={grids.get(current)} items={items} actionMap={actionMap} type="items"></GridPage>

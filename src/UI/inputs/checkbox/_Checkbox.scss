@@ -104,7 +104,7 @@
             
             //
             .icon-sign, .icon-sign > * {
-                @extend .ux-inverse;
+                @include tm.ux-inverse;
                 stroke: var(--current-glyph-color);
             }
         }
