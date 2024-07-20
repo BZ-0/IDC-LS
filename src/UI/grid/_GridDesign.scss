@@ -5,7 +5,7 @@
 @layer ux-grid {
 
     //
-    .ux-grid-pages {
+    .ux-grid-pages, .ux-desktop-grid {
         --padding-h: 1rem;
         --padding-v: 1.5rem;
         
@@ -46,13 +46,21 @@
             clip-path: var(--clip-path);
             border-radius: calc(var(--icon-size) * 0.5);
             
+            // override by animations...
+            --translate-x: calc(var(--drag-x, 0) * 1px);
+            --translate-y: calc(var(--drag-y, 0) * 1px);
+        
+            //
+            //--grid-column: var(--fc-cell-x);
+            //--grid-row: var(--fc-cell-y);
+
             //
             &:where([data-type="backup"]) {
                 pointer-events: none;
 
                 // override by animations...
-                --translate-x: calc(var(--drag-x, 0) * 1px);
-                --translate-y: calc(var(--drag-y, 0) * 1px);
+                //--translate-x: calc(var(--drag-x, 0) * 1px);
+                //--translate-y: calc(var(--drag-y, 0) * 1px);
 
                 // override by animations...
                 --grid-column: var(--fp-cell-x);

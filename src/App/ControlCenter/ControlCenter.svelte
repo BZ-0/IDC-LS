@@ -87,7 +87,7 @@
 </script>
 
 <!-- -->
-<div class="ux-title-label" data-scheme="solid-transparent">
+<div class="ux-title-label" style="background-color: transparent;">
     <span tabindex="-1" inert={true}>{tabs.find(({page})=>(page==$currentPage))?.label || ""}</span>
 </div>
 

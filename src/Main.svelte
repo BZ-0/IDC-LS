@@ -4,17 +4,18 @@
     import type {Writable} from "svelte/store";
     
     //
-    import ContextMenu from "./UI/contextmenu/ContextMenu.svelte";
-	import type { GridItemType } from "./UI/utils/GridItemUtils.ts";
-    import AppFrame from "./UI/appframe/AppFrame.svelte";
-    import MultiPage from "./UI/grid/MultiPage.svelte";
-    import InputEditor from "./UI2/InputEdit/InputEdit.svelte";
-    import StatusBar from "./UI/statusbar/StatusBar.svelte";
-    
-    //
+    import {settings} from "./State/CurrentState.ts";
     import actionMap, {onEditItem, controlCenterPage } from "./State/ActionMap.ts";
     import {state} from "./State/GridState.ts";
 
+    //
+    import ContextMenu from "./UI/contextmenu/ContextMenu.svelte";
+	import type { GridItemType } from "./UI/utils/GridItemUtils.ts";
+    import AppFrame from "./UI/appframe/AppFrame.svelte";
+    import DesktopGrid from "./UI2/Desktop/DesktopGrid.svelte";
+    import InputEditor from "./UI2/InputEdit/InputEdit.svelte";
+    import StatusBar from "./UI/statusbar/StatusBar.svelte";
+    
     //
     import IconEdit from "./App/Editors/IconEdit.svelte";
     import ControlCenter from "./App/ControlCenter/ControlCenter.svelte";
@@ -59,7 +60,7 @@
 <canvas is="w-canvas" data-src={wallpaperURL}></canvas>
 
 <!-- -->
-<MultiPage state={state} actionMap={actionMap} current={currentPage}></MultiPage>
+<DesktopGrid state={state} actionMap={actionMap} current={currentPage}></DesktopGrid>
 
 <!-- -->
 <AppFrame hashIdName="#control-center">

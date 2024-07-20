@@ -1,4 +1,5 @@
 import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveObject.ts";
+import States from "@unite/scripts/reactive/StateManager.ts"
 
 //
 export const settings = makeReactiveObject({
@@ -9,6 +10,9 @@ export const settings = makeReactiveObject({
     scaling: parseFloat(localStorage.getItem("@settings:@scaling")) || 1,
     useZoom: !!localStorage.getItem("@settings:@use-zoom") || true
 });
+
+//
+States.setState("settings", settings);
 
 
 //

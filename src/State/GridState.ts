@@ -5,6 +5,7 @@ import {createReactiveMap} from "@unite/scripts/reactive/ReactiveMap.ts";
 import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveObject.ts";
 import {createReactiveSet} from "@unite/scripts/reactive/ReactiveSet.ts";
 import {makeObjectAssignable} from "@unite/scripts/reactive/AssignObject.ts";
+import States from "@unite/scripts/reactive/StateManager.ts"
 
 //
 import {parse} from "svelte/compiler";
@@ -51,6 +52,9 @@ export const state: GridsStateType = makeReactiveObject(makeObjectAssignable({
     items: toMap(JSOX.parse(localStorage.getItem("@itemsState") || "[]")),
     lists: createReactiveMap<string, Set<string>>()
 }));
+
+//
+States.setState("desktop", state);
 
 //
 settings?.["@subscribe"]?.((v) => {layout[0] = v;}, "columns");
