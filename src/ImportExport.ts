@@ -26,7 +26,7 @@ export const saveBinaryToFS = async (data, filename = "settings") => {
                 // @ts-ignore
             })
         )
-        : import("@unite/polyfill/showOpenFilePicker.mjs"));
+        : import("@unite/scripts/polyfill/showOpenFilePicker.mjs"));
 
     //
     // @ts-ignore
@@ -79,7 +79,7 @@ export const pickBinaryFromFS = async () => {
             })
         )
         : /* webpackPrefetch: true */ import(
-            "@unite/polyfill/showOpenFilePicker.mjs"
+            "@unite/scripts/polyfill/showOpenFilePicker.mjs"
         );
 
     //

@@ -1,5 +1,5 @@
 <script context="module">
-    import {propsFilter} from "@unite/utils/Utils.ts";
+    import {propsFilter} from "@unite/scripts/utils/Utils.ts";
     
     //
     const files = new Map([]);
@@ -56,7 +56,7 @@
                     // @ts-ignore
                 })
             )
-            : import("@unite/polyfill/showOpenFilePicker.mjs"));
+            : import("@unite/scripts/polyfill/showOpenFilePicker.mjs"));
     
         //
         // @ts-ignore
@@ -93,8 +93,8 @@
 
 <!-- Second Season: Finale -->
 <script>
-    import LucideIcon from '@unite/design/WLucideIcon.svelte';
-    import Block from '@unite/design/Block.svelte';
+    import LucideIcon from '@unite/svelte/UI/design/WLucideIcon.svelte';
+    import Block from '@unite/svelte/UI/design/Block.svelte';
     
     //
     import { onMount } from 'svelte';

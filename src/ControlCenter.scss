@@ -1,7 +1,9 @@
-@use "@unite/core/ClassLets";
-@use "@unite/core/Utils" as u;
-@use "@unite/design/ColorTheme";
-@use "@unite/core/Detector" as d;
+@use "@unite/scss/core/ClassLets";
+@use "@unite/scss/core/Utils" as u;
+@use "@unite/scss/core/Detector" as d;
+
+//
+@use "@unite/scss/design/ColorTheme";
 
 //
 @layer ls-control-center {

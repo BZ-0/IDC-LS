@@ -1,11 +1,11 @@
 import {writable} from "svelte/store";
 import {state} from "./GridState.ts";
-import type {GridItemType} from "@unite/utils/GridItemUtils.ts";
-import {makeReactiveObject} from "@unite/reactive/ReactiveObject.ts";
-import {redirectCell} from "@unite/utils/GridItemUtils.ts";
+import type {GridItemType} from "@unite/scripts/utils/GridItemUtils.ts";
+import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveObject.ts";
+import {redirectCell} from "@unite/scripts/utils/GridItemUtils.ts";
 
 
-import Timer from "@unite/performance/Time.ts";
+import Timer from "@unite/scripts/performance/Time.ts";
 
 
 //
@@ -45,7 +45,7 @@ export const pickWallpaperImage = async () => {
             })
         )
         : /* webpackPrefetch: true */ import(
-            "@unite/polyfill/showOpenFilePicker.mjs"
+            "@unite/scripts/polyfill/showOpenFilePicker.mjs"
         );
 
     //

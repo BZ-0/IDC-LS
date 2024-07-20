@@ -1,10 +1,12 @@
 import {JSOX} from 'jsox';
 
 //
-import {createReactiveMap} from "@unite/reactive/ReactiveMap.ts";
-import {makeReactiveObject} from "@unite/reactive/ReactiveObject.ts";
-import {createReactiveSet} from "@unite/reactive/ReactiveSet.ts";
-import {makeObjectAssignable} from "@unite/reactive/AssignObject.ts";
+import {createReactiveMap} from "@unite/scripts/reactive/ReactiveMap.ts";
+import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveObject.ts";
+import {createReactiveSet} from "@unite/scripts/reactive/ReactiveSet.ts";
+import {makeObjectAssignable} from "@unite/scripts/reactive/AssignObject.ts";
+
+//
 import {parse} from "svelte/compiler";
 import {get} from "svelte/store";
 

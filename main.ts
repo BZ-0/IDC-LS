@@ -37,8 +37,8 @@ if (typeof navigator != "undefined") {
 
 // use workers
 const loading = Promise.allSettled([
-    import("@unite/scrollbox/ScrollBox.ts"),
-    import("@unite/stylework/Bundle.ts")
+    import("@unite/wcomp/scrollbox/ScrollBox.ts"),
+    import("@unite/scripts/stylework/Bundle.ts")
 ]);
 
 //

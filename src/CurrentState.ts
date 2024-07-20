@@ -1,4 +1,4 @@
-import {makeReactiveObject} from "@unite/reactive/ReactiveObject.ts";
+import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveObject.ts";
 
 //
 export const settings = makeReactiveObject({

@@ -1,12 +1,16 @@
 <script type="ts" lang="ts">
-	import ItemEdit from "@unite/forms/ItemEdit.svelte";
-	import GridItem from "@unite/grid/GridItem.svelte";
-    import Frame from "@unite/design/Frame.svelte";
-    import {writable} from "svelte/store";
-    import type {Writable} from "svelte/store";
-    import type { GridItemType } from "@unite/grid/GridItemUtils.ts";
+	import ItemEdit from "@unite/svelte/UI/forms/ItemEdit.svelte";
+	import GridItem from "@unite/svelte/UI/grid/GridItem.svelte";
+    import Frame from "@unite/svelte/UI/design/Frame.svelte";
+    import type { GridItemType } from "@unite/scripts/utils/GridItemUtils.ts";
+
+    //
     import {state} from "./GridState.ts";
     
+    //
+    import {writable} from "svelte/store";
+    import type {Writable} from "svelte/store";
+
     //
     export let gridItem: Writable<GridItemType> = writable<GridItemType>(null);
     export let actionMap = new Map<string, Function>();

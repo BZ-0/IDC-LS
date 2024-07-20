@@ -1,10 +1,11 @@
 <script>
-	import { currentLocationHash } from "@unite/dom/Realtime.ts";
-    import LucideIcon from '@unite/design/WLucideIcon.svelte';
-    import Block from '@unite/design/Block.svelte';
+	import { currentLocationHash } from "@unite/svelte/utils/Realtime.ts";
+    import LucideIcon from '@unite/svelte/UI/design/WLucideIcon.svelte';
+    import Block from '@unite/svelte/UI/design/Block.svelte';
     
     //
-    import {observeBySelector} from "@unite/dom/Observer.ts"
+    import {observeBySelector} from "@unite/scripts/dom/Observer.ts"
+    import {MOC, MOCElement} from "@unite/scripts/utils/Utils.ts";
 
     //
     import { writable } from "svelte/store";
@@ -13,8 +14,7 @@
     //
     import Manager from "./Manager.svelte";
     import Settings from "./Settings.svelte";
-    import {MOC, MOCElement} from "@unite/utils/Utils.ts";
-
+    
     //
     export let appId = "#control-center";
     export let windowManager = null;
@@ -83,7 +83,7 @@
 </script>
 
 <script context="module">
-    import {propsFilter} from "@unite/utils/Utils.ts";
+    import {propsFilter} from "@unite/scripts/utils/Utils.ts";
 </script>
 
 <!-- -->
