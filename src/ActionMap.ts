@@ -1,8 +1,8 @@
 import {writable} from "svelte/store";
 import {state} from "./GridState.ts";
-import type {GridItemType} from "@unite/grid/GridItemUtils.ts";
+import type {GridItemType} from "@unite/utils/GridItemUtils.ts";
 import {makeReactiveObject} from "@unite/reactive/ReactiveObject.ts";
-import {redirectCell} from "@unite/grid/GridItemUtils.ts";
+import {redirectCell} from "@unite/utils/GridItemUtils.ts";
 
 
 import Timer from "@unite/performance/Time.ts";

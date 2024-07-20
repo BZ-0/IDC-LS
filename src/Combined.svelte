@@ -1,6 +1,6 @@
 <script lang="ts" type="ts">
 	import ContextMenu from "@unite/contextmenu/ContextMenu.svelte";
-	import type { GridItemType } from "@unite/grid/GridItemUtils.ts";
+	import type { GridItemType } from "@unite/utils/GridItemUtils.ts";
     import {writable} from "svelte/store";
     import type {Writable} from "svelte/store";
     import actionMap, {onEditItem, controlCenterPage } from "./ActionMap.ts";
