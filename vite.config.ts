@@ -7,6 +7,7 @@ const sourceMapsInProduction = true;
 import {svelte} from "@sveltejs/vite-plugin-svelte";
 import legacy from "@vitejs/plugin-legacy";
 import autoprefixer from "autoprefixer";
+import fallback from "postcss-fallback";
 import path from "node:path";
 import sveltePreprocess from "svelte-preprocess";
 import {defineConfig, type UserConfig} from "vite";
@@ -118,7 +119,7 @@ const config = <UserConfig>defineConfig({
     },
     css: {
         postcss: {
-            plugins: [autoprefixer()],
+            plugins: [autoprefixer(), fallback(/*options*/)],
         },
     },
 

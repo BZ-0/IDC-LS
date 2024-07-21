@@ -20,8 +20,7 @@
         
         //
         & .ux-content {
-            z-index: 999;
-            z-index: calc(999 + var(--z-index, 0));
+            z-index: fallback(calc(999 + var(--z-index, 0)), 999);
         }
     }
     
@@ -78,8 +77,7 @@
         
         //
         inset: 0px;
-        z-index: 999;
-        z-index: calc(999 + var(--z-index, 0));
+        z-index: fallback(calc(999 + var(--z-index, 0)), 999);
         display: grid;
     
         //
@@ -184,7 +182,6 @@
             
             //
             align-items: end;
-            grid-row: titlebar;
             min-block-size: max-content;
 
             //

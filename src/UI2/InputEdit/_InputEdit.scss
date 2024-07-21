@@ -15,7 +15,7 @@
         //
         inset: 0px !important;
         inset-block-start: 0px;
-        inset-block-end: auto;
+        //inset-block-end: auto;
         inset-block-end: var(--keyboard-inset-bottom, auto);
         
         //
@@ -23,7 +23,7 @@
         
         //
         inline-size: var(--vp-i-size, 100dvi) !important;
-        block-size: var(--vp-b-size, 100dvb) !important;
+        //block-size: var(--vp-b-size, 100dvb) !important;
         block-size: calc(var(--vp-b-size, 100dvb) - var(--keyboard-inset-height, 0px)) !important;
         
         //
