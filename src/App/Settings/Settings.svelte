@@ -55,7 +55,7 @@
                 <div class="form-description">{form.description}</div>
                 {#each form.fields as field}
                     
-                    <Block class="ux-block-decor pe-none">
+                    <Block class="ux-block-decor pe-none" style="--decor-size: 4rem;" >
                         <span class="opt-label">{field.label}</span>
                         <LucideIcon data-place="icon" name={field.icon}/>
                         

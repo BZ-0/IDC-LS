@@ -1,14 +1,14 @@
 @use "@unite/scss/design/ColorVars" as cl;
 @use "@unite/scss/design/ColorUtils" as cu;
 @use "@unite/scss/design/ColorTheme";
-@use "@unite/scss/core/ClassLets";
+@use "@unite/scss/core/ClassMods" as cm;
 @use "@unite/scss/core/Utils" as u;
 
 //
 @layer ux-modal-frame {
     .ux-modal-frame {
-        @extend .align-center;
-        @extend .pe-enable;
+        @include cm.align-center;
+        @include cm.pe-enable;
 
         //
         inset: 0px;

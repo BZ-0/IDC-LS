@@ -123,7 +123,7 @@
 <!-- -->
 <div bind:this={target} data-transparent data-current-page={current} data-ctx="grid-space" data-scheme="accent-inverse" class="ux-desktop-grid stretch grid-based-box pe-enable">
     
-    <div bind:this={gridPage} class="ux-grid-page stretch grid-based-box" data-transparent>
+    <div bind:this={gridPage} class="ux-grid-layout ux-grid-page" data-transparent>
         <!-- -->
         {#each items.values() as item (item.id)}
             {#if isItemInList(item.id)}
@@ -132,7 +132,7 @@
         {/each}
     </div>
 
-    <div bind:this={gridPage} class="ux-grid-page stretch grid-based-box" data-transparent>
+    <div bind:this={gridPage} class="ux-grid-layout ux-grid-page" data-transparent>
         <!-- -->
         {#each items.values() as item (item.id)}
             {#if isItemInList(item.id)}

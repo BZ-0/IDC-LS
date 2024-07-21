@@ -1,4 +1,4 @@
-@use "@unite/scss/core/ClassLets";
+@use "@unite/scss/core/ClassMods" as cm;
 @use "@unite/scss/core/Utils" as u;
 
 //
@@ -16,9 +16,9 @@
 //
 @layer ux-inputs {
     :where(.ux-switch) {
-        @extend .align-center;
-        @extend .stretch;
-        @extend .pe-enable;
+        @include cm.align-center;
+        @include cm.stretch;
+        @include cm.pe-enable;
 
         //
         @include u.clamped-width(max-content, 5rem, 5rem);
@@ -64,7 +64,7 @@
         
         //
         &::after {
-            @extend .stretch;
+            @include cm.stretch;
         
             //
             content: "";
@@ -77,7 +77,7 @@
         
         //
         &::before {
-            @extend .stretch;
+            @include cm.stretch;
         
             //
             content: "";
@@ -91,7 +91,7 @@
         
         //
         .thumb {
-            @extend .pe-none;
+            @include cm.pe-none;
             
             background-color: var(--current-surface-color);
             z-index: 9;
@@ -99,8 +99,8 @@
         
         //
         .icon-sign {
-            @extend .align-center;
-            @extend .pe-none;
+            @include cm.align-center;
+            @include cm.pe-none;
             
             //
             justify-self: start;
@@ -127,7 +127,7 @@
             
             //
             & > * {
-                @extend .stretch;
+                @include cm.stretch;
                 stroke-width: 0.25rem;
                 position: relative;
                 inset: 0px;
@@ -138,8 +138,8 @@
         
         //
         & .fill {
-            @extend .stretch;
-            @extend .pe-none;
+            @include cm.stretch;
+            @include cm.pe-none;
             
             //
             grid-column: 2 / 3;
@@ -159,8 +159,8 @@
         
         //
         & .track {
-            @extend .stretch;
-            @extend .pe-none;
+            @include cm.stretch;
+            @include cm.pe-none;
 
             //
             @include tm.ux-inverse;
@@ -197,8 +197,8 @@
 
         //
         input {
-            @extend .stretch;
-            @extend .pe-enable;
+            @include cm.stretch;
+            @include cm.pe-enable;
             
             //
             padding: 0px;

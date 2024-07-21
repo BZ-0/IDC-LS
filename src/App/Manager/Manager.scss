@@ -1,4 +1,4 @@
-@use "@unite/scss/core/ClassLets";
+@use "@unite/scss/core/ClassMods" as cm;
 @use "@unite/scss/core/Utils" as u;
 @use "@unite/scss/core/Detector" as d;
 
@@ -15,9 +15,9 @@
         
         //
         .file-list {
-            @extend .stretch;
-            @extend .align-center;
-            @extend .no-wrap;
+            @include cm.stretch;
+            @include cm.align-center;
+            @include cm.no-wrap;
             
             //
             display: grid;
@@ -31,10 +31,10 @@
             
             //
             .file {
-                @extend .stretch;
-                @extend .align-center;
-                @extend .pe-enable;
-                @extend .no-wrap;
+                @include cm.stretch;
+                @include cm.align-center;
+                @include cm.pe-enable;
+                @include cm.no-wrap;
                 
                 //
                 cursor: pointer;
@@ -51,7 +51,7 @@
                 //
                 & * {
                     background-color: transparent;
-                    @extend .no-wrap;
+                    @include cm.no-wrap;
                 }
                 
                 //

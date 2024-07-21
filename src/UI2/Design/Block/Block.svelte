@@ -10,7 +10,7 @@
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div on:click={onClick} class="ux-block-decor ux-default-theme hl-1 hl-2h" {...propsFilter($$props)}>
+<div on:click={onClick} class="ux-block-decor pe-none" {...propsFilter($$props)}>
     <!--<div class="icon-wrap hl-1" inert={true}>
         <slot name="icon"></slot>
     </div>-->

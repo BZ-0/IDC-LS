@@ -1,11 +1,11 @@
 @use "@unite/scss/core/Utils" as u;
-@use "@unite/scss/core/ClassLets";
+@use "@unite/scss/core/ClassMods" as cm;
 @use "@unite/scss/core/Detector" as d;
 
 //
 @use "@unite/scss/design/ColorVars" as cl;
 @use "@unite/scss/design/ColorUtils" as cu;
-@use "@unite/scss/design/ColorTheme";
+@use "@unite/scss/design/ColorTheme" as tm;
 
 //
 @layer ux-app-frame {
@@ -13,24 +13,22 @@
     //
     body:has(.ux-app-frame:is([data-hidden="false"], [data-hidden=""], :not([data-hidden]))) .ux-status-bar {
         @media #{d.$isMobile} {
-            --theme-surface-color: transparent;
-            --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)} !important;
+            @include tm.ux-solid-transparent;
         }
         
         //
         @media #{d.$isDesktop} {
-            --theme-surface-color: rgb(from #{cl.$baseColor} r g b / 0.8);
-            --theme-glyph-color: oklch(from #{cl.$baseColor} calc(sign(calc(0.5 - l)) * 0.5 + 0.5) calc(c * 0.01) h);
+            @include tm.ux-transparent;
             backdrop-filter: blur(0.125rem);
         }
     }
     
     //
     :where(.ux-status-bar) {
-        @extend .stretch;
-        @extend .pe-none;
-        @extend .align-center;
-        @extend .ux-transparent !optional;
+        @include cm.stretch;
+        @include cm.pe-none;
+        @include cm.align-center;
+        @include tm.ux-transparent;
     
         //
         display: grid;
@@ -43,7 +41,8 @@
             minmax(0px, 1fr)
             minmax(0px, max-content);
         grid-template-rows: minmax(0px, 1fr);
-        
+        gap: 0px;
+
         //
         justify-content: space-between;
         justify-items: stretch;
@@ -63,7 +62,7 @@
         
         //
         & > * {
-            @extend .stretch;
+            @include cm.stretch;
             display: flex;
             place-items: center;
             place-content: center;
@@ -86,7 +85,7 @@
         
         //
         .icon-wrap {
-            @extend .stretch;
+            @include cm.stretch;
             display: flex;
             place-items: center;
             place-content: center;
@@ -95,7 +94,7 @@
             aspect-ratio: 1 / 1;
             
             //
-            padding: 0.5rem;
+            padding: 0.25rem;
             box-sizing: border-box;
         }
         
@@ -112,5 +111,3 @@
         }
     }
 }
-
-    

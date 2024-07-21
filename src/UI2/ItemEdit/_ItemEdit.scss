@@ -1,6 +1,6 @@
 //
 @use "@unite/scss/core/Utils" as u;
-@use "@unite/scss/core/ClassLets";
+@use "@unite/scss/core/ClassMods" as cm;
 
 //
 @use "@unite/scss/design/ColorTheme";
@@ -10,8 +10,8 @@
     
     //
     .ux-edit-form {
-        @extend .stretch;
-        @extend .align-center;
+        @include cm.stretch;
+        @include cm.align-center;
         
         //
         min-inline-size: max-content;
@@ -57,7 +57,7 @@
         
         //
         .ux-field-block {
-            @extend .stretch;
+            @include cm.stretch;
             
             //
             display: grid;

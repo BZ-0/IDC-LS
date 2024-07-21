@@ -1,4 +1,4 @@
-@use "@unite/scss/core/ClassLets";
+@use "@unite/scss/core/ClassMods" as cm;
 @use "@unite/scss/core/Utils" as u;
 @use "@unite/scss/core/Detector" as d;
 
@@ -13,9 +13,9 @@
         
         //
         .form-description {
-            @extend .stretch;
-            @extend .align-center;
-            @extend .no-wrap;
+            @include cm.stretch;
+            @include cm.align-center;
+            @include cm.no-wrap;
         
             //
             display: flex;
@@ -34,10 +34,10 @@
         
         //
         .opt-label {
-            @extend .align-center;
-            @extend .stretch;
-            @extend .no-wrap;
-            @extend .align-inline-left;
+            @include cm.align-center;
+            @include cm.stretch;
+            @include cm.no-wrap;
+            @include cm.align-inline-left;
             
             //
             display: flex;

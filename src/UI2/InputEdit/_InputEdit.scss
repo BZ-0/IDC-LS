@@ -1,12 +1,11 @@
-@use "@unite/scss/core/ClassLets";
+@use "@unite/scss/core/ClassMods" as cm;
 
 //
 @layer ux-editor {
 
     //
     .ux-editor {
-        @extend .pe-none;
-        @extend .vp-vars-keyboard-dependent;
+        @include cm.pe-none;
     
         //
         display: grid;
@@ -37,8 +36,11 @@
             [field-edit] minmax(3rem, max-content);
         
         //
+        @include cm.vp-vars-keyboard-dependent;
+
+        //
         .field-content {
-            @extend .pe-enable;
+            @include cm.pe-enable;
         
             //
             display: grid;
@@ -53,8 +55,8 @@
 
             //
             :where(.field-copy, .field-paste) {
-                @extend .stretch;
-                @extend .align-center;
+                @include cm.stretch;
+                @include cm.align-center;
                 
                 //
                 display: flex;
@@ -69,7 +71,7 @@
 
             //
             .field-wrap {
-                @extend .stretch;
+                @include cm.stretch;
                 
                 //
                 //display: flex;
@@ -79,8 +81,8 @@
                 
                 //
                 input {
-                    @extend .stretch;
-                    @extend .pe-enable;
+                    @include cm.stretch;
+                    @include cm.pe-enable;
                     
                     //
                     font-size: 1.6rem;

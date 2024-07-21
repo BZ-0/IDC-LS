@@ -1,5 +1,5 @@
 @use "@unite/scss/core/Utils" as u;
-@use "@unite/scss/core/ClassLets";
+@use "@unite/scss/core/ClassMods" as cm;
 @use "@unite/scss/core/Detector" as d;
 
 //
@@ -50,10 +50,10 @@
     //
     .ux-app-frame {
         //
-        @extend .contain-size;
-        @extend .align-center;
-        @extend .stretch !optional;
-        @extend .pe-enable;
+        @include cm.contain-size;
+        @include cm.align-center;
+        @include cm.stretch;
+        @include cm.pe-enable;
         
         //
         --rx: calc(var(--drag-x, 0) * 1px);
@@ -127,10 +127,10 @@
         //
         & > :where(.titlebar > .ux-title-handle, .ux-title-label) 
         {
-            @extend .stretch;
-            @extend .align-center;
-            @extend .align-inline-left;
-            @extend .no-wrap;
+            @include cm.stretch;
+            @include cm.align-center;
+            @include cm.align-inline-left;
+            @include cm.no-wrap;
 
             //
             display: flex;
@@ -149,12 +149,12 @@
             
             //
             &:where(.ux-title-handle) {
-                @extend .pe-enable;
+                @include cm.pe-enable;
             }
             
             //
             &:where(.ux-title-label) {
-                @extend .pe-none;
+                @include cm.pe-none;
 
                 //
                 grid-row: titlebar;
@@ -163,10 +163,10 @@
         
         //
         & > .titlebar {
-            @extend .align-center;
-            @extend .stretch;
-            @extend .pe-enable;
-            @extend .no-wrap;
+            @include cm.align-center;
+            @include cm.stretch;
+            @include cm.pe-enable;
+            @include cm.no-wrap;
             
             //
             grid-row: titlebar;
@@ -189,8 +189,8 @@
 
             //
             & > * {
-                @extend .align-center;
-                @extend .stretch;
+                @include cm.align-center;
+                @include cm.stretch;
                 
                 //
                 display: flex;
@@ -212,7 +212,7 @@
         
         //
         & > .ux-status {
-            @extend .stretch;
+            @include cm.stretch;
             
             //
             grid-row: status;
@@ -221,7 +221,7 @@
         
         //
         & > .ux-content {
-            @extend .stretch;
+            @include cm.stretch;
             
             //
             grid-row: content-b;

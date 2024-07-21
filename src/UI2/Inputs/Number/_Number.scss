@@ -1,4 +1,4 @@
-@use "@unite/scss/core/ClassLets";
+@use "@unite/scss/core/ClassMods" as cm;
 @use "@unite/scss/core/Utils" as u;
 
 //
@@ -6,13 +6,12 @@
 @use "@unite/scss/design/ColorVars" as cl;
 @use "@unite/scss/design/ColorUtils" as cu;
 
-
 //
 @layer ux-inputs {
     :where(.number-input) {
         //
-        @extend .align-center;
-        @extend .pe-enable;
+        @include cm.align-center;
+        @include cm.pe-enable;
     
         //
         --block-size: 2rem;
@@ -24,6 +23,7 @@
         overflow: hidden;
         min-inline-size: max-content;
         cursor: default;
+        border-radius: 0.25rem;
         
         //
         &, input {
@@ -32,7 +32,7 @@
         
         //
         & .input-wrap {
-            @extend .stretch;
+            @include cm.stretch;
             
             //
             @include u.clamped-height(var(--block-size), stretch, var(--block-size));
@@ -44,8 +44,8 @@
         
         //
         & input {
-            @extend .stretch;
-            @extend .no-wrap;
+            @include cm.stretch;
+            @include cm.no-wrap;
             
             //
             pointer-events: none;
@@ -74,9 +74,9 @@
         
         //
         & > * {
-            @extend .align-center;
-            @extend .stretch;
-            @extend .max-content-as-min;
+            @include cm.align-center;
+            @include cm.stretch;
+            @include cm.max-content-as-min;
             
             //
             display: flex;
@@ -95,8 +95,8 @@
         
         //
         & > .icon-wrap {
-            @extend .stretch;
-            @extend .max-content-as-min;
+            @include cm.stretch;
+            @include cm.max-content-as-min;
             aspect-ratio: 1 / 1;
         }
     }

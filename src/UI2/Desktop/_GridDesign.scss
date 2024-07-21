@@ -1,4 +1,4 @@
-@use "@unite/scss/core/ClassLets";
+@use "@unite/scss/core/ClassMods" as cm;
 @use "@unite/scss/grid/GridLayout";
 
 //
@@ -6,6 +6,10 @@
 
     //
     .ux-grid-pages, .ux-desktop-grid {
+        @include cm.stretch;
+        @include cm.pe-enable;
+
+        //
         --padding-h: 1rem;
         --padding-v: 1.5rem;
         
@@ -32,7 +36,7 @@
 
     //
     .ux-grid-page {
-        @extend .ux-grid-layout;
+        //@include cm.ux-grid-layout;
 
         //
         filter: drop-shadow(0px 0px 0.25rem #00000060);
