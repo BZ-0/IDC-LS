@@ -17,9 +17,13 @@ import {
 } from "./ImportExport.ts";
 
 //
-export const onEditItem = writable<GridItemType>(null);
-export const controlCenterPage = writable("settings");
-
+export const UIState = makeReactiveObject({
+    controlCenterPanelOpen: false,
+    controlCenterPage: "settings",
+    itemOnEdit: null,
+    currentGridPage: "main"
+});
+//UIState
 
 //
 export const UUIDv4 = () => {
@@ -114,14 +118,14 @@ const actionMap = new Map<string, Function>([
 
 
     ["open-manager", ({initiator}) => {
-        controlCenterPage?.set?.("wallpapers");
         location.hash = "#control-center";
+        UIState.controlCenterPage = "wallpapers";
         //windowManager.focusTask("#control-center");
     }],
 
     ["open-settings", ({initiator}) => {
-        controlCenterPage?.set?.("settings");
         location.hash = "#control-center";
+        UIState.controlCenterPage = "settings";
         //windowManager.focusTask("#control-center");
     }],
 
@@ -144,7 +148,7 @@ const actionMap = new Map<string, Function>([
     ["edit-item", ({initiator}) => {
         if (initiator) {
             const item = state.items.get(initiator.dataset.id || "");
-            onEditItem.set(item);
+            UIState.itemOnEdit = item;
         }
     }],
 
@@ -214,5 +218,6 @@ const actionMap = new Map<string, Function>([
 ]);
 
 //
+States.setState("UIState", UIState);
 States.setState("actionMap", actionMap);
 export default actionMap;

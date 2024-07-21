@@ -5,7 +5,7 @@
     
     //
     import {settings} from "./State/CurrentState.ts";
-    import actionMap, {onEditItem, controlCenterPage } from "./State/ActionMap.ts";
+    import actionMap from "./State/ActionMap.ts";
     import {state} from "./State/GridState.ts";
 
     //
@@ -21,8 +21,7 @@
     
     //
     export let wallpaperURL = (localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg");
-    export let currentPage = "main";
-    
+
     //
     const itemCtxList = [{
         icon: "pencil-line",
@@ -59,15 +58,15 @@
 <canvas is="w-canvas" data-src={wallpaperURL}></canvas>
 
 <!-- -->
-<DesktopGrid state={state} actionMap={actionMap} current={currentPage}></DesktopGrid>
+<DesktopGrid state={state} actionMap={actionMap}></DesktopGrid>
 
 <!-- -->
 <AppFrame hashIdName="#control-center">
-    <ControlCenter actionMap={actionMap} currentPage={controlCenterPage}></ControlCenter>
+    <ControlCenter actionMap={actionMap}></ControlCenter>
 </AppFrame>
 
 <!-- -->
-<ItemEdit actionMap={actionMap} gridItem={onEditItem}></ItemEdit>
+<ItemEdit actionMap={actionMap}></ItemEdit>
 <ContextMenu actionMap={actionMap} ctxList={itemCtxList} ctxName={"grid-item"}></ContextMenu>
 <ContextMenu actionMap={actionMap} ctxList={gridCtxList} ctxName={"grid-space"}></ContextMenu>
 

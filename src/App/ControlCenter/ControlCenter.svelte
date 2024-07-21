@@ -16,24 +16,24 @@
     import Settings from "../Settings/Settings.svelte";
     
     //
-    export let appId = "#control-center";
-    export let windowManager = null;
-    export let currentPage = writable("settings");
-    
+    import States from "@unite/scripts/reactive/StateManager.ts";
+    const UIState = States.getState("UIState");
+
     //
-    windowManager?.addTask?.(appId, {
-        icon: "settings",
-        label: "Settings",
-        detached: false
-    });
+    export let appId = "#control-center";
+
+    //
+    let currentPage = "wallpapers";
+    UIState?.["@subscribe"]?.((v)=> (currentPage = v), "controlCenterPage");
+
+    //
+    let panelOpen = false;
+    UIState?.["@subscribe"]?.((v)=> (panelOpen = v), "controlCenterPanelOpen");
 
     //
     let panelEl = null;
     let controlEl = null;
     
-    //
-    let panelOpen = false;//matchMedia("(width < 9in) or (orientation: portrait)");
-
     //
     const tabs = [{
         "page": "settings",
@@ -44,37 +44,6 @@
         "icon": "wallpaper",
         "label": "Wallpapers"
     }];
-
-    //
-    document.documentElement.addEventListener("click", (ev)=>{
-        const {target} = ev;
-        
-        //
-        if (target.matches(appId + " .ls-tab-item")) {
-            const _ = target.dataset.page || "";
-            if (_ != $currentPage) { currentPage?.set?.(_); };
-            
-            // unable to switch without hiding
-            if (controlEl?.clientWidth <= 96 * 9) {
-                panelOpen = false;
-            }
-        } else 
-        
-        // just hide panel when clicking to nothing
-        if (MOC(target, appId) ? !MOC(target, ".ls-panel") : true) {
-            panelOpen = false;
-        }
-    })
-
-    //
-    document.documentElement?.addEventListener?.("ux-menu", (ev)=>{
-        if (ev.target == controlEl) { panelOpen = !panelOpen; }
-    });
-
-    //
-    document.documentElement?.addEventListener?.("ux-back", (ev)=>{
-        
-    });
 
     //
     observeBySelector(document.body, appId, ({addedNodes})=>{
@@ -88,13 +57,13 @@
 
 <!-- -->
 <div class="ux-title-label" style="background-color: transparent;">
-    <span tabindex="-1" inert={true}>{tabs.find(({page})=>(page==$currentPage))?.label || ""}</span>
+    <span tabindex="-1" inert={true}>{tabs.find(({page})=>(page==currentPage))?.label || ""}</span>
 </div>
 
-<div class="ux-content stretch" id={appId.replace("#","")} bind:this={controlEl} data-current-page={$currentPage}>
+<div class="ux-content stretch" id={appId.replace("#","")} bind:this={controlEl} data-current-page={currentPage}>
 
     {#if panelOpen}
-        <x-scrollbox data-scheme="solid" data-highlight="2" class="ls-panel" bind:this={panelEl} transition:fade={{ key: $currentPage, delay: 0, duration: 100 }}>
+        <x-scrollbox data-scheme="solid" data-highlight="2" class="ls-panel" bind:this={panelEl} transition:fade={{ key: currentPage, delay: 0, duration: 100 }}>
             {#each tabs as tab}
                 <Block class="ux-block-decor ls-tab-item cursor-pointer pe-enable" data-scheme data-highlight="2" data-page={tab.page}>
                     <LucideIcon inert={true} data-place="icon" name={tab.icon}/>
@@ -105,11 +74,11 @@
         </x-scrollbox>
     {/if}
     
-    {#if ["settings"].indexOf($currentPage) >= 0}
+    {#if ["settings"].indexOf(currentPage) >= 0}
         <Settings></Settings>
     {/if}
     
-    {#if ["wallpapers"].indexOf($currentPage) >= 0}
+    {#if ["wallpapers"].indexOf(currentPage) >= 0}
         <Manager></Manager>
     {/if}
     

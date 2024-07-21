@@ -7,34 +7,33 @@
     import type { GridItemType } from "@unite/scripts/utils/GridItemUtils.ts";
 
     //
-    import {state} from "@idc/State/GridState.ts";
+    let gridItem: GridItemType | null = null;
+    let editor = null;
 
     //
-    import {writable} from "svelte/store";
-    import type {Writable} from "svelte/store";
+    import States from "@unite/scripts/reactive/StateManager.ts";
+    const UIState = States.getState("UIState");
 
     //
-    export let gridItem: Writable<GridItemType> = writable<GridItemType>(null);
-    export let actionMap = new Map<string, Function>();
+    const actionMap = States.getState("actionMap");
+    const state = States.getState("desktop");
+
+    //
+    UIState?.["@subscribe"]?.((v)=>{
+        gridItem = v; 
+        if (editor) {
+            editor.dataset.hidden = false;
+        }
+    }, "itemOnEdit");
+
+    //
+    export let confirm = ()=>{};
     
     //
-    let confirm = ()=>{};
-    let itemId = "";
-    
-    //
-    $: itemId = $gridItem?.id||"";
-    
-    //
-    const confirmWrap = (ev: PointerEvent | MouseEvent)=>{
-        confirm(); 
-        state.items.set($gridItem?.id || "", $gridItem);
-        gridItem.set(null);
-    }
-    
-    //
+    const confirmWrap = (ev: PointerEvent | MouseEvent) => { confirm(); gridItem = null; }
     const deleteWrap = (ev: PointerEvent| MouseEvent)=>{
         actionMap.get("delete-item")?.({
-            initiator: document.querySelector(`.ux-grid-item[data-type=\"items\"][data-id=\"${itemId}\"]`)
+            initiator: document.querySelector(`.ux-grid-item[data-type=\"items\"][data-id=\"${gridItem?.id||""}\"]`)
         });
     }
     
@@ -44,14 +43,12 @@
         {"name": "icon", "label": "IconID: ", "icon": "", "value": ""},
         {"name": "action", "label": "Action: ", "icon": "", "value": ""},
         {"name": "href", "label": "HREF: ", "icon": "", "value": ""},
-    ]
-    
-    
+    ];
 </script>
 
 <!-- -->
-<Frame focused={gridItem} class="ux-modal-frame ls-item-edit" data-item={$gridItem?.id||""}>
-    <ItemEdit whatEdit={$gridItem} data-item={$gridItem?.id||""} fields={fieldSet} bind:confirm={confirm}></ItemEdit>
+<Frame bind:self={editor} class="ux-modal-frame ls-item-edit" data-item={gridItem?.id||""}>
+    <ItemEdit whatEdit={gridItem} data-item={gridItem?.id||""} fields={fieldSet} bind:confirm={confirm}></ItemEdit>
     <div class="ls-but">
         <button type="button" class="delete-btn" on:click={deleteWrap}>Delete Icon</button>
         <button type="button" class="confirm-btn" on:click={confirmWrap}>Apply Change</button>

@@ -15,7 +15,8 @@
     
     //
     let modalFrame: HTMLElement | null = null;
-    
+    export let self = null;
+
     //
     document.documentElement.addEventListener("contextmenu", (ev)=>{
 		const target = ev.target as HTMLElement;
@@ -43,7 +44,7 @@
 </script>
 
 <!-- -->
-<div data-hidden="true" class="ux-modal-frame" transition:fade={{ delay: 0, duration: 100 }} bind:this={modalFrame} {...propsFilter($$props)}>
+<div bind:this={self} data-hidden="true" class="ux-modal-frame" transition:fade={{ delay: 0, duration: 100 }} bind:this={modalFrame} {...propsFilter($$props)}>
     <div class="cut-space">
         <slot></slot>
     </div>
