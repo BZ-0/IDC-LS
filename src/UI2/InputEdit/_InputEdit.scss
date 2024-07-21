@@ -40,7 +40,10 @@
 
         //
         .field-content {
-            @include cm.pe-enable;
+            //@include cm.pe-enable;
+
+            //
+            pointer-events: fallback(bounding-box, auto) !important;
         
             //
             display: grid;
@@ -82,8 +85,11 @@
                 //
                 input {
                     @include cm.stretch;
-                    @include cm.pe-enable;
-                    
+                    //@include cm.pe-enable;
+
+                    //
+                    pointer-events: fallback(bounding-box, auto) !important;
+
                     //
                     font-size: 1.6rem;
                     

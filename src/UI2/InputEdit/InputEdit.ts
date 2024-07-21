@@ -19,6 +19,11 @@ const isInputOrIn = (el)=>{
     return (el && MOC(el, InputValidSelector)) || (document?.activeElement && (MOC(document?.activeElement as HTMLElement, InputValidSelector)));
 }
 
+const focusOn = (input)=>{
+    //requestAnimationFrame(()=>input?.focus?.())
+    if (document.activeElement != input) { input?.focus?.(); }
+}
+
 //
 observeBySelector(document.documentElement, ".ux-editor", (mut)=>{
     fieldEdit ||= mut.addedNodes[0];
@@ -27,7 +32,7 @@ observeBySelector(document.documentElement, ".ux-editor", (mut)=>{
     pasteButton ||= fieldEdit?.querySelector(".field-paste") || null;
     
     //
-    if (document.activeElement != input) { input?.focus?.(); }
+    requestAnimationFrame(()=>focusOn(input));
 });
 
 //
@@ -66,7 +71,7 @@ const reflectInEdit = ()=>{
 
         //
         const prevActive = document.activeElement;
-        if (prevActive != input) { input?.focus?.() }
+        if (prevActive != input) { requestAnimationFrame(()=>focusOn(input)); }
 
         //
         if (document.activeElement == input && prevActive == targetInput) {
