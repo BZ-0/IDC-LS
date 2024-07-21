@@ -103,7 +103,7 @@ const reflect = (ev)=>{
     if (input && targetInput && targetInput != input) {
         targetInput.value = input.value;
         targetInput.dispatchEvent(new Event("input", {
-            bubbles: false,
+            bubbles: true,
             cancelable: true,
         }))
     }
@@ -184,7 +184,7 @@ document.addEventListener("click", (ev)=>{
 
                     //
                     input?.dispatchEvent(new Event("input", {
-                        bubbles: false,
+                        bubbles: true,
                         cancelable: true,
                     }))
                 },

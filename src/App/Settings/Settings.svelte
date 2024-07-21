@@ -3,7 +3,6 @@
     import Block from '@idc/UI2/Design/Block/Block.svelte';
 
     //
-    import Checkbox from '@idc/UI2/Inputs/CheckBox/CheckBox.svelte';
     import Number from '@idc/UI2/Inputs/Number/Number.svelte';
     import Switch from '@idc/UI2/Inputs/Switch/Switch.svelte';
 
@@ -17,18 +16,25 @@
     import { fade } from "svelte/transition";
 
     //
-    const columns = writable(settings.columns);
-    const rows = writable(settings.rows);
-    const scaling = writable(settings.scaling);
-    const useZoom = writable(settings.useZoom ?? true);
-    const theme = writable(settings.theme);
+    export let stateName = "settings";
 
     //
-    $: settings.columns = $columns;
-    $: settings.rows = $rows;
-    $: settings.scaling = $scaling;
-    $: settings.useZoom = $useZoom ?? true;
-    $: settings.theme = $theme;
+    const forms = [
+        {
+            description: "Grid Layout Settings: ",
+            fields: [
+                {label: "Columns: ", icon: "columns-3", type: "number", params: [4, 6, 1], name: "columns"}, 
+                {label: "Rows: ", icon: "rows-3", type: "number", params: [8, 12, 1], name: "rows"}, 
+            ]
+        },
+        {
+            description: "Display Settings: ",
+            fields: [
+                {label: "Scaling: ", icon: "scaling", type: "number", params: [0.5, 1.5, 0.125], name: "scaling"}, 
+                {label: "Theme: ", icon: "sun-moon", type: "switch", params: [-1, 1, 1], name: "theme"}, 
+            ]
+        }
+    ]
 
 </script>
 
@@ -36,53 +42,47 @@
 <div class="ls-screen" id="settings">
 
     <div class="ls-nav" data-scheme="solid" data-highlight="1">
-
-    
         <div class="f-space"></div>
-    
         <button class="back-act hl-1 hl-2h">
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"arrow-left"}/></div>
             <div inert={true} class="name">Back</div>
         </button>
     </div>
     <x-scrollbox class="ux-space" transition:fade={{ delay: 0, duration: 100 }}>
-        <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
-            <div class="form-description"> Grid Layout Settings: </div>
-    
-            <Block class="ux-block-decor pe-none">
-                <span class="opt-label">Columns:</span>
-                <LucideIcon slot="icon" name={"columns-3"}/>
-                <Number slot="element" value={columns} min={4} max={6} step={1}></Number>
-                <!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
-            </Block>
-            <Block class="ux-block-decor pe-none">
-                <span class="opt-label">Rows:</span>
-                <LucideIcon slot="icon" name={"rows-3"}/>
-                <Number slot="element" value={rows} min={8} max={12} step={1}></Number>
-                <!--<RangeSlider slot="element" bind:values={$rows} min={8} max={12} step={1}></RangeSlider>-->
-            </Block>
-        </form>
-    
-        <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
-            <div class="form-description"> Experimental Display Settings: </div>
-        
-            <Block class="ux-block-decor pe-none">
-                <span class="opt-label">Scaling:</span>
-                <LucideIcon slot="icon" name={"scaling"}/>
-                <Number slot="element" value={scaling} min={0.5} max={1.5} step={0.125}></Number>
-                <!--<RangeSlider slot="element" bind:values={$columns} min={4} max={6} step={1}></RangeSlider>-->
-            </Block>
-        </form>
-    
-        <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
-            <div class="form-description"> Experimental Color Scheme: </div>
-            
-            <Block class="ux-block-decor pe-none">
-                <span class="opt-label">Theming:</span>
-                <LucideIcon slot="icon" name={"scaling"}/>
-                <Switch value={theme} slot="element"></Switch>
-            </Block>
-        </form>
+
+        {#each forms as form}
+            <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
+                <div class="form-description">{form.description}</div>
+                {#each form.fields as field}
+                    
+                    <Block class="ux-block-decor pe-none">
+                        <span class="opt-label">{field.label}</span>
+                        <LucideIcon data-place="icon" name={field.icon}/>
+                        
+                        <div data-place="element" >
+                        {#if field.type == "number"}
+                            <Number 
+                                min={field.params[0]} 
+                                max={field.params[1]} 
+                                step={field.params[2]} 
+                                data-state={stateName} 
+                                data-name={field.name}
+                            ></Number>
+                        {/if}
+
+                        {#if field.type == "switch"}
+                            <Switch 
+                                data-state={stateName} 
+                                data-name={field.name}
+                            ></Switch>
+                        {/if}
+                    </div>
+
+                    </Block>
+                {/each}
+            </form>
+        {/each}
+
     </x-scrollbox>
 
 </div>

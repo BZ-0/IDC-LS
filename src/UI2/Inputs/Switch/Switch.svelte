@@ -3,30 +3,26 @@
     import {onMount} from 'svelte';
     import {writable} from "svelte/store";
     import RangeTouch from 'rangetouch';
+    import States from "@unite/scripts/reactive/StateManager.ts";
 
     //
-    export let fieldName = "";
-
-    //
-    let value = $$props?.value || writable(0);
-    let container = null;
-    let element = null;
+    let input = null;
+    let target = null;
 
     //
     const _whenChange = (ev)=>{
-        const el = ev.target;
-        value?.set?.(el.valueAsNumber);
-        container.style.setProperty("--value-mod", (el.valueAsNumber - el.min) / (el.max - el.min), "");
+        const input = ev.target;
+        target.style.setProperty("--value-mod", (input.valueAsNumber - input.min) / (input.max - input.min), "");
     }
 
     //
     onMount(()=>{
-        const el = element;
-        container.style.setProperty("--value-mod", (el.valueAsNumber - el.min) / (el.max - el.min), "");
-        
-        //
-        const range = new RangeTouch('input[type="range"]', {  });
+        const input = target.querySelector("input");
+        const state = States.getState(target.dataset.state);
+        input.value = state[target.dataset.name];
+        target.style.setProperty("--value-mod", (input.valueAsNumber - input.min) / (input.max - input.min), "");
     });
+
 </script>
 
 <!-- -->
@@ -35,16 +31,12 @@
 </script>
 
 <!-- -->
-<label bind:this={container} class="ux-switch" data-scheme data-highlight="1">
+<label  bind:this={target} class="ux-input ux-switch" data-scheme data-highlight="1" {...propsFilter($$props)}>
     <input 
         on:change={_whenChange} 
         on:input={_whenChange} 
-        bind:value={$value} 
-        bind:this={element}
         type="range" 
-        data-name={fieldName} 
-        min={-1} max={1} step={1}
-        {...propsFilter($$props)}>
+        min={-1} max={1} step={1}>
     <div class="fill" data-scheme data-highlight="1"></div>
     <div class="track" data-scheme data-highlight="1"></div>
     <div class="thumb icon-sign" data-scheme data-highlight="1"><LucideIcon name={"circle"}/></div>

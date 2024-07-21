@@ -43,6 +43,8 @@ const loading = Promise.allSettled([
     import("@idc/UI2/InputEdit/InputEdit.ts"),
     import("@idc/UI2/ItemEdit/ItemEdit.ts"),
 
+    import("@idc/App/Settings/Settings.ts").catch(console.warn.bind(console)),
+
     import("@unite/wcomp/scrollbox/ScrollBox.ts"),
     import("@unite/scripts/stylework/Bundle.ts")
 ]);

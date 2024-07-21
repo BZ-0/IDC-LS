@@ -15,9 +15,9 @@ export let ctxList = [{
 <Frame data-ctx-name={ctxName} class="ux-modal-frame ux-context-menu">
     {#each ctxList as L}
         <Block class="ux-block-decor ux-default-theme" data-highlight-hover="1" style="--decor-size: 2rem" data-action={L.action}>
-            <WLucideIcon name={L.icon} slot="icon"></WLucideIcon>
+            <WLucideIcon name={L.icon} data-place="icon"></WLucideIcon>
             <span>{L.name}</span>
-            <div slot="element"></div>
+            <div data-place="element"></div>
         </Block>
     {/each}
 </Frame>

@@ -97,9 +97,9 @@
         <x-scrollbox data-scheme="solid" data-highlight="2" class="ls-panel" bind:this={panelEl} transition:fade={{ key: $currentPage, delay: 0, duration: 100 }}>
             {#each tabs as tab}
                 <Block class="ux-block-decor ls-tab-item cursor-pointer pe-enable" data-scheme data-highlight="2" data-page={tab.page}>
-                    <LucideIcon inert={true} slot="icon" name={tab.icon}/>
+                    <LucideIcon inert={true} data-place="icon" name={tab.icon}/>
                     <span inert={true} class="tab-label">{tab.label}</span>
-                    <LucideIcon inert={true} slot="element" name={"chevron-right"}/>
+                    <LucideIcon inert={true} data-place="element" name={"chevron-right"}/>
                 </Block>
             {/each}
         </x-scrollbox>

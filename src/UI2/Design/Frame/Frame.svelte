@@ -7,7 +7,7 @@
     import {propsFilter} from "@unite/scripts/utils/Utils.ts";
 
     //
-    export let focused: Writable<boolean> | Readable<boolean> = writable(false);
+    //export let focused: Writable<boolean> | Readable<boolean> = writable(false);
     
     //
     const FocusSelector = ".ux-modal-frame, .ux-modal, .ux-editor, input, button";
@@ -33,15 +33,17 @@
         //
         if (!(modalFrame == target || target.matches(FocusSelector) || target.closest(FocusSelector)) && !(document?.activeElement?.matches(DNBSelector) || target.matches(DNBSelector) || target.closest(DNBSelector)) || target.matches(".ux-modal-frame button")) {
             // @ts-ignore
-            focused?.set?.(false);
-            //modalFrame.dataset.hidden = true;
+            //focused?.set?.(false);
+            if (modalFrame) {
+                modalFrame.dataset.hidden = true;
+            }
         }
     });
     
 </script>
 
 <!-- -->
-<div data-hidden={!$focused} class="ux-modal-frame" transition:fade={{ delay: 0, duration: 100 }} bind:this={modalFrame} {...propsFilter($$props)}>
+<div data-hidden="true" class="ux-modal-frame" transition:fade={{ delay: 0, duration: 100 }} bind:this={modalFrame} {...propsFilter($$props)}>
     <div class="cut-space">
         <slot></slot>
     </div>

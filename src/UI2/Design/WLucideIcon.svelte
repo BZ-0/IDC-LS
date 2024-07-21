@@ -21,4 +21,6 @@
 </script>
 
 <!-- -->
-<svelte:component preserveAspectRatio="xMidYMid meet" inert={true} class="ux-icon" this={icons[fup(camelize(name))]} {...propsFilter($$props)} />
+<div inert={true} class="icon-wrap" {...propsFilter($$props)}>
+    <svelte:component preserveAspectRatio="xMidYMid meet" inert={true} class="ux-icon" this={icons[fup(camelize(name))]}/>
+</div>

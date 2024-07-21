@@ -10,6 +10,7 @@
         @extend .align-center;
         @extend .inline-stretch;
         @extend .no-wrap;
+        @extend .stretch;
 
         //
         --decor-size: 2.8rem;
@@ -24,6 +25,7 @@
         
         //
         justify-content: space-between;
+        block-size: max-content;
         
         //
         padding: 0px;
@@ -32,33 +34,10 @@
         
         //
         min-block-size: var(--decor-size);
-        
-        //
         min-inline-size: max-content;
-        inline-size: stretch;
-        max-inline-size: stretch;
-        
-        // stretch or moz-available works buggy
-        @-moz-document url-prefix() {
-            inline-size: min(100%, 100cqi);
-            max-inline-size: min(100%, 100cqi);
-            max-block-size: min(100%, 100cqb);
-        }
-        
-
-        /* // override by main theme rule
-        //
-        background-color: var(--current-surface-color);
-        accent-color: var(--current-glyph-color);
-        color: var(--current-glyph-color);
-        
-        //
-        &, svg {
-            stroke: var(--current-glyph-color);
-        }*/
 
         //
-        & > :where(.icon-wrap, .label-box, .in-element) {
+        & > * {
             @extend .align-center;
             @extend .pe-none;
             @extend .no-wrap;
@@ -87,12 +66,14 @@
             }
         }
         
-        & > :where(.label-box) {
+        & > *:where([data-place="label"],:not([data-place])) {
+            @extend .align-inline-left;
+			@extend .no-wrap;
             padding-inline: calc(var(--decor-size) * 0.2);
         }
         
         //
-        & > .in-element {
+        & > *[data-place="element"] {
             @extend .align-center;
             
             //
@@ -103,25 +84,17 @@
         }
         
         //
-        & > :where(.icon-wrap, *:has(svg)) {
-            //background-color: var(--current-surface-color);
-            //background-color: transparent;
+        & > *[data-place="icon"] {
             color: var(--current-glyph-color);
             aspect-ratio: 1 / 1;
             max-inline-size: calc(var(--decor-size) * 1.333);
             max-block-size: calc(var(--decor-size) * 1.333);
         }
         
-        //rangeSlider
-        & > .icon-wrap  { @extend .stretch; grid-column: 1 / span 1; grid-row: 1 / span 1; }
-        & > .label-box  { @extend .stretch; grid-column: 2 / span 2; grid-row: 1 / span 1; }
-        & > .in-element { @extend .stretch; grid-column: 3 / span 3; grid-row: 1 / span 1; }
-        
         //
-        & > .label-box {
-			@extend .align-inline-left;
-			@extend .no-wrap;
-        }
+        & > *[data-place="icon"]                             { @extend .stretch; grid-column: 1 / span 1; grid-row: 1 / span 1; }
+        & > *[data-place="element"]                          { @extend .stretch; grid-column: 3 / span 3; grid-row: 1 / span 1; }
+        & > *:where([data-place="label"],:not([data-place])) { @extend .stretch; grid-column: 2 / span 2; grid-row: 1 / span 1; }
         
         //
         &.layout-alt {
@@ -129,9 +102,9 @@
             grid-template-rows: minmax(var(--decor-size), max-content) minmax(var(--decor-size), max-content);
             
             //
-            & > .icon-wrap  { grid-column: 1 / span 1; grid-row: 1 / span 2; }
-            & > .in-element { grid-column: 2 / span 2; grid-row: 2 / span 2; }
-            & > .label-box  { grid-column: 2 / span 2; grid-row: 1 / span 1; justify-self: start; }
+            & > *[data-place="icon"]                             { grid-column: 1 / span 1; grid-row: 1 / span 2; }
+            & > *[data-place="element"]                          { grid-column: 2 / span 2; grid-row: 2 / span 2; }
+            & > *:where([data-place="label"],:not([data-place])) { grid-column: 2 / span 2; grid-row: 1 / span 1; justify-self: start; }
         }
         
     }
