@@ -32,7 +32,7 @@
     
     <slot></slot>
 
-    <div class="ux-status" data-highlight="2"></div>
+    <div class="ux-status" data-scheme="solid" data-highlight="2"></div>
     <div class="ux-resize"></div>
 
 </div>

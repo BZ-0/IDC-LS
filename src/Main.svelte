@@ -18,9 +18,6 @@
 
     //
     import ControlCenter from "./App/ControlCenter/ControlCenter.svelte";
-    
-    //
-    export let wallpaperURL = (localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg");
 
     //
     const itemCtxList = [{
@@ -53,9 +50,6 @@
     }];
     
 </script>
-
-<!-- -->
-<canvas is="w-canvas" data-src={wallpaperURL}></canvas>
 
 <!-- -->
 <DesktopGrid state={state} actionMap={actionMap}></DesktopGrid>

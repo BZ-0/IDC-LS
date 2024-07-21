@@ -2,6 +2,7 @@
 import { MOCElement } from "@unite/scripts/utils/Utils.ts";
 import AxGesture from "@unite/scripts/interact/Gesture.ts";
 import { observeBySelector } from "@unite/scripts/dom/Observer.ts";
+import { zoomOf } from "../../../unite/scripts/utils/Utils.ts";
 
 //
 document.documentElement.addEventListener("contextmenu", (ev)=>{
@@ -98,10 +99,10 @@ const makeControl = (frameElement)=>{
     //
     if (frameElement) {
         // @ts-ignore
-        frameElement.style.setProperty("--drag-x", -(frameElement.clientWidth / 2) + frameElement.parentNode.offsetWidth / 2, "");
+        frameElement.style.setProperty("--drag-x", -(Math.max(frameElement.clientWidth, (64*16 * zoomOf())) / 2) + frameElement.parentNode.offsetWidth / 2, "");
         
         // @ts-ignore
-        frameElement.style.setProperty("--drag-y", -(frameElement.clientHeight / 2) + frameElement.parentNode.offsetHeight / 2, "");
+        frameElement.style.setProperty("--drag-y", -(Math.max(frameElement.clientHeight, (36*16 * zoomOf())) / 2) + frameElement.parentNode.offsetHeight / 2, "");
     }
 }
 

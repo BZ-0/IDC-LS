@@ -118,6 +118,9 @@
 </script>
 
 <!-- -->
+<canvas is="w-canvas" data-src={(localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg")}></canvas>
+
+<!-- -->
 <div bind:this={target} data-transparent data-current-page={current} data-ctx="grid-space" data-scheme="accent-inverse" class="ux-desktop-grid stretch grid-based-box pe-enable">
     
     <div bind:this={gridPage} class="ux-grid-page stretch grid-based-box" data-transparent>

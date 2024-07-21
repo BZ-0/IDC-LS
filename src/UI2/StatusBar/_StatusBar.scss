@@ -11,7 +11,7 @@
 @layer ux-app-frame {
     
     //
-    body:has(.ux-app-frame .ux-content) .ux-status-bar {
+    body:has(.ux-app-frame:is([data-hidden="false"], [data-hidden=""], :not([data-hidden]))) .ux-status-bar {
         @media #{d.$isMobile} {
             --theme-surface-color: transparent;
             --theme-glyph-color: #{cu.theme-mod-down(cl.$baseColor, 90%)} !important;

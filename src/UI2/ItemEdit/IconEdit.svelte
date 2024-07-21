@@ -50,12 +50,20 @@
 <Frame bind:self={editor} class="ux-modal-frame ls-item-edit" data-item={gridItem?.id||""}>
     <ItemEdit whatEdit={gridItem} data-item={gridItem?.id||""} fields={fieldSet} bind:confirm={confirm}></ItemEdit>
     <div class="ls-but">
-        <button type="button" class="delete-btn" on:click={deleteWrap}>Delete Icon</button>
-        <button type="button" class="confirm-btn" on:click={confirmWrap}>Apply Change</button>
+        <button data-scheme="accent" type="button" class="delete-btn" on:click={deleteWrap}>Delete Icon</button>
+        <button data-scheme="accent" type="button" class="confirm-btn" on:click={confirmWrap}>Apply Change</button>
     </div>
 </Frame>
 
 <style lang="scss" type="scss">
+
+//
+//.ls-item-edit {
+    button {
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+    }
+//}
 
 //
 .ls-but {
