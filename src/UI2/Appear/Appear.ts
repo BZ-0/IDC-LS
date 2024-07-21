@@ -16,9 +16,9 @@ const animateHide = async (target)=>{
                 offset: 0,
 
                 //
-                display: target[computed]?.display || "revert",
-                opacity: target[computed]?.opacity || "revert",
-                scale: target[computed]?.scale || "revert",
+                display: target[computed]?.display || "revert-layer",
+                opacity: target[computed]?.opacity || "revert-layer",
+                scale: target[computed]?.scale || "revert-layer",
                 pointerEvents: "none"
             },
             {
@@ -26,7 +26,7 @@ const animateHide = async (target)=>{
                 offset: 0.99,
 
                 //
-                display: target[computed]?.display || "revert",
+                display: target[computed]?.display || "revert-layer",
                 opacity: 0,
                 scale: 0.8,
                 pointerEvents: "none"
@@ -77,7 +77,7 @@ const animateShow = async (target)=>{
                 offset: 0.01,
 
                 //
-                display: target[computed]?.display || "revert",
+                display: target[computed]?.display || "revert-layer",
                 opacity: 0,
                 scale: 0.8,
                 pointerEvents: "none"
@@ -87,10 +87,10 @@ const animateShow = async (target)=>{
                 offset: 1,
 
                 //
-                display: target[computed]?.display || "revert",
-                opacity: target[computed]?.opacity || "revert",
-                scale: target[computed]?.scale || "revert",
-                pointerEvents: target[computed]?.pointerEvents || "revert"
+                display: target[computed]?.display || "revert-layer",
+                opacity: target[computed]?.opacity || "revert-layer",
+                scale: target[computed]?.scale || "revert-layer",
+                pointerEvents: target[computed]?.pointerEvents || "revert-layer"
             }
         ], {
             fill: "none",
