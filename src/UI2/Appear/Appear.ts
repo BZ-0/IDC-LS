@@ -1,22 +1,24 @@
 import { observeBySelector } from "@unite/scripts/dom/Observer.ts";
 
 //
+const computed = Symbol("@computed");
 const animateHide = async (target)=>{
-    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !target.classList.contains("ux-display-animated")) {
-        target.classList.add("ux-display-animated");
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !target.classList.contains("ux-while-animation")) {
+        target.classList.add("ux-while-animation");
     }
 
-    if (target.classList.contains("ux-display-animated")) {
-        //
+    //
+    if (target.classList.contains("ux-while-animation")) {
+        target[computed] = getComputedStyle(target, "");
         await target.animate([
             {
                 easing: "linear",
                 offset: 0,
 
                 //
-                display: "unset",
-                opacity: "unset",
-                scale: "unset",
+                display: target[computed]?.display || "revert",
+                opacity: target[computed]?.opacity || "revert",
+                scale: target[computed]?.scale || "revert",
                 pointerEvents: "none"
             },
             {
@@ -24,7 +26,7 @@ const animateHide = async (target)=>{
                 offset: 0.99,
 
                 //
-                display: "unset",
+                display: target[computed]?.display || "revert",
                 opacity: 0,
                 scale: 0.8,
                 pointerEvents: "none"
@@ -40,23 +42,25 @@ const animateHide = async (target)=>{
                 pointerEvents: "none"
             }
         ],  {
-            fill: "forwards",
+            fill: "none",
             duration: 100,
             rangeStart: "cover 0%",
             rangeEnd: "cover 100%",
         }).finished;
+
+        //
+        target.classList.remove("ux-while-animation");
     }
 }
 
 //
 const animateShow = async (target)=>{
-    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !target.classList.contains("ux-display-animated")) {
-        target.classList.add("ux-display-animated");
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !target.classList.contains("ux-while-animation")) {
+        target.classList.add("ux-while-animation");
     }
 
-    if (target.classList.contains("ux-display-animated")) {
-
-        //
+    //
+    if (target.classList.contains("ux-while-animation")) {
         await target.animate([
             {
                 easing: "linear",
@@ -73,7 +77,7 @@ const animateShow = async (target)=>{
                 offset: 0.01,
 
                 //
-                display: "unset",
+                display: target[computed]?.display || "revert",
                 opacity: 0,
                 scale: 0.8,
                 pointerEvents: "none"
@@ -83,18 +87,20 @@ const animateShow = async (target)=>{
                 offset: 1,
 
                 //
-                display: "unset",
-                opacity: "unset",
-                scale: "unset",
-                pointerEvents: "unset"
+                display: target[computed]?.display || "revert",
+                opacity: target[computed]?.opacity || "revert",
+                scale: target[computed]?.scale || "revert",
+                pointerEvents: target[computed]?.pointerEvents || "revert"
             }
         ], {
-            fill: "forwards",
+            fill: "none",
             duration: 100,
             rangeStart: "cover 0%",
             rangeEnd: "cover 100%",
         }).finished;
 
+        //
+        target.classList.remove("ux-while-animation");
     }
 }
 

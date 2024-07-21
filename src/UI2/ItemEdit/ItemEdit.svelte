@@ -39,6 +39,9 @@
     }
     
     //
+    $: whatEdit ? synchronize() : null;
+
+    //
     onMount(()=>{
         synchronize();
 
@@ -48,8 +51,6 @@
         });
     });
 
-    
-
 </script>
 
 <!-- -->
@@ -57,13 +58,11 @@
     <div class="ux-edit-desc">
         <slot name="description"/>
     </div>
-    {#if whatEdit}
-        {#each fields as F(F.name)}
-            <div class="ux-field-block">
-                <div inert={true} class="field-label">{F.label}</div>
-                <input data-highlight="1" data-highlight-hover="2" type="text" maxlength="1024" autocomplete="off" bind:value={F.value} name={F.name} data-name={F.name} on:change={confirm} class="field-input hl-1 hl-2h"/>
-            </div>
-        {/each}
-    {/if}
+    {#each fields as F(F.name)}
+        <div class="ux-field-block">
+            <div inert={true} class="field-label">{F.label}</div>
+            <input data-highlight="1" data-highlight-hover="2" type="text" maxlength="1024" autocomplete="off" bind:value={F.value} name={F.name} data-name={F.name} on:change={confirm} class="field-input hl-1 hl-2h"/>
+        </div>
+    {/each}
 </form>
 

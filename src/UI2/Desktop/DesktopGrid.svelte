@@ -5,7 +5,10 @@
     import {observeBySelector, observeBorderBox} from "@unite/scripts/dom/Observer.ts";
 
     //
-    import GridPage from "./GridPage.svelte";
+    import GridItem from "./GridItem.svelte";
+    import GridItemLabel from "./GridItemLabel.svelte";
+
+    //
     import { getCorrectOrientation } from "@unite/scripts/utils/Utils.ts";
 
     //
@@ -36,6 +39,20 @@
         if (prop == "rows") { rows = value; };
         changeLayout();
     });
+
+    //
+    const onItemClick = (ev)=>{
+        const target = ev.target as HTMLElement;
+        actionMap?.get?.(target.dataset.action as string)?.({
+            initiator: target
+        });
+    }
+
+    //
+    const isItemInList = (id)=>{
+        const ptr = items.get(id).pointerId;
+        return lists.get(current).has(id) || (ptr != null && ptr >= 0);
+    }
 
     //
     onMount(()=>{
@@ -104,8 +121,21 @@
 <div bind:this={target} data-transparent data-current-page={current} data-ctx="grid-space" data-scheme="accent-inverse" class="ux-desktop-grid stretch grid-based-box pe-enable">
     
     <div bind:this={gridPage} class="ux-grid-page stretch grid-based-box" data-transparent>
-        <GridPage list={lists.get(current)} gridPage={grids.get(current)} items={items} type="labels"></GridPage>
-        <GridPage list={lists.get(current)} gridPage={grids.get(current)} items={items} actionMap={actionMap} type="items"></GridPage>
+        <!-- -->
+        {#each items.values() as item (item.id)}
+            {#if isItemInList(item.id)}
+                <GridItemLabel type="labels" gridItem={item}></GridItemLabel>
+            {/if}
+        {/each}
+    </div>
+
+    <div bind:this={gridPage} class="ux-grid-page stretch grid-based-box" data-transparent>
+        <!-- -->
+        {#each items.values() as item (item.id)}
+            {#if isItemInList(item.id)}
+                <GridItem onClick={onItemClick} type="items" gridItem={item}></GridItem>
+            {/if}
+        {/each}
     </div>
     
 </div>
