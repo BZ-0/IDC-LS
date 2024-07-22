@@ -19,6 +19,7 @@
         "@tsconfig/svelte": "^5.0.2",
         "@types/node": "*",
         "@vitejs/plugin-legacy": "^5.4.1",
+        "@vitejs/plugin-vue": "^5.0.5",
         "autoprefixer": "^10.4.16",
         "cbor-x": "^1.5.9",
         "culori": "^4.0.1",
@@ -44,6 +45,7 @@
         "vite-plugin-dts": "^3.9.1",
         "vite-plugin-node-polyfills": "^0.22.0",
         "vite-plugin-pwa": "^0.20.0",
-        "vite-plugin-static-copy": "^1.0.5"
+        "vite-plugin-static-copy": "^1.0.5",
+        "vue": "^3.4.33"
     }
 }

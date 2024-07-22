@@ -21,6 +21,7 @@ import certificate from "./https/certificate.mjs";
 import pkg from "./package.json";
 import tsconfig from "./tsconfig.json";
 import dts from "vite-plugin-dts";
+import vue from '@vitejs/plugin-vue'
 
 //
 const __dirname = import.meta.dirname;
@@ -48,6 +49,7 @@ const config = <UserConfig>defineConfig({
         },
     },
     plugins: [
+        vue(),
         //analyzer(),
         nodePolyfills(),
         compression({
