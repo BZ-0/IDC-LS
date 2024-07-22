@@ -1,18 +1,2 @@
-@use "./order";
 @use "@unite/index";
-
-//
-@use "./src/UI2/Design/Block/Block";
-@use "./src/UI2/Design/frame/Frame";
-@use "./src/UI2/ItemEdit/ItemEdit";
-@use "./src/UI2/InputEdit/InputEdit";
-@use "./src/UI2/Inputs/Number/Number";
-@use "./src/UI2/Inputs/Switch/Switch";
-@use "./src/UI2/AppFrame/AppFrame";
-@use "./src/UI2/StatusBar/StatusBar";
-@use "./src/UI2/Desktop/GridDesign";
-
-//
-@use "./src/App/ControlCenter/ControlCenter.scss";
-@use "./src/App/Settings/Settings.scss";
-@use "./src/App/Manager/Manager.scss";
+@use "@idc/Bundle";

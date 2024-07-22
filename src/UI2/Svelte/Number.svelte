@@ -1,5 +1,5 @@
 <script>
-import LucideIcon from '@idc/UI2/Design/WLucideIcon.svelte';
+import LucideIcon from '@idc/UI2/Svelte/WLucideIcon.svelte';
 import { writable } from "svelte/store";
 import { onMount } from "svelte";
 import States from "@unite/scripts/reactive/StateManager.ts";

@@ -1,6 +1,6 @@
 <script type="ts" lang="ts">
     import {currentLocationHash} from '@unite/svelte/utils/Realtime.ts';
-    import LucideIcon from '../Design/WLucideIcon.svelte';
+    import LucideIcon from './WLucideIcon.svelte';
 
     //
     import {fade} from "svelte/transition";

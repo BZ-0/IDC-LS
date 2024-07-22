@@ -1,5 +1,5 @@
 <script>
-    import LucideIcon from '@idc/UI2/Design/WLucideIcon.svelte';
+    import LucideIcon from '@idc/UI2/Svelte/WLucideIcon.svelte';
     import {onMount} from 'svelte';
     import {writable} from "svelte/store";
     import RangeTouch from 'rangetouch';

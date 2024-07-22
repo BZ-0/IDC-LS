@@ -1,7 +1,7 @@
 <script type="ts" lang="ts">
     import {onMount} from "svelte";
-    import type {Field} from "./ItemEdit.ts";
-    import { observeBySelector } from "../../../unite/scripts/dom/Observer.ts";
+    import type {Field} from "@idc/Scripts/ItemEdit.ts";
+    import { observeBySelector } from "@unite/scripts/dom/Observer.ts";
     
     //
     export let whatEdit: object | any | null = null;

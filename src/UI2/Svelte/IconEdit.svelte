@@ -1,7 +1,7 @@
 <script type="ts" lang="ts">
     import ItemEdit from "./ItemEdit.svelte";
-    import GridItem from "@idc/UI2/Desktop/GridItem.svelte";
-    import Frame from "@idc/UI2/Design/Frame/Frame.svelte";
+    import GridItem from "@idc/UI2/Svelte/GridItem.svelte";
+    import Frame from "@idc/UI2/Svelte/Frame.svelte";
 
     //
     import type { GridItemType } from "@unite/scripts/utils/GridItemUtils.ts";

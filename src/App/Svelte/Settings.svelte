@@ -1,10 +1,10 @@
 <script>
-    import LucideIcon from '@idc/UI2/Design/WLucideIcon.svelte';
-    import Block from '@idc/UI2/Design/Block/Block.svelte';
+    import LucideIcon from '@idc/UI2/Svelte/WLucideIcon.svelte';
+    import Block from '@idc/UI2/Svelte/Block.svelte';
 
     //
-    import Number from '@idc/UI2/Inputs/Number/Number.svelte';
-    import Switch from '@idc/UI2/Inputs/Switch/Switch.svelte';
+    import Number from '@idc/UI2/Svelte/Number.svelte';
+    import Switch from '@idc/UI2/Svelte/Switch.svelte';
 
     //
     import { state, layout, size } from "../../State/GridState.ts";

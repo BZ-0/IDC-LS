@@ -1,5 +1,5 @@
 <script>
-import LucideIcon from "../Design/WLucideIcon.svelte";
+import LucideIcon from "./WLucideIcon.svelte";
 
 //
 let signal = navigator.onLine ? (navigator?.connection?.effectiveType || "4g") : "offline";

@@ -1,7 +1,7 @@
 <script lang="ts" type="ts">
-import Block from "../Design/Block/Block.svelte";
-import Frame from "../Design/Frame/Frame.svelte";
-import WLucideIcon from "../Design/WLucideIcon.svelte";
+import Block from "./Block.svelte";
+import Frame from "./Frame.svelte";
+import WLucideIcon from "./WLucideIcon.svelte";
 
 //
 export let ctxName = "ctx-menu";

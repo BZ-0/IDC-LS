@@ -1,15 +1,5 @@
 import "./main.scss";
-
-//
-document.documentElement.style.setProperty("--theme-base-color", localStorage.getItem("--theme-base-color") || "oklch(50% 0.3 0)", "");
-document.documentElement.style.setProperty("--theme-wallpaper-is-dark", localStorage.getItem("--theme-wallpaper-is-dark") || "0", "");
-
-// avoid any dragging when no-needed...
-document.documentElement.addEventListener("dragstart", (ev) => {
-    if ((ev?.target as HTMLElement)?.matches?.("div, img, picture, canvas, video, svg")) {
-        ev.preventDefault();
-    }
-}, {passive: false, capture: true});
+import("./src/Main.ts");
 
 //
 if ("virtualKeyboard" in navigator && navigator?.virtualKeyboard) {
@@ -34,28 +24,3 @@ if (typeof navigator != "undefined") {
         location.origin + `/opfs?path=%s`
     );
 }
-
-// use workers
-const loading = Promise.allSettled([
-    import("@idc/UI2/Appear/Appear.ts"),
-    import("@idc/UI2/AppFrame/AppFrame.ts"),
-    import("@idc/UI2/ContextMenu/ContextMenu.ts"),
-    import("@idc/UI2/Desktop/DesktopGrid.ts"),
-    import("@idc/UI2/InputEdit/InputEdit.ts"),
-    import("@idc/UI2/ItemEdit/ItemEdit.ts"),
-
-    import("@idc/App/Settings/Settings.ts").catch(console.warn.bind(console)),
-    import("@idc/App/ControlCenter/ControlCenter.ts").catch(console.warn.bind(console)),
-
-    import("@unite/wcomp/scrollbox/ScrollBox.ts"),
-    import("@unite/scripts/stylework/Bundle.ts")
-]);
-
-//
-import App from "./src/Main.svelte";
-import {mount} from 'svelte';
-
-//
-export default loading.then(() => {
-    mount(App, {target: document.body});
-});

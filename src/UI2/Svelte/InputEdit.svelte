@@ -1,6 +1,6 @@
 <script context="module">
     import { MOC, propsFilter } from "@unite/scripts/utils/Utils.ts";
-    import LucideIcon from "@idc/UI2/Design/WLucideIcon.svelte";
+    import LucideIcon from "@idc/UI2/Svelte/WLucideIcon.svelte";
 </script>
 
 <div 

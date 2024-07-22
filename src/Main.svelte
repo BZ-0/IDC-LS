@@ -4,20 +4,20 @@
     import type {Writable} from "svelte/store";
     
     //
-    import {settings} from "./State/CurrentState.ts";
-    import actionMap from "./State/ActionMap.ts";
-    import {state} from "./State/GridState.ts";
+    import {settings} from "@idc/State/CurrentState.ts";
+    import actionMap from "@idc/State/ActionMap.ts";
+    import {state} from "@idc/State/GridState.ts";
 
     //
-    import ContextMenu from "./UI2/ContextMenu/ContextMenu.svelte";
-    import AppFrame from "./UI2/AppFrame/AppFrame.svelte";
-    import DesktopGrid from "./UI2/Desktop/DesktopGrid.svelte";
-    import InputEditor from "./UI2/InputEdit/InputEdit.svelte";
-    import StatusBar from "./UI2/StatusBar/StatusBar.svelte";
-    import ItemEdit from "./UI2/ItemEdit/IconEdit.svelte";
+    import ContextMenu from "@idc/UI2/Svelte/ContextMenu.svelte";
+    import AppFrame from "@idc/UI2/Svelte/AppFrame.svelte";
+    import DesktopGrid from "@idc/UI2/Svelte/DesktopGrid.svelte";
+    import InputEditor from "@idc/UI2/Svelte/InputEdit.svelte";
+    import StatusBar from "@idc/UI2/Svelte/StatusBar.svelte";
+    import ItemEdit from "@idc/UI2/Svelte/IconEdit.svelte";
 
     //
-    import ControlCenter from "./App/ControlCenter/ControlCenter.svelte";
+    import ControlCenter from "@idc/App/Svelte/ControlCenter.svelte";
 
     //
     const itemCtxList = [{

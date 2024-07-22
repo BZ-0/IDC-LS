@@ -1,22 +1,22 @@
 <script>
 	import { currentLocationHash } from "@unite/svelte/utils/Realtime.ts";
-    import LucideIcon from '@idc/UI2/Design/WLucideIcon.svelte';
-    import Block from '@idc/UI2/Design/Block/Block.svelte';
-    
-    //
     import {observeBySelector} from "@unite/scripts/dom/Observer.ts"
     import {MOC, MOCElement} from "@unite/scripts/utils/Utils.ts";
+    import States from "@unite/scripts/reactive/StateManager.ts";
 
+    //
+    import LucideIcon from '@idc/UI2/Svelte/WLucideIcon.svelte';
+    import Block from '@idc/UI2/Svelte/Block.svelte';
+    
     //
     import { writable } from "svelte/store";
     import { fade } from "svelte/transition";
 
     //
-    import Manager from "../Manager/Manager.svelte";
-    import Settings from "../Settings/Settings.svelte";
+    import Manager from "./Manager.svelte";
+    import Settings from "./Settings.svelte";
     
     //
-    import States from "@unite/scripts/reactive/StateManager.ts";
     const UIState = States.getState("UIState");
 
     //

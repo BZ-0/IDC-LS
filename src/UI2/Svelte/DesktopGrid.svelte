@@ -9,9 +9,6 @@
     import GridItemLabel from "./GridItemLabel.svelte";
 
     //
-    import { getCorrectOrientation } from "@unite/scripts/utils/Utils.ts";
-
-    //
     export let state = null;
     export let settings = States.getState("settings");
     export let actionMap = States.getState("actionMap");

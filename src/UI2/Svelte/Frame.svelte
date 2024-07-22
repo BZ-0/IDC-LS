@@ -4,12 +4,6 @@
     import {fade} from "svelte/transition";
     
     //
-    import {propsFilter} from "@unite/scripts/utils/Utils.ts";
-
-    //
-    //export let focused: Writable<boolean> | Readable<boolean> = writable(false);
-    
-    //
     const FocusSelector = ".ux-modal-frame, .ux-modal, .ux-editor, input, button";
     const DNBSelector = "input[type=\"text\"], .ux-editor, input, button";
     
@@ -43,7 +37,10 @@
     
 </script>
 
-<!-- -->
+<script context="module">
+    import {propsFilter} from "@unite/scripts/utils/Utils.ts";
+</script>
+
 <div bind:this={self} data-hidden="true" class="ux-modal-frame" transition:fade={{ delay: 0, duration: 100 }} bind:this={modalFrame} {...propsFilter($$props)}>
     <div class="cut-space">
         <slot></slot>
