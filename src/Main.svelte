@@ -2,7 +2,7 @@
 	//
     import {writable} from "svelte/store";
     import type {Writable} from "svelte/store";
-    
+
     //
     import {settings} from "@idc/State/CurrentState.ts";
     import actionMap from "@idc/State/ActionMap.ts";
@@ -29,7 +29,7 @@
         name: "Delete Item",
         action: "delete-item"
     }];
-    
+
     //
     const gridCtxList = [{
         icon: "badge-plus",
@@ -48,7 +48,6 @@
         name: "Fullscreen",
         action: "fullscreen"
     }];
-    
 </script>
 
 <!-- -->

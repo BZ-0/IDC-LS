@@ -3,30 +3,30 @@
 
 //
 @layer ux-grid {
-
     //
-    .ux-grid-pages, .ux-desktop-grid {
+    .ux-grid-pages,
+    .ux-desktop-grid {
         @include cm.stretch;
         @include cm.pe-enable;
 
         //
         --padding-h: 1rem;
         --padding-v: 1.5rem;
-        
+
         //
         overflow: visible !important;
         contain: content !important;
-        
+
         //
         padding-inline: var(--padding-h);
         padding-block: var(--padding-v);
-        
+
         //
         @media (orientation: portrait) {
             padding-inline: var(--padding-h);
             padding-block: var(--padding-v);
         }
-        
+
         //
         @media (orientation: landscape) {
             padding-inline: var(--padding-v);
@@ -43,17 +43,18 @@
 
         //
         .ux-grid-item {
-            will-change: translate, transform, --rx, --ry, --drag-x, --drag-y, --resize-x, --resize-y, --translate-x, --translate-y;
-            
+            will-change: translate, transform, --rx, --ry, --drag-x, --drag-y, --resize-x, --resize-y, --translate-x,
+                --translate-y;
+
             //
             padding: calc(var(--icon-size) * 0.3);
             clip-path: var(--clip-path);
             border-radius: calc(var(--icon-size) * 0.5);
-            
+
             // override by animations...
             --translate-x: calc(var(--drag-x, 0) * 1px);
             --translate-y: calc(var(--drag-y, 0) * 1px);
-        
+
             //
             //--grid-column: var(--fc-cell-x);
             //--grid-row: var(--fc-cell-y);
@@ -70,7 +71,7 @@
                 --grid-column: var(--fp-cell-x);
                 --grid-row: var(--fp-cell-y);
             }
-            
+
             //
             &:where([data-type="items"]) {
                 pointer-events: fallback(bounding-box, auto);
@@ -78,5 +79,4 @@
             }
         }
     }
-
 }

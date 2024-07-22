@@ -39,7 +39,7 @@
 </script>
 
 <!-- -->
-<div class="ls-screen" id="settings">
+<div class="ls-screen" id="settings"transition:fade={{ delay: 0, duration: 100 }}>
 
     <div class="ls-nav" data-scheme="solid" data-highlight="1">
         <div class="f-space"></div>
@@ -48,31 +48,31 @@
             <div inert={true} class="name">Back</div>
         </button>
     </div>
-    <x-scrollbox class="ux-space" transition:fade={{ delay: 0, duration: 100 }}>
+    <x-scrollbox class="ux-space" >
 
         {#each forms as form}
             <form data-page class="form-wrap hl-ns" data-name="grid-columns-row">
                 <div class="form-description">{form.description}</div>
                 {#each form.fields as field}
-                    
+
                     <Block class="ux-block-decor pe-none" style="--decor-size: 4rem;" >
                         <span class="opt-label">{field.label}</span>
                         <LucideIcon data-place="icon" name={field.icon}/>
-                        
+
                         <div data-place="element" >
                         {#if field.type == "number"}
-                            <Number 
-                                min={field.params[0]} 
-                                max={field.params[1]} 
-                                step={field.params[2]} 
-                                data-state={stateName} 
+                            <Number
+                                min={field.params[0]}
+                                max={field.params[1]}
+                                step={field.params[2]}
+                                data-state={stateName}
                                 data-name={field.name}
                             ></Number>
                         {/if}
 
                         {#if field.type == "switch"}
-                            <Switch 
-                                data-state={stateName} 
+                            <Switch
+                                data-state={stateName}
                                 data-name={field.name}
                             ></Switch>
                         {/if}

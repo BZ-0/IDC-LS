@@ -12,6 +12,7 @@ document.documentElement.addEventListener("dragstart", (ev) => {
 // use workers
 const loading = Promise.allSettled([
     import("@idc/UI2/Scripts/Appear.ts"),
+    import("@idc/UI2/Scripts/Dropper.ts"),
     import("@idc/UI2/Scripts/AppFrame.ts"),
     import("@idc/UI2/Scripts/ContextMenu.ts"),
     import("@idc/UI2/Scripts/DesktopGrid.ts"),

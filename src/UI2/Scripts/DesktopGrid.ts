@@ -8,9 +8,6 @@ import {animationSequence} from "@unite/scripts/stylework/GridLayout.ts";
 import States from "@unite/scripts/reactive/StateManager.ts"
 
 //
-//let current = "main";
-
-//
 const initGrab = (ev)=> {
     ev?.stopPropagation?.();
 

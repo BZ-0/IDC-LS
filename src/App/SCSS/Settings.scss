@@ -7,16 +7,14 @@
 
 //
 @layer ls-settings {
-
     //
     #settings {
-        
         //
         .form-description {
             @include cm.stretch;
             @include cm.align-center;
             @include cm.no-wrap;
-        
+
             //
             display: flex;
             padding: 2rem;
@@ -24,25 +22,23 @@
             padding-block-end: 0.5rem;
             padding-inline: min(2rem, 5cqi);
             font-size: 0.8rem;
-            
+
             //
             justify-content: start !important;
-            
+
             //
             background-color: var(--current-surface-color);
         }
-        
+
         //
         .opt-label {
             @include cm.align-center;
             @include cm.stretch;
             @include cm.no-wrap;
             @include cm.align-inline-left;
-            
+
             //
             display: flex;
-            
         }
-        
     }
 }

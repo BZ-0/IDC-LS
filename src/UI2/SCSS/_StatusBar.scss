@@ -9,57 +9,53 @@
 
 //
 @layer ux-app-frame {
-    
     //
     body:has(.ux-app-frame:is([data-hidden="false"], [data-hidden=""], :not([data-hidden]))) .ux-status-bar {
         @media #{d.$isMobile} {
             @include tm.ux-solid-transparent;
         }
-        
+
         //
         @media #{d.$isDesktop} {
             @include tm.ux-transparent;
             backdrop-filter: blur(0.125rem);
         }
     }
-    
+
     //
     :where(.ux-status-bar) {
         @include cm.stretch;
         @include cm.pe-none;
         @include cm.align-center;
         @include tm.ux-transparent;
-    
+
         //
         display: grid;
         z-index: 999;
         overflow: hidden;
-    
+
         //
-        grid-template-columns: 
-            minmax(0px, max-content)
-            minmax(0px, 1fr)
-            minmax(0px, max-content);
+        grid-template-columns: minmax(0px, max-content) minmax(0px, 1fr) minmax(0px, max-content);
         grid-template-rows: minmax(0px, 1fr);
         gap: 0px;
 
         //
         justify-content: space-between;
         justify-items: stretch;
-        
+
         //
         align-content: center;
         align-items: stretch;
-        
+
         //
         position: fixed;
-        
+
         //
         inset: auto;
         inset-block-end: 0px;
         block-size: 2rem;
         padding-inline: 1rem;
-        
+
         //
         & > * {
             @include cm.stretch;
@@ -68,42 +64,59 @@
             place-content: center;
             background-color: transparent;
         }
-        
+
         & * {
             background-color: transparent;
         }
-        
+
         //
-        .left   { grid-column: 1 / 1 span; grid-row: 1 / 1 span; justify-self: start; gap: 0rem; }
-        .center { grid-column: 2 / 2 span; grid-row: 2 / 2 span; justify-self: center; }
-        .right  { grid-column: 3 / 3 span; grid-row: 3 / 3 span; justify-self: end; gap: 0rem; }
-        
+        .left {
+            grid-column: 1 / 1 span;
+            grid-row: 1 / 1 span;
+            justify-self: start;
+            gap: 0rem;
+        }
+
+        .center {
+            grid-column: 2 / 2 span;
+            grid-row: 2 / 2 span;
+            justify-self: center;
+        }
+
+        .right {
+            grid-column: 3 / 3 span;
+            grid-row: 3 / 3 span;
+            justify-self: end;
+            gap: 0rem;
+        }
+
         //
-        .left, .right {
+        .left,
+        .right {
             inline-size: max-content;
         }
-        
+
         //
         .icon-wrap {
             @include cm.stretch;
             display: flex;
             place-items: center;
             place-content: center;
-            
+
             //
             aspect-ratio: 1 / 1;
-            
+
             //
             padding: 0.25rem;
             box-sizing: border-box;
         }
-        
+
         .time {
             display: inline-block;
             inline-size: max-content;
             block-size: max-content;
         }
-        
+
         //
         @media #{d.$isMobile} {
             inset: auto;

@@ -13,14 +13,14 @@
     import { fade } from "svelte/transition";
 
     //
-    import { 
-        downloadImage, 
-        getFileList, 
-        selectFileEv, 
-        useItemEv, 
-        addItemEv, 
-        removeItemEv, 
-        downloadItemEv 
+    import {
+        downloadImage,
+        getFileList,
+        selectFileEv,
+        useItemEv,
+        addItemEv,
+        removeItemEv,
+        downloadItemEv
     } from "@idc/App/Scripts/Manager.ts";
 
     //
@@ -34,34 +34,33 @@
 
     //
     onMount(()=>{ getFileList(null, state); });
-    
 </script>
 
-<div class="ls-screen" id="manager">
+<div class="ls-screen" id="manager" transition:fade={{ delay: 0, duration: 100 }}>
 
     <div class="ls-nav" data-scheme="ux-solid-transparent" data-highlight="1">
         <button class="use-item" data-transparent data-highlight-hover="2" on:click={(ev)=>useItemEv(ev, state)}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-play"}/></div>
             <div inert={true} class="name">Use as Wallpaper</div>
         </button>
-        
+
         <button class="add-item" data-transparent data-highlight-hover="2" on:click={(ev)=>addItemEv(ev, state)}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-up"}/></div>
             <div inert={true} class="name">Load Image</div>
         </button>
-        
+
         <button class="remove-item" data-transparent data-highlight-hover="2" on:click={(ev)=>removeItemEv(ev, state)}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-off"}/></div>
             <div inert={true} class="name">Remove Image</div>
         </button>
-        
+
         <button class="download-item" data-transparent data-highlight-hover="2" on:click={(ev)=>downloadItemEv(ev, state)}>
             <div inert={true} class="icon"><LucideIcon slot="icon" name={"image-down"}/></div>
             <div inert={true} class="name">Download Image</div>
         </button>
     </div>
-    <x-scrollbox class="ux-space" transition:fade={{ delay: 0, duration: 100 }}>
-        
+    <x-scrollbox class="ux-space">
+
         <div class="file-list">
             {#each state.fileList.entries() as [name, file]}
                 <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -74,7 +73,7 @@
                 </div>
             {/each}
         </div>
-        
+
     </x-scrollbox>
 
 </div>

@@ -20,7 +20,7 @@
 
     //
     UIState?.["@subscribe"]?.((v)=>{
-        gridItem = v; 
+        gridItem = v;
         if (editor) {
             editor.dataset.hidden = false;
         }
@@ -28,7 +28,7 @@
 
     //
     export let confirm = ()=>{};
-    
+
     //
     const confirmWrap = (ev: PointerEvent | MouseEvent) => { confirm(); gridItem = null; }
     const deleteWrap = (ev: PointerEvent| MouseEvent)=>{
@@ -36,7 +36,7 @@
             initiator: document.querySelector(`.ux-grid-item[data-type=\"items\"][data-id=\"${gridItem?.id||""}\"]`)
         });
     }
-    
+
     //
     const fieldSet: Field[] = [
         {"name": "label", "label": "Label: ", "icon": "", "value": ""},
@@ -57,25 +57,6 @@
 
 <style lang="scss" type="scss">
 
-//
-//.ls-item-edit {
-    button {
-        padding: 0.5rem;
-        border-radius: 0.25rem;
-    }
-//}
 
-//
-.ls-but {
-    inline-size: stretch;
-    block-size: stretch;
-
-    display: grid;
-    grid-template-columns: minmax(0px, 1fr) minmax(0px, 1fr);
-    grid-template-rows: minmax(0px, max-content);
-    
-    gap: 1rem;
-    padding: 0.5rem;
-}
 
 </style>

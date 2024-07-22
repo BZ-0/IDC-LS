@@ -7,75 +7,70 @@
 
 //
 @layer ls-manager {
-
     //
     #manager {
-        
-        
-        
         //
         .file-list {
             @include cm.stretch;
             @include cm.align-center;
             @include cm.no-wrap;
-            
+
             //
             display: grid;
             grid-template-columns: minmax(0px, 2rem) minmax(0px, 1fr);
             grid-auto-rows: minmax(0px, 2rem);
             gap: 0rem 1rem;
             font-size: 0.8rem;
-            
+
             //
             align-content: start;
-            
+
             //
             .file {
                 @include cm.stretch;
                 @include cm.align-center;
                 @include cm.pe-enable;
                 @include cm.no-wrap;
-                
+
                 //
                 cursor: pointer;
-            
+
                 //
                 display: grid;
                 padding-inline: 1rem;
-                
+
                 //
                 grid-template-columns: subgrid;
                 grid-template-rows: minmax(0px, 1fr);
                 grid-column: 1 / -1;
-                
+
                 //
                 & * {
                     background-color: transparent;
                     @include cm.no-wrap;
                 }
-                
+
                 //
                 &.selected {
                     @include tm.ux-inverse;
                 }
-                
+
                 //
                 & .name {
                     text-align: start;
                     justify-self: start;
                 }
-                
+
                 //
                 & > * {
                     inline-size: max-content;
                     block-size: max-content;
-                    
+
                     //
                     max-inline-size: stretch;
                     max-block-size: stretch;
                 }
             }
         }
-        
     }
 }

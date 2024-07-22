@@ -6,7 +6,7 @@
     import {fade} from "svelte/transition";
     import {writable} from "svelte/store";
     import {onMount} from "svelte";
-    
+
     //
     export let hashIdName = $$props.hashIdName || "#app";
 </script>
@@ -23,13 +23,13 @@
             <LucideIcon inert={true} slot="icon" name={"chevron-down"}/>
         </div>
         <div data-transparent class="ux-title-handle" style="background-color: transparent;">
-            
+
         </div>
         <div data-transparent class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;">
             <LucideIcon inert={true} slot="icon" name={"menu"}/>
         </div>
     </div>
-    
+
     <slot></slot>
 
     <div class="ux-status" data-scheme="solid" data-highlight="2"></div>
@@ -38,5 +38,5 @@
 </div>
 
 <style type="scss">
-    
+
 </style>

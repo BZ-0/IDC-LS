@@ -12,45 +12,59 @@
         //
         @include cm.align-center;
         @include cm.pe-enable;
-    
+
         //
         --block-size: 2rem;
 
         //
         display: grid;
-        grid-template-columns: minmax(var(--block-size), max-content) minmax(max-content, 1fr) minmax(var(--block-size), max-content);
+        grid-template-columns:
+            minmax(var(--block-size), max-content)
+            minmax(max-content, 1fr)
+            minmax(var(--block-size), max-content );
         grid-template-rows: minmax(var(--block-size), max-content);
         overflow: hidden;
         min-inline-size: max-content;
         cursor: default;
         border-radius: 0.25rem;
-        
+
         //
-        &, input {
-            font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+        &,
+        input {
+            font-family:
+                Consolas,
+                Menlo,
+                Monaco,
+                Lucida Console,
+                Liberation Mono,
+                DejaVu Sans Mono,
+                Bitstream Vera Sans Mono,
+                Courier New,
+                monospace,
+                serif;
         }
-        
+
         //
         & .input-wrap {
             @include cm.stretch;
-            
+
             //
             @include u.clamped-height(var(--block-size), stretch, var(--block-size));
-            
+
             //
             background-color: var(--current-surface-color);
             overflow: visible;
         }
-        
+
         //
         & input {
             @include cm.stretch;
             @include cm.no-wrap;
-            
+
             //
             pointer-events: none;
             cursor: default;
-            
+
             //
             overflow: visible;
             min-inline-size: 3em;
@@ -60,39 +74,39 @@
             background: transparent;
             inline-size: max-content;
             max-inline-size: 4em;
-            
+
             appearance: textfield;
             visibility: visible;
-            
+
             //
             font-size: 0.8rem;
             color: var(--current-glyph-color);
-            
+
             //
             @include u.clamped-height(var(--block-size), stretch, var(--block-size));
         }
-        
+
         //
         & > * {
             @include cm.align-center;
             @include cm.stretch;
             @include cm.max-content-as-min;
-            
+
             //
             display: flex;
             padding: 0.5rem;
             background: transparent;
-            
+
             //
             @include u.clamped-height(var(--block-size), stretch, var(--block-size));
         }
-        
+
         //
         & > :is(.f-minus, .f-plus) {
             cursor: pointer;
             background-color: var(--current-surface-color) !important;
         }
-        
+
         //
         & > .icon-wrap {
             @include cm.stretch;

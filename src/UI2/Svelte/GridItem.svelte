@@ -32,7 +32,7 @@
     //
     onMount(()=>{
         const gest = new GestureControl(target);
-        
+
         //
         gest.longPress({
             anyPointer: true,
@@ -40,11 +40,11 @@
             minHoldTime: 60 * 3600,
             maxHoldTime: 100
         });
-        
+
         //
         target?.style?.setProperty?.("--cell-x", (gridItem?.cell?.[0] || 0) as unknown as string, "")
         target?.style?.setProperty?.("--cell-y", (gridItem?.cell?.[1] || 0) as unknown as string, "")
-        
+
         //
         whenMount();
     });

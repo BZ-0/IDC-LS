@@ -17,26 +17,26 @@ document.documentElement.addEventListener("contextmenu", (ev)=>{
 //
 document.documentElement.addEventListener("click", (ev)=>{
     const target = ev.target as HTMLElement;
-    
+
     //
     if (target.matches(".ux-app-frame *:not(.back-button, .menu-button)")) {
         //ev.stopPropagation();
         //ev.stopImmediatePropagation();
         //ev.preventDefault();
-        
+
         //
         //if (windowManager) {
             //windowManager?.focusTask?.("#" + MOCElement(target, ".ux-app-frame")?.querySelector(".ux-content")?.id||"");
         //}
     }
-    
+
     //
     if (target.matches(".ux-app-frame .menu-button")) {
         // kuril i umer
         ev.stopPropagation();
         ev.stopImmediatePropagation();
         ev.preventDefault();
-        
+
         //
         const content = MOCElement(target, ".ux-app-frame")?.querySelector?.(".ux-content");
         if (content) {
@@ -48,14 +48,14 @@ document.documentElement.addEventListener("click", (ev)=>{
             content.dispatchEvent(event);
         }
     }
-    
+
     //
     if (target.matches(".ux-app-frame .back-button")) {
         // kuril i umer
         ev.stopPropagation();
         ev.stopImmediatePropagation();
         ev.preventDefault();
-        
+
         //
         const content = MOCElement(target, ".ux-app-frame")?.querySelector?.(".ux-content");
         if (content) {
@@ -64,7 +64,7 @@ document.documentElement.addEventListener("click", (ev)=>{
                 bubbles: true,
                 detail: {}
             });
-            
+
             //
             if (content.dispatchEvent(event)) {
                 //if (windowManager) {
@@ -75,7 +75,6 @@ document.documentElement.addEventListener("click", (ev)=>{
             }
         }
     }
-    
 })
 
 //
@@ -84,12 +83,12 @@ const makeControl = (frameElement)=>{
     if (frameElement && !frameElement["@control"]) {
         gestureControl = new AxGesture(frameElement);
         frameElement["@control"] = gestureControl;
-        
+
         //
         gestureControl.draggable({
             handler: frameElement.querySelector(".ux-title-handle")
         });
-        
+
         //
         gestureControl.resizable({
             handler: frameElement.querySelector(".ux-resize")
@@ -100,7 +99,7 @@ const makeControl = (frameElement)=>{
     if (frameElement) {
         // @ts-ignore
         frameElement.style.setProperty("--drag-x", -(Math.max(frameElement.clientWidth, (64*16 * zoomOf())) / 2) + frameElement.parentNode.offsetWidth / 2, "");
-        
+
         // @ts-ignore
         frameElement.style.setProperty("--drag-y", -(Math.max(frameElement.clientHeight, (36*16 * zoomOf())) / 2) + frameElement.parentNode.offsetHeight / 2, "");
     }

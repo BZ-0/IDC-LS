@@ -32,18 +32,16 @@
         container-type: size;
         contain: none;
         display: grid;
-        
+
         //
         transition: --value-mod 100ms linear;
-        
+
         //
-        grid-template-columns: 
-            [space-l] calc(var(--thumb-size) * 0.5) 
-            [fillT] calc(100% * var(--value-mod) - var(--thumb-size) * 0.5) 
-            [track] minmax(0px, 1fr) 
-            [space-r] calc(var(--thumb-size) * 0.5);
+        grid-template-columns: [space-l] calc(var(--thumb-size) * 0.5) [fillT] calc(
+                100% * var(--value-mod) - var(--thumb-size) * 0.5
+            ) [track] minmax(0px, 1fr) [space-r] calc(var(--thumb-size) * 0.5);
         grid-template-rows: minmax(0px, 1fr);
-        
+
         //
         overflow: visible;
         position: relative;
@@ -56,60 +54,59 @@
         //background-color: var(--current-surface-color);
         accent-color: var(--current-glyph-color);
         color: var(--current-glyph-color);
-        
+
         //
         & * {
             background-color: transparent;
         }
-        
+
         //
         &::after {
             @include cm.stretch;
-        
+
             //
             content: "";
             display: block;
-            
+
             //
             grid-column: space-r;
             grid-row: 1 / 1 span;
         }
-        
+
         //
         &::before {
             @include cm.stretch;
-        
+
             //
             content: "";
             display: block;
-            
+
             //
             grid-column: space-l;
             grid-row: 1 / 1 span;
         }
-        
-        
+
         //
         .thumb {
             @include cm.pe-none;
-            
+
             background-color: var(--current-surface-color);
             z-index: 9;
         }
-        
+
         //
         .icon-sign {
             @include cm.align-center;
             @include cm.pe-none;
-            
+
             //
             justify-self: start;
             grid-column: track;
             grid-row: 1 / 1 span;
-            
+
             //
             translate: calc(0px - 50%) 0px;
-            
+
             //
             display: flex;
             stroke: var(--current-glyph-color);
@@ -118,13 +115,13 @@
             padding: 0.125rem;
             border-radius: calc(var(--thumb-size) * 0.45);
             //aspect-ratio: 1 / 1;
-            
+
             //
             inline-size: var(--thumb-size);
             block-size: 110cqmin;
             max-inline-size: var(--thumb-size);
             max-block-size: 110cqmin;
-            
+
             //
             & > * {
                 @include cm.stretch;
@@ -135,28 +132,28 @@
                 stroke: var(--current-glyph-color);
             }
         }
-        
+
         //
         & .fill {
             @include cm.stretch;
             @include cm.pe-none;
-            
+
             //
             grid-column: 2 / 3;
             grid-row: 1 / 1 span;
-            
+
             //
             border-radius: 0.25rem 0px 0px 0.25rem;
-            
+
             //
             inset: 0px;
             transition: inline-size 100ms linear;
-            
+
             //
             background-color: var(--current-surface-color);
             z-index: 1;
         }
-        
+
         //
         & .track {
             @include cm.stretch;
@@ -164,30 +161,30 @@
 
             //
             @include tm.ux-inverse;
-            
+
             //
             grid-column: 2 / 2;
             grid-row: 1 / 1 span;
-            
+
             //
             border-radius: 0.25rem 0px 0px 0.25rem;
-            
+
             //
             inset: 0px;
             transition: inline-size 100ms linear;
-            
+
             //
             background-color: var(--current-surface-color);
             z-index: 2;
         }
-        
+
         //
         input[type="range"]::-moz-range-thumb,
-        input[type="range"]::-webkit-slider-thumb{
+        input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             block-size: stretch;
             inline-size: var(--thumb-size);
-            
+
             //
             touch-action: manipulation;
             -webkit-user-drag: auto;
@@ -199,27 +196,26 @@
         input {
             @include cm.stretch;
             @include cm.pe-enable;
-            
+
             //
             padding: 0px;
             border: none 0px transparent;
             position: relative;
             //inset-inline: var(--thumb-size);
-            
+
             //
             //touch-action: manipulation;
             //-webkit-user-drag: auto;
             //-moz-user-drag: auto;
             //user-select: none;
-            
+
             //
             grid-column: 1 / 4 span;
             grid-row: 1 / 1 span;
-            
+
             //
             opacity: 0;
             cursor: pointer;
         }
     }
-
 }

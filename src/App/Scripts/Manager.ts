@@ -63,13 +63,13 @@ const files = new Map([]);
 //
 export const getFileList = async (exists, state)=>{
     let wall = null;
-    
+
     //
     if (exists) { wall = exists; } else {
         const root = await navigator?.storage?.getDirectory?.();
         wall = await root?.getDirectoryHandle?.("images");
     }
-    
+
     //
     const it = await wall?.entries();//getFileHandle()
     const entries = [];
@@ -77,7 +77,7 @@ export const getFileList = async (exists, state)=>{
         const v = (await it.next())?.value;
         if (!v) break; entries.push(v);
     }
-    
+
     //
     if (entries) {
         await Promise.all(entries.filter(([fn,fm])=>(fm instanceof FileSystemFileHandle)).map(async ([fn,fm])=>{
@@ -95,10 +95,10 @@ export const selectFileEv = (ev, state)=>{
     document.querySelectorAll("#manager .file").forEach((el)=>{
         el.classList.remove("selected");
     });
-    
+
     //
     ev.target.classList.add("selected");
-    
+
     //
     state.selectedFilename = ev.target.dataset.filename;
 }
@@ -127,25 +127,25 @@ export const addItemEv = (ev, state)=>{
                 //
                 const root = await navigator?.storage?.getDirectory?.();
                 const wall = await root?.getDirectoryHandle?.("images");
-                
+
                 //
                 const fn = blob?.name || "wallpaper";
                 const fw = await (await wall?.getFileHandle?.(fn, {
                     create: true,
                 }))?.createWritable?.();
-                
+
                 //
                 await fw?.write?.(blob);
                 await fw?.flush?.();
                 await fw?.close?.();
-                
+
                 //
                 files.set(fn, blob);
 
                 //
                 state.selectedFilename = fn;
                 state.fileList = files;
-                
+
                 //
                 await getFileList(wall, state);
             }
@@ -161,12 +161,12 @@ export const removeItemEv = (ev, state)=>{
                 const root = await navigator?.storage?.getDirectory?.();
                 const wall = await root?.getDirectoryHandle?.("images");
                 await wall?.removeEntry?.(selectedFilename);
-                
+
                 //
                 files.delete(selectedFilename);
                 state.selectedFilename = null;
                 state.fileList = files;
-                
+
                 //
                 await getFileList(wall, state);
             }

@@ -2,7 +2,7 @@
     import {onMount} from "svelte";
     import type {Field} from "@idc/Scripts/ItemEdit.ts";
     import { observeBySelector } from "@unite/scripts/dom/Observer.ts";
-    
+
     //
     export let whatEdit: object | any | null = null;
     export let fields: Field[] = [];
@@ -19,14 +19,14 @@
             }
         }
     }
-    
+
     //
     export const synchronize = (whatFrom: object | any | null = null)=>{
         //
         if (whatFrom && whatFrom != whatEdit) {
             whatEdit = whatFrom;
         }
-        
+
         //
         if (whatEdit) {
             for (const F of fields) {
@@ -37,7 +37,7 @@
             fields = fields;
         }
     }
-    
+
     //
     $: whatEdit ? synchronize() : null;
 

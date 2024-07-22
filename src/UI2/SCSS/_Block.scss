@@ -18,17 +18,17 @@
         //
         display: grid;
         box-sizing: border-box;
-        
+
         //
         grid-template-columns: var(--decor-size) minmax(0px, 1fr) var(--decor-size);
         grid-template-rows: var(--decor-size);
         block-size: var(--decor-size);
-        
+
         //
         padding: 0px;
         margin: 0px;
         cursor: pointer;
-        
+
         //
         justify-content: space-between;
         min-inline-size: max-content;
@@ -38,13 +38,13 @@
             @include cm.align-center;
             @include cm.pe-none;
             @include cm.no-wrap;
-            
+
             //
             inline-size: stretch;
             max-inline-size: stretch;
             min-inline-size: max-content;
             min-block-size: max-content;
-            
+
             //
             box-sizing: border-box;
             background-clip: border-box;
@@ -54,7 +54,7 @@
             padding-inline: calc(var(--decor-size) * 0.3);
             padding-block: calc(var(--decor-size) * 0.3);
             overflow: visible;
-            
+
             // stretch or moz-available works buggy
             @-moz-document url-prefix() {
                 inline-size: min(100%, 100cqi);
@@ -62,20 +62,20 @@
                 max-block-size: min(100%, 100cqb);
             }
         }
-        
-        & > *:where([data-place="label"],:not([data-place])) {
+
+        & > *:where([data-place="label"], :not([data-place])) {
             @include cm.align-inline-left;
-			@include cm.no-wrap;
+            @include cm.no-wrap;
             @include cm.stretch;
-            
+
             //
             padding-inline: calc(var(--decor-size) * 0.2);
         }
-        
+
         //
         & > *[data-place="element"] {
             @include cm.align-center;
-            
+
             //
             min-inline-size: max-content;
             inline-size: max-content;
@@ -84,7 +84,7 @@
 
             justify-self: end;
         }
-        
+
         //
         & > *[data-place="icon"] {
             color: var(--current-glyph-color);
@@ -94,22 +94,47 @@
 
             justify-self: start;
         }
-        
+
         //
-        & > *[data-place="icon"]                             { @include cm.stretch; grid-column: 1 / span 1; grid-row: 1 / span 1; }
-        & > *[data-place="element"]                          { @include cm.stretch; grid-column: 3 / span 3; grid-row: 1 / span 1; }
-        & > *:where([data-place="label"],:not([data-place])) { @include cm.stretch; grid-column: 2 / span 2; grid-row: 1 / span 1; }
-        
+        & > *[data-place="icon"] {
+            @include cm.stretch;
+            grid-column: 1 / span 1;
+            grid-row: 1 / span 1;
+        }
+
+        & > *[data-place="element"] {
+            @include cm.stretch;
+            grid-column: 3 / span 3;
+            grid-row: 1 / span 1;
+        }
+
+        & > *:where([data-place="label"], :not([data-place])) {
+            @include cm.stretch;
+            grid-column: 2 / span 2;
+            grid-row: 1 / span 1;
+        }
+
         //
         &.layout-alt {
             grid-template-columns: minmax(var(--decor-size), max-content) minmax(0px, 1fr);
             grid-template-rows: minmax(var(--decor-size), max-content) minmax(var(--decor-size), max-content);
-            
+
             //
-            & > *[data-place="icon"]                             { grid-column: 1 / span 1; grid-row: 1 / span 2; }
-            & > *[data-place="element"]                          { grid-column: 2 / span 2; grid-row: 2 / span 2; }
-            & > *:where([data-place="label"],:not([data-place])) { grid-column: 2 / span 2; grid-row: 1 / span 1; justify-self: start; }
+            & > *[data-place="icon"] {
+                grid-column: 1 / span 1;
+                grid-row: 1 / span 2;
+            }
+
+            & > *[data-place="element"] {
+                grid-column: 2 / span 2;
+                grid-row: 2 / span 2;
+            }
+
+            & > *:where([data-place="label"], :not([data-place])) {
+                grid-column: 2 / span 2;
+                grid-row: 1 / span 1;
+                justify-self: start;
+            }
         }
-        
     }
 }

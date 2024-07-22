@@ -1,0 +1,32 @@
+//
+@use "@unite/scss/core/Utils" as u;
+@use "@unite/scss/core/ClassMods" as cm;
+
+//
+@use "@unite/scss/design/ColorTheme";
+
+//
+@layer ls-icon-edit {
+    .ls-icon-edit {
+
+        //
+        button {
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+        }
+
+        //
+        .ls-but {
+            inline-size: stretch;
+            block-size: stretch;
+
+            display: grid;
+            grid-template-columns: minmax(0px, 1fr) minmax(0px, 1fr);
+            grid-template-rows: minmax(0px, max-content);
+
+            gap: 1rem;
+            padding: 0.5rem;
+        }
+
+    }
+}

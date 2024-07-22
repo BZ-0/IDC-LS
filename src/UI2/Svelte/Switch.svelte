@@ -31,11 +31,11 @@
 </script>
 
 <!-- -->
-<label  bind:this={target} class="ux-input ux-switch" data-scheme data-highlight="1" {...propsFilter($$props)}>
-    <input 
-        on:change={_whenChange} 
-        on:input={_whenChange} 
-        type="range" 
+<label bind:this={target} class="ux-input ux-switch" data-scheme data-highlight="1" {...propsFilter($$props)}>
+    <input
+        on:change={_whenChange}
+        on:input={_whenChange}
+        type="range"
         min={-1} max={1} step={1}>
     <div class="fill" data-scheme data-highlight="1"></div>
     <div class="track" data-scheme data-highlight="1"></div>

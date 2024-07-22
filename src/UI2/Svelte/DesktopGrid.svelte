@@ -66,7 +66,7 @@
 
         //
         changeLayout();
-        
+
         //
         observeBorderBox(gridPage, (box)=>{
             const idc = 0;
@@ -80,36 +80,6 @@
             gridPage?.style?.setProperty?.(["--grid-w", "--grid-h"][idc], box.inlineSize as unknown as string, "")
             gridPage?.style?.setProperty?.(["--grid-h", "--grid-w"][idc], box.blockSize as unknown as string, "")
         })
-
-        //
-        target?.addEventListener("dragenter", (ev)=>{
-            if (document.elementFromPoint(ev.clientX, ev.clientY)?.matches?.(".ux-grid-desktop, canvas[is=\"w-canvas\"]")) {
-                ev.preventDefault();
-            }
-        });
-        
-        //
-        target?.addEventListener("dragover", (ev)=>{
-            if (document.elementFromPoint(ev.clientX, ev.clientY)?.matches?.(".ux-grid-desktop, canvas[is=\"w-canvas\"]")) {
-                ev.preventDefault();
-            }
-        });
-        
-        //
-        target?.addEventListener("drop", (ev)=>{
-            if (document.elementFromPoint(ev.clientX, ev.clientY)?.matches?.(".ux-grid-desktop, canvas[is=\"w-canvas\"]")) {
-                ev.preventDefault();
-                
-                //
-                const {dataTransfer} = ev;
-                const file = dataTransfer?.files?.[0];
-                if (file != null) {
-                    const wallpaper = document.querySelector("canvas[is=\"w-canvas\"]");
-                    wallpaper?.["$useImageAsSource"]?.(file);
-                }
-            }
-        });
-
     });
 
 </script>
@@ -119,7 +89,7 @@
 
 <!-- -->
 <div bind:this={target} data-transparent data-current-page={current} data-ctx="grid-space" data-scheme="accent-inverse" class="ux-desktop-grid stretch grid-based-box pe-enable">
-    
+
     <div bind:this={gridPage} class="ux-grid-layout ux-grid-page" data-transparent>
         <!-- -->
         {#each items.values() as item (item.id)}
@@ -137,6 +107,6 @@
             {/if}
         {/each}
     </div>
-    
+
 </div>
 

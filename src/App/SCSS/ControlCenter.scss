@@ -7,12 +7,11 @@
 
 //
 @layer ls-control-center {
-
     //
     #control-center {
         @include cm.contain-size;
 
-    	//
+        //
         display: grid;
         grid-template-columns: 0px minmax(0px, 1fr);
         grid-template-rows: minmax(0px, 1fr);
@@ -22,56 +21,58 @@
         overflow: hidden;
 
         //
-        &[data-current-page="wallpapers"] .ls-tab-item[data-page="wallpapers"], 
-        &[data-current-page="settings"] .ls-tab-item[data-page="settings"]
-        { @include tm.ux-inverse; }
+        &[data-current-page="wallpapers"] .ls-tab-item[data-page="wallpapers"],
+        &[data-current-page="settings"] .ls-tab-item[data-page="settings"] {
+            @include tm.ux-inverse;
+        }
 
         //
-        .ls-screen { 
-            @include cm.stretch; 
+        .ls-screen {
+            @include cm.stretch;
             @include tm.ux-solid;
-            
+
             //
             grid-column: 2 / 2 span;
             grid-row: 1 / 1 span;
             display: grid;
-            
+
             //
             grid-template-columns: minmax(0px, 1fr);
             grid-template-rows: minmax(0px, 2.5rem);
-            
+
             //
             .ls-space {
                 @include cm.stretch;
-                
-                
+
                 grid-row: 2 / 2 span;
             }
-            
+
             //
             .ls-nav {
-                @include cm.stretch; 
+                @include cm.stretch;
                 @include cm.align-center;
-                
+
                 //
                 display: flex;
                 flex-direction: row;
                 grid-row: 1 / 1 span;
-                
+
                 //
                 justify-content: start;
-                
+
                 //
                 .f-space {
-                    @include cm.stretch; 
+                    @include cm.stretch;
+
+                    //
                     flex-grow: 1;
                 }
-                
+
                 //
                 button {
                     @include cm.align-center;
                     @include cm.no-wrap;
-                
+
                     //
                     padding: 0.5rem;
                     box-sizing: border-box;
@@ -81,10 +82,10 @@
                     max-block-size: 3rem;
                     padding-inline: 1rem;
                     gap: 0.4rem;
-                    
+
                     //
                     font-size: clamp(0.5rem, 2cqi, 0.8rem);
-                    
+
                     //
                     & * {
                         @include cm.align-center;
@@ -94,31 +95,30 @@
                         block-size: fallback(stretch, 100%);
                     }
                 }
-                
             }
         }
 
         //
         .ls-panel {
-            @include cm.stretch; 
-            
+            @include cm.stretch;
+
             //
             display: flex;
             flex-direction: column;
             grid-column: 1 / 1 span;
-            
+
             //
             inline-size: min(16rem, 100cqi);
             max-inline-size: none;
-            
+
             //
             z-index: 9;
             box-shadow: 0px 0px 1rem rgb(from #000000 r g b / 0.2);
-    
+
             //
             padding: 0px;
             gap: 0px;
-    
+
             //
             .ls-tab-item {
                 --decor-size: 4rem;
@@ -127,7 +127,7 @@
                 grid-column: 1 / 3 span;
                 grid-row: auto;
             }
-            
+
             //
             @media #{d.$isMobile} {
                 inline-size: 100cqi;

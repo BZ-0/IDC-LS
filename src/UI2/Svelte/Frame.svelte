@@ -2,29 +2,19 @@
     import type {Readable, Writable} from "svelte/store";
     import {writable} from "svelte/store";
     import {fade} from "svelte/transition";
-    
+
     //
     const FocusSelector = ".ux-modal-frame, .ux-modal, .ux-editor, input, button";
     const DNBSelector = "input[type=\"text\"], .ux-editor, input, button";
-    
+
     //
     let modalFrame: HTMLElement | null = null;
     export let self = null;
 
     //
-    document.documentElement.addEventListener("contextmenu", (ev)=>{
-		const target = ev.target as HTMLElement;
-		if ((target?.matches?.(".ux-modal-frame") || target?.closest?.(".ux-modal-frame")) && !target.matches("input[type=\"text\"]")) {
-			ev.stopPropagation();
-			ev.stopImmediatePropagation();
-			ev.preventDefault();
-		}
-	}, {capture: true});
-    
-    //
     document.addEventListener("click", (ev)=>{
         const target: HTMLElement = ev.target as HTMLElement;
-        
+
         //
         if (!(modalFrame == target || target.matches(FocusSelector) || target.closest(FocusSelector)) && !(document?.activeElement?.matches(DNBSelector) || target.matches(DNBSelector) || target.closest(DNBSelector)) || target.matches(".ux-modal-frame button")) {
             // @ts-ignore
@@ -34,7 +24,7 @@
             }
         }
     });
-    
+
 </script>
 
 <script context="module">

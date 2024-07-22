@@ -22,13 +22,13 @@ const hideAllCtx = ()=>{
 }
 
 //
-document.addEventListener("contextmenu", (ev)=>{
+document.documentElement.addEventListener("contextmenu", (ev)=>{
     const target = ev.target as HTMLElement;
-    
+
     //
     ev.stopPropagation();
     ev.preventDefault();
-    
+
     //
     hideAllCtx();
 
@@ -36,7 +36,7 @@ document.addEventListener("contextmenu", (ev)=>{
     if (target.matches("*[data-ctx]")) {
         const ctxName = target.dataset.ctx;
         initiators.set(ctxName, target);
-        
+
         //
         requestAnimationFrame(()=>{
             const ctxMenu: HTMLElement | null = document.querySelector(".ux-context-menu[data-ctx-name=\""+ctxName+"\"]");
@@ -47,18 +47,28 @@ document.addEventListener("contextmenu", (ev)=>{
             }
         })
     }
-});
+}, {capture: true});
+
+//
+document.documentElement.addEventListener("contextmenu", (ev)=>{
+    const target = ev.target as HTMLElement;
+    if ((target?.matches?.(".ux-modal-frame") || target?.closest?.(".ux-modal-frame")) && !target.matches("input[type=\"text\"]")) {
+        ev.stopPropagation();
+        ev.stopImmediatePropagation();
+        ev.preventDefault();
+    }
+}, {capture: true});
 
 //
 const onClick = (ev)=>{
     const target = ev.target as HTMLElement;
-    
+
     //
     const initiator = initiators.get(target.closest(".ux-context-menu").dataset.ctxName);
     actionMap?.get?.(target.dataset.action as string)?.({
         initiator
     });
-    
+
     //
     hideAllCtx();
 }

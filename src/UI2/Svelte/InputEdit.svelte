@@ -3,15 +3,15 @@
     import LucideIcon from "@idc/UI2/Svelte/WLucideIcon.svelte";
 </script>
 
-<div 
-    class="ux-editor fixed" 
+<div
+    class="ux-editor fixed"
     data-hidden={true}
     data-scheme="transparent"
     {...propsFilter($$props)}
 >
     <div data-scheme="solid" class="field-content stretch" style="grid-row: field-edit;">
         <div class="field-wrap">
-            <input 
+            <input
                 autofocus={true}
                 autocomplete="off"
                 type="text"

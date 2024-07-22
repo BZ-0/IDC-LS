@@ -7,7 +7,7 @@
     //
     import LucideIcon from '@idc/UI2/Svelte/WLucideIcon.svelte';
     import Block from '@idc/UI2/Svelte/Block.svelte';
-    
+
     //
     import { writable } from "svelte/store";
     import { fade } from "svelte/transition";
@@ -15,7 +15,7 @@
     //
     import Manager from "./Manager.svelte";
     import Settings from "./Settings.svelte";
-    
+
     //
     const UIState = States.getState("UIState");
 
@@ -33,7 +33,7 @@
     //
     let panelEl = null;
     let controlEl = null;
-    
+
     //
     const tabs = [{
         "page": "settings",
@@ -73,15 +73,14 @@
             {/each}
         </x-scrollbox>
     {/if}
-    
+
     {#if ["settings"].indexOf(currentPage) >= 0}
         <Settings></Settings>
     {/if}
-    
+
     {#if ["wallpapers"].indexOf(currentPage) >= 0}
         <Manager></Manager>
     {/if}
-    
 </div>
 
 <style type="scss" lang="scss">

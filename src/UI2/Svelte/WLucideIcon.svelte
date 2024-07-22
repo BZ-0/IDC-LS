@@ -1,14 +1,14 @@
 <script type="ts" lang="ts">
     import * as icons from 'lucide-svelte';
-    
+
     //
     export let name = "";
-    
+
     //
     const camelize = (str) => {
         return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase());
     }
-    
+
     //
     const fup = (str)=>{
         return str.charAt(0).toUpperCase() + str.slice(1);

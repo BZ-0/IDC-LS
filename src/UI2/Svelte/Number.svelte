@@ -31,15 +31,15 @@ onMount(()=>{
         <LucideIcon inert={true} name={"chevron-left"}/>
     </button>
     <div class="input-wrap hl-ms">
-        <input 
+        <input
             bind:this={input}
-            min={$$props.min} 
-            max={$$props.max} 
-            step={$$props.step} 
-            inert={true} 
-            type="number" 
-            inputmode="numeric" 
-            pattern="\d*" 
+            min={$$props.min}
+            max={$$props.max}
+            step={$$props.step}
+            inert={true}
+            type="number"
+            inputmode="numeric"
+            pattern="\d*"
             virtualkeyboardpolicy="manual"
         />
     </div>
