@@ -27,6 +27,7 @@ const loading = Promise.allSettled([
 ]);
 
 //
+/*
 import App from "./Main.svelte";
 import {mount} from 'svelte';
 
@@ -34,3 +35,12 @@ import {mount} from 'svelte';
 export default loading.then(() => {
     mount(App, {target: document.body});
 });
+*/
+
+//
+import { createApp } from "vue";
+import App from "./Main.vue";
+
+//
+const app = createApp(App);
+app.mount(document.body);

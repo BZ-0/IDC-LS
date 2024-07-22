@@ -28,6 +28,7 @@
         "glob": "^10.4.2",
         "jsox": "^1.2.119",
         "lucide-svelte": "^0.407.0",
+        "lucide-vue-next": "^0.414.0",
         "postcss-fallback": "^0.1.0",
         "rangetouch": "^2.0.1",
         "rimraf": "^5.0.7",

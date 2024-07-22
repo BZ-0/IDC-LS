@@ -16,18 +16,18 @@ const initGrab = (ev)=> {
 
     //
     if (ev.target?.dataset?.id) {
-        const item = state.items?.get(ev.target.dataset.id);
+        const item = state?.items?.get(ev.target.dataset.id);
         if (item) { item.pointerId = ev.pointerId; }
 
         //
         const el = ev.target;
-        el.style.setProperty("--cell-x", item?.cell[0] || 0, "");
-        el.style.setProperty("--cell-y", item?.cell[1] || 0, "");
-        el.style.setProperty("--p-cell-x", item?.cell[0] || 0, "");
-        el.style.setProperty("--p-cell-y", item?.cell[1] || 0, "");
-
-        //
-        grabForDrag(el, item);
+        if (item) {
+            el.style.setProperty("--cell-x", item?.cell[0] || 0, "");
+            el.style.setProperty("--cell-y", item?.cell[1] || 0, "");
+            el.style.setProperty("--p-cell-x", item?.cell[0] || 0, "");
+            el.style.setProperty("--p-cell-y", item?.cell[1] || 0, "");
+            grabForDrag(el, item);
+        }
     }
 }
 
@@ -68,7 +68,7 @@ document.documentElement.addEventListener("long-press", (ev)=>{
 const placeElement = async ({pointer, holding})=>{
     const el = holding.element.deref();
     const id = el.dataset.id;
-    
+
     //
     const state = States.getState(el.closest(".ux-desktop-grid"));
     const current = "main"; //TODO! bind `current` with state.
@@ -76,7 +76,7 @@ const placeElement = async ({pointer, holding})=>{
     //
     const bbox = el.closest(".ux-grid-page").getBoundingClientRect();
     const xy: [number, number] = [pointer.current[0] - (bbox?.left || 0), pointer.current[1] - (bbox?.top || 0)];
-    
+
     //
     const prev = [...(state.items?.get?.(id)?.cell || [0, 0])];
     const item: GridItemType = state.items?.get(id) as unknown as GridItemType;
@@ -85,13 +85,13 @@ const placeElement = async ({pointer, holding})=>{
     //
     if (state.items) { putToCell({ items: state.items, item, page }, xy); }
     if (item) { item.pointerId = -1; }
-    
+
     //
     el.style.setProperty("--p-cell-x", prev[0], "");
     el.style.setProperty("--p-cell-y", prev[1], "");
     el.style.setProperty("--cell-x", (item?.cell?.[0] || 0) as unknown as string, "");
     el.style.setProperty("--cell-y", (item?.cell?.[1] || 0) as unknown as string, "");
-    
+
     //
     await el.animate(animationSequence(), {
         fill: "none",
@@ -103,18 +103,18 @@ const placeElement = async ({pointer, holding})=>{
     //
     el.style.setProperty("--drag-x", 0, "");
     el.style.setProperty("--drag-y", 0, "");
-    
+
     //
     if (!state.lists?.get?.(current)?.has?.(id)) {
         const oldList = Array.from(state.lists?.values()||[]).find((L)=>{
             return L.has(id);
         });
-        
+
         //
         if (oldList) {
             oldList.delete(id);
             state.lists?.get?.(current)?.add?.(id);
-            
+
             // trigger re-draw
             state.lists = lists;
             state.items = items;

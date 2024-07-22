@@ -1,7 +1,6 @@
 <script setup>
 import GestureControl from "@unite/scripts/interact/Gesture.ts";
 import {reactive, watch, ref, onMounted} from "vue";
-import LucideIcon from "./WLucideIcon.vue";
 
 //
 const props = defineProps({
@@ -22,8 +21,6 @@ watch(() => gridItem, (newVal, oldVal) => { for (const k in newVal) { if (props.
 
 //
 const elRef = ref(null);
-
-//
 watch(() => gridItem?.cell, (newVal, oldVal)=>{
     elRef.value?.style?.setProperty?.("--cell-x", (newVal?.[0] || 0), "")
     elRef.value?.style?.setProperty?.("--cell-y", (newVal?.[1] || 0), "")
@@ -31,18 +28,6 @@ watch(() => gridItem?.cell, (newVal, oldVal)=>{
 
 //
 onMounted(()=>{
-    //
-    if (elRef.value) {
-        const gest = new GestureControl(elRef.value);
-        gest.longPress({
-            anyPointer: true,
-            mouseImmediate: true,
-            minHoldTime: 60 * 3600,
-            maxHoldTime: 100
-        });
-    }
-
-    //
     elRef.value?.style?.setProperty?.("--cell-x", (gridItem?.cell?.[0] || 0), "")
     elRef.value?.style?.setProperty?.("--cell-y", (gridItem?.cell?.[1] || 0), "")
 });
@@ -52,16 +37,13 @@ onMounted(()=>{
 <template>
     <div
         ref="elRef"
-        @click="props.onClick"
         :data-id="gridItem.id"
         :data-action="gridItem.action"
         :data-href="gridItem.href"
         :data-type="props.type"
-        data-ctx="grid-item"
-        data-scheme="accent-inverse"
-        class="ux-grid-item wavy-shaped">
-
-        <LucideIcon :name="gridItem.icon"></LucideIcon>
-
+        data-scheme="transparent"
+        class="ux-grid-item-label"
+        inert>
+    {{ gridItem.label }}
     </div>
 </template>
