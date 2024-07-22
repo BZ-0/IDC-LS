@@ -160,7 +160,9 @@ const actionMap = new Map<string, Function>([
             //
             state.items.delete(ID);
             state.items = state.items;
-            onEditItem.set(null);
+
+            //
+            UIState.itemOnEdit = null;
 
             //
             for (const L of state.lists) {
@@ -197,7 +199,7 @@ const actionMap = new Map<string, Function>([
             state.lists = state.lists;
 
             //
-            onEditItem.set(newItem);
+            UIState.itemOnEdit = newItem;
         }
     }],
 
