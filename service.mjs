@@ -55,12 +55,12 @@ const _WARN_ = (...args) => {
 
 //
 const tryFetch = (req, event) => {
-    const sendResponse = (response) => {
+    const sendResponse = async (response) => {
         let resp = response?.clone?.()?.catch?.((e)=>{
-            console.warn(e)
+            console.warn(e);
             return response;
         }) || response;
-        caches.open(RUNTIME).then(async (c)=>c.add(await response).catch(_WARN_));
+        caches.open(RUNTIME).then(async (c)=>c.add(await resp).catch(_WARN_));
         return resp;
     };
 
@@ -70,7 +70,7 @@ const tryFetch = (req, event) => {
         const ctime = !navigator.onLine || (navigator?.connection?.effectiveType == "slow-2g") ? 1000 : NETWORK_TIMEOUT_MS;
         const fc = new Promise((resolve, reject) =>setTimeout(() => reject(null), ctime)).catch(_WARN_);
         const fp = fetch(req?.url ?? req, {
-            cache: "no-store",
+            //cache: "no-store",
             signal: AbortSignal.timeout(ctime + 2000),
             mode: isSameOrigin(req?.url ?? req) ? "same-origin" : "cors",
         }).then(sendResponse).catch(_WARN_);
@@ -143,7 +143,6 @@ const preloadNeeded = (list) => {
 
 //
 const PRE_CACHE_FORCE = [
-    /* webpackIgnore: true */ "/service.mjs",
     /* webpackIgnore: true */ "/index.html",
     /* webpackIgnore: true */ "/favicon.png",
     /* webpackIgnore: true */ "/manifest-pwa.json",
