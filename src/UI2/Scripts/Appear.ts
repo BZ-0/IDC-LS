@@ -3,7 +3,7 @@ import { observeBySelector } from "@unite/scripts/dom/Observer.ts";
 //
 const computed = Symbol("@computed");
 const animateHide = async (target)=>{
-    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !target.classList.contains("ux-while-animation")) {
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !target.classList.contains("ux-while-animation") && !target.hasAttribute("data-instant")) {
         target.classList.add("ux-while-animation");
     }
 
@@ -55,7 +55,7 @@ const animateHide = async (target)=>{
 
 //
 const animateShow = async (target)=>{
-    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !target.classList.contains("ux-while-animation")) {
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !target.classList.contains("ux-while-animation") && !target.hasAttribute("data-instant")) {
         target.classList.add("ux-while-animation");
     }
 

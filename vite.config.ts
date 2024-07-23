@@ -49,7 +49,13 @@ const config = <UserConfig>defineConfig({
         },
     },
     plugins: [
-        vue(),
+        vue({
+            template: {
+                compilerOptions: {
+                    isCustomElement: (tag) => ['x-scrollbox'].includes(tag),
+                }
+            }
+        }),
         //analyzer(),
         nodePolyfills(),
         compression({

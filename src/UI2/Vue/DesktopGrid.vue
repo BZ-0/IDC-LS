@@ -16,11 +16,30 @@
         actionMap: Object
     });
 
-    // use same pattern...
+    //
+    let current = "main";
+
+    //
+    const isItemInList = (id)=>{
+        const item = typeof id == "string" ? props.state.items.get(id) : id;
+        const ptr = item.pointerId;
+        return props.state.lists.get(current)?.has?.(item.id) || (ptr != null && ptr >= 0);
+    }
+    const getItems = (items)=>{ return Array.from(items.values()).filter((item)=>isItemInList(item)); }
+
+    //
+    const items = ref(null);
     const state = reactive({...props.state}); // react from vue
-    props.state?.["@subscribe"]?.((v,p)=>{ if (state[p] !== v) { state[p] = v; } }); // react to vue
+    props.state?.["@subscribe"]?.((v,p)=>{ if (state[p] !== v) {
+        state[p] = v;
+
+        // deep reactivity not supported...
+        if (p == "items") items.value = getItems(v); }
+    }); // react to vue
     watch(() => state, (newVal, oldVal) => { for (const k in newVal) { if (props.state[k] !== newVal[k]) { props.state[k] = newVal[k]; } } }, {deep: true});
     // please, save such pattern for future!
+
+    items.value = getItems(props.state.items);
 
     // read-only, skip ir-reactivity...
     const $settings = States.getState("settings");
@@ -32,7 +51,6 @@
     //
     const elRef = ref(null);
     const gpRef = ref(null);
-    let current = "main";
 
     //
     const changeLayout = ()=>{
@@ -51,13 +69,6 @@
         actionMap?.get?.(target.dataset.action)?.({
             initiator: target
         });
-    }
-
-    //
-    const isItemInList = (id)=>{
-        const item = typeof id == "string" ? props.state.items.get(id) : id;
-        const ptr = item.pointerId;
-        return props.state.lists.get(current)?.has?.(item.id) || (ptr != null && ptr >= 0);
     }
 
     //
@@ -85,10 +96,6 @@
     //
     const wp = localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg";
 
-    //
-    const getItems = (items)=>{ return Array.from(items.values()).filter((item)=>isItemInList(item)); }
-    const items = computed(()=> getItems(state.items));
-
 </script>
 
 <!-- -->
@@ -97,11 +104,11 @@
     <div ref="elRef" data-transparent :data-current-page="current" data-ctx="grid-space" data-scheme="accent-inverse" class="ux-desktop-grid stretch grid-based-box pe-enable">
 
         <div class="ux-grid-layout ux-grid-page" data-transparent>
-            <GridItemLabel v-for="item in items" v-if="state.items" type="labels" :gridItem="item"></GridItemLabel>
+            <GridItemLabel v-if="items" v-for="item in items" type="labels" :gridItem="item"></GridItemLabel>
         </div>
 
         <div ref="gpRef" class="ux-grid-layout ux-grid-page" data-transparent>
-            <GridItem v-for="item in items" v-if="state.items" type="items" :onClick="onItemClick" :gridItem="item"></GridItem>
+            <GridItem v-if="items" v-for="item in items" type="items" :onClick="onItemClick" :gridItem="item"></GridItem>
         </div>
     </div>
 </template>

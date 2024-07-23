@@ -11,12 +11,12 @@
     //
     /*
     import StatusBar from "@idc/UI2/Vue/StatusBar.vue";
-    import AppFrame from "@idc/UI2/Svelte/AppFrame.svelte";
-    import DesktopGrid from "@idc/UI2/Svelte/DesktopGrid.svelte";
-    import ControlCenter from "@idc/App/Svelte/ControlCenter.svelte";*/
+    */
 
     //
     import DesktopGrid from "@idc/UI2/Vue/DesktopGrid.vue";
+    import AppFrame from "@idc/UI2/Vue/AppFrame.vue";
+    import ControlCenter from "@idc/App/Vue/ControlCenter.vue";
 
     //
     const itemCtxList = [{
@@ -59,12 +59,14 @@
 
 <InputEditor></InputEditor>
 
+<AppFrame hashIdName="#control-center">
+    <ControlCenter appId="#control-center"></ControlCenter>
+</AppFrame>
+
 </template>
 
 <!--
-<AppFrame hashIdName="#control-center">
-    <ControlCenter actionMap={actionMap}></ControlCenter>
-</AppFrame>
+
 
 <StatusBar></StatusBar>
 -->
