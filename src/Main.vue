@@ -9,9 +9,7 @@
     import IconEdit from "@idc/UI2/Vue/IconEdit.vue";
 
     //
-    /*
     import StatusBar from "@idc/UI2/Vue/StatusBar.vue";
-    */
 
     //
     import DesktopGrid from "@idc/UI2/Vue/DesktopGrid.vue";
@@ -63,10 +61,9 @@
     <ControlCenter appId="#control-center"></ControlCenter>
 </AppFrame>
 
+<StatusBar></StatusBar>
+
 </template>
 
-<!--
 
 
-<StatusBar></StatusBar>
--->

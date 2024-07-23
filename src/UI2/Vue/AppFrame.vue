@@ -7,7 +7,7 @@
 
     // vue has poor reactivity in such cases
     let chash = ref(location.hash);
-    addEventListener("hashchange", (event) => { chash.value = location.hash; console.log(chash.value != props.hashIdName); });
+    addEventListener("hashchange", (event) => { chash.value = location.hash; });
 
 </script>
 
