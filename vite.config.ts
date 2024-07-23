@@ -113,9 +113,14 @@ const config = <UserConfig>defineConfig({
         }
     },
     esbuild: {
-        target: "esnext"
+        target: "esnext",
+        minifySyntax: true,
+        minifyWhitespace: true,
+        minifyIdentifiers: true
     },
     build: {
+        minify: 'esbuild',
+        cssMinify: true,
         modulePreload: true,
         target: ["esnext", "es2020"],
         sourcemap: sourceMapsInProduction,

@@ -1,6 +1,3 @@
-import "./main.scss";
-import("./src/Main.ts");
-
 //
 if ("virtualKeyboard" in navigator && navigator?.virtualKeyboard) {
     // @ts-ignore
@@ -9,7 +6,7 @@ if ("virtualKeyboard" in navigator && navigator?.virtualKeyboard) {
 
 //
 if (typeof navigator != "undefined") {
-    navigator?.serviceWorker?.register?.(new URL('./service.mjs', import.meta.url), {scope: "/"}).then(
+    navigator?.serviceWorker?.register?.(new URL("./service.mjs", import.meta.url).href, {scope: "/"}).then(
         (registration) => {
             console.log('Service worker registration succeeded:', registration);
         },
@@ -24,3 +21,7 @@ if (typeof navigator != "undefined") {
         location.origin + `/opfs?path=%s`
     );
 }
+
+//
+import("./main.scss");
+import("./src/Main.ts");

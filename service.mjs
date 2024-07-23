@@ -54,92 +54,74 @@ const _WARN_ = (...args) => {
 };
 
 //
-const attemp = (req, event) => {
-    const sendResponse = async (response) => {
-        let resp = null;
-        try {
-            resp = await response?.clone?.();
-        } catch (e) {
-            console.warn(e);
-            resp = response;
-        }
-        const cache = await caches.open(RUNTIME);
-        try {
-            await cache.add(resp);
-        } catch (e) {
-            console.warn(e);
-        }
+const tryFetch = (req, event) => {
+    const sendResponse = (response) => {
+        let resp = response?.clone?.()?.catch?.((e)=>{
+            console.warn(e)
+            return response;
+        }) || response;
+        caches.open(RUNTIME).then(async (c)=>c.add(await response).catch(_WARN_));
         return resp;
     };
 
     //
-    const relPath = (req?.url ?? req).replace(location.origin, "");
-    if (relPath.startsWith("/opfs")) {
-        return (async () => {
-            const filex = provide(relPath);
-            const result = sendResponse(new Response(await filex)).catch(console.warn.bind(console));
-            event?.waitUntil?.(result);
-            return result;
-        })();
-    } else {
+    {
         // @ts-ignore
-        const ctime = !navigator.onLine || (navigator?.connection?.effectiveType == "slow-2g") ? 10 : NETWORK_TIMEOUT_MS;
-        const fc = new Promise((resolve, reject) =>
-            setTimeout(() => reject(null), ctime)
-        ).catch(_WARN_);
+        const ctime = !navigator.onLine || (navigator?.connection?.effectiveType == "slow-2g") ? 1000 : NETWORK_TIMEOUT_MS;
+        const fc = new Promise((resolve, reject) =>setTimeout(() => reject(null), ctime)).catch(_WARN_);
         const fp = fetch(req?.url ?? req, {
             cache: "no-store",
-            signal: AbortSignal.timeout(ctime + 8000),
+            signal: AbortSignal.timeout(ctime + 2000),
             mode: isSameOrigin(req?.url ?? req) ? "same-origin" : "cors",
-        })
-            .then(sendResponse)
-            .catch((_) => null);
+        }).then(sendResponse).catch(_WARN_);
 
         //
-        const fpb = async (rl)=>(rl||await fc);
-        const fcb = async (rl)=>(rl||await fp);
-        const promised = Promise.any([
-            fp.then(fpb).catch(fpb), 
-            fc.then(fcb).catch(fcb)
-        ]).catch((_) => null);
-        event?.waitUntil?.(promised);
-        return promised;
+        return Promise.race([fp, fc]).catch((_) => null);
     }
 };
 
 //
-const fit = async (req, event) => {
-    const cached = caches.open(RUNTIME).then((c) =>
-        c.match(req, {
+const fit = (req, event) => {
+
+    //
+    const relPath = (req?.url ?? req).replace(location.origin, "");
+    if (relPath.startsWith("/opfs")) {
+        const preload = (async () => {
+            const filex = provide(relPath);
+            const result = sendResponse(new Response(await filex)).catch(console.warn.bind(console));
+            return result;
+        })();
+        event?.waitUntil?.(preload);
+        return preload;
+    }
+
+    //
+    const loading = (async ()=>{
+        for (let i = 0; i < 3; i++) {
+            try {
+                const resp = await tryFetch(req, event);
+                if (await resp) { return resp; }
+            } catch (e) {
+                console.warn(e);
+            }
+            console.warn("Attempt: " + i + ", failed, trying again...");
+        }
+        return null;
+    })();
+
+    //
+    const cached = caches.open(RUNTIME).then((c) => c.match(req, {
             ignoreSearch: true,
             ignoreMethod: true,
             ignoreVary: true,
         })
-    );
+    ).catch(()=>null);
 
     //
-    for (let i = 0; i < 3; i++) {
-        try {
-            const resp = await attemp(req, event);
-            if (resp) {
-                return resp;
-            }
-        } catch (e) {
-            console.warn(e);
-        }
-        console.warn("Attemp: " + i + ", failed, trying again...");
-    }
-
-    //
-    event?.waitUntil?.(cached);
-
-    //
-    return attemp(req, event)
-        .then((r) => r || cached)
-        .catch((e) => {
-            console.warn(e);
-            return cached;
-        });
+    const anyone = loading.then((r)=>(r)).catch(()=>cached);
+    anyone.then(()=>self.skipWaiting())
+    event?.waitUntil?.(anyone);
+    return anyone;
 };
 
 //
@@ -147,21 +129,21 @@ const putCacheAll = (list) => {
     return Promise.allSettled(
         list.map(async (it) => {
             const cache = await caches.open(RUNTIME);
-            try {
-                await cache.add(it);
-            } catch (e) {}
+            return cache.add(it);
         })
     ).catch(_WARN_);
 };
 
 //
 const preloadNeeded = (list) => {
-    return putCacheAll(list);
+    const cache = putCacheAll(list);
+    cache.then(()=>self.skipWaiting());
+    return cache;
 };
 
 //
 const PRE_CACHE_FORCE = [
-    /* webpackIgnore: true */ "/assets/wallpaper/0.jpg",
+    /* webpackIgnore: true */ "/service.mjs",
     /* webpackIgnore: true */ "/index.html",
     /* webpackIgnore: true */ "/favicon.png",
     /* webpackIgnore: true */ "/manifest-pwa.json",
@@ -170,11 +152,14 @@ const PRE_CACHE_FORCE = [
 //
 self?.addEventListener?.("install", (event) => {
     event.waitUntil(preloadNeeded([...PRE_CACHE_FORCE]));
+    self.skipWaiting();
 });
 
 //
 self?.addEventListener?.('activate', (event) => {
-    event.waitUntil(self.clients.claim());
+    const claims = self.clients.claim();
+    claims.then(()=>self.skipWaiting())
+    event.waitUntil(claims);
 });
 
 //
