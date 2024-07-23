@@ -1,5 +1,5 @@
 <script setup>
-    import {reactive, watch, ref, onMounted } from "vue";
+    import {reactive, watch, ref, onMounted, computed } from "vue";
 
     //
     import States from "@unite/scripts/reactive/StateManager.ts"
@@ -86,10 +86,8 @@
     const wp = localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg";
 
     //
-    const getItems = (items)=>{
-        return Array.from(items.values()).filter((item)=>isItemInList(item));
-    }
-
+    const getItems = (items)=>{ return Array.from(items.values()).filter((item)=>isItemInList(item)); }
+    const items = computed(()=> getItems(state.items));
 
 </script>
 
@@ -99,11 +97,11 @@
     <div ref="elRef" data-transparent :data-current-page="current" data-ctx="grid-space" data-scheme="accent-inverse" class="ux-desktop-grid stretch grid-based-box pe-enable">
 
         <div class="ux-grid-layout ux-grid-page" data-transparent>
-            <GridItemLabel v-for="item in getItems(state.items)" v-if="state.items" type="labels" :gridItem="item"></GridItemLabel>
+            <GridItemLabel v-for="item in items" v-if="state.items" type="labels" :gridItem="item"></GridItemLabel>
         </div>
 
         <div ref="gpRef" class="ux-grid-layout ux-grid-page" data-transparent>
-            <GridItem v-for="item in getItems(state.items)" v-if="state.items" type="items" :onClick="onItemClick" :gridItem="item"></GridItem>
+            <GridItem v-for="item in items" v-if="state.items" type="items" :onClick="onItemClick" :gridItem="item"></GridItem>
         </div>
     </div>
 </template>

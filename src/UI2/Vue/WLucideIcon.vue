@@ -30,11 +30,11 @@
     //
     import { useAttrs } from 'vue';
     const attrs = useAttrs();
-    const icon = computed(() => icons[fup(camelize(props.name))]);
+    const icon = computed(() => icons[fup(camelize(props.name||""))]);
 </script>
 
 <template>
-    <div inert={true} class="icon-wrap" v-bind="$attrs">
+    <div inert class="icon-wrap" v-bind="$attrs">
         <component
             :is="icon"
             :size="size"

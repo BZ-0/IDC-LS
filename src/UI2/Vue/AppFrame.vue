@@ -1,5 +1,6 @@
 <script setup>
     //import {currentLocationHash} from '@unite/svelte/utils/Realtime.ts';
+    import {reactive, watch, ref, onMounted} from "vue";
     import LucideIcon from './WLucideIcon.vue';
 
     //
@@ -20,13 +21,13 @@
 
         <div class="titlebar" data-highlight="2" data-scheme="solid">
             <div data-transparent class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;">
-                <LucideIcon inert slot="icon" icon="chevron-down"/>
+                <LucideIcon inert slot="icon" name="chevron-down"/>
             </div>
             <div data-transparent class="ux-title-handle" style="background-color: transparent;">
 
             </div>
             <div data-transparent class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;">
-                <LucideIcon inert slot="icon" icon="menu"/>
+                <LucideIcon inert slot="icon" name="menu"/>
             </div>
         </div>
 

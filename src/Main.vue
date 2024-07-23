@@ -4,14 +4,15 @@
     import {state} from "@idc/State/GridState.ts";
 
     //
-    /*import ContextMenu from "@idc/UI2/Svelte/ContextMenu.svelte";
-    import AppFrame from "@idc/UI2/Svelte/AppFrame.svelte";
-    import DesktopGrid from "@idc/UI2/Svelte/DesktopGrid.svelte";
-    import InputEditor from "@idc/UI2/Svelte/InputEdit.svelte";
-    import StatusBar from "@idc/UI2/Svelte/StatusBar.svelte";
-    import ItemEdit from "@idc/UI2/Svelte/IconEdit.svelte";
+    import ContextMenu from "@idc/UI2/Vue/ContextMenu.vue";
+    import InputEditor from "@idc/UI2/Vue/InputEdit.vue";
+    import IconEdit from "@idc/UI2/Vue/IconEdit.vue";
 
     //
+    /*
+    import StatusBar from "@idc/UI2/Vue/StatusBar.vue";
+    import AppFrame from "@idc/UI2/Svelte/AppFrame.svelte";
+    import DesktopGrid from "@idc/UI2/Svelte/DesktopGrid.svelte";
     import ControlCenter from "@idc/App/Svelte/ControlCenter.svelte";*/
 
     //
@@ -51,17 +52,19 @@
 <!-- -->
 <template>
 <DesktopGrid :state="state" :actionMap="actionMap"></DesktopGrid>
+
+<IconEdit></IconEdit>
+<ContextMenu :ctxList="itemCtxList" ctxName="grid-item"></ContextMenu>
+<ContextMenu :ctxList="gridCtxList" ctxName="grid-space"></ContextMenu>
+
+<InputEditor></InputEditor>
+
 </template>
+
 <!--
 <AppFrame hashIdName="#control-center">
     <ControlCenter actionMap={actionMap}></ControlCenter>
 </AppFrame>
-
-<ItemEdit actionMap={actionMap}></ItemEdit>
-<ContextMenu actionMap={actionMap} ctxList={itemCtxList} ctxName={"grid-item"}></ContextMenu>
-<ContextMenu actionMap={actionMap} ctxList={gridCtxList} ctxName={"grid-space"}></ContextMenu>
-
-<InputEditor></InputEditor>
 
 <StatusBar></StatusBar>
 -->

@@ -1,8 +1,8 @@
 <script setup>
+    import {reactive, watch, ref, onMounted, useAttrs} from "vue";
     import LucideIcon from "@idc/UI2/Vue/WLucideIcon.vue";
 
     //
-    import { useAttrs } from 'vue';
     const attrs = useAttrs();
 </script>
 
@@ -23,10 +23,10 @@
                 />
             </div>
             <button type="button" tabindex="-1" data-scheme="solid" data-highlight="2" class="field-copy pe-enable">
-                <LucideIcon icon="copy" tabindex="-1" inert></LucideIcon>
+                <LucideIcon name="copy" tabindex="-1" inert></LucideIcon>
             </button>
             <button type="button" tabindex="-1" data-scheme="solid" data-highlight="2" class="field-paste pe-enable">
-                <LucideIcon icon="clipboard" tabindex="-1" inert></LucideIcon>
+                <LucideIcon name="clipboard" tabindex="-1" inert></LucideIcon>
             </button>
         </div>
     </div>

@@ -163,7 +163,6 @@ state.items.set("wallpapers", state.items.get("wallpapers") || makeReactiveObjec
     href: "#control-center"
 }));
 
-
 //
 const ls = state.lists.get("main");
 ls.add("settings");
@@ -171,3 +170,9 @@ ls.add("import");
 ls.add("export");
 ls.add("wallpapers");
 state.lists.set("main", ls);
+
+// reactive objects is unable (currently) to as save state, and vue doesn't call state changes
+addEventListener("beforeunload", (event) => {
+    localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids?.values() || v)));
+    localStorage.setItem("@itemsState", JSOX.stringify(Array.from(state.items?.values() || v)));
+});

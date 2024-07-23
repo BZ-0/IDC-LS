@@ -1,11 +1,16 @@
-<script type="ts" lang="ts">
+<script setup>
+    import {reactive, watch, ref, onMounted, shallowRef, shallowReactive, markRaw} from "vue";
+
+    //
     import ItemEdit from "./ItemEdit.vue";
     import GridItem from "@idc/UI2/Vue/GridItem.vue";
     import Frame from "@idc/UI2/Vue/Frame.vue";
     import States from "@unite/scripts/reactive/StateManager.ts";
 
+    // you can't use full reactivity due stack exceeded issues...
+    const gridItem = shallowRef(null);
+
     //
-    const gridItem = ref(null);
     const editor = ref(null);
 
     //
@@ -16,24 +21,26 @@
     //
     UIState?.["@subscribe"]?.((v)=>{
         gridItem.value = v;
-        if (editor) {
+        if (gridItem.value && editor.value) {
             editor.value.dataset.hidden = false;
         }
     }, "itemOnEdit");
 
     //
     const confirm = ref(null);
+    const setConfirm = (fx)=>{ confirm.value = fx; };
 
     //
-    const confirmWrap = (ev: PointerEvent | MouseEvent) => { confirm?.value?.(); gridItem.value = null; }
-    const deleteWrap = (ev: PointerEvent| MouseEvent)=>{
+    const confirmWrap = (ev) => { confirm.value?.(); gridItem.value = null; }
+    const deleteWrap = (ev)=>{
         actionMap.get("delete-item")?.({
             initiator: document.querySelector(`.ux-grid-item[data-type=\"items\"][data-id=\"${gridItem.value?.id||""}\"]`)
         });
     }
 
     //
-    const fieldSet: Field[] = [
+    const hookRef = (v)=>{ editor.value = v; };
+    const fieldSet = [
         {"name": "label", "label": "Label: ", "icon": "", "value": ""},
         {"name": "icon", "label": "IconID: ", "icon": "", "value": ""},
         {"name": "action", "label": "Action: ", "icon": "", "value": ""},
@@ -43,11 +50,11 @@
 
 <!-- -->
 <template>
-    <div ref="editor" class="ux-modal-frame ls-item-edit" :data-item="gridItem?.id">
-        <ItemEdit v-bind:whatEdit="gridItem" :data-item="gridItem?.id" :fields="fieldSet" :confirm="confirm"></ItemEdit>
+    <Frame :self="hookRef" class="ux-modal-frame ls-icon-edit">
+        <ItemEdit :whatEdit="gridItem" :data-item="gridItem?.id" :fields="fieldSet" v-bind:setConfirm="setConfirm" :key="gridItem"></ItemEdit>
         <div class="ls-but">
             <button data-scheme="accent" type="button" class="delete-btn" @click="deleteWrap">Delete Icon</button>
             <button data-scheme="accent" type="button" class="confirm-btn" @click="confirmWrap">Apply Change</button>
         </div>
-    </div>
+    </Frame>
 </template>

@@ -1,43 +1,42 @@
 <script setup>
-    import { observeBySelector } from "@unite/scripts/dom/Observer.vue";
+    import {reactive, watch, ref, onMounted} from "vue";
+    import { observeBySelector } from "@unite/scripts/dom/Observer.ts";
 
     //
     const props = defineProps({
         fields: Array,
         whatEdit: Object,
-        confirm: Object
+        setConfirm: Function
     });
 
-    // isn't reactive, sorry...
-    const whatEdit = props.whatEdit;//reactive({...});
-    //props.whatEdit?.["@subscribe"]?.((v,p)=>{ if (state[p] !== v) { state[p] = v; synchronize(); } }); // react to vue
-    //watch(() => whatEdit, (newVal, oldVal) => { for (const k in newVal) { if (props.whatEdit[k] !== newVal[k]) { props.whatEdit[k] = newVal[k]; } } }, {deep: true});
+    //
+    const whatEdit = reactive({...props.whatEdit});
+    props.whatEdit?.["@subscribe"]?.((v,p)=>{ if (whatEdit[p] !== v) { whatEdit[p] = v; } }); // react to vue
+    watch(() => whatEdit, (newVal, oldVal) => { for (const k in newVal) { if (props.whatEdit[k] !== newVal[k]) { props.whatEdit[k] = newVal[k]; } } }, {deep: true});
     // please, save such pattern for future!
 
-    // isn't reactive, sorry...
-    const fields = props.fields;
     //
-    //const fields = reactive({...props.fields});
-    //props.fields?.["@subscribe"]?.((v,p)=>{ if (state[p] !== v) { state[p] = v; synchronize(); } }); // react to vue
-    //watch(() => fields, (newVal, oldVal) => { for (const k in newVal) { if (props.fields[k] !== newVal[k]) { props.fields[k] = newVal[k]; } } }, {deep: true});
+    const fields = reactive([...props.fields]);
+    props.fields?.["@subscribe"]?.((v,p)=>{ if (state[p] !== v) { fields[p] = v; } }); // react to vue
+    watch(() => fields, (newVal, oldVal) => { for (const k in newVal) { if (props.fields[k] !== newVal[k]) { props.fields[k] = newVal[k]; } } }, {deep: true});
 
     //
     let elRef = ref(null);
 
     //
     const confirm = ()=>{
-        if (whatEdit) {
+        if (props.whatEdit) {
             for (const F of fields) {
                 if (F.name in whatEdit) {
-                    whatEdit[F.name] = F.value;
+                    props.whatEdit[F.name] = F.value;
                 };
             }
         }
     }
 
     //
-    if (props.confirm) {
-        props.confirm.value = confirm;
+    if (props.setConfirm) {
+        props.setConfirm(confirm);
     }
 
     //
@@ -48,23 +47,24 @@
         }*/
 
         //
-        if (whatEdit) {
+        if (props.whatEdit) {
             for (const F of fields) {
-                if (F.name in whatEdit) {
-                    F.value = whatEdit[F.name];
+                if (F.name in props.whatEdit) {
+                    F.value = props.whatEdit[F.name];
                 };
             }
-            fields = fields;
         }
     }
 
     //
-    observeBySelector(elRef.value, ".ux-field-block", ()=>{
+    onMounted(()=>{
+        /*observeBySelector(elRef.value, ".ux-field-block", ()=>{
+            synchronize();
+        });*/
+
+        //
         synchronize();
     });
-
-    //
-    synchronize();
 
     //@change="confirm"
 </script>
@@ -84,7 +84,7 @@
                     type="text"
                     maxlength="1024"
                     autocomplete="off"
-                    v-bind:value="F.value"
+                    v-model="F.value"
                     :name="F.name"
                     :data-name="F.name"
                     />
