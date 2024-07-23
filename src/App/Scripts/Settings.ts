@@ -19,7 +19,7 @@ document.documentElement.addEventListener("change", onChange);
 
 //
 observeBySelector(document.documentElement, ".ux-input", (mutations)=>{
-    mutations.addedNodes.map((target)=>{
+    mutations.addedNodes.forEach((target)=>{
         const input = target.querySelector("input");
         const state = States.getState(target?.dataset?.state);
         if (state && input) {
