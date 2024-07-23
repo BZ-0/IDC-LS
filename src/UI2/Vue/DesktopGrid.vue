@@ -100,11 +100,11 @@
     <div :key="state" ref="elRef" data-transparent :data-current-page="current" data-ctx="grid-space" data-scheme="accent-inverse" class="ux-desktop-grid stretch grid-based-box pe-enable">
 
         <div class="ux-grid-layout ux-grid-page" data-transparent>
-            <GridItemLabel v-if="items" v-for="item in items" type="labels" :gridItem="item"></GridItemLabel>
+            <GridItemLabel v-if="items" v-for="item in items" :key="item.id" type="labels" :gridItem="item"></GridItemLabel>
         </div>
 
         <div ref="gpRef" class="ux-grid-layout ux-grid-page" data-transparent>
-            <GridItem v-if="items" v-for="item in items" type="items" :onClick="onItemClick" :gridItem="item"></GridItem>
+            <GridItem v-if="items" v-for="item in items" :key="item.id" type="items" :onClick="onItemClick" :gridItem="item"></GridItem>
         </div>
     </div>
 </template>

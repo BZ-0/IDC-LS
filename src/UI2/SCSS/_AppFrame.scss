@@ -14,11 +14,7 @@
         display: contents !important;
 
         //
-        & .ux-title-label {
-            display: none !important;
-        }
-
-        & .titlebar {
+        & :where(.ux-title-label, .titlebar) {
             display: none !important;
         }
 
