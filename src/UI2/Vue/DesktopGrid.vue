@@ -17,29 +17,20 @@
     });
 
     //
-    let current = "main";
+    const current = ref("main");
 
     //
     const isItemInList = (id)=>{
         const item = typeof id == "string" ? props.state.items.get(id) : id;
         const ptr = item.pointerId;
-        return props.state.lists.get(current)?.has?.(item.id) || (ptr != null && ptr >= 0);
+        return props.state.lists.get(current.value)?.has?.(item.id) || (ptr != null && ptr >= 0);
     }
     const getItems = (items)=>{ return Array.from(items.values()).filter((item)=>isItemInList(item)); }
 
     //
-    const items = ref(null);
     const state = reactive({...props.state}); // react from vue
-    props.state?.["@subscribe"]?.((v,p)=>{ if (state[p] !== v) {
-        state[p] = v;
-
-        // deep reactivity not supported...
-        if (p == "items") items.value = getItems(v); }
-    }); // react to vue
+    props.state?.["@subscribe"]?.((v,p)=>{ if (state[p] !== v) { state[p] = v; }}); // react to vue
     watch(() => state, (newVal, oldVal) => { for (const k in newVal) { if (props.state[k] !== newVal[k]) { props.state[k] = newVal[k]; } } }, {deep: true});
-    // please, save such pattern for future!
-
-    items.value = getItems(props.state.items);
 
     // read-only, skip ir-reactivity...
     const $settings = States.getState("settings");
@@ -96,12 +87,17 @@
     //
     const wp = localStorage.getItem("@wallpaper") || "./assets/wallpaper/0.jpg";
 
+    // native VUE reactivity doesn't supported here...
+    const items = ref(getItems(state.items));
+    props.state?.["@subscribe"]?.((v,p)=>{ if (state[p] !== v) {
+        items.value = getItems(state.items);
+    }}, "items")
 </script>
 
 <!-- -->
 <template>
     <canvas is="w-canvas" :data-src="wp"></canvas>
-    <div ref="elRef" data-transparent :data-current-page="current" data-ctx="grid-space" data-scheme="accent-inverse" class="ux-desktop-grid stretch grid-based-box pe-enable">
+    <div :key="state" ref="elRef" data-transparent :data-current-page="current" data-ctx="grid-space" data-scheme="accent-inverse" class="ux-desktop-grid stretch grid-based-box pe-enable">
 
         <div class="ux-grid-layout ux-grid-page" data-transparent>
             <GridItemLabel v-if="items" v-for="item in items" type="labels" :gridItem="item"></GridItemLabel>
