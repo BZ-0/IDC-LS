@@ -105,7 +105,7 @@
             grid-row: 1 / 1 span;
 
             //
-            translate: calc(0px - 50%) 0px;
+            translate: calc(0px - 50%) 0px 0px;
 
             //
             display: flex;
@@ -128,7 +128,7 @@
                 stroke-width: 0.25rem;
                 position: relative;
                 inset: 0px;
-                translate: 0px 0px;
+                translate: 0px 0px 0px;
                 stroke: var(--current-glyph-color);
             }
         }

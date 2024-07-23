@@ -54,17 +54,16 @@
 
             <div class="file-list">
                 <div
-                    v-for="[name, file] in state.fileList" :key="state.fileList"
+                    v-for="[name, file] in state.fileList"
                     @click="(ev)=>selectFileEv(ev, state)"
                     :data-filename="file.name"
                     class="file"
                     v-bind:class="{selected: state.selectedFilename == file.name}"
                     data-scheme
                     data-highlight-hover="1"
+                    :key="file.name"
                 >
-                    <div inert class="icon">
-                        <LucideIcon name="wallpaper"/>
-                    </div>
+                    <div inert class="icon"><LucideIcon name="wallpaper"/></div>
                     <div inert class="name">{{file.name}}</div>
                 </div>
             </div>

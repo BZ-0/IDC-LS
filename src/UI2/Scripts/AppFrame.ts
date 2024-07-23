@@ -2,7 +2,7 @@
 import { MOCElement } from "@unite/scripts/utils/Utils.ts";
 import AxGesture from "@unite/scripts/interact/Gesture.ts";
 import { observeBySelector } from "@unite/scripts/dom/Observer.ts";
-import { zoomOf } from "../../../unite/scripts/utils/Utils.ts";
+import { zoomOf } from "@unite/scripts/utils/Utils.ts";
 
 //
 document.documentElement.addEventListener("contextmenu", (ev)=>{

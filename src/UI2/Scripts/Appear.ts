@@ -9,7 +9,7 @@ const animateHide = async (target)=>{
 
     //
     if (target.classList.contains("ux-while-animation")) {
-        target[computed] = getComputedStyle(target, "");
+        //target[computed] = getComputedStyle(target, "");
         await target.animate([
             {
                 easing: "linear",

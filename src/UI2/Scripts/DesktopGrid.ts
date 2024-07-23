@@ -43,7 +43,7 @@ const grabItem = (ev)=>{
     //
     const grabEvent: ["pointermove", (e: PointerEvent)=>any, AddEventListenerOptions] = ["pointermove", (evm: PointerEvent)=>{
         if (dragState.pointerId == evm.pointerId && Math.hypot(
-            dragState.startX - (evm.clientX / zoomOf()), 
+            dragState.startX - (evm.clientX / zoomOf()),
             dragState.startY - (evm.clientY / zoomOf())
         ) >= 10) {
             initGrab(ev); document.documentElement.removeEventListener(...grabEvent);

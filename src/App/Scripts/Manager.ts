@@ -105,17 +105,19 @@ export const selectFileEv = (ev, state)=>{
 
 //
 export const useItemEv = (ev, state)=>{
-    const {selectedFilename} = state;
-    if (selectedFilename && files.has(selectedFilename)) {
-        const file = files.get(selectedFilename);
-        if (file != null) {
-            const wallpaper = document.querySelector("canvas[is=\"w-canvas\"]");
-            wallpaper?.["$useImageAsSource"]?.(file, true).then((file)=>{
-                files.set(selectedFilename, file);
-                state.fileList = files;
-            });
+    return getFileList(null, state).then(()=>{
+        const {selectedFilename} = state;
+        if (selectedFilename && files.has(selectedFilename)) {
+            const file = files.get(selectedFilename);
+            if (file != null) {
+                const wallpaper = document.querySelector("canvas[is=\"w-canvas\"]");
+                wallpaper?.["$useImageAsSource"]?.(file, true).then((file)=>{
+                    files.set(selectedFilename, file);
+                    state.fileList = files;
+                });
+            }
         }
-    }
+    });
 }
 
 //
@@ -176,7 +178,9 @@ export const removeItemEv = (ev, state)=>{
 
 //
 export const downloadItemEv = (ev, {selectedFilename})=>{
-    if (selectedFilename && files.has(selectedFilename)) {
-        downloadImage(files.get(selectedFilename));
-    }
+    return getFileList(null, state).then(()=>{
+        if (selectedFilename && files.has(selectedFilename)) {
+            downloadImage(files.get(selectedFilename));
+        }
+    });
 }
