@@ -1,5 +1,6 @@
-import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveObject.ts";
+import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveLib.ts";
 import States from "@unite/scripts/reactive/StateManager.ts"
+import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 
 //
 export const settings = makeReactiveObject({
@@ -16,7 +17,7 @@ States.setState("settings", settings);
 
 
 //
-settings?.["@subscribe"]?.((v) => {
+subscribe(settings, (v) => {
     localStorage.setItem("@settings:@use-zoom", v);
 
     //
@@ -35,7 +36,7 @@ settings?.["@subscribe"]?.((v) => {
 
 
 //
-settings?.["@subscribe"]?.((v) => {
+subscribe(settings, (v) => {
     localStorage.setItem("@settings:@theme", v);
 
     //
@@ -48,9 +49,7 @@ settings?.["@subscribe"]?.((v) => {
     localStorage.setItem("@settings:@theme", v || 0);
 }, "theme");
 
-
-
-settings?.["@subscribe"]?.((v) => {
+subscribe(settings, (v) => {
     document.documentElement.dataset["orientation"] = v || "auto";
     localStorage.setItem("@settings:@orientation", v || "auto");
     (async () => {
@@ -69,19 +68,19 @@ settings?.["@subscribe"]?.((v) => {
 
 
 //
-settings?.["@subscribe"]?.((v) => {
+subscribe(settings, (v) => {
     document.documentElement.style.setProperty("--columns", v || 4);
     localStorage.setItem("@settings:@columns", v || 4);
 }, "columns");
 
 //
-settings?.["@subscribe"]?.((v) => {
+subscribe(settings, (v) => {
     document.documentElement.style.setProperty("--rows", v || 8);
     localStorage.setItem("@settings:@rows", v || 8);
 }, "rows");
 
 //
-settings?.["@subscribe"]?.((v) => {
+subscribe(settings, (v) => {
     document.documentElement.style.setProperty("--scaling", v || 1);
     localStorage.setItem("@settings:@scaling", v || 1);
 }, "scaling");

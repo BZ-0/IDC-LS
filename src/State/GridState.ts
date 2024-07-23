@@ -1,11 +1,12 @@
 import {JSOX} from 'jsox';
 
 //
-import {createReactiveMap} from "@unite/scripts/reactive/ReactiveMap.ts";
-import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveObject.ts";
-import {createReactiveSet} from "@unite/scripts/reactive/ReactiveSet.ts";
+import {createReactiveMap} from "@unite/scripts/reactive/ReactiveLib.ts";
+import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveLib.ts";
+import {createReactiveSet} from "@unite/scripts/reactive/ReactiveLib.ts";
 import {makeObjectAssignable} from "@unite/scripts/reactive/AssignObject.ts";
 import States from "@unite/scripts/reactive/StateManager.ts"
+import {subscribe, extractSymbol} from "@unite/scripts/reactive/ReactiveLib.ts";
 
 //
 import {parse} from "svelte/compiler";
@@ -57,28 +58,21 @@ export const state: GridsStateType = makeReactiveObject(makeObjectAssignable({
 States.setState("desktop", state);
 
 //
-settings?.["@subscribe"]?.((v) => {layout[0] = v;}, "columns");
-settings?.["@subscribe"]?.((v) => {layout[1] = v;}, "rows");
-
-//
-size?.["@subscribe"]?.((v, p) => {
-    for (const gp of state.grids.values()) {gp.size = size;};
-    //localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
-});
-
-//
-layout?.["@subscribe"]?.((v, p) => {
+subscribe(settings, (v) => (layout[0] = v), "columns");
+subscribe(settings, (v) => (layout[1] = v), "rows");
+subscribe(size, (v, p) => {for (const gp of state.grids.values()) {gp.size = size;};});
+subscribe(layout, (v, p) => {
     for (const gp of state.grids.values()) {gp.layout = layout;};
     localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
 });
 
 //
-state.grids?.["@subscribe"]?.(() => {
+subscribe(state.grids, (v, p) => {
     localStorage.setItem("@gridsState", JSOX.stringify(Array.from(state.grids.values())));
 });
 
 //
-state.items?.["@subscribe"]?.(() => {
+subscribe(state.items, (v, p) => {
     localStorage.setItem("@itemsState", JSOX.stringify(Array.from(state.items.values())));
 });
 
@@ -100,10 +94,12 @@ state.grids.set("main", state.grids.get("main") || makeReactiveObject({
 
 //
 state.lists = toMapSet(Array.from(state.grids?.values?.() || []).map((gs: GridPageType) => [gs?.id || "", gs?.list || []]));
-state.lists?.["@subscribe"]?.((v, prop) => {
+
+//
+subscribe(state.lists, (v, prop) => {
     const changed = state.grids.get(prop);
     if (changed) {
-        changed.list = [...(v?.["@extract"] || v || [])];
+        changed.list = [...(v?.[extractSymbol] || v || [])];
         state.grids.set(prop, changed);
     }
 
@@ -112,7 +108,7 @@ state.lists?.["@subscribe"]?.((v, prop) => {
 });
 
 //
-state?.["@subscribe"]?.((v, prop) => {
+subscribe(state, (v, prop) => {
     if (prop == "grids") localStorage.setItem("@gridsState", JSOX.stringify(Array.from(v?.values() || v)));
     if (prop == "items") localStorage.setItem("@itemsState", JSOX.stringify(Array.from(v?.values() || v)));
 });

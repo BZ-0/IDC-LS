@@ -177,7 +177,8 @@ export const removeItemEv = (ev, state)=>{
 }
 
 //
-export const downloadItemEv = (ev, {selectedFilename})=>{
+export const downloadItemEv = (ev, state)=>{
+    const {selectedFilename} = state;
     return getFileList(null, state).then(()=>{
         if (selectedFilename && files.has(selectedFilename)) {
             downloadImage(files.get(selectedFilename));

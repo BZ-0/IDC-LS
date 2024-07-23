@@ -1,6 +1,6 @@
 import {observeBySelector, observeBorderBox} from "@unite/scripts/dom/Observer.ts";
 import {grabForDrag} from "@unite/scripts/interact/PointerAPI.ts";
-import {createReactiveSet} from "@unite/scripts/reactive/ReactiveSet.ts";
+import {createReactiveSet} from "@unite/scripts/reactive/ReactiveLib.ts";
 import {MOC, zoomOf} from "@unite/scripts/utils/Utils.ts";
 import {putToCell} from "@unite/scripts/utils/GridItemUtils.ts";
 import type {GridItemType} from "@unite/scripts/utils/GridItemUtils.ts";
@@ -22,8 +22,8 @@ const initGrab = (ev)=> {
         //
         const el = ev.target;
         if (item) {
-            el.style.setProperty("--cell-x", item?.cell[0] || 0, "");
-            el.style.setProperty("--cell-y", item?.cell[1] || 0, "");
+            //el.style.setProperty("--cell-x", item?.cell[0] || 0, "");
+            //el.style.setProperty("--cell-y", item?.cell[1] || 0, "");
             el.style.setProperty("--p-cell-x", item?.cell[0] || 0, "");
             el.style.setProperty("--p-cell-y", item?.cell[1] || 0, "");
             grabForDrag(el, item);
@@ -68,6 +68,7 @@ document.documentElement.addEventListener("long-press", (ev)=>{
 const placeElement = async ({pointer, holding})=>{
     const el = holding.element.deref();
     const id = el.dataset.id;
+    const tx = el.closest(".ux-desktop-grid").querySelector("*[data-type=\"labels\"][data-id=\""+id+"\"]");
 
     //
     const state = States.getState(el.closest(".ux-desktop-grid"));
@@ -89,8 +90,12 @@ const placeElement = async ({pointer, holding})=>{
     //
     el.style.setProperty("--p-cell-x", prev[0], "");
     el.style.setProperty("--p-cell-y", prev[1], "");
-    el.style.setProperty("--cell-x", (item?.cell?.[0] || 0) as unknown as string, "");
-    el.style.setProperty("--cell-y", (item?.cell?.[1] || 0) as unknown as string, "");
+    //el.style.setProperty("--cell-x", (item?.cell?.[0] || 0) as unknown as string, "");
+    //el.style.setProperty("--cell-y", (item?.cell?.[1] || 0) as unknown as string, "");
+
+    //
+    //tx.style.setProperty("--cell-x", (item?.cell?.[0] || 0) as unknown as string, "");
+    //tx.style.setProperty("--cell-y", (item?.cell?.[1] || 0) as unknown as string, "");
 
     //
     await el.animate(animationSequence(), {

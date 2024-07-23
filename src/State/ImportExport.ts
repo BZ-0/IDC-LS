@@ -4,6 +4,8 @@ import {JSOX} from 'jsox';
 import {settings} from "./CurrentState.ts";
 import {state, toMapSet, toMap, fromMap} from "./GridState.ts";
 import States from "@unite/scripts/reactive/StateManager.ts"
+import {subscribe, extractSymbol} from "@unite/scripts/reactive/ReactiveLib.ts";
+
 
 // Function to download data to a file
 export const saveBinaryToFS = async (data, filename = "settings") => {
@@ -148,9 +150,11 @@ export const importSettings = async (data) => {
 
     //
     state.lists = toMapSet(Array.from(state.grids?.values?.() || []).map((gs: GridPageType) => [gs?.id || "", gs?.list || []]));
-    state.lists?.["@subscribe"]?.((v, prop) => {
+
+    //
+    subscribe(state.lists, (v, prop) => {
         const changed = state.grids.get(prop);
-        if (changed) {changed.list = [...(v?.["@extract"] || v || [])];}
+        if (changed) {changed.list = [...(v?.[extractSymbol] || v || [])];}
     });
 
     //

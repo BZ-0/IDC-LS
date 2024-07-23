@@ -15,15 +15,15 @@
     let action = gridItem.action || "";
 
     //
-    $: gridItem?.["@subscribe"]?.((v)=>{
+    $: subscribe(gridItem, (v)=>{
         target?.style?.setProperty?.("--cell-x", v[0], "")
         target?.style?.setProperty?.("--cell-y", v[1], "")
     }, "cell");
 
     //
-    $: gridItem?.["@subscribe"]?.((v)=>{ href = v; }, "href");
-    $: gridItem?.["@subscribe"]?.((v)=>{ icon = v; }, "icon");
-    $: gridItem?.["@subscribe"]?.((v)=>{ action = v; }, "action");
+    $: subscribe(gridItem, (v)=>{ href = v; }, "href");
+    $: subscribe(gridItem, (v)=>{ icon = v; }, "icon");
+    $: subscribe(gridItem, (v)=>{ action = v; }, "action");
 
     //
     export let whenMount = ()=>{};

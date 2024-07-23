@@ -6,6 +6,7 @@
 
     //
     import {reactive, watch, ref, onMounted} from "vue";
+    import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 
     //
     import LucideIcon from '@idc/UI2/Vue/WLucideIcon.vue';;
@@ -37,8 +38,8 @@
     }
 
     //
-    UIState?.["@subscribe"]?.((v)=> (currentPage.value = v), "controlCenterPage");
-    UIState?.["@subscribe"]?.((v)=> (panelOpen.value = !!v), "controlCenterPanelOpen");
+    subscribe(UIState, (v)=> (currentPage.value = v), "controlCenterPage")
+    subscribe(UIState, (v)=> (panelOpen.value = v), "controlCenterPanelOpen")
 
     //
     const tabs = [{

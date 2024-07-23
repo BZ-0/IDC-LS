@@ -1,6 +1,7 @@
 <script setup>
 import GestureControl from "@unite/scripts/interact/Gesture.ts";
 import {reactive, watch, ref, onMounted} from "vue";
+import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 
 //
 const props = defineProps({
@@ -11,7 +12,7 @@ const props = defineProps({
 
 // bad mine, be accurate!
 const gridItem = reactive({...props.gridItem}); // react from vue
-props.gridItem?.["@subscribe"]?.((v,p)=>{ if (gridItem[p] !== v) { gridItem[p] = v; } }); // react to vue
+subscribe(props.gridItem, (v,p)=>{ if (gridItem[p] !== v || true) { gridItem[p] = v; } }); // react to vue
 // any react from external property will react to vue.
 // any react from vue will "do" react in external (except no strict change, due avoid "stack exceeded" issue)
 

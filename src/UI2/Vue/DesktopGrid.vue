@@ -3,8 +3,9 @@
 
     //
     import States from "@unite/scripts/reactive/StateManager.ts"
-    import { makeReactiveObject } from "@unite/scripts/reactive/ReactiveObject.ts";
+    import { makeReactiveObject } from "@unite/scripts/reactive/ReactiveLib.ts";
     import {observeBySelector, observeBorderBox} from "@unite/scripts/dom/Observer.ts";
+    import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 
     //
     import GridItem from "./GridItem.vue";
@@ -29,12 +30,13 @@
 
     //
     const state = reactive({...props.state}); // react from vue
-    props.state?.["@subscribe"]?.((v,p)=>{ if (state[p] !== v) { state[p] = v; }}); // react to vue
+    subscribe(props.state, (v,p)=>{ if (state[p] !== v) { state[p] = v; }}); // react to vue
     watch(() => state, (newVal, oldVal) => { for (const k in newVal) { if (props.state[k] !== newVal[k]) { props.state[k] = newVal[k]; } } }, {deep: true});
 
     // read-only, skip ir-reactivity...
     const $settings = States.getState("settings");
-    const settings = reactive({...$settings}); $settings?.["@subscribe"]?.((v,p)=>(settings[p] = v));
+    const settings = reactive({...$settings});
+    subscribe($settings, (v,p)=>(settings[p] = v));
 
     //
     const actionMap = props.actionMap || States.getState("actionMap");
@@ -50,7 +52,7 @@
     }
 
     //
-    settings?.["@subscribe"]?.((value, prop)=>{
+    subscribe(settings, (value, prop)=>{
         changeLayout();
     });
 
@@ -89,7 +91,7 @@
 
     // native VUE reactivity doesn't supported here...
     const items = ref(getItems(state.items));
-    props.state?.["@subscribe"]?.((v,p)=>{ if (state[p] !== v) {
+    subscribe(props.state, (v,p)=>{ if (state[p] !== v) {
         items.value = getItems(state.items);
     }}, "items")
 </script>
@@ -100,11 +102,11 @@
     <div :key="state" ref="elRef" data-transparent :data-current-page="current" data-ctx="grid-space" data-scheme="accent-inverse" class="ux-desktop-grid stretch grid-based-box pe-enable">
 
         <div class="ux-grid-layout ux-grid-page" data-transparent>
-            <GridItemLabel v-if="items" v-for="item in items" :key="item.id" type="labels" :gridItem="item"></GridItemLabel>
+            <GridItemLabel v-if="items" v-for="item in items" :key="item.id" type="labels" :gridItem="props.state.items.get(item.id)"></GridItemLabel>
         </div>
 
         <div ref="gpRef" class="ux-grid-layout ux-grid-page" data-transparent>
-            <GridItem v-if="items" v-for="item in items" :key="item.id" type="items" :onClick="onItemClick" :gridItem="item"></GridItem>
+            <GridItem v-if="items" v-for="item in items" :key="item.id" type="items" :onClick="onItemClick" :gridItem="props.state.items.get(item.id)"></GridItem>
         </div>
     </div>
 </template>

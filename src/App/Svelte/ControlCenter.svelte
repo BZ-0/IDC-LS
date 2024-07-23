@@ -3,6 +3,7 @@
     import {observeBySelector} from "@unite/scripts/dom/Observer.ts"
     import {MOC, MOCElement} from "@unite/scripts/utils/Utils.ts";
     import States from "@unite/scripts/reactive/StateManager.ts";
+    import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 
     //
     import LucideIcon from '@idc/UI2/Svelte/WLucideIcon.svelte';
@@ -24,11 +25,11 @@
 
     //
     let currentPage = "wallpapers";
-    UIState?.["@subscribe"]?.((v)=> (currentPage = v), "controlCenterPage");
+    subscribe(UIState, (v)=> (currentPage = v), "controlCenterPage")
 
     //
     let panelOpen = false;
-    UIState?.["@subscribe"]?.((v)=> (panelOpen = v), "controlCenterPanelOpen");
+    subscribe(UIState, (v)=> (panelOpen = v), "controlCenterPanelOpen")
 
     //
     let panelEl = null;

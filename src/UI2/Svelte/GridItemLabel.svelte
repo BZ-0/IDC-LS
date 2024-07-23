@@ -11,13 +11,13 @@
     let label = gridItem?.label || "";
 
     //
-    $: gridItem?.["@subscribe"]?.((v)=>{
+    $: subscribe(gridItem, (v)=>{
         target?.style?.setProperty?.("--cell-x", v[0], "")
         target?.style?.setProperty?.("--cell-y", v[1], "")
     }, "cell");
 
     //
-    $: gridItem?.["@subscribe"]?.((v)=>{
+    $: subscribe(gridItem, (v)=>{
         label = v;
     }, "label");
 

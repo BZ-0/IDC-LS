@@ -1,7 +1,7 @@
 import {writable} from "svelte/store";
 import {state} from "./GridState.ts";
 import type {GridItemType} from "@unite/scripts/utils/GridItemUtils.ts";
-import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveObject.ts";
+import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveLib.ts";
 import {redirectCell} from "@unite/scripts/utils/GridItemUtils.ts";
 
 //

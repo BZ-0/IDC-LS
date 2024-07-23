@@ -1,6 +1,7 @@
 <script setup>
     import {reactive, watch, ref, onMounted} from "vue";
     import { observeBySelector } from "@unite/scripts/dom/Observer.ts";
+    import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 
     //
     const props = defineProps({
@@ -11,13 +12,13 @@
 
     //
     const whatEdit = reactive({...props.whatEdit});
-    props.whatEdit?.["@subscribe"]?.((v,p)=>{ if (whatEdit[p] !== v) { whatEdit[p] = v; } }); // react to vue
+    subscribe(props.whatEdit, (v,p)=>{ if (whatEdit[p] !== v) { whatEdit[p] = v; } }) // react to vue
     watch(() => whatEdit, (newVal, oldVal) => { for (const k in newVal) { if (props.whatEdit[k] !== newVal[k]) { props.whatEdit[k] = newVal[k]; } } }, {deep: true});
     // please, save such pattern for future!
 
     //
     const fields = reactive([...props.fields]);
-    props.fields?.["@subscribe"]?.((v,p)=>{ if (state[p] !== v) { fields[p] = v; } }); // react to vue
+    subscribe(props.fields, (v,p)=>{ if (state[p] !== v) { fields[p] = v; } }); // react to vue
     watch(() => fields, (newVal, oldVal) => { for (const k in newVal) { if (props.fields[k] !== newVal[k]) { props.fields[k] = newVal[k]; } } }, {deep: true});
 
     //

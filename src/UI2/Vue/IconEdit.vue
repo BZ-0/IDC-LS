@@ -6,6 +6,7 @@
     import GridItem from "@idc/UI2/Vue/GridItem.vue";
     import Frame from "@idc/UI2/Vue/Frame.vue";
     import States from "@unite/scripts/reactive/StateManager.ts";
+    import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 
     // you can't use full reactivity due stack exceeded issues...
     const gridItem = shallowRef(null);
@@ -19,7 +20,7 @@
     const state = States.getState("desktop");
 
     //
-    UIState?.["@subscribe"]?.((v)=>{
+    subscribe(UIState, (v)=>{
         gridItem.value = v;
         if (gridItem.value && editor.value) {
             editor.value.dataset.hidden = false;

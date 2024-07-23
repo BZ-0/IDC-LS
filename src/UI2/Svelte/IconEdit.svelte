@@ -19,7 +19,7 @@
     const state = States.getState("desktop");
 
     //
-    UIState?.["@subscribe"]?.((v)=>{
+    subscribe(UIState, (v)=>{
         gridItem = v;
         if (editor) {
             editor.dataset.hidden = false;

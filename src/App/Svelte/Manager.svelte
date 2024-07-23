@@ -5,7 +5,8 @@
 <script>
     import LucideIcon from '@idc/UI2/Svelte/WLucideIcon.svelte';
     import Block from '@idc/UI2/Svelte/Block.svelte';
-    import { makeReactiveObject } from "@unite/scripts/reactive/ReactiveObject.ts";
+    import { makeReactiveObject } from "@unite/scripts/reactive/ReactiveLib.ts";
+    import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 
     //
     import { onMount } from 'svelte';
@@ -30,7 +31,7 @@
     })
 
     //
-    state?.["@subscribe"]?.(()=>{ state = state; });
+    subscribe(state, (v)=> (state = state), "controlCenterPanelOpen")
 
     //
     onMount(()=>{ getFileList(null, state); });

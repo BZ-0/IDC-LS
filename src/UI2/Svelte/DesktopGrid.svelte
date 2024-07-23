@@ -1,12 +1,13 @@
 <script lang="ts" type="ts">
     import { onMount } from "svelte";
     import States from "@unite/scripts/reactive/StateManager.ts"
-    import { makeReactiveObject } from "@unite/scripts/reactive/ReactiveObject.ts";
+    import { makeReactiveObject } from "@unite/scripts/reactive/ReactiveLib.ts";
     import {observeBySelector, observeBorderBox} from "@unite/scripts/dom/Observer.ts";
 
     //
     import GridItem from "./GridItem.svelte";
     import GridItemLabel from "./GridItemLabel.svelte";
+  import { subscribe } from "node:diagnostics_channel";
 
     //
     export let state = null;
@@ -31,7 +32,7 @@
     }
 
     //
-    settings?.["@subscribe"]?.((value, prop)=>{
+    subscribe(settings, (value, prop)=>{
         if (prop == "columns") { columns = value; };
         if (prop == "rows") { rows = value; };
         changeLayout();
