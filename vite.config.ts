@@ -137,8 +137,8 @@ const config = <UserConfig>defineConfig({
         rollupOptions: {
             input: "./index.html",
             output: {
-                inlineDynamicImports: false,
-                manualChunks: {}
+                inlineDynamicImports: true,
+                manualChunks: false
             },
         },
     },
