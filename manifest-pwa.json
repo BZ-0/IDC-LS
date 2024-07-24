@@ -2,9 +2,9 @@
     "manifest_version": 3,
     "name": "idc-lx",
     "short_name": "IDC-LX0",
-    "version": "0.0.1",
+    "version": "canary",
     "start_url": "/",
-    "author": "idc-lc",
+    "author": "unit-404",
     "id": "/",
     "scope": "/",
     "display": "fullscreen",
@@ -15,8 +15,8 @@
         "standalone"
     ],
     "description": "A readable Hacker News app.",
-    "theme_color": "#000000",
-    "background_color": "#000000",
+    "theme_color": "transparent",
+    "background_color": "transparent",
     "orientation": "any",
     "categories": [
         "personalization",
@@ -48,10 +48,6 @@
         { "platform": "f-droid", "id": "*", "url": "*://*/*" },
         { "platform": "amazon", "id": "*", "url": "*://*/*" }
     ],
-    "content_scripts": [],
     "incognito": "split",
-    "default_locale": "en",
-    "chrome_url_overrides": {
-        "newtab": "index.html"
-    }
+    "default_locale": "en"
 }

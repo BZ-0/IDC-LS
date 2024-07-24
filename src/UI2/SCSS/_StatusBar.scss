@@ -18,7 +18,7 @@
         //
         @media #{d.$isDesktop} {
             @include tm.ux-transparent;
-            backdrop-filter: blur(0.125rem);
+            //backdrop-filter: blur(0.125rem);
         }
     }
 
