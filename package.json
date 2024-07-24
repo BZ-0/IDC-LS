@@ -48,5 +48,8 @@
         "vite-plugin-pwa": "^0.20.0",
         "vite-plugin-static-copy": "^1.0.5",
         "vue": "^3.4.33"
+    },
+    "devDependencies": {
+        "vite-plugin-singlefile": "^2.0.2"
     }
 }

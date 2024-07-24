@@ -22,6 +22,8 @@ import pkg from "./package.json";
 import tsconfig from "./tsconfig.json";
 import dts from "vite-plugin-dts";
 import vue from '@vitejs/plugin-vue'
+import { viteSingleFile } from "vite-plugin-singlefile"
+
 
 //
 const __dirname = import.meta.dirname;
@@ -56,6 +58,9 @@ const config = <UserConfig>defineConfig({
                 }
             }
         }),
+        viteSingleFile({
+            useRecommendedBuildConfig: true
+        }),
         //analyzer(),
         nodePolyfills(),
         compression({
@@ -63,10 +68,10 @@ const config = <UserConfig>defineConfig({
         }),
         prefetchPlugin(),
         VitePluginBrowserSync(),
-        svelte({
+        /*svelte({
             emitCss: production,
             preprocess: sveltePreprocess(),
-        }),
+        }),*/
         VitePWA({
             injectRegister: null,
             registerType: "autoUpdate",
@@ -137,6 +142,7 @@ const config = <UserConfig>defineConfig({
     },
 
     optimizeDeps: {
+        include: ['src'],
         esbuildOptions: {target: "esnext", supported: {bigint: true}},
     },
 });

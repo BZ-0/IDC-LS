@@ -23,5 +23,5 @@ if (typeof navigator != "undefined") {
 }
 
 //
-import("./main.scss");
-import("./src/Main.ts");
+import("./main.scss").then(()=>import("./src/Main.ts"));
+
