@@ -52,7 +52,7 @@
     }
 
     //
-    subscribe(settings, (value, prop)=>{
+    subscribe($settings, (value, prop)=>{
         changeLayout();
     });
 
@@ -84,6 +84,9 @@
                 gpRef.value?.style?.setProperty?.(["--grid-h", "--grid-w"][idc], box.blockSize, "")
             })
         }
+
+        //
+        changeLayout();
     });
 
     //
