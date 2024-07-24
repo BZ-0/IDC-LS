@@ -9,25 +9,18 @@
 
 //
 @layer ux-app-frame {
-    //
-    body:has(.ux-app-frame:is([data-hidden="false"], [data-hidden=""], :not([data-hidden]))) .ux-status-bar {
-        @media #{d.$isMobile} {
-            @include tm.ux-solid-transparent;
-        }
-
-        //
-        @media #{d.$isDesktop} {
-            @include tm.ux-transparent;
-            //backdrop-filter: blur(0.125rem);
-        }
-    }
 
     //
     :where(.ux-status-bar) {
         @include cm.stretch;
         @include cm.pe-none;
         @include cm.align-center;
+
+        //
         @include tm.ux-transparent;
+        @media #{d.$isMobile} {
+            @include tm.ux-dynamic-transparent;
+        }
 
         //
         display: grid;
