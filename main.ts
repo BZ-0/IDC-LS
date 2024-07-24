@@ -1,27 +1,29 @@
-//
-if ("virtualKeyboard" in navigator && navigator?.virtualKeyboard) {
-    // @ts-ignore
-    navigator.virtualKeyboard.overlaysContent = true;
-}
-
-//
-if (typeof navigator != "undefined") {
-    navigator?.serviceWorker?.register?.(new URL("./service.mjs", import.meta.url).href, {scope: "/"}).then(
-        (registration) => {
-            console.log('Service worker registration succeeded:', registration);
-        },
-        (error) => {
-            console.error(`Service worker registration failed: ${error}`);
-        }
-    )?.catch?.(console.warn.bind(console));
+(async()=>{
+    //
+    if ("virtualKeyboard" in navigator && navigator?.virtualKeyboard) {
+        // @ts-ignore
+        navigator.virtualKeyboard.overlaysContent = true;
+    }
 
     //
-    navigator?.registerProtocolHandler?.(
-        "web+mxs",
-        location.origin + `/opfs?path=%s`
-    );
-}
+    if (typeof navigator != "undefined") {
+        navigator?.serviceWorker?.register?.(new URL("./service.mjs", import.meta.url).href, {scope: "/"}).then(
+            (registration) => {
+                console.log('Service worker registration succeeded:', registration);
+            },
+            (error) => {
+                console.error(`Service worker registration failed: ${error}`);
+            }
+        )?.catch?.(console.warn.bind(console));
+
+        //
+        navigator?.registerProtocolHandler?.(
+            "web+mxs",
+            location.origin + `/opfs?path=%s`
+        );
+    }
+})();
 
 //
-import("./main.scss").then(()=>import("./src/Main.ts"));
-
+import("./src/Main.ts");
+import("./src/Main.scss");

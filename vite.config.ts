@@ -59,7 +59,8 @@ const config = <UserConfig>defineConfig({
             }
         }),
         viteSingleFile({
-            useRecommendedBuildConfig: true
+            useRecommendedBuildConfig: false,
+            inlinePattern: ["!(service).mjs"]
         }),
         //analyzer(),
         nodePolyfills(),
@@ -124,6 +125,7 @@ const config = <UserConfig>defineConfig({
         minifyIdentifiers: true
     },
     build: {
+        chunkSizeWarningLimit: 100000000,
         minify: 'esbuild',
         cssMinify: true,
         modulePreload: true,
@@ -131,8 +133,13 @@ const config = <UserConfig>defineConfig({
         sourcemap: sourceMapsInProduction,
         outDir: "./webapp",
         emptyOutDir: true,
+        cssCodeSplit: false,
         rollupOptions: {
-            input: "./index.html"
+            input: "./index.html",
+            output: {
+                inlineDynamicImports: false,
+                manualChunks: {}
+            },
         },
     },
     css: {

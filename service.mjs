@@ -118,9 +118,11 @@ const fit = (req, event) => {
     ).catch(()=>null);
 
     //
+    event?.waitUntil?.(cached);
+
+    //
     const anyone = loading.then((r)=>(r||cached)).catch(()=>cached);
     anyone.then(()=>self.skipWaiting())
-    event?.waitUntil?.(anyone);
     return anyone;
 };
 
