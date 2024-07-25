@@ -147,7 +147,9 @@ const config = <UserConfig>defineConfig({
             plugins: [autoprefixer(), fallback(/*options*/)],
         },
     },
-
+    html: {
+        cspNonce: 'VITE_NONCE'//"allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' 'inline-speculation-rules' 'script-src-elem'; object-src 'self'; child-src 'self';"
+    },
     optimizeDeps: {
         include: ['src'],
         esbuildOptions: {target: "esnext", supported: {bigint: true}},

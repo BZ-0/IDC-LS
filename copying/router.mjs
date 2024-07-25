@@ -63,6 +63,7 @@ export default async function (fastify, options) {
         reply.header(
             "Permissions-Policy",
             [
+                "storage-access=*",
                 "fullscreen=*",
                 "gyroscope=*",
                 "window-management=*",
