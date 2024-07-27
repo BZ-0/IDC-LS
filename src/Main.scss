@@ -1,2 +1,19 @@
-@use "@unite/index";
+@use "@unite/scss/core/Layers";
+@use "@unite/scss/core/Props";
+@use "@unite/scss/core/Root";
+@use "@unite/scss/core/Zoom";
+@use "@unite/scss/core/Normalize";
+@use "@unite/scss/core/ClassLets";
+
+//
+@use "@unite/scss/core/States";
+
+//
+@use "@unite/scss/design/ColorProps";
+@use "@unite/scss/design/ColorTheme";
+@use "@unite/scss/design/Backdrop";
+@use "@unite/scss/grid/GridLayout";
+@use "@unite/wcomp/scrollbox/ScrollBox";
+
+//
 @use "@idc/Bundle";
