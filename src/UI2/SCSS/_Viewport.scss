@@ -1,0 +1,71 @@
+@use "@unite/scss/core/ClassMods" as cm;
+
+//
+@layer ux-viewport {
+    //
+    .ux-viewport {
+        @include cm.pe-none;
+        @include cm.vp-vars;
+
+        //
+        container-type: size;
+        contain: strict;
+
+        //
+        display: grid;
+        position: fixed;
+        overflow: visible;
+
+        //
+        inset: 0px !important;
+
+        //
+        z-index: 0;
+
+        //
+        inline-size: var(--vp-i-size, 100dvi) !important;
+        block-size: var(--vp-b-size, 100dvb) !important;
+        max-inline-size: var(--vp-i-size, 100dvi) !important;
+        max-block-size: var(--vp-b-size, 100dvb) !important;
+
+        //
+        will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset;
+
+        //
+        grid-template-columns: minmax(0px, 1fr);
+        grid-template-rows:
+            [empty-space] minmax(0px, 1fr)
+            [field-edit] minmax(3rem, max-content)
+            [v-keyboard] minmax(0px, var(--keyboard-inset-height, 0px));
+
+        //
+        & > * {
+            grid-row: empty-space;
+        }
+
+        //
+        .ux-viewbox {
+            align-self: start;
+
+            //
+            inline-size: var(--vp-i-size, 100dvi) !important;
+            block-size: var(--vp-b-size, 100dvb) !important;
+            max-inline-size: var(--vp-i-size, 100dvi) !important;
+            max-block-size: var(--vp-b-size, 100dvb) !important;
+
+            //
+            inset: 0px;
+
+            //
+            grid-row: 1 / 3 span !important;
+            position: absolute;
+
+            //
+            inset-block-end: auto;
+
+            //
+            @include cm.vp-vars;
+            @extend .grid-based-box;
+        }
+    }
+}

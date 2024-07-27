@@ -5,100 +5,83 @@
     //
     .ux-editor {
         @include cm.pe-none;
+        @include cm.stretch;
 
         //
         display: grid;
-        position: fixed;
-        overflow: hidden;
-
-        //
-        inset: 0px !important;
-        inset-block-start: 0px;
-        //inset-block-end: auto;
-        inset-block-end: var(--keyboard-inset-bottom, auto);
-
-        //
         z-index: 999999;
+        overflow: hidden;
+        align-self: start;
 
         //
-        inline-size: var(--vp-i-size, 100dvi) !important;
-        //block-size: var(--vp-b-size, 100dvb) !important;
-        block-size: calc(var(--vp-b-size, 100dvb) - var(--keyboard-inset-height, 0px)) !important;
+        //position: fixed;
 
         //
-        will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset;
+        inset: 0px;
+        inset-block-start: auto;
+        //inset-block-end: var(--keyboard-inset-bottom, 0px);
 
         //
-        grid-template-columns: minmax(0px, 1fr);
-        grid-template-rows: [empty-space] minmax(0px, 1fr) [field-edit] minmax(3rem, max-content);
+        pointer-events: auto !important;
+        grid-row: field-edit !important;
 
         //
-        @include cm.vp-vars-keyboard-dependent;
+        box-shadow: 0px 0px 1rem 1px #00000070;
 
         //
-        .field-content {
-            //@include cm.pe-enable;
+        grid-template-columns: minmax(0px, 1fr) minmax(3rem, max-content) minmax(3rem, max-content);
+        grid-template-rows: minmax(3rem, max-content);
+
+        //
+        max-block-size: 3rem;
+        min-block-size: 3rem;
+        block-size: max-content;
+
+        //
+        :where(.field-copy, .field-paste) {
+            @include cm.stretch;
+            @include cm.align-center;
 
             //
-            pointer-events: auto !important;
+            display: flex;
+            padding: 1rem !important;
 
             //
-            display: grid;
-            box-shadow: 0px 0px 1rem 1px #00000070;
+            border-radius: 0px;
 
             //
-            grid-template-columns: minmax(0px, 1fr) minmax(3rem, max-content) minmax(3rem, max-content);
+            cursor: pointer;
+        }
+
+        //
+        .field-wrap {
+            @include cm.stretch;
 
             //
-            max-block-size: none;
-            min-block-size: max-content;
+            //display: flex;
+            display: contents;
+            flex-direction: row;
+            min-block-size: 3rem;
 
             //
-            :where(.field-copy, .field-paste) {
+            input {
                 @include cm.stretch;
-                @include cm.align-center;
+                //@include cm.pe-enable;
 
                 //
-                display: flex;
-                padding: 1rem !important;
+                pointer-events: auto !important;
 
                 //
-                border-radius: 0px;
+                font-size: 1.3rem;
+
+                //@include dFont.applyFont(1.8rem);
 
                 //
-                cursor: pointer;
-            }
-
-            //
-            .field-wrap {
-                @include cm.stretch;
-
-                //
-                //display: flex;
-                display: contents;
-                flex-direction: row;
+                padding-inline: 1rem;
                 min-block-size: 3rem;
 
                 //
-                input {
-                    @include cm.stretch;
-                    //@include cm.pe-enable;
-
-                    //
-                    pointer-events: auto !important;
-
-                    //
-                    font-size: 1.6rem;
-
-                    //@include dFont.applyFont(1.8rem);
-
-                    //
-                    padding-inline: 1rem;
-                    min-block-size: 3rem;
-
-                    //
-                    user-select: auto;
-                }
+                user-select: auto;
             }
         }
     }

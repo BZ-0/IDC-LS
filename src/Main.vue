@@ -6,6 +6,7 @@
     //
     import ContextMenu from "@idc/UI2/Vue/ContextMenu.vue";
     import InputEditor from "@idc/UI2/Vue/InputEdit.vue";
+    import Viewport from "@idc/UI2/Vue/Viewport.vue";
     import IconEdit from "@idc/UI2/Vue/IconEdit.vue";
 
     //
@@ -49,19 +50,20 @@
 
 <!-- -->
 <template>
-<DesktopGrid :state="state" :actionMap="actionMap"></DesktopGrid>
 
-<IconEdit></IconEdit>
-<ContextMenu :ctxList="itemCtxList" ctxName="grid-item"></ContextMenu>
-<ContextMenu :ctxList="gridCtxList" ctxName="grid-space"></ContextMenu>
+<Viewport>
+    <DesktopGrid :state="state" :actionMap="actionMap"></DesktopGrid>
+    <ContextMenu :ctxList="itemCtxList" ctxName="grid-item"></ContextMenu>
+    <ContextMenu :ctxList="gridCtxList" ctxName="grid-space"></ContextMenu>
 
-<InputEditor></InputEditor>
+    <IconEdit></IconEdit>
 
-<AppFrame hashIdName="#control-center">
-    <ControlCenter appId="#control-center"></ControlCenter>
-</AppFrame>
+    <AppFrame hashIdName="#control-center">
+        <ControlCenter appId="#control-center"></ControlCenter>
+    </AppFrame>
 
-<StatusBar></StatusBar>
+    <StatusBar></StatusBar>
+</Viewport>
 
 </template>
 

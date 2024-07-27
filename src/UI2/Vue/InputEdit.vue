@@ -10,7 +10,7 @@
     <div
         class="ux-editor fixed"
         data-hidden="true"
-        data-scheme="transparent"
+        data-scheme="solid"
         v-bind="$attrs"
     >
         <div data-scheme="solid" class="field-content stretch" style="grid-row: field-edit;">

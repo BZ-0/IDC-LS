@@ -79,6 +79,7 @@
             <div class="ux-field-block" v-for="F in fields">
                 <div inert class="field-label">{{F.label}}</div>
                 <input
+                    data-scheme="solid"
                     class="field-input hl-1 hl-2h"
                     data-highlight="1"
                     data-highlight-hover="2"

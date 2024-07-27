@@ -30,7 +30,7 @@
 </script>
 
 <template>
-    <div ref="elRef" data-hidden="true" class="ux-modal-frame" v-bind="$attrs">
+    <div ref="elRef" data-hidden="true" class="ux-modal-frame" data-scheme="solid" v-bind="$attrs">
         <div class="cut-space">
             <slot></slot>
         </div>
