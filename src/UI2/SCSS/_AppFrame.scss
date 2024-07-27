@@ -20,7 +20,7 @@
 
         //
         & .ux-content {
-            z-index: fallback(calc(999 + var(--z-index, 0)), 999);
+            z-index: calc(999 + var(--z-index, 0));
         }
     }
 
@@ -78,7 +78,7 @@
 
         //
         inset: 0px;
-        z-index: fallback(calc(999 + var(--z-index, 0)), 999);
+        z-index: calc(999 + var(--z-index, 0));
         display: grid;
 
         //

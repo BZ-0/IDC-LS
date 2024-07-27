@@ -4,12 +4,9 @@ const useBabel = true;
 const sourceMapsInProduction = true;
 
 //
-import {svelte} from "@sveltejs/vite-plugin-svelte";
 import legacy from "@vitejs/plugin-legacy";
 import autoprefixer from "autoprefixer";
-import fallback from "postcss-fallback";
 import path from "node:path";
-import sveltePreprocess from "svelte-preprocess";
 import {defineConfig, type UserConfig} from "vite";
 import VitePluginBrowserSync from 'vite-plugin-browser-sync';
 import prefetchPlugin from 'vite-plugin-bundle-prefetch';
@@ -20,7 +17,6 @@ import {viteStaticCopy} from "vite-plugin-static-copy";
 import certificate from "./https/certificate.mjs";
 import pkg from "./package.json";
 import tsconfig from "./tsconfig.json";
-import dts from "vite-plugin-dts";
 import vue from '@vitejs/plugin-vue'
 import { viteSingleFile } from "vite-plugin-singlefile"
 
@@ -71,10 +67,6 @@ const config = <UserConfig>defineConfig({
         }),
         prefetchPlugin(),
         VitePluginBrowserSync(),
-        /*svelte({
-            emitCss: production,
-            preprocess: sveltePreprocess(),
-        }),*/
         VitePWA({
             injectRegister: null,
             registerType: "autoUpdate",
@@ -104,7 +96,7 @@ const config = <UserConfig>defineConfig({
                     dest: "./https/", // 2️⃣
                 },
             ],
-        }), dts()
+        })
     ],
     server: {
         cors: true,
@@ -146,7 +138,7 @@ const config = <UserConfig>defineConfig({
     },
     css: {
         postcss: {
-            plugins: [autoprefixer(), fallback(/*options*/), deduplicate(), cssnano({
+            plugins: [autoprefixer(), deduplicate(), cssnano({
                 preset: 'default',
             })],
         },

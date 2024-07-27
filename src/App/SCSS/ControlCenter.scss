@@ -107,9 +107,9 @@ $tabNames: "wallpapers", "settings";
                     & * {
                         @include cm.align-center;
                         background-color: transparent;
-                        max-inline-size: fallback(stretch, 100%);
-                        max-block-size: fallback(stretch, 100%);
-                        block-size: fallback(stretch, 100%);
+                        max-inline-size: 100%;
+                        max-block-size: 100%;
+                        block-size: 100%;
                     }
                 }
             }

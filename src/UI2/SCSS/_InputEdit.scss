@@ -40,7 +40,7 @@
             //@include cm.pe-enable;
 
             //
-            pointer-events: fallback(bounding-box, auto) !important;
+            pointer-events: auto !important;
 
             //
             display: grid;
@@ -85,7 +85,7 @@
                     //@include cm.pe-enable;
 
                     //
-                    pointer-events: fallback(bounding-box, auto) !important;
+                    pointer-events: auto !important;
 
                     //
                     font-size: 1.6rem;

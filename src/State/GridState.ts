@@ -9,10 +9,6 @@ import States from "@unite/scripts/reactive/StateManager.ts"
 import {subscribe, extractSymbol} from "@unite/scripts/reactive/ReactiveLib.ts";
 
 //
-import {parse} from "svelte/compiler";
-import {get} from "svelte/store";
-
-//
 import {settings} from "./CurrentState.ts";
 
 //

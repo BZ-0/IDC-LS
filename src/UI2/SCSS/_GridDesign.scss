@@ -74,7 +74,7 @@
 
             //
             &:where([data-type="items"]) {
-                pointer-events: fallback(bounding-box, auto);
+                pointer-events: auto;
                 cursor: pointer;
             }
         }

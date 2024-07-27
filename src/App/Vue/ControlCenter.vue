@@ -1,5 +1,4 @@
 <script setup>
-	import { currentLocationHash } from "@unite/svelte/utils/Realtime.ts";
     import {observeBySelector} from "@unite/scripts/dom/Observer.ts"
     import {MOC, MOCElement} from "@unite/scripts/utils/Utils.ts";
     import States from "@unite/scripts/reactive/StateManager.ts";
