@@ -96,7 +96,7 @@ const config = <UserConfig>defineConfig({
                     dest: "./assets", // 2️⃣
                 },
                 {
-                    src: "./copying/*",
+                    src: "./copying/!(node_modules)",
                     dest: "./", // 2️⃣
                 },
                 {
