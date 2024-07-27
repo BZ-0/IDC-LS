@@ -4,10 +4,11 @@ import fs from "fs/promises"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import zlib from "node:zlib"
+import FastifyVite from '@fastify/vite'
 
 //
-const probeDirectory = async (dirlist, agr = "local/") => {
-    for (const dir of dirlist) {
+const probeDirectory = async (dirList, agr = "local/") => {
+    for (const dir of dirList) {
         const check = await fs
             .stat(path.resolve(dir + agr, "certificate.crt"))
             .catch(() => false);
@@ -15,7 +16,7 @@ const probeDirectory = async (dirlist, agr = "local/") => {
             return dir;
         }
     }
-    return dirlist[0];
+    return dirList[0];
 };
 
 //
@@ -41,6 +42,13 @@ export default async function (fastify, options) {
         },
         zlibOptions: { level: 9 },
     });
+
+    //
+    await fastify.register(FastifyVite, {
+        root: import.meta.url,
+        dev: process.argv.includes('--dev'),
+        spa: true
+    })
 
     //
     const cacheControl = [
@@ -118,7 +126,7 @@ export default async function (fastify, options) {
         decorateReply: false,
         list: true,
     });
-    
+
     //
     fastify.register(fastifyStatic, {
         prefix: "/",
@@ -144,7 +152,7 @@ export const options = {
     port,
     https: Array.from(process.argv).some((e) => e.endsWith("no-https"))
         ? null
-        : (await import("./https/certificate.mjs")).default,
+        : (await import(await probeDirectory(["../https/", "./https/"]) + "/certificate.mjs")).default,
     address: "0.0.0.0",
     host: "0.0.0.0",
 };
