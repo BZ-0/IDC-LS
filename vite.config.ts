@@ -24,6 +24,8 @@ import dts from "vite-plugin-dts";
 import vue from '@vitejs/plugin-vue'
 import { viteSingleFile } from "vite-plugin-singlefile"
 
+import cssnano from "cssnano";
+import deduplicate from "postcss-discard-duplicates";
 
 //
 const __dirname = import.meta.dirname;
@@ -144,7 +146,9 @@ const config = <UserConfig>defineConfig({
     },
     css: {
         postcss: {
-            plugins: [autoprefixer(), fallback(/*options*/)],
+            plugins: [autoprefixer(), fallback(/*options*/), deduplicate(), cssnano({
+                preset: 'default',
+            })],
         },
     },
     html: {
