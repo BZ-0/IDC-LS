@@ -231,17 +231,17 @@
             grid-column: 1 / 3 span;
         }
 
-        //
-        @container ux-windowed #{d.$isNotWide} {
-            @include whenMobile;
-        }
-
         @media #{d.$isMobile} {
             @include whenMobile;
         }
 
         @media #{d.$isDesktop} {
             @include whenDesktop;
+        }
+
+        //
+        @container ux-windowed (width < #{d.$mobileWidth}) {
+            @include whenMobile;
         }
     }
 }
