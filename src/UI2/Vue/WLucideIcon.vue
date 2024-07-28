@@ -36,6 +36,7 @@
 <template>
     <div inert class="icon-wrap" v-bind="$attrs">
         <component
+            inert
             :is="icon"
             :size="size"
             :color="color"

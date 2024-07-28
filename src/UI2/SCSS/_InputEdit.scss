@@ -4,8 +4,9 @@
 @layer ux-editor {
     //
     .ux-editor {
-        @include cm.pe-none;
+        @include cm.pe-enable;
         @include cm.stretch;
+        @include cm.align-center;
 
         //
         display: grid;
@@ -41,10 +42,12 @@
         :where(.field-copy, .field-paste) {
             @include cm.stretch;
             @include cm.align-center;
+            @include cm.pe-enable;
 
             //
             display: flex;
             padding: 1rem !important;
+            block-size: 3rem;
 
             //
             border-radius: 0px;
@@ -56,17 +59,18 @@
         //
         .field-wrap {
             @include cm.stretch;
+            @include cm.align-center;
 
             //
             //display: flex;
             display: contents;
             flex-direction: row;
-            min-block-size: 3rem;
+            block-size: 3rem;
 
             //
             input {
                 @include cm.stretch;
-                //@include cm.pe-enable;
+                @include cm.pe-enable;
 
                 //
                 pointer-events: auto !important;
@@ -78,7 +82,6 @@
 
                 //
                 padding-inline: 1rem;
-                min-block-size: 3rem;
 
                 //
                 user-select: auto;

@@ -13,8 +13,8 @@
         data-scheme="accent"
         v-bind="$attrs"
     >
-        <div class="ux-viewbox">
-            <slot></slot>
+        <div class="ux-viewport-box">
+            <div class="ux-viewport-content"><slot></slot></div>
         </div>
         <InputEdit></InputEdit>
     </div>

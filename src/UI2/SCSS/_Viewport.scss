@@ -2,6 +2,7 @@
 
 //
 @layer ux-viewport {
+
     //
     .ux-viewport {
         @include cm.pe-none;
@@ -10,23 +11,19 @@
         //
         container-type: size;
         contain: strict;
-
-        //
         display: grid;
         position: fixed;
         overflow: visible;
 
         //
-        inset: 0px !important;
-
-        //
+        inset: 0px;
         z-index: 0;
 
         //
-        inline-size: var(--vp-i-size, 100dvi) !important;
-        block-size: var(--vp-b-size, 100dvb) !important;
-        max-inline-size: var(--vp-i-size, 100dvi) !important;
-        max-block-size: var(--vp-b-size, 100dvb) !important;
+        inline-size: var(--vp-i-size, 100dvi);
+        block-size: var(--vp-b-size, 100dvb);
+        max-inline-size: var(--vp-i-size, 100dvi);
+        max-block-size: var(--vp-b-size, 100dvb);
 
         //
         will-change: --keyboard-inset-bottom, --keyboard-inset-height, contents, inset;
@@ -44,28 +41,35 @@
         }
 
         //
-        .ux-viewbox {
+        .ux-viewport-box {
+            @include cm.stretch;
+
+            //
             align-self: start;
-
-            //
-            inline-size: var(--vp-i-size, 100dvi) !important;
-            block-size: var(--vp-b-size, 100dvb) !important;
-            max-inline-size: var(--vp-i-size, 100dvi) !important;
-            max-block-size: var(--vp-b-size, 100dvb) !important;
-
-            //
+            grid-row: 1;
+            position: relative;
+            overflow: visible;
             inset: 0px;
 
             //
-            grid-row: 1 / 3 span !important;
-            position: absolute;
+            .ux-viewport-content {
+                @include cm.vp-vars;
+                @extend .grid-based-box;
 
-            //
-            inset-block-end: auto;
+                //
+                inset: 0px;
+                inset-block-end: auto;
+                position: absolute;
+                overflow: hidden;
+                container-type: size;
+                contain: strict;
 
-            //
-            @include cm.vp-vars;
-            @extend .grid-based-box;
+                //
+                inline-size: var(--vp-i-size, 100dvi);
+                block-size: var(--vp-b-size, 100dvb);
+                max-inline-size: var(--vp-i-size, 100dvi);
+                max-block-size: var(--vp-b-size, 100dvb);
+            }
         }
     }
 }
