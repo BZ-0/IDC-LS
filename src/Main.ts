@@ -3,7 +3,6 @@ import $Bundle from "@unite/scripts/stylework/Bundle.ts";
 
 //
 const loading = Promise.allSettled([
-    import("@idc/UI2/Scripts/Appear.ts"),
     import("@idc/UI2/Scripts/Dropper.ts"),
     import("@idc/UI2/Scripts/AppFrame.ts"),
     import("@idc/UI2/Scripts/ContextMenu.ts"),
