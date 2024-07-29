@@ -34,7 +34,7 @@
 </script>
 
 <template>
-    <component
+    <component v-bind="$attrs"
         inert
         :is="icon"
         :size="size"

@@ -23,6 +23,7 @@
             minmax(max-content, 1fr)
             minmax(var(--block-size), max-content);
         grid-template-rows: minmax(var(--block-size), max-content);
+        block-size: var(--block-size);
 
         //
         overflow: hidden;
@@ -67,20 +68,20 @@
             cursor: default;
 
             //
+            padding: 0px;
             overflow: visible;
-            min-inline-size: 3em;
+            inline-size: 4em;
+            min-inline-size: 0px;
             display: inline-block;
             opacity: 1;
             text-align: center;
             background: transparent;
-            inline-size: max-content;
-            max-inline-size: 4em;
 
             appearance: textfield;
             visibility: visible;
 
             //
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: var(--current-glyph-color);
 
             //
@@ -95,7 +96,7 @@
 
             //
             display: flex;
-            padding: 0.5rem;
+            padding: 0.25rem;
             background: transparent;
 
             //

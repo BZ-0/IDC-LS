@@ -16,21 +16,14 @@
     <div :data-hidden="chash != props.hashIdName" data-scheme="solid" class="ui-frame ui-app-frame ui-default-theme ui-detached" v-bind="$attrs">
 
         <div class="titlebar" data-highlight="2" data-scheme="solid">
-            <div data-scheme="solid" data-highlight="2" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;">
-                <LucideIcon inert name="chevron-down"/>
-            </div>
-            <div data-scheme="solid" data-highlight="2" class="ui-title-handle">
-
-            </div>
-            <div data-scheme="solid" data-highlight="2" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;">
-                <LucideIcon inert name="menu"/>
-            </div>
+            <LucideIcon name="chevron-down" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;" data-scheme="solid" data-highlight="2" />
+            <div data-scheme="solid" data-highlight="2" class="ui-title-handle"></div>
+            <LucideIcon name="menu" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;" data-scheme="solid" data-highlight="2" />
         </div>
 
         <slot></slot>
 
         <div class="ui-status" data-scheme="solid" data-highlight="2"></div>
         <div class="ui-resize"></div>
-
     </div>
 </template>

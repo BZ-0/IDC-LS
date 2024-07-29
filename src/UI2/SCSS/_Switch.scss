@@ -19,11 +19,11 @@
         @include cm.stretch;
 
         //
-        @include u.clamped-width(max-content, 5rem, 5rem);
-        @include u.clamped-height(max-content, 1.5rem, 2.5rem);
+        @include u.clamped-width(max-content, 6rem, 6rem);
+        @include u.clamped-height(max-content, 1.8rem, 1.8rem);
 
         //
-        --thumb-size: 1rem;
+        --thumb-size: 1.25rem;
         --value-mod: 0;
 
         //
@@ -40,7 +40,7 @@
         //
         grid-template-columns:
             [space-l] calc(var(--thumb-size) * 0.5)
-            [fillT] calc(100% * var(--value-mod) - var(--thumb-size) * 0.5)
+            [fillT] calc((100% - var(--thumb-size)) * var(--value-mod))
             [track] minmax(0px, 1fr)
             [space-r] calc(var(--thumb-size) * 0.5);
         grid-template-rows: minmax(0px, 1fr);
@@ -58,19 +58,9 @@
         color: var(--current-glyph-color);
 
         //
-        & * {
-            background-color: transparent;
-        }
-
-        //
-        &::after {
-            grid-column: space-r;
-        }
-
-        //
-        &::before {
-            grid-column: space-l;
-        }
+        & * { background-color: transparent; }
+        &::after { grid-column: space-r; }
+        &::before { grid-column: space-l; }
 
         //
         &:where(::after, ::before) {
@@ -83,13 +73,7 @@
         }
 
         //
-        .thumb {
-            pointer-events: none;
-            background-color: var(--current-surface-color);
-            z-index: 9;
-        }
-
-        //
+        .thumb { pointer-events: none; background-color: var(--current-surface-color); z-index: 9; }
         .icon-sign {
             place-items: center;
             place-content: center;
@@ -144,19 +128,18 @@
             @include cm.stretch;
 
             //
-            border-radius: 0px 0.25rem 0.25rem 0px;
-            grid-column: 2 / 3;
+            border-radius: 0.25rem;
+            grid-column: 2 / 2;
             z-index: 1;
         }
 
         //
         & .track {
             @include cm.stretch;
-            @include tm.ux-inverse;
 
             //
-            grid-column: 2 / 2;
-            border-radius: 0.25rem 0px 0px 0.25rem;
+            grid-column: 3 / 3;
+            border-radius: 0.25rem;
             z-index: 2;
         }
 

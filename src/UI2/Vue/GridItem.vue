@@ -1,7 +1,7 @@
 <script setup>
 import GestureControl from "@unite/scripts/interact/Gesture.ts";
 import {reactive, watch, ref, onMounted} from "vue";
-import LucideIcon from "./WLucideIcon.vue";
+import LucideIcon from "./UWLucideIcon.vue";
 import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 
 //
@@ -62,7 +62,7 @@ onMounted(()=>{
         data-scheme="accent-inverse"
         class="ux-grid-item wavy-shaped">
 
-        <LucideIcon :name="gridItem.icon"></LucideIcon>
+        <LucideIcon inert :name="gridItem.icon"></LucideIcon>
 
     </div>
 </template>

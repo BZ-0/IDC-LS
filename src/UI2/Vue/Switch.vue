@@ -28,10 +28,10 @@
 
 <!-- -->
 <template>
-    <label ref="target" class="ui-input ui-switch" data-scheme data-highlight="1" v-bind="$attrs">
-        <input ref="input" @change="whenChange" @input="whenChange" type="range" min="-1" max="1" step="1"/>
-        <div class="fill" data-scheme data-highlight="1"></div>
-        <div class="track" data-scheme data-highlight="1"></div>
-        <div class="thumb icon-sign" data-scheme data-highlight="1"><LucideIcon name="circle"/></div>
+    <label ref="target" class="ui-input ui-switch" data-scheme="solid-transparent" v-bind="$attrs">
+        <input ref="input" data-scheme="solid-transparent" @change="whenChange" @input="whenChange" type="range" min="-1" max="1" step="1"/>
+        <div data-scheme="inverse" data-highlight="2" class="fill" ></div>
+        <div data-scheme="solid"   data-highlight="2" class="track" ></div>
+        <div data-scheme="solid"   data-highlight="3" class="thumb icon-sign"><LucideIcon name="circle"/></div>
     </label>
 </template>
