@@ -7,11 +7,11 @@
 @use "@unite/scss/design/ColorUtils" as cu;
 
 //
-@layer ux-inputs {
+@layer ui-inputs {
     :where(.number-input) {
-        //
-        @include cm.align-center;
-        @include cm.pe-enable;
+        place-content: center;
+        place-items: center;
+        pointer-events: auto;
 
         //
         --block-size: 2rem;
@@ -21,25 +21,26 @@
         grid-template-columns:
             minmax(var(--block-size), max-content)
             minmax(max-content, 1fr)
-            minmax(var(--block-size), max-content );
+            minmax(var(--block-size), max-content);
         grid-template-rows: minmax(var(--block-size), max-content);
+
+        //
         overflow: hidden;
-        min-inline-size: max-content;
-        cursor: default;
         border-radius: 0.25rem;
+        min-inline-size: max-content;
 
         //
         &,
         input {
             font-family:
-                Consolas,
-                Menlo,
-                Monaco,
-                Lucida Console,
-                Liberation Mono,
-                DejaVu Sans Mono,
-                Bitstream Vera Sans Mono,
-                Courier New,
+                "Consolas",
+                "Menlo",
+                "Monaco",
+                "Lucida Console",
+                "Liberation Mono",
+                "DejaVu Sans Mono",
+                "Bitstream Vera Sans Mono",
+                "Courier New",
                 monospace,
                 serif;
         }
@@ -104,7 +105,7 @@
         //
         & > :is(.f-minus, .f-plus) {
             cursor: pointer;
-            background-color: var(--current-surface-color) !important;
+            background-color: var(--current-surface-color);
         }
 
         //

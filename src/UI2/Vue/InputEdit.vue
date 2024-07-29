@@ -8,20 +8,18 @@
 
 <template>
     <div
-        class="ux-editor fixed"
+        class="ui-editor fixed"
         data-hidden="true"
         data-scheme="solid"
         v-bind="$attrs"
         style="grid-row: field-edit;"
     >
-        <div class="field-wrap">
-            <input
-                autofocus
-                autocomplete="off"
-                type="text"
-                maxlength="1024"
-            />
-        </div>
+        <input
+            autofocus
+            autocomplete="off"
+            type="text"
+            maxlength="1024"
+        />
         <button type="button" tabindex="-1" data-scheme="solid" data-highlight="2" class="field-copy pe-enable" style="grid-row: 1 / 1; grid-column: 2 / 2;">
             <LucideIcon name="copy" tabindex="-1" inert></LucideIcon>
         </button>

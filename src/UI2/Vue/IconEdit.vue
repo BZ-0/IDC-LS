@@ -51,9 +51,9 @@
 
 <!-- -->
 <template>
-    <Frame :self="hookRef" class="ux-modal-frame ls-icon-edit">
+    <Frame :self="hookRef" class="ui-modal-frame ui-icon-edit">
         <ItemEdit :whatEdit="gridItem" :data-item="gridItem?.id" :fields="fieldSet" v-bind:setConfirm="setConfirm" :key="gridItem"></ItemEdit>
-        <div class="ls-but">
+        <div class="ui-but">
             <button data-scheme="accent" type="button" class="delete-btn" @click="deleteWrap">Delete Icon</button>
             <button data-scheme="accent" type="button" class="confirm-btn" @click="confirmWrap">Apply Change</button>
         </div>

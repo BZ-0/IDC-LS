@@ -14,11 +14,9 @@
 }
 
 //
-@layer ux-inputs {
-    :where(.ux-switch) {
-        @include cm.align-center;
+@layer ui-inputs {
+    :where(.ui-switch) {
         @include cm.stretch;
-        @include cm.pe-enable;
 
         //
         @include u.clamped-width(max-content, 5rem, 5rem);
@@ -29,17 +27,22 @@
         --value-mod: 0;
 
         //
+        place-items: center;
+        place-content: center;
         container-type: size;
         contain: none;
         display: grid;
+        pointer-events: auto;
 
         //
         transition: --value-mod 100ms linear;
 
         //
-        grid-template-columns: [space-l] calc(var(--thumb-size) * 0.5) [fillT] calc(
-                100% * var(--value-mod) - var(--thumb-size) * 0.5
-            ) [track] minmax(0px, 1fr) [space-r] calc(var(--thumb-size) * 0.5);
+        grid-template-columns:
+            [space-l] calc(var(--thumb-size) * 0.5)
+            [fillT] calc(100% * var(--value-mod) - var(--thumb-size) * 0.5)
+            [track] minmax(0px, 1fr)
+            [space-r] calc(var(--thumb-size) * 0.5);
         grid-template-rows: minmax(0px, 1fr);
 
         //
@@ -50,8 +53,7 @@
         aspect-ratio: 1 / 1;
 
         //
-        background-color: transparent !important;
-        //background-color: var(--current-surface-color);
+        background-color: transparent;
         accent-color: var(--current-glyph-color);
         color: var(--current-glyph-color);
 
@@ -62,42 +64,36 @@
 
         //
         &::after {
-            @include cm.stretch;
-
-            //
-            content: "";
-            display: block;
-
-            //
             grid-column: space-r;
-            grid-row: 1 / 1 span;
         }
 
         //
         &::before {
+            grid-column: space-l;
+        }
+
+        //
+        &:where(::after, ::before) {
             @include cm.stretch;
 
             //
             content: "";
             display: block;
-
-            //
-            grid-column: space-l;
             grid-row: 1 / 1 span;
         }
 
         //
         .thumb {
-            @include cm.pe-none;
-
+            pointer-events: none;
             background-color: var(--current-surface-color);
             z-index: 9;
         }
 
         //
         .icon-sign {
-            @include cm.align-center;
-            @include cm.pe-none;
+            place-items: center;
+            place-content: center;
+            pointer-events: none;
 
             //
             justify-self: start;
@@ -108,13 +104,12 @@
             translate: calc(0px - 50%) 0px 0px;
 
             //
+            padding: 0.125rem;
             display: flex;
             stroke: var(--current-glyph-color);
 
             //
-            padding: 0.125rem;
             border-radius: calc(var(--thumb-size) * 0.45);
-            //aspect-ratio: 1 / 1;
 
             //
             inline-size: var(--thumb-size);
@@ -134,47 +129,34 @@
         }
 
         //
-        & .fill {
-            @include cm.stretch;
-            @include cm.pe-none;
-
-            //
-            grid-column: 2 / 3;
+        & :where(.fill, .track) {
+            inset: 0px;
+            transition: inline-size 100ms linear;
+            pointer-events: none;
             grid-row: 1 / 1 span;
 
             //
-            border-radius: 0.25rem 0px 0px 0.25rem;
-
-            //
-            inset: 0px;
-            transition: inline-size 100ms linear;
-
-            //
             background-color: var(--current-surface-color);
+        }
+
+        //
+        & .fill {
+            @include cm.stretch;
+
+            //
+            border-radius: 0px 0.25rem 0.25rem 0px;
+            grid-column: 2 / 3;
             z-index: 1;
         }
 
         //
         & .track {
             @include cm.stretch;
-            @include cm.pe-none;
-
-            //
             @include tm.ux-inverse;
 
             //
             grid-column: 2 / 2;
-            grid-row: 1 / 1 span;
-
-            //
             border-radius: 0.25rem 0px 0px 0.25rem;
-
-            //
-            inset: 0px;
-            transition: inline-size 100ms linear;
-
-            //
-            background-color: var(--current-surface-color);
             z-index: 2;
         }
 
@@ -195,19 +177,12 @@
         //
         input {
             @include cm.stretch;
-            @include cm.pe-enable;
 
             //
             padding: 0px;
             border: none 0px transparent;
             position: relative;
-            //inset-inline: var(--thumb-size);
-
-            //
-            //touch-action: manipulation;
-            //-webkit-user-drag: auto;
-            //-moz-user-drag: auto;
-            //user-select: none;
+            pointer-events: auto;
 
             //
             grid-column: 1 / 4 span;

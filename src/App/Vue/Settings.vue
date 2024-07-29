@@ -37,20 +37,20 @@
 
 <!-- -->
 <template>
-    <div class="ls-screen" id="settings" v-bind="$attrs">
+    <div class="ui-screen" id="settings" v-bind="$attrs">
 
-        <div class="ls-nav" data-scheme="solid" data-highlight="1">
+        <div class="ui-nav" data-scheme="solid" data-highlight="1">
             <div class="f-space"></div>
             <button class="back-act hl-1 hl-2h">
                 <div inert class="icon"><LucideIcon slot="icon" name="arrow-left"/></div>
                 <div inert class="name">Back</div>
             </button>
         </div>
-        <x-scrollbox class="ux-space" >
+        <x-scrollbox class="ui-space" >
 
             <form v-if="forms" v-for="form in forms" data-page class="form-wrap hl-ns" data-name="grid-columns-row">
                 <div class="form-description">{{form.description}}</div>
-                <div v-if="form.fields" v-for="field in form.fields" class="ux-block-decor pe-none" style="--decor-size: 4rem;" >
+                <div v-if="form.fields" v-for="field in form.fields" class="ui-block-decor pe-none" style="--decor-size: 4rem;" >
                     <span class="opt-label">{{field.label}}</span>
                     <LucideIcon data-place="icon" :name="field.icon"/>
 

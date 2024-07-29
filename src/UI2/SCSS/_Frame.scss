@@ -5,18 +5,19 @@
 @use "@unite/scss/core/Utils" as u;
 
 //
-@layer ux-modal-frame {
-    .ux-modal-frame {
-        @include cm.align-center;
-        @include cm.pe-enable;
-
-        //
+@layer ui-modal-frame {
+    .ui-modal-frame {
         inset: 0px;
         position: fixed;
         padding: 0.25rem;
         overflow: hidden;
         border-radius: 0.25rem;
         box-sizing: border-box;
+
+        //
+        pointer-events: auto;
+        place-items: center;
+        place-content: center;
 
         //
         z-index: 99999;
@@ -39,7 +40,7 @@
         @include u.clamped-height(max-content, max-content, 80cqb);
 
         //
-        &.ux-context-menu {
+        &.ui-context-menu {
             --rx: calc(var(--click-x, 0) * 1px - calc(50cqi - 50%));
             --ry: calc(var(--click-y, 0) * 1px - calc(50cqb - 50%));
 

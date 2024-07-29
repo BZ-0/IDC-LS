@@ -6,11 +6,14 @@
 @use "@unite/scss/design/ColorTheme";
 
 //
-@layer ux-item-edit {
+@layer ui-item-edit {
     //
-    .ux-edit-form {
+    .ui-edit-form {
         @include cm.stretch;
-        @include cm.align-center;
+
+        //
+        place-content: center;
+        place-items: center;
 
         //
         min-inline-size: max-content;
@@ -42,20 +45,17 @@
         contain: content;
 
         //
-        & > * {
-            flex: 1;
-        }
+        & > :where(*) { flex: 1; }
 
         //
-        .ux-edit-desc {
-            //grid-column: 1 / 2 span;
+        .ui-edit-desc {
             display: flex;
             place-items: center;
             place-content: center;
         }
 
         //
-        .ux-field-block {
+        .ui-field-block {
             @include cm.stretch;
 
             //

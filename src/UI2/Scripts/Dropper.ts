@@ -2,21 +2,21 @@ export default async ()=>{
 
     //
     document.documentElement?.addEventListener("dragenter", (ev)=>{
-        if (document.elementFromPoint(ev.clientX, ev.clientY)?.matches?.(".ux-desktop-grid, canvas[is=\"w-canvas\"]")) {
+        if (document.elementFromPoint(ev.clientX, ev.clientY)?.matches?.(".ui-desktop-grid, canvas[is=\"w-canvas\"]")) {
             ev.preventDefault();
         }
     });
 
     //
     document.documentElement?.addEventListener("dragover", (ev)=>{
-        if (document.elementFromPoint(ev.clientX, ev.clientY)?.matches?.(".ux-desktop-grid, canvas[is=\"w-canvas\"]")) {
+        if (document.elementFromPoint(ev.clientX, ev.clientY)?.matches?.(".ui-desktop-grid, canvas[is=\"w-canvas\"]")) {
             ev.preventDefault();
         }
     });
 
     //
     document.documentElement?.addEventListener("drop", (ev)=>{
-        if (document.elementFromPoint(ev.clientX, ev.clientY)?.matches?.(".ux-desktop-grid, canvas[is=\"w-canvas\"]")) {
+        if (document.elementFromPoint(ev.clientX, ev.clientY)?.matches?.(".ui-desktop-grid, canvas[is=\"w-canvas\"]")) {
             ev.preventDefault();
 
             //

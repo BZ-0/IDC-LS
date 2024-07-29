@@ -6,8 +6,8 @@ export default async ()=>{
 
     //
     const TextInputSelector = "input[type=\"text\"]";
-    const InputValidSelector = ".ux-editor, input";
-    const IsEditorInputSelector = ".ux-editor input";
+    const InputValidSelector = ".ui-editor, input";
+    const IsEditorInputSelector = ".ui-editor input";
 
     //
     let input: HTMLInputElement | null = null, copyButton: HTMLButtonElement | null = null, pasteButton: HTMLButtonElement | null = null, fieldEdit: HTMLDivElement | null = null;
@@ -24,7 +24,7 @@ export default async ()=>{
     }
 
     //
-    observeBySelector(document.documentElement, ".ux-editor", (mut) => {
+    observeBySelector(document.documentElement, ".ui-editor", (mut) => {
         fieldEdit ||= mut.addedNodes[0];
         input ||= fieldEdit?.querySelector("input") || null;
         copyButton ||= fieldEdit?.querySelector(".field-copy") || null;

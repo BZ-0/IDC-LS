@@ -59,13 +59,13 @@
 
 <!-- -->
 <template>
-    <div class="ux-title-label" style="background-color: transparent;">
+    <div class="ui-title-label" style="background-color: transparent;">
         <span tabindex="-1" inert :key="currentPage">{{tabs.find(({page})=>(page==currentPage))?.label || ""}}</span>
     </div>
 
-    <div class="ux-content stretch" :id="props.appId.replace('#','')" ref="controlEl" :data-current-page="currentPage">
-        <x-scrollbox :data-hidden="!panelOpen" data-instant data-scheme="solid" data-highlight="2" class="ls-panel" ref="panelEl">
-            <div v-for="tab in tabs" style="--decor-size: 4rem;" class="ux-block-decor ls-tab-item" data-scheme data-highlight="2" :data-page="tab.page">
+    <div class="ui-content stretch" :id="props.appId.replace('#','')" ref="controlEl" :data-current-page="currentPage">
+        <x-scrollbox :data-hidden="!panelOpen" data-instant data-scheme="solid" data-highlight="2" class="ui-panel" ref="panelEl">
+            <div v-for="tab in tabs" style="--decor-size: 4rem;" class="ui-block-decor ui-tab-item" data-scheme data-highlight="2" :data-page="tab.page">
                 <LucideIcon inert data-place="icon" :name="tab.icon"/>
                 <span inert class="tab-label">{{tab.label}}</span>
                 <LucideIcon inert data-place="element" name="chevron-right"/>

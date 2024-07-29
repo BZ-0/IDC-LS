@@ -15,7 +15,7 @@ export default async ()=>{
         ev?.stopPropagation?.();
 
         //
-        const state = States.getState(ev.target.closest(".ux-desktop-grid"));
+        const state = States.getState(ev.target.closest(".ui-desktop-grid"));
 
         //
         if (ev.target?.dataset?.id) {
@@ -71,14 +71,14 @@ export default async ()=>{
     const placeElement = async ({pointer, holding})=>{
         const el = holding.element.deref();
         const id = el.dataset.id;
-        const tx = el.closest(".ux-desktop-grid").querySelector("*[data-type=\"labels\"][data-id=\""+id+"\"]");
+        const tx = el.closest(".ui-desktop-grid").querySelector("*[data-type=\"labels\"][data-id=\""+id+"\"]");
 
         //
-        const state = States.getState(el.closest(".ux-desktop-grid"));
+        const state = States.getState(el.closest(".ui-desktop-grid"));
         const current = "main"; //TODO! bind `current` with state.
 
         //
-        const bbox = el.closest(".ux-grid-page").getBoundingClientRect();
+        const bbox = el.closest(".ui-grid-page").getBoundingClientRect();
         const xy: [number, number] = [pointer.current[0] - (bbox?.left || 0), pointer.current[1] - (bbox?.top || 0)];
 
         //

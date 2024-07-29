@@ -27,9 +27,9 @@
 </script>
 
 <template>
-    <div class="ls-screen" id="manager" v-bind="$attrs">
+    <div class="ui-screen" id="manager" v-bind="$attrs">
 
-        <div class="ls-nav" data-scheme="ux-solid-transparent" data-highlight="1">
+        <div class="ui-nav" data-scheme="ui-solid-transparent" data-highlight="1">
             <button class="use-item" data-transparent data-highlight-hover="2" @click="(ev)=>useItemEv(ev, state)">
                 <div inert class="icon"><LucideIcon slot="icon" name="image-play"/></div>
                 <div inert class="name">Use as Wallpaper</div>
@@ -50,7 +50,7 @@
                 <div inert class="name">Download Image</div>
             </button>
         </div>
-        <x-scrollbox class="ux-space">
+        <x-scrollbox class="ui-space">
 
             <div class="file-list">
                 <div

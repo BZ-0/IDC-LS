@@ -14,7 +14,7 @@ export default async ()=>{
     const initiators = new Map<string, HTMLElement>();
     const hideAllCtx = ()=>{
         initiators.clear();
-        document.querySelectorAll(".ux-context-menu").forEach((el)=>{
+        document.querySelectorAll(".ui-context-menu").forEach((el)=>{
             el.dataset.hidden = true;
         });
     }
@@ -37,7 +37,7 @@ export default async ()=>{
 
             //
             requestAnimationFrame(()=>{
-                const ctxMenu: HTMLElement | null = document.querySelector(".ux-context-menu[data-ctx-name=\""+ctxName+"\"]");
+                const ctxMenu: HTMLElement | null = document.querySelector(".ui-context-menu[data-ctx-name=\""+ctxName+"\"]");
                 if (ctxMenu) {
                     ctxMenu.dataset.hidden = false;
                     ctxMenu.style.setProperty("--click-x", (ev.clientX / zoomOf()) as unknown as string, "");
@@ -50,7 +50,7 @@ export default async ()=>{
     //
     document.documentElement.addEventListener("contextmenu", (ev)=>{
         const target = ev.target as HTMLElement;
-        if ((target?.matches?.(".ux-modal-frame") || target?.closest?.(".ux-modal-frame")) && !target.matches("input[type=\"text\"]")) {
+        if ((target?.matches?.(".ui-modal-frame") || target?.closest?.(".ui-modal-frame")) && !target.matches("input[type=\"text\"]")) {
             ev.stopPropagation();
             ev.stopImmediatePropagation();
             ev.preventDefault();
@@ -62,7 +62,7 @@ export default async ()=>{
         const target = ev.target as HTMLElement;
 
         //
-        const initiator = initiators.get(target.closest(".ux-context-menu").dataset.ctxName);
+        const initiator = initiators.get(target.closest(".ui-context-menu").dataset.ctxName);
         actionMap?.get?.(target.dataset.action as string)?.({
             initiator
         });
@@ -76,12 +76,12 @@ export default async ()=>{
         const target = ev.target as HTMLElement;
 
         //
-        if (target.matches(".ux-context-menu *[data-action]")) {
+        if (target.matches(".ui-context-menu *[data-action]")) {
             onClick(ev);
         }
 
         //
-        if (!MOC(target, ".ux-context-menu[data-ctx-name]") || target.matches("*[data-action]")) {
+        if (!MOC(target, ".ui-context-menu[data-ctx-name]") || target.matches("*[data-action]")) {
             requestAnimationFrame(()=>{
                 hideAllCtx();
             });

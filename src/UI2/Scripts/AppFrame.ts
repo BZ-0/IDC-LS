@@ -10,7 +10,7 @@ export default async ()=>{
     //
     document.documentElement.addEventListener("contextmenu", (ev)=>{
         const target = ev.target as HTMLElement;
-        if ((target?.matches?.(".ux-app-frame") || target?.closest?.(".ux-app-frame")) && !target.matches("input[type=\"text\"]")) {
+        if ((target?.matches?.(".ui-app-frame") || target?.closest?.(".ui-app-frame")) && !target.matches("input[type=\"text\"]")) {
             ev.stopPropagation();
             ev.stopImmediatePropagation();
             ev.preventDefault();
@@ -22,28 +22,28 @@ export default async ()=>{
         const target = ev.target as HTMLElement;
 
         //
-        if (target.matches(".ux-app-frame *:not(.back-button, .menu-button)")) {
+        if (target.matches(".ui-app-frame *:not(.back-button, .menu-button)")) {
             //ev.stopPropagation();
             //ev.stopImmediatePropagation();
             //ev.preventDefault();
 
             //
             //if (windowManager) {
-                //windowManager?.focusTask?.("#" + MOCElement(target, ".ux-app-frame")?.querySelector(".ux-content")?.id||"");
+                //windowManager?.focusTask?.("#" + MOCElement(target, ".ui-app-frame")?.querySelector(".ui-content")?.id||"");
             //}
         }
 
         //
-        if (target.matches(".ux-app-frame .menu-button")) {
+        if (target.matches(".ui-app-frame .menu-button")) {
             // kuril i umer
             ev.stopPropagation();
             ev.stopImmediatePropagation();
             ev.preventDefault();
 
             //
-            const content = MOCElement(target, ".ux-app-frame")?.querySelector?.(".ux-content");
+            const content = MOCElement(target, ".ui-app-frame")?.querySelector?.(".ui-content");
             if (content) {
-                const event = new CustomEvent("ux-menu", {
+                const event = new CustomEvent("ui-menu", {
                     cancelable: true,
                     bubbles: true,
                     detail: {}
@@ -53,16 +53,16 @@ export default async ()=>{
         }
 
         //
-        if (target.matches(".ux-app-frame .back-button")) {
+        if (target.matches(".ui-app-frame .back-button")) {
             // kuril i umer
             ev.stopPropagation();
             ev.stopImmediatePropagation();
             ev.preventDefault();
 
             //
-            const content = MOCElement(target, ".ux-app-frame")?.querySelector?.(".ux-content");
+            const content = MOCElement(target, ".ui-app-frame")?.querySelector?.(".ui-content");
             if (content) {
-                const event = new CustomEvent("ux-back", {
+                const event = new CustomEvent("ui-back", {
                     cancelable: true,
                     bubbles: true,
                     detail: {}
@@ -89,12 +89,12 @@ export default async ()=>{
 
             //
             gestureControl.draggable({
-                handler: frameElement.querySelector(".ux-title-handle")
+                handler: frameElement.querySelector(".ui-title-handle")
             });
 
             //
             gestureControl.resizable({
-                handler: frameElement.querySelector(".ux-resize")
+                handler: frameElement.querySelector(".ui-resize")
             });
         }
 
@@ -109,7 +109,7 @@ export default async ()=>{
     }
 
     //
-    observeBySelector(document.body, ".ux-app-frame", ({addedNodes})=>{
+    observeBySelector(document.body, ".ui-app-frame", ({addedNodes})=>{
         makeControl(addedNodes[0]);
     });
 

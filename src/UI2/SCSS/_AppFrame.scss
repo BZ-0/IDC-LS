@@ -8,18 +8,18 @@
 @use "@unite/scss/design/ColorTheme" as tm;
 
 //
-@layer ux-app-frame {
+@layer ui-app-frame {
     //
     @mixin maximized {
-        display: contents !important;
+        display: contents;
 
         //
-        & :where(.ux-title-label, .titlebar) {
-            display: none !important;
+        & :where(.ui-title-label, .titlebar) {
+            display: none;
         }
 
         //
-        & .ux-content {
+        & .ui-content {
             z-index: calc(999 + var(--z-index, 0));
         }
     }
@@ -36,18 +36,15 @@
 
     //
     @mixin whenMobile {
-        padding-block-end: 0px !important;
+        padding-block-end: 0px;
         grid-template-rows: [status] minmax(0px, var(--status-size)) [titlebar] minmax(0px, 3rem) [content-b] minmax(
-                0px,
-                1fr
-            );
-
-        //
-        //@include maximized();
+            0px,
+            1fr
+        );
     }
 
     //
-    .ux-app-frame {
+    .ui-app-frame {
         //
         @include cm.contain-size;
         @include cm.align-center;
@@ -73,7 +70,7 @@
             --resize-y, --translate-x, --translate-y;
 
         //
-        overflow: hidden !important;
+        overflow: hidden;
         position: fixed;
 
         //
@@ -84,31 +81,31 @@
         //
         contain: content;
         container-type: size;
-        container-name: ux-windowed;
+        container-name: ui-windowed;
         box-sizing: border-box;
 
         //
         font-size: 0.9rem;
 
         //
-        grid-template-columns: [menu-button] minmax(3rem, max-content) [title-label] minmax(0px, 1fr) [back-button] minmax(
-                3rem,
-                max-content
-            );
+        grid-template-columns:
+            [menu-button] minmax(3rem, max-content)
+            [title-label] minmax(0px, 1fr)
+            [back-button] minmax(3rem, max-content);
 
         //
-        grid-template-rows: [titlebar] minmax(0px, 3rem) [content-b] minmax(0px, 1fr) [status] minmax(
-                0px,
-                var(--status-size)
-            );
+        grid-template-rows:
+            [titlebar] minmax(0px, 3rem)
+            [content-b] minmax(0px, 1fr)
+            [status] minmax(0px, var(--status-size));
 
         //
-        &:not(.ux-detached) {
+        &:not(.ui-detached) {
             @include maximized();
         }
 
-        &:not(:has(.ux-content)) {
-            display: none !important;
+        &:not(:has(.ui-content)) {
+            display: none;
         }
 
         &:hover {
@@ -116,7 +113,7 @@
         }
 
         //
-        & > .ux-resize {
+        & > .ui-resize {
             position: absolute;
             inset: auto;
             inset-inline-end: 0px;
@@ -130,7 +127,7 @@
         }
 
         //
-        & > :where(.titlebar > .ux-title-handle, .ux-title-label) {
+        & > :where(.titlebar > .ui-title-handle, .ui-title-label) {
             @include cm.stretch;
             @include cm.align-center;
             @include cm.align-inline-left;
@@ -152,12 +149,12 @@
             font-size: 1rem;
 
             //
-            &:where(.ux-title-handle) {
+            &:where(.ui-title-handle) {
                 @include cm.pe-enable;
             }
 
             //
-            &:where(.ux-title-label) {
+            &:where(.ui-title-label) {
                 @include cm.pe-none;
 
                 //
@@ -214,7 +211,7 @@
         }
 
         //
-        & > .ux-status {
+        & > .ui-status {
             @include cm.stretch;
 
             //
@@ -223,7 +220,7 @@
         }
 
         //
-        & > .ux-content {
+        & > .ui-content {
             @include cm.stretch;
 
             //
@@ -240,7 +237,7 @@
         }
 
         //
-        @container ux-windowed (width < #{d.$mobileWidth}) {
+        @container ui-windowed (width < #{d.$mobileWidth}) {
             @include whenMobile;
         }
     }

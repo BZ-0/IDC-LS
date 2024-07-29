@@ -6,12 +6,12 @@ export default async ()=>{
     //
     const computed = Symbol("@computed");
     const animateHide = async (target)=>{
-        if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !target.classList.contains("ux-while-animation") && !target.hasAttribute("data-instant")) {
-            target.classList.add("ux-while-animation");
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !target.classList.contains("ui-while-animation") && !target.hasAttribute("data-instant")) {
+            target.classList.add("ui-while-animation");
         }
 
         //
-        if (target.classList.contains("ux-while-animation")) {
+        if (target.classList.contains("ui-while-animation")) {
             //target[computed] = getComputedStyle(target, "");
             await target.animate([
                 {
@@ -52,18 +52,18 @@ export default async ()=>{
             }).finished;
 
             //
-            target.classList.remove("ux-while-animation");
+            target.classList.remove("ui-while-animation");
         }
     }
 
     //
     const animateShow = async (target)=>{
-        if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !target.classList.contains("ux-while-animation") && !target.hasAttribute("data-instant")) {
-            target.classList.add("ux-while-animation");
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !target.classList.contains("ui-while-animation") && !target.hasAttribute("data-instant")) {
+            target.classList.add("ui-while-animation");
         }
 
         //
-        if (target.classList.contains("ux-while-animation")) {
+        if (target.classList.contains("ui-while-animation")) {
             await target.animate([
                 {
                     easing: "linear",
@@ -103,7 +103,7 @@ export default async ()=>{
             }).finished;
 
             //
-            target.classList.remove("ux-while-animation");
+            target.classList.remove("ui-while-animation");
         }
     }
 

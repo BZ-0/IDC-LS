@@ -4,13 +4,10 @@
 @use "@unite/scss/core/Utils" as u;
 
 //
-@layer ux-decors {
-    .ux-block-decor {
-        //
-        @include cm.align-center;
+@layer ui-decors {
+    .ui-block-decor {
         @include cm.inline-stretch;
         @include cm.no-wrap;
-        @include cm.stretch;
 
         //
         --decor-size: 2.8rem;
@@ -18,6 +15,8 @@
         //
         display: grid;
         box-sizing: border-box;
+        place-content: center;
+        place-items: center;
 
         //
         grid-template-columns: var(--decor-size) minmax(0px, 1fr) var(--decor-size);
@@ -35,9 +34,12 @@
 
         //
         & > * {
-            @include cm.align-center;
-            @include cm.pe-none;
             @include cm.no-wrap;
+
+            //
+            pointer-events: none;
+            place-items: center;
+            place-content: center;
 
             //
             inline-size: stretch;

@@ -59,7 +59,7 @@
 
     //
     onMounted(()=>{
-        /*observeBySelector(elRef.value, ".ux-field-block", ()=>{
+        /*observeBySelector(elRef.value, ".ui-field-block", ()=>{
             synchronize();
         });*/
 
@@ -72,11 +72,11 @@
 
 <!-- -->
 <template>
-    <form ref="elRef" class="ux-edit-form" autocomplete="off">
-        <div class="ux-edit-desc">
+    <form ref="elRef" class="ui-edit-form" autocomplete="off">
+        <div class="ui-edit-desc">
             <slot name="description"/>
         </div>
-            <div class="ux-field-block" v-for="F in fields">
+            <div class="ui-field-block" v-for="F in fields">
                 <div inert class="field-label">{{F.label}}</div>
                 <input
                     data-scheme="solid"

@@ -2,20 +2,22 @@
 @use "@unite/scss/grid/GridLayout";
 
 //
-@layer ux-grid {
+@layer ui-grid {
     //
-    .ux-grid-pages,
-    .ux-desktop-grid {
+    .ui-grid-pages,
+    .ui-desktop-grid {
         @include cm.stretch;
-        @include cm.pe-enable;
+
+        //
+        pointer-events: auto;
 
         //
         --padding-h: 1rem;
         --padding-v: 1.5rem;
 
         //
-        overflow: visible !important;
-        contain: content !important;
+        overflow: visible;
+        contain: content;
 
         //
         padding-inline: var(--padding-h);
@@ -35,37 +37,39 @@
     }
 
     //
-    .ux-grid-page {
-        //@include cm.ux-grid-layout;
-
-        //
+    .ui-grid-page {
         filter: drop-shadow(0px 0px 0.25rem #00000060);
 
         //
         .ux-grid-item {
-            will-change: translate, transform, --rx, --ry, --drag-x, --drag-y, --resize-x, --resize-y, --translate-x,
+            will-change:
+                translate,
+                transform,
+                --rx, --ry,
+                --drag-x,
+                --drag-y,
+                --resize-x,
+                --resize-y,
+                --translate-x,
                 --translate-y;
 
             //
+            display: flex;
             padding: calc(var(--icon-size) * 0.3);
             clip-path: var(--clip-path);
             border-radius: calc(var(--icon-size) * 0.5);
+
+            //
+            inline-size: var(--icon-size);
+            block-size: var(--icon-size);
 
             // override by animations...
             --translate-x: calc(var(--drag-x, 0) * 1px);
             --translate-y: calc(var(--drag-y, 0) * 1px);
 
             //
-            //--grid-column: var(--fc-cell-x);
-            //--grid-row: var(--fc-cell-y);
-
-            //
             &:where([data-type="backup"]) {
                 pointer-events: none;
-
-                // override by animations...
-                //--translate-x: calc(var(--drag-x, 0) * 1px);
-                //--translate-y: calc(var(--drag-y, 0) * 1px);
 
                 // override by animations...
                 --grid-column: var(--fp-cell-x);

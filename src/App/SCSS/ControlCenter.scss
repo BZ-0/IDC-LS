@@ -9,16 +9,16 @@
 //
 $tabNames: "wallpapers", "settings";
 @function TabSelect($tabNames) {
-    $selector: ".ls-tab-item.__current";
+    $selector: ".ui-tab-item.__current";
     @each $name in $tabNames {
-        $selector: $selector + ", &[data-current-page=\"#{$name}\"] .ls-tab-item[data-page=\"#{$name}\"]";
+        $selector: $selector + ", &[data-current-page=\"#{$name}\"] .ui-tab-item[data-page=\"#{$name}\"]";
     }
     @return $selector;
 }
 
 
 //
-@layer ls-control-center {
+@layer ui-control-center {
     //
     #control-center {
         @include cm.contain-size;
@@ -27,7 +27,7 @@ $tabNames: "wallpapers", "settings";
         display: grid;
         grid-template-columns: 0px minmax(0px, 1fr);
         grid-template-rows: minmax(0px, 1fr);
-        container-name: ls-settings;
+        container-name: ui-settings;
         container-type: size;
         position: relative;
         overflow: hidden;
@@ -38,7 +38,7 @@ $tabNames: "wallpapers", "settings";
         }
 
         //
-        .ls-screen {
+        .ui-screen {
             @include cm.stretch;
             @include tm.ux-solid;
 
@@ -52,13 +52,13 @@ $tabNames: "wallpapers", "settings";
             grid-template-rows: minmax(0px, 2.5rem);
 
             //
-            .ls-space {
+            .ui-space {
                 @include cm.stretch;
                 grid-row: 2 / 2 span;
             }
 
             //
-            .ls-nav {
+            .ui-nav {
                 @include cm.stretch;
 
                 //
@@ -116,7 +116,7 @@ $tabNames: "wallpapers", "settings";
         }
 
         //
-        .ls-panel {
+        .ui-panel {
             display: flex;
             flex-direction: column;
             grid-column: 1 / 1 span;
@@ -138,7 +138,7 @@ $tabNames: "wallpapers", "settings";
             gap: 0px;
 
             //
-            .ls-tab-item {
+            .ui-tab-item {
                 --decor-size: 4rem;
 
                 ///

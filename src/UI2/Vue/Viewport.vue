@@ -9,12 +9,12 @@
 
 <template>
     <div
-        class="ux-viewport fixed"
+        class="ui-viewport fixed"
         data-scheme="accent"
         v-bind="$attrs"
     >
-        <div class="ux-viewport-box">
-            <div class="ux-viewport-content"><slot></slot></div>
+        <div class="ui-viewport-box">
+            <div class="ui-viewport-content"><slot></slot></div>
         </div>
         <InputEdit></InputEdit>
     </div>

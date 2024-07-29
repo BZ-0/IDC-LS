@@ -1,12 +1,15 @@
 @use "@unite/scss/core/ClassMods" as cm;
 
 //
-@layer ux-editor {
+@layer ui-editor {
     //
-    .ux-editor {
-        @include cm.pe-enable;
+    .ui-editor {
         @include cm.stretch;
-        @include cm.align-center;
+
+        //
+        pointer-events: auto;
+        place-content: center;
+        place-items: center;
 
         //
         display: grid;
@@ -15,16 +18,11 @@
         align-self: start;
 
         //
-        //position: fixed;
-
-        //
         inset: 0px;
         inset-block-start: auto;
-        //inset-block-end: var(--keyboard-inset-bottom, 0px);
 
         //
-        pointer-events: auto !important;
-        grid-row: field-edit !important;
+        grid-row: field-edit;
 
         //
         box-shadow: 0px 0px 1rem 1px #00000070;
@@ -41,15 +39,18 @@
         //
         :where(.field-copy, .field-paste) {
             @include cm.stretch;
-            @include cm.align-center;
-            @include cm.pe-enable;
+
+            //
+            place-items: center;
+            place-content: center;
 
             //
             display: flex;
-            padding: 1rem !important;
+            padding: 1rem;
             block-size: 3rem;
 
             //
+            pointer-events: auto;
             border-radius: 0px;
 
             //
@@ -57,35 +58,16 @@
         }
 
         //
-        .field-wrap {
+        input {
             @include cm.stretch;
-            @include cm.align-center;
 
             //
-            //display: flex;
-            display: contents;
-            flex-direction: row;
-            block-size: 3rem;
+            pointer-events: auto;
+            user-select: auto;
 
             //
-            input {
-                @include cm.stretch;
-                @include cm.pe-enable;
-
-                //
-                pointer-events: auto !important;
-
-                //
-                font-size: 1.3rem;
-
-                //@include dFont.applyFont(1.8rem);
-
-                //
-                padding-inline: 1rem;
-
-                //
-                user-select: auto;
-            }
+            font-size: 1.3rem;
+            padding-inline: 1rem;
         }
     }
 }

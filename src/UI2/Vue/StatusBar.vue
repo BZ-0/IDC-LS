@@ -77,7 +77,7 @@ const signalIcons = {
 
 document.documentElement.addEventListener("contextmenu", (ev)=>{
 	const target = ev.target;
-	if ((target?.matches?.(".ux-status-bar") || target?.closest?.(".ux-status-bar"))) {
+	if ((target?.matches?.(".ui-status-bar") || target?.closest?.(".ui-status-bar"))) {
 		ev.stopPropagation();
 		ev.stopImmediatePropagation();
 		ev.preventDefault();
@@ -88,7 +88,7 @@ document.documentElement.addEventListener("contextmenu", (ev)=>{
 
 <!-- -->
 <template>
-    <div class="ux-status-bar" data-transparent data-scheme="accent">
+    <div class="ui-status-bar" data-transparent data-scheme="accent">
         <div class="left"></div>
         <div class="center"></div>
         <div class="right">

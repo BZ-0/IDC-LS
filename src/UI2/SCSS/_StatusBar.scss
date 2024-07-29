@@ -8,21 +8,20 @@
 @use "@unite/scss/design/ColorTheme" as tm;
 
 //
-@layer ux-app-frame {
+@layer ui-app-frame {
 
     //
-    :where(.ux-status-bar) {
+    :where(.ui-status-bar) {
         @include cm.stretch;
-        @include cm.pe-none;
-        @include cm.align-center;
-
-        //
         @include tm.ux-transparent;
 
         //
         display: grid;
         z-index: 999;
         overflow: hidden;
+        pointer-events: none;
+        place-content: center;
+        place-items: center;
 
         //
         grid-template-columns: minmax(0px, max-content) minmax(0px, 1fr) minmax(0px, max-content);

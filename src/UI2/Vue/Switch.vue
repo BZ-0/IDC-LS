@@ -28,7 +28,7 @@
 
 <!-- -->
 <template>
-    <label ref="target" class="ux-input ux-switch" data-scheme data-highlight="1" v-bind="$attrs">
+    <label ref="target" class="ui-input ui-switch" data-scheme data-highlight="1" v-bind="$attrs">
         <input ref="input" @change="whenChange" @input="whenChange" type="range" min="-1" max="1" step="1"/>
         <div class="fill" data-scheme data-highlight="1"></div>
         <div class="track" data-scheme data-highlight="1"></div>

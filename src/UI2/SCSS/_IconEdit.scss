@@ -6,8 +6,8 @@
 @use "@unite/scss/design/ColorTheme";
 
 //
-@layer ls-icon-edit {
-    .ls-icon-edit {
+@layer ui-icon-edit {
+    .ui-icon-edit {
 
         //
         button {
@@ -16,7 +16,7 @@
         }
 
         //
-        .ls-but {
+        .ui-but {
             inline-size: stretch;
             block-size: stretch;
 

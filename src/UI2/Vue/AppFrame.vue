@@ -13,13 +13,13 @@
 
 <!-- -->
 <template>
-    <div :data-hidden="chash != props.hashIdName" data-scheme="solid" class="ux-frame ux-app-frame ux-default-theme ux-detached" v-bind="$attrs">
+    <div :data-hidden="chash != props.hashIdName" data-scheme="solid" class="ui-frame ui-app-frame ui-default-theme ui-detached" v-bind="$attrs">
 
         <div class="titlebar" data-highlight="2" data-scheme="solid">
             <div data-scheme="solid" data-highlight="2" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;">
                 <LucideIcon inert name="chevron-down"/>
             </div>
-            <div data-scheme="solid" data-highlight="2" class="ux-title-handle">
+            <div data-scheme="solid" data-highlight="2" class="ui-title-handle">
 
             </div>
             <div data-scheme="solid" data-highlight="2" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;">
@@ -29,8 +29,8 @@
 
         <slot></slot>
 
-        <div class="ux-status" data-scheme="solid" data-highlight="2"></div>
-        <div class="ux-resize"></div>
+        <div class="ui-status" data-scheme="solid" data-highlight="2"></div>
+        <div class="ui-resize"></div>
 
     </div>
 </template>
