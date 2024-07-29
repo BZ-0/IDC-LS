@@ -14,6 +14,7 @@
         "@effective/eslint-config": "^5.4.7",
         "@fastify/vite": "^6.0.6",
         "@material/material-color-utilities": "^0.2.7",
+        "@sass-fairy/list": "^1.2.4",
         "@types/node": "*",
         "@vitejs/plugin-legacy": "^5.4.1",
         "@vitejs/plugin-vue": "^5.0.5",
