@@ -62,6 +62,11 @@
                 --rx: calc(var(--click-x, 0) * var(--zpx, 1px) - 50cqi);
                 --ry: calc(var(--click-y, 0) * var(--zpx, 1px) - 50cqb);
             }
+
+            //
+            & .ui-ctx-item {
+                pointer-events: auto;
+            }
         }
 
         //
