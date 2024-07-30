@@ -23,7 +23,6 @@
         overflow: hidden;
         pointer-events: none;
         place-content: center;
-        place-items: center;
 
         //
         grid-template-columns: minmax(0px, max-content) minmax(0px, 1fr) minmax(0px, max-content);
@@ -31,24 +30,19 @@
         gap: 0px;
 
         //
-        justify-content: space-between;
-        justify-items: stretch;
-
-        //
         align-content: center;
-        align-items: stretch;
+        justify-content: space-between;
+        place-items: stretch;
 
         //
         position: fixed;
-
-        //
         inset: auto;
         inset-block-end: 0px;
         block-size: 2rem;
         padding-inline: 1rem;
 
         //
-        & > * {//
+        & > * {
             inline-size: 100%;
             block-size: 100%;
             display: flex;
@@ -57,36 +51,12 @@
             background-color: transparent;
         }
 
-        & * {
-            background-color: transparent;
-        }
-
         //
-        .left {
-            grid-column: 1 / 1 span;
-            grid-row: 1 / 1 span;
-            justify-self: start;
-            gap: 0rem;
-        }
-
-        .center {
-            grid-column: 2 / 2 span;
-            grid-row: 2 / 2 span;
-            justify-self: center;
-        }
-
-        .right {
-            grid-column: 3 / 3 span;
-            grid-row: 3 / 3 span;
-            justify-self: end;
-            gap: 0rem;
-        }
-
-        //
-        .left,
-        .right {
-            inline-size: max-content;
-        }
+        & * { background-color: transparent; }
+        .left   { grid-column: 1 / 1 span; grid-row: 1 / 1 span; justify-self: start; gap: 0rem; }
+        .center { grid-column: 2 / 2 span; grid-row: 2 / 2 span; justify-self: center; }
+        .right  { grid-column: 3 / 3 span; grid-row: 3 / 3 span; justify-self: end; gap: 0rem; }
+        .left, .right { inline-size: max-content; }
 
         //
         .icon-wrap {//

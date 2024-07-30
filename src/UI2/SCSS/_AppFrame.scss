@@ -107,26 +107,17 @@
             [status] minmax(0px, var(--status-size));
 
         //
-        &:not(.ui-detached) {
-            @include maximized();
-        }
+        & > :where(*) { inline-size: 100%; block-size: 100%; }
 
-        &:not(:has(.ui-content)) {
-            display: none;
-        }
-
+        //
+        &:not(.ui-detached) { @include maximized(); }
+        &:not(:has(.ui-content)) { display: none; }
         &:hover {
             outline: solid 0.5px oklch(from var(--current-glyph-color) l c h / 0.125);
         }
 
         //
-        & > :where(*) {
-            inline-size: 100%;
-            block-size: 100%;
-        }
-
-        //
-        & > .ui-resize {
+        & > :where(.ui-resize) {
             position: absolute;
             inset: auto;
             inset-inline-end: 0px;
@@ -175,12 +166,13 @@
             font-size: 1rem;
         }
 
+        //
         & :where(.ui-title-handle) {
             pointer-events: auto !important;
         }
 
         //
-        & > .titlebar {
+        & > :where(.titlebar) {
             @include cm.no-wrap;
 
             //
