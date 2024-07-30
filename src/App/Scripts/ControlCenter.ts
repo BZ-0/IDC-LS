@@ -20,7 +20,7 @@ export default async ()=>{
             };
 
             // unable to switch without hiding
-            if (controlEl?.clientWidth <= 96 * 9) {
+            if (controlEl?.offsetWidth <= 96 * 9) {
                 UIState.controlCenterPanelOpen = false;
             }
         } else
