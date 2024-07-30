@@ -1,4 +1,4 @@
-@use "@unite/scss/core/ClassMods" as cm;
+@use "@unite/scss/core/CMixins" as cm;
 @use "@unite/scss/core/Utils" as u;
 
 //
@@ -16,9 +16,6 @@
 //
 @layer ui-inputs {
     :where(.ui-switch) {
-        @include cm.stretch;
-
-        //
         @include u.clamped-width(max-content, 6rem, 6rem);
         @include u.clamped-height(max-content, 1.8rem, 1.8rem);
 
@@ -63,8 +60,9 @@
         &::before { grid-column: space-l; }
 
         //
-        &:where(::after, ::before) {
-            @include cm.stretch;
+        &:where(::after, ::before) {//
+            inline-size: 100%;
+            block-size: 100%;
 
             //
             content: "";
@@ -102,8 +100,9 @@
             max-block-size: 110cqmin;
 
             //
-            & > * {
-                @include cm.stretch;
+            & > * {//
+                inline-size: 100%;
+                block-size: 100%;
                 stroke-width: 0.25rem;
                 position: relative;
                 inset: 0px;
@@ -124,8 +123,9 @@
         }
 
         //
-        & .fill {
-            @include cm.stretch;
+        & .fill {//
+            inline-size: 100%;
+            block-size: 100%;
 
             //
             border-radius: 0.25rem;
@@ -134,8 +134,9 @@
         }
 
         //
-        & .track {
-            @include cm.stretch;
+        & .track {//
+            inline-size: 100%;
+            block-size: 100%;
 
             //
             grid-column: 3 / 3;
@@ -158,8 +159,9 @@
         }
 
         //
-        input {
-            @include cm.stretch;
+        input {//
+            inline-size: 100%;
+            block-size: 100%;
 
             //
             padding: 0px;

@@ -101,10 +101,10 @@ export default async ()=>{
         //
         if (frameElement) {
             // @ts-ignore
-            frameElement.style.setProperty("--drag-x", -(Math.max(frameElement.clientWidth, (64*16 * zoomOf())) / 2) + frameElement.parentNode.offsetWidth / 2, "");
+            frameElement.style.setProperty("--drag-x", (frameElement.parentNode.offsetWidth - Math.min(Math.max(frameElement.clientWidth, 64*16/0.8), frameElement.parentNode.offsetWidth)) * (zoomOf() / 2), "");
 
             // @ts-ignore
-            frameElement.style.setProperty("--drag-y", -(Math.max(frameElement.clientHeight, (36*16 * zoomOf())) / 2) + frameElement.parentNode.offsetHeight / 2, "");
+            frameElement.style.setProperty("--drag-y", (frameElement.parentNode.offsetHeight - Math.min(Math.max(frameElement.clientHeight, 36*16/0.8), frameElement.parentNode.offsetHeight)) * (zoomOf() / 2), "");
         }
     }
 

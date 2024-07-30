@@ -36,7 +36,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div ref="target" data-scheme="solid" data-highlight="1" class="ui-input number-input round-ns" v-bind="$attrs">
+    <div ref="target" data-scheme="solid" data-highlight="1" class="ui-input number-input" v-bind="$attrs">
         <button type="button" @click="whenClickDown" class="icon-wrap f-minus" data-scheme="solid" data-highlight="2">
             <LucideIcon inert name="chevron-left"/>
         </button>

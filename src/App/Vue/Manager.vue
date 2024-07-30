@@ -31,22 +31,22 @@
 
         <div class="ui-nav" data-scheme="ui-solid-transparent" data-highlight="1">
             <button class="use-item" data-transparent data-highlight-hover="2" @click="(ev)=>useItemEv(ev, state)">
-                <div inert class="icon"><LucideIcon slot="icon" name="image-play"/></div>
+                <LucideIcon inert name="image-play" class="icon"/>
                 <div inert class="name">Use as Wallpaper</div>
             </button>
 
             <button class="add-item" data-transparent data-highlight-hover="2" @click="(ev)=>addItemEv(ev, state)">
-                <div inert class="icon"><LucideIcon slot="icon" name="image-up"/></div>
+                <LucideIcon inert name="image-up" class="icon"/>
                 <div inert class="name">Load Image</div>
             </button>
 
             <button class="remove-item" data-transparent data-highlight-hover="2" @click="(ev)=>removeItemEv(ev, state)">
-                <div inert class="icon"><LucideIcon slot="icon" name="image-off"/></div>
+                <LucideIcon inert name="image-off" class="icon"/>
                 <div inert class="name">Remove Image</div>
             </button>
 
             <button class="download-item" data-transparent data-highlight-hover="2" @click="(ev)=>downloadItemEv(ev, state)">
-                <div inert class="icon"><LucideIcon slot="icon" name="image-down"/></div>
+                <LucideIcon inert name="image-down" class="icon"/>
                 <div inert class="name">Download Image</div>
             </button>
         </div>

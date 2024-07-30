@@ -1,4 +1,4 @@
-@use "@unite/scss/core/ClassMods" as cm;
+@use "@unite/scss/core/CMixins" as cm;
 @use "@unite/scss/grid/GridLayout";
 
 //
@@ -6,7 +6,8 @@
     //
     .ui-grid-pages,
     .ui-desktop-grid {
-        @include cm.stretch;
+        inline-size: 100%;
+        block-size: 100%;
 
         //
         pointer-events: auto;
@@ -39,6 +40,7 @@
     //
     .ui-grid-page {
         filter: drop-shadow(0px 0px 0.25rem #00000060);
+        pointer-events: none;
 
         //
         .ux-grid-item {
@@ -64,8 +66,8 @@
             block-size: var(--icon-size);
 
             // override by animations...
-            --translate-x: calc(var(--drag-x, 0) * 1px);
-            --translate-y: calc(var(--drag-y, 0) * 1px);
+            --translate-x: calc(var(--drag-x, 0) * var(--zpx, 1px));
+            --translate-y: calc(var(--drag-y, 0) * var(--zpx, 1px));
 
             //
             &:where([data-type="backup"]) {

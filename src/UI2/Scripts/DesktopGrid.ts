@@ -39,15 +39,15 @@ export default async ()=>{
         //
         const dragState = {
             pointerId: ev.pointerId,
-            startX: ev.clientX / zoomOf(),
-            startY: ev.clientY / zoomOf()
+            startX: ev.clientX,
+            startY: ev.clientY
         };
 
         //
         const grabEvent: ["pointermove", (e: PointerEvent)=>any, AddEventListenerOptions] = ["pointermove", (evm: PointerEvent)=>{
             if (dragState.pointerId == evm.pointerId && Math.hypot(
-                dragState.startX - (evm.clientX / zoomOf()),
-                dragState.startY - (evm.clientY / zoomOf())
+                dragState.startX - evm.clientX,
+                dragState.startY - evm.clientY
             ) >= 10) {
                 initGrab(ev); document.documentElement.removeEventListener(...grabEvent);
             }

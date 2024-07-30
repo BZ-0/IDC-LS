@@ -1,4 +1,4 @@
-@use "@unite/scss/core/ClassMods" as cm;
+@use "@unite/scss/core/CMixins" as cm;
 @use "@unite/scss/core/Utils" as u;
 @use "@unite/scss/core/Detector" as d;
 
@@ -11,9 +11,16 @@
     #manager {
         //
         .file-list {
-            @include cm.stretch;
-            @include cm.align-center;
             @include cm.no-wrap;
+
+            //
+            inline-size: 100%;
+            block-size: 100%;
+
+            //
+            pointer-events: none;
+            place-content: center;
+            place-items: center;
 
             //
             display: grid;
@@ -27,10 +34,16 @@
 
             //
             .file {
-                @include cm.stretch;
-                @include cm.align-center;
-                @include cm.pe-enable;
                 @include cm.no-wrap;
+
+                //
+                inline-size: 100%;
+                block-size: 100%;
+
+                //
+                place-content: center;
+                place-items: center;
+                pointer-events: auto;
 
                 //
                 cursor: pointer;

@@ -1,6 +1,6 @@
 //
 @use "@unite/scss/core/Utils" as u;
-@use "@unite/scss/core/ClassMods" as cm;
+@use "@unite/scss/core/CMixins" as cm;
 
 //
 @use "@unite/scss/design/ColorTheme";
@@ -8,8 +8,8 @@
 //
 @layer ui-item-edit {
     //
-    .ui-edit-form {
-        @include cm.stretch;
+    .ui-edit-form {//
+        inline-size: 100%;
 
         //
         place-content: center;
@@ -55,8 +55,8 @@
         }
 
         //
-        .ui-field-block {
-            @include cm.stretch;
+        .ui-field-block {//
+            inline-size: 100%;
 
             //
             display: grid;

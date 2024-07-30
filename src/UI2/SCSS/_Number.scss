@@ -1,4 +1,4 @@
-@use "@unite/scss/core/ClassMods" as cm;
+@use "@unite/scss/core/CMixins" as cm;
 @use "@unite/scss/core/Utils" as u;
 
 //
@@ -47,8 +47,9 @@
         }
 
         //
-        & .input-wrap {
-            @include cm.stretch;
+        & .input-wrap {//
+            inline-size: 100%;
+            block-size: 100%;
 
             //
             @include u.clamped-height(var(--block-size), stretch, var(--block-size));
@@ -60,8 +61,10 @@
 
         //
         & input {
-            @include cm.stretch;
             @include cm.no-wrap;
+
+            //
+            block-size: 100%;
 
             //
             pointer-events: none;
@@ -89,10 +92,18 @@
         }
 
         //
-        & > * {
-            @include cm.align-center;
-            @include cm.stretch;
-            @include cm.max-content-as-min;
+        & > :where(*) {//
+            inline-size: 100%;
+            block-size: 100%;
+
+            //
+            min-inline-size: max-content;
+            min-block-size: max-content;
+
+            //
+            pointer-events: none;
+            place-content: center;
+            place-items: center;
 
             //
             display: flex;
@@ -107,12 +118,17 @@
         & > :is(.f-minus, .f-plus) {
             cursor: pointer;
             background-color: var(--current-surface-color);
+            pointer-events: auto;
         }
 
         //
-        & > .icon-wrap {
-            @include cm.stretch;
-            @include cm.max-content-as-min;
+        & > .icon-wrap {//
+            inline-size: 100%;
+            block-size: 100%;
+
+            //
+            min-inline-size: max-content;
+            min-block-size: max-content;
             aspect-ratio: 1 / 1;
         }
     }

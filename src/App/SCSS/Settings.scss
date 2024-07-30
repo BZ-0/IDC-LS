@@ -1,4 +1,4 @@
-@use "@unite/scss/core/ClassMods" as cm;
+@use "@unite/scss/core/CMixins" as cm;
 @use "@unite/scss/core/Utils" as u;
 @use "@unite/scss/core/Detector" as d;
 
@@ -11,9 +11,16 @@
     #settings {
         //
         .form-description {
-            @include cm.stretch;
-            @include cm.align-center;
             @include cm.no-wrap;
+
+            //
+            inline-size: 100%;
+            block-size: 100%;
+
+            //
+            pointer-events: none;
+            place-content: center;
+            place-items: center;
 
             //
             display: flex;
@@ -24,7 +31,7 @@
             font-size: 0.8rem;
 
             //
-            justify-content: start !important;
+            justify-content: start;
 
             //
             background-color: var(--current-surface-color);
@@ -32,10 +39,22 @@
 
         //
         .opt-label {
-            @include cm.align-center;
-            @include cm.stretch;
             @include cm.no-wrap;
-            @include cm.align-inline-left;
+
+            //
+            inline-size: 100%;
+            block-size: 100%;
+
+            //
+            pointer-events: none;
+            place-content: center;
+            place-items: center;
+
+            //
+            text-align: start;
+            justify-self: start;
+            justify-content: start;
+            justify-items: start;
 
             //
             display: flex;

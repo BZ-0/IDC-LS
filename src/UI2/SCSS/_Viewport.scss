@@ -1,12 +1,12 @@
-@use "@unite/scss/core/ClassMods" as cm;
+@use "@unite/scss/core/CMixins" as cm;
+@use "@unite/scss/core/ClassLets" as cl;
 
 //
 @layer ui-viewport {
 
     //
     .ui-viewport {
-        @include cm.pe-none;
-        @include cm.vp-vars;
+        @include cl.vp-vars;
 
         //
         container-type: size;
@@ -14,6 +14,7 @@
         display: grid;
         position: fixed;
         overflow: visible;
+        pointer-events: none;
 
         //
         inset: 0px;
@@ -41,8 +42,9 @@
         }
 
         //
-        .ui-viewport-box {
-            @include cm.stretch;
+        .ui-viewport-box {//
+            inline-size: 100%;
+            block-size: 100%;
 
             //
             align-self: start;
@@ -53,8 +55,8 @@
 
             //
             .ui-viewport-content {
-                @include cm.vp-vars;
-                @extend .grid-based-box;
+                @include cl.vp-vars;
+                @include cl.grid-based-box;
 
                 //
                 inset: 0px;

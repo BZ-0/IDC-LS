@@ -40,8 +40,8 @@ export default async ()=>{
                 const ctxMenu: HTMLElement | null = document.querySelector(".ui-context-menu[data-ctx-name=\""+ctxName+"\"]");
                 if (ctxMenu) {
                     ctxMenu.dataset.hidden = false;
-                    ctxMenu.style.setProperty("--click-x", (ev.clientX / zoomOf()) as unknown as string, "");
-                    ctxMenu.style.setProperty("--click-y", (ev.clientY / zoomOf()) as unknown as string, "");
+                    ctxMenu.style.setProperty("--click-x", ev.clientX as unknown as string, "");
+                    ctxMenu.style.setProperty("--click-y", ev.clientY as unknown as string, "");
                 }
             })
         }

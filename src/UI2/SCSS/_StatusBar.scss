@@ -1,5 +1,5 @@
 @use "@unite/scss/core/Utils" as u;
-@use "@unite/scss/core/ClassMods" as cm;
+@use "@unite/scss/core/CMixins" as cm;
 @use "@unite/scss/core/Detector" as d;
 
 //
@@ -12,8 +12,10 @@
 
     //
     :where(.ui-status-bar) {
-        @include cm.stretch;
         @include tm.ux-transparent;
+
+        //
+        inline-size: 100%;
 
         //
         display: grid;
@@ -46,8 +48,9 @@
         padding-inline: 1rem;
 
         //
-        & > * {
-            @include cm.stretch;
+        & > * {//
+            inline-size: 100%;
+            block-size: 100%;
             display: flex;
             place-items: center;
             place-content: center;
@@ -86,8 +89,9 @@
         }
 
         //
-        .icon-wrap {
-            @include cm.stretch;
+        .icon-wrap {//
+            inline-size: 100%;
+            block-size: 100%;
             display: flex;
             place-items: center;
             place-content: center;

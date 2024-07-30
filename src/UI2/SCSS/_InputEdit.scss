@@ -1,10 +1,10 @@
-@use "@unite/scss/core/ClassMods" as cm;
+@use "@unite/scss/core/CMixins" as cm;
 
 //
 @layer ui-editor {
     //
-    .ui-editor {
-        @include cm.stretch;
+    .ui-editor {//
+        inline-size: 100%;
 
         //
         pointer-events: auto;
@@ -37,8 +37,8 @@
         block-size: max-content;
 
         //
-        :where(.field-copy, .field-paste) {
-            @include cm.stretch;
+        :where(.field-copy, .field-paste) {//
+            inline-size: 100%;
 
             //
             place-items: center;
@@ -58,8 +58,9 @@
         }
 
         //
-        input {
-            @include cm.stretch;
+        input {//
+            inline-size: 100%;
+            block-size: 100%;
 
             //
             pointer-events: auto;
