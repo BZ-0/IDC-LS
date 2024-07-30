@@ -1,6 +1,7 @@
 import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveLib.ts";
 import States from "@unite/scripts/reactive/StateManager.ts"
 import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
+import { changeZoom } from "@unite/scripts/utils/Zoom.ts";
 
 //
 export const settings = makeReactiveObject({
@@ -11,6 +12,9 @@ export const settings = makeReactiveObject({
     scaling: parseFloat(localStorage.getItem("@settings:@scaling")) || 1,
     useZoom: !!localStorage.getItem("@settings:@use-zoom") || true
 });
+
+//
+changeZoom(parseFloat(localStorage.getItem("@settings:@scaling")) || 1);
 
 //
 States.setState("settings", settings);
@@ -81,6 +85,5 @@ subscribe(settings, (v) => {
 
 //
 subscribe(settings, (v) => {
-    document.documentElement.style.setProperty("--scaling", v || 1);
-    localStorage.setItem("@settings:@scaling", v || 1);
+    localStorage.setItem("@settings:@scaling", changeZoom(v || 1));
 }, "scaling");

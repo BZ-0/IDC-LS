@@ -1,7 +1,7 @@
 
 
 //
-import {zoomOf} from "@unite/scripts/utils/Utils.ts";
+import {zoomOf} from "@unite/scripts/utils/Zoom.ts";
 import { MOC } from "@unite/scripts/utils/Utils.ts";
 import States from "@unite/scripts/reactive/StateManager.ts"
 

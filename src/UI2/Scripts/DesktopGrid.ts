@@ -1,7 +1,8 @@
 import {observeBySelector, observeBorderBox} from "@unite/scripts/dom/Observer.ts";
 import {grabForDrag} from "@unite/scripts/interact/PointerAPI.ts";
 import {createReactiveSet} from "@unite/scripts/reactive/ReactiveLib.ts";
-import {MOC, zoomOf} from "@unite/scripts/utils/Utils.ts";
+import {MOC} from "@unite/scripts/utils/Utils.ts";
+import {zoomOf} from "@unite/scripts/utils/Zoom.ts";
 import {putToCell} from "@unite/scripts/utils/GridItemUtils.ts";
 import type {GridItemType} from "@unite/scripts/utils/GridItemUtils.ts";
 import {animationSequence} from "@unite/scripts/stylework/GridLayout.ts";
