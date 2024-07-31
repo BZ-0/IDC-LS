@@ -27,7 +27,7 @@ const provide = async (path = "") => {
         });
         return await fileh?.getFile?.();
     } else if (relPath.startsWith("/")) {
-        return fetch(path).then((r) => r.blob());
+        return fetch(path);
     }
     return null;
 };
