@@ -80,7 +80,7 @@ export default async ()=>{
 
         //
         const bbox = el.closest(".ui-grid-page").getBoundingClientRect();
-        const xy: [number, number] = [pointer.current[0] - (bbox?.left || 0), pointer.current[1] - (bbox?.top || 0)];
+        const xy: [number, number] = [(pointer.current[0] - (bbox?.left || 0)) / zoomOf(), (pointer.current[1] - (bbox?.top || 0)) / zoomOf()];
 
         //
         const prev = [...(state.items?.get?.(id)?.cell || [0, 0])];
