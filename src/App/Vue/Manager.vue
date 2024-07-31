@@ -65,6 +65,7 @@
                 >
                     <div inert class="icon"><LucideIcon name="wallpaper"/></div>
                     <div inert class="name">{{file.name}}</div>
+                    <div inert class="date">{{new Date(file.lastModified).toLocaleString("ru-RU")}}</div>
                 </div>
             </div>
 

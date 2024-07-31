@@ -46,7 +46,7 @@ export const saveBinaryToFS = async (data, filename = "settings") => {
             })
             ?.catch?.(console.warn.bind(console));
         const writableFileStream = await fileHandle
-            ?.createWritable?.()
+            ?.createWritable?.({ keepExistingData: true })
             ?.catch?.(console.warn.bind(console));
         await writableFileStream
             ?.write?.(file)

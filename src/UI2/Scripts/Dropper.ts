@@ -24,7 +24,7 @@ export default async ()=>{
             const file = dataTransfer?.files?.[0];
             if (file != null) {
                 const wallpaper = document.querySelector("canvas[is=\"w-canvas\"]");
-                wallpaper?.["$useImageAsSource"]?.(file);
+                wallpaper?.["$useImageAsSource"]?.(file, false);
             }
         }
     });

@@ -24,10 +24,10 @@
 
             //
             display: grid;
-            grid-template-columns: minmax(0px, 2rem) minmax(0px, 1fr);
+            grid-template-columns: minmax(0px, 2rem) minmax(0px, 1fr) minmax(0px, max-content);
             grid-auto-rows: minmax(0px, 2rem);
             gap: 0rem 1rem;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
 
             //
             align-content: start;

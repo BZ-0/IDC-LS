@@ -211,7 +211,7 @@ const actionMap = new Map<string, Function>([
                 pickWallpaperImage()
                     .catch(console.warn.bind(console))
                     .then((blob) => {
-                        wallpaper?.["$useImageAsSource"]?.(blob);
+                        wallpaper?.["$useImageAsSource"]?.(blob, false);
                     });
             }
         },

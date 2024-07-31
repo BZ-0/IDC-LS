@@ -36,7 +36,7 @@ export const downloadImage = async (file) => {
             })
             ?.catch?.(console.warn.bind(console));
         const writableFileStream = await fileHandle
-            ?.createWritable?.()
+            ?.createWritable?.({ keepExistingData: true })
             ?.catch?.(console.warn.bind(console));
         await writableFileStream
             ?.write?.(file)
@@ -134,7 +134,9 @@ export const addItemEv = (ev, state)=>{
                 const fn = blob?.name || "wallpaper";
                 const fw = await (await wall?.getFileHandle?.(fn, {
                     create: true,
-                }))?.createWritable?.();
+                }))?.createWritable?.({
+                    keepExistingData: true
+                });
 
                 //
                 await fw?.write?.(blob);
