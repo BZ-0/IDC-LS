@@ -1,5 +1,4 @@
 <script setup>
-import LucideIcon from "../UWLucideIcon.vue";
 import { pickFromCenter } from '@unite/scripts/stylework/ColorTheme';
 import { ref } from "vue";
 

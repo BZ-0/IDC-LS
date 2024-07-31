@@ -1,5 +1,5 @@
 <script setup>
-import LucideIcon from "../UWLucideIcon.vue";
+import LucideIcon from "../WLucideIcon.vue";
 import { pickFromCenter } from '@unite/scripts/stylework/ColorTheme';
 import { ref } from "vue";
 
@@ -13,12 +13,5 @@ setInterval(() => {
 
 <!-- -->
 <template>
-    <div data-transparent data-scheme="dynamic-transparent" ref="target" class="icon-wrap ui-icon-state ui-battery" data-icon="battery-charging">
-        <LucideIcon name="battery"></LucideIcon>
-        <LucideIcon name="battery-full"></LucideIcon>
-        <LucideIcon name="battery-low"></LucideIcon>
-        <LucideIcon name="battery-medium"></LucideIcon>
-        <LucideIcon name="battery-warning"></LucideIcon>
-        <LucideIcon name="battery-charging"></LucideIcon>
-    </div>
+    <LucideIcon name="battery-charging,battery,battery-full,battery-low,battery-medium,battery-warning" data-transparent data-scheme="dynamic-transparent" ref="target" class="icon-wrap ui-icon-state ui-battery" data-icon="battery-charging"></LucideIcon>
 </template>

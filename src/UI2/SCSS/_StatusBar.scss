@@ -87,33 +87,5 @@
             inset-block-start: 0px;
         }
 
-        //
-        $icons:
-            "battery",
-            "battery-full",
-            "battery-medium",
-            "battery-low",
-            "battery-warning",
-            "battery-charging",
-            "wifi",
-            "wifi-off",
-            "wifi-high",
-            "wifi-low",
-            "wifi-zero";
-
-        //
-        @function IconState($icons) {
-            $selector: ".ui-icon-state:not([data-icon=\"\"]) [data-name=\"\"]";
-            @each $name in $icons {
-                $selector: $selector + ", .ui-icon-state:not([data-icon=\"#{$name}\"]) [data-name=\"#{$name}\"]";
-            }
-            @return $selector;
-        }
-
-        //
-        #{IconState($icons)} {
-            display: none !important;
-        }
-
     }
 }

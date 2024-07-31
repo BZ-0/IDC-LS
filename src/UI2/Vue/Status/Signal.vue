@@ -1,5 +1,5 @@
 <script setup>
-import LucideIcon from "../UWLucideIcon.vue";
+import LucideIcon from "../WLucideIcon.vue";
 import { pickFromCenter } from '@unite/scripts/stylework/ColorTheme';
 import { ref } from "vue";
 
@@ -13,11 +13,5 @@ setInterval(() => {
 
 <!-- -->
 <template>
-    <div data-transparent data-scheme="dynamic-transparent" ref="target" class="icon-wrap ui-icon-state ui-network" data-icon="wifi">
-        <LucideIcon name="wifi"></LucideIcon>
-        <LucideIcon name="wifi-off"></LucideIcon>
-        <LucideIcon name="wifi-high"></LucideIcon>
-        <LucideIcon name="wifi-low"></LucideIcon>
-        <LucideIcon name="wifi-zero"></LucideIcon>
-    </div>
+    <LucideIcon name="wifi,wifi-off,wifi-high,wifi-low,wifi-zero" data-transparent data-scheme="dynamic-transparent" ref="target" class="icon-wrap ui-icon-state ui-network" data-icon="wifi"></LucideIcon>
 </template>

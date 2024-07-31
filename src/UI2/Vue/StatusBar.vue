@@ -1,5 +1,4 @@
 <script setup>
-import LucideIcon from "./UWLucideIcon.vue";
 import {reactive, watch, ref, onMounted} from "vue";
 
 //

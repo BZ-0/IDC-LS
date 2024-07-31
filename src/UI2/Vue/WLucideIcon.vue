@@ -1,6 +1,6 @@
 <script setup>
-    import { computed } from 'vue';
-    import * as icons from "lucide-vue-next";
+    import { computed, onMounted, ref } from 'vue';
+    import * as iconPack from "lucide-vue-next";
 
     //
     const camelize = (str) => {
@@ -10,6 +10,11 @@
     //
     const fup = (str)=>{
         return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    //
+    const cmz = (str)=>{
+        return fup(camelize(str?.trim?.()||""));
     }
 
     //
@@ -29,18 +34,33 @@
 
     //
     import { useAttrs } from 'vue';
+    import { observeAttribute } from '@unite/scripts/dom/Observer.ts';
+
+    //
     const attrs = useAttrs();
-    const icon = computed(() => icons[fup(camelize(props.name||""))]);
+    const names = ref((props.name.split(",")||[props.name]));
+    //const icons = computed(() => Array.from(Object.entries(iconPack)).filter( ([K,I])=>names.value.indexOf(K)>=0 ));
+
+    // reactive attribute...
+    const target = ref(null);
+    const current = ref(cmz(names.value[0]));
+    onMounted(()=>{
+        observeAttribute(target.value, "data-icon", ()=>{
+            current.value = cmz(target.value.getAttribute("data-icon"));
+        });
+    });
+
 </script>
 
 <template>
-    <div class="icon-wrap" v-bind="$attrs">
+    <div class="icon-wrap" :data-icon="names[0]" ref="target" v-bind="$attrs">
         <component
             inert
-            :is="icon"
+            :is="iconPack[current]"
             :size="size"
             :color="color"
             :stroke-width="strokeWidth" :default-class="defaultClass"
+            :data-name="current"
         />
     </div>
 </template>
