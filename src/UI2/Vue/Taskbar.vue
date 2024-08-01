@@ -9,11 +9,20 @@
     import Time from "./Status/Time.vue";
 
     //
+    import TaskManager from "@idc/UI2/Scripts/TaskManager.ts";
+
+    //
     const target = ref(null);
-    const tasks  = ref([{
-        id: "#control-center",
-        icon: "settings"
-    }]);
+    const tasks  = ref([...TaskManager.tasks]);
+
+    //
+    TaskManager.on("*", ()=> { tasks.value = [...TaskManager.tasks]; });
+
+    //
+    const focusTask = (ev)=>{
+        const target = ev.target;
+        TaskManager.focus(target.dataset.id);
+    }
 </script>
 
 <!-- -->
@@ -23,7 +32,7 @@
             <LucideIcon inert name="layout-grid" data-transparent></LucideIcon>
         </div>
         <div class="ui-task-bar">
-            <div v-for="task in tasks" class="ui-task" data-transparent data-scheme="accent" :data-id="task.id" data-highlight-hover="1">
+            <div v-for="task in tasks" class="ui-task" data-transparent data-scheme="accent" :data-id="task.id" :key="task.id" data-highlight-hover="1" @click="focusTask">
                 <LucideIcon inert data-scheme="solid-transparent" :name="task.icon" data-transparent></LucideIcon>
             </div>
         </div>

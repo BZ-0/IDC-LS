@@ -25,8 +25,14 @@ export class TaskManager {
 
     //
     trigger(name, ev = {}) {
-        const events: Function[] = this.#events.get(name) || [];
-        events.forEach((cb)=>cb(ev));
+        {
+            const events: Function[] = this.#events.get(name) || [];
+            events.forEach((cb)=>cb(ev));
+        };
+        {
+            const events: Function[] = this.#events.get("*") || [];
+            events.forEach((cb)=>cb(ev));
+        };
         return this;
     }
 
@@ -59,11 +65,13 @@ export class TaskManager {
             this.tasks.splice(index, 1);
             this.tasks.push(task);
             this.trigger("focus", {task, self: this, oldIndex: index, index: (this.tasks.length-1)});
-
-            //
-            if (location.hash != task.id)
-                { history.back(); location.hash = task.id; };
         }
+
+        //
+        if (location.hash != taskId)
+            { history.replaceState(null, null, location.hash = taskId); };
+
+        //
         return this;
     }
 
@@ -102,7 +110,9 @@ export class TaskManager {
             this.trigger("addTask", {task, self: this, index: last});
         } else {
             const exist = this.tasks[index];
-            Object.assign(exist, task);
+            if (exist != task) {
+                Object.assign(exist, task);
+            }
         }
 
         //
