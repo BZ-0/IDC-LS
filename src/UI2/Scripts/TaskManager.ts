@@ -6,8 +6,8 @@ export class TaskManager {
     #events = new Map([]);
 
     //
-    constructor() {
-        this.#tasks  = [];
+    constructor(tasks = []) {
+        this.#tasks  = tasks || [];
         this.#events = new Map<string, Function[]>([]);
 
         //
@@ -54,11 +54,11 @@ export class TaskManager {
 
         //
         const index = this.tasks.findIndex((t)=>t.id == taskId);
-        if (index >= 0 && index >= (this.tasks.length-1)) {
+        if (index >= 0 && index < (this.tasks.length-1)) {
             const task = this.tasks[index];
             this.tasks.splice(index, 1);
             this.tasks.push(task);
-            this.trigger("focus", {task, self: this});
+            this.trigger("focus", {task, self: this, oldIndex: index, index: (this.tasks.length-1)});
 
             //
             if (location.hash != task.id)
@@ -74,7 +74,7 @@ export class TaskManager {
             const task = this.tasks[index];
             if (task.active) {
                 task.active = false;
-                this.trigger("deactivate", {task, self: this});
+                this.trigger("deactivate", {task, self: this, index});
             }
         }
         return this;
@@ -87,7 +87,7 @@ export class TaskManager {
             const task = this.tasks[index];
             if (!task.active) {
                 task.active = true;
-                this.trigger("activate", {task, self: this});
+                this.trigger("activate", {task, self: this, index});
             }
         }
         return this;
@@ -96,9 +96,10 @@ export class TaskManager {
     //
     addTask(task) {
         const index = this.tasks.findIndex((t)=>(t == task || t.id == task.id));
+        const last = this.tasks.length;
         if (index < 0) {
             this.tasks.push(task);
-            this.trigger("addTask", {task, self: this});
+            this.trigger("addTask", {task, self: this, index: last});
         } else {
             const exist = this.tasks[index];
             Object.assign(exist, task);
@@ -115,7 +116,7 @@ export class TaskManager {
         if (index >= 0) {
             const task = this.tasks[index];
             this.tasks.splice(index, 1);
-            this.trigger("removeTask", {task, self: this});
+            this.trigger("removeTask", {task, self: this, index: -1, oldIndex: index});
         }
         return this;
     }
