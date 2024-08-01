@@ -5,18 +5,6 @@
 //
 @use "@unite/scss/design/ColorTheme" as tm;
 
-
-//
-$tabNames: "wallpapers", "settings";
-@function TabSelect($tabNames) {
-    $selector: ".ui-tab-item.__current";
-    @each $name in $tabNames {
-        $selector: $selector + ", &[data-current-page=\"#{$name}\"] .ui-tab-item[data-page=\"#{$name}\"]";
-    }
-    @return $selector;
-}
-
-
 //
 @layer ui-control-center {
     //
@@ -35,11 +23,6 @@ $tabNames: "wallpapers", "settings";
         grid-template-rows: minmax(0px, 1fr);
         position: relative;
         overflow: hidden;
-
-        //
-        #{TabSelect($tabNames)} {
-            @include tm.ux-inverse;
-        }
 
         //
         .ui-screen {

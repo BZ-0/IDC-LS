@@ -107,7 +107,6 @@
 
             //
             display: flex;
-            padding: 0.25rem;
             background: transparent;
 
             //
@@ -119,6 +118,8 @@
             cursor: pointer;
             background-color: var(--current-surface-color);
             pointer-events: auto;
+            aspect-ratio: 1 / 1;
+            padding: 0.5rem;
         }
 
         //

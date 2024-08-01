@@ -1,5 +1,6 @@
 <script setup>
     import LucideIcon from '@idc/UI2/Vue/WLucideIcon.vue';
+    import { observeAttribute } from '@unite/scripts/dom/Observer.ts';
 
     //
     import {reactive, watch, ref, onMounted} from "vue";
@@ -22,12 +23,16 @@
     })
 
     //
+    const target = ref(null);
     const props = defineProps({ ifc: Boolean });
-    onMounted(()=>{ getFileList(null, state); });
+    onMounted(() => {
+        observeAttribute(target.value, "data-hidden", ()=>{ getFileList(null, state); });
+    });
+    addEventListener("file-upload", ()=>getFileList(null, state));
 </script>
 
 <template>
-    <div class="ui-screen" id="manager" v-bind="$attrs">
+    <div ref="target" class="ui-screen" id="manager" v-bind="$attrs">
 
         <div class="ui-nav" data-scheme="solid" style="pointer-events: auto;" data-highlight="1">
             <button data-tooltip="Use as Wallpaper" class="use-item" data-scheme="solid-transparent" data-highlight="1" data-highlight-hover="2" @click="(ev)=>useItemEv(ev, state)">
@@ -57,7 +62,7 @@
                     v-bind:class="{selected: state.selectedFilename == file.name}"
                     data-scheme
                     data-highlight-hover="1"
-                    :key="file.name"
+                    :key="name"
                 >
                     <div inert class="icon"><LucideIcon name="wallpaper"/></div>
                     <div inert class="name">{{file.name}}</div>
