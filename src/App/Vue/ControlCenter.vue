@@ -64,8 +64,8 @@
     </div>
 
     <div class="ui-content stretch" :id="props.appId.replace('#','')" ref="controlEl" :data-current-page="currentPage">
-        <x-scrollbox :data-hidden="!panelOpen" data-instant data-scheme="solid" data-highlight="2" class="ui-panel" ref="panelEl">
-            <div v-for="tab in tabs" style="--decor-size: 4rem;" class="ui-block-decor ui-tab-item" data-scheme data-highlight="2" :data-page="tab.page">
+        <x-scrollbox :data-hidden="!panelOpen" data-instant data-scheme="solid" data-highlight="1" class="ui-panel" ref="panelEl">
+            <div v-for="tab in tabs" style="--decor-size: 4rem;" class="ui-block-decor ui-tab-item" data-scheme="solid-transparent" data-highlight="1" :data-page="tab.page">
                 <LucideIcon inert data-place="icon" :name="tab.icon"/>
                 <span inert class="tab-label">{{tab.label}}</span>
                 <LucideIcon inert data-place="element" name="chevron-right"/>

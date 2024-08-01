@@ -23,7 +23,7 @@
 
         <slot></slot>
 
-        <div class="ui-status" data-scheme="solid" data-highlight="2"></div>
+        <div class="ui-status" data-scheme="solid" data-highlight="1"></div>
         <div class="ui-resize"></div>
     </div>
 </template>

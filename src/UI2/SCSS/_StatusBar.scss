@@ -12,7 +12,8 @@
 
     //
     :where(.ui-status-bar) {
-        @include tm.ux-transparent;
+        //@include tm.ux-transparent;
+        //@include tm.ux-dynamic-transparent;
 
         //
         inline-size: 100%;
@@ -54,8 +55,8 @@
         //
         & * { background-color: transparent; }
         .left   { grid-column: 1 / 1 span; grid-row: 1 / 1 span; justify-self: start; gap: 0rem; }
-        .center { grid-column: 2 / 2 span; grid-row: 2 / 2 span; justify-self: center; }
-        .right  { grid-column: 3 / 3 span; grid-row: 3 / 3 span; justify-self: end; gap: 0rem; }
+        .center { grid-column: 2 / 2 span; grid-row: 1 / 1 span; justify-self: center; }
+        .right  { grid-column: 3 / 3 span; grid-row: 1 / 1 span; justify-self: end; gap: 0rem; }
         .left, .right { inline-size: max-content; }
 
         //
@@ -82,7 +83,6 @@
 
         //
         @media #{d.$isMobile} {
-            @include tm.ux-dynamic-transparent;
             inset: auto;
             inset-block-start: 0px;
         }

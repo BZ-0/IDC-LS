@@ -19,6 +19,10 @@
 
     //
     const props = defineProps({
+        hook: {
+            type: Function,
+            default: ()=>{}
+        },
         name: {
             type: String,
             required: true
@@ -44,10 +48,15 @@
     // reactive attribute...
     const target = ref(null);
     const current = ref(cmz(names.value[0]));
+
+    //
     onMounted(()=>{
         observeAttribute(target.value, "data-icon", ()=>{
             current.value = cmz(target.value.getAttribute("data-icon"));
         });
+
+        //
+        props?.hook?.(target.value);
     });
 
 </script>

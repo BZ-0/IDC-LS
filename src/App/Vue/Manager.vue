@@ -29,20 +29,20 @@
 <template>
     <div class="ui-screen" id="manager" v-bind="$attrs">
 
-        <div class="ui-nav" data-scheme="solid-transparent" data-highlight="1">
-            <button data-tooltip="Use as Wallpaper" class="use-item" data-scheme="solid-transparent" data-highlight-hover="2" @click="(ev)=>useItemEv(ev, state)">
+        <div class="ui-nav" data-scheme="solid" style="pointer-events: auto;" data-highlight="1">
+            <button data-tooltip="Use as Wallpaper" class="use-item" data-scheme="solid-transparent" data-highlight="1" data-highlight-hover="2" @click="(ev)=>useItemEv(ev, state)">
                 <LucideIcon inert name="image-play" class="icon"/>
             </button>
 
-            <button data-tooltip="Load Image" class="add-item" data-scheme="solid-transparent" data-highlight-hover="2" @click="(ev)=>addItemEv(ev, state)">
+            <button data-tooltip="Load Image" class="add-item" data-scheme="solid-transparent" data-highlight="1" data-highlight-hover="2" @click="(ev)=>addItemEv(ev, state)">
                 <LucideIcon inert name="image-up" class="icon"/>
             </button>
 
-            <button data-tooltip="Remove Image" class="remove-item" data-scheme="solid-transparent" data-highlight-hover="2" @click="(ev)=>removeItemEv(ev, state)">
+            <button data-tooltip="Remove Image" class="remove-item" data-scheme="solid-transparent" data-highlight="1" data-highlight-hover="2" @click="(ev)=>removeItemEv(ev, state)">
                 <LucideIcon inert name="image-off" class="icon"/>
             </button>
 
-            <button data-tooltip="Download Image" class="download-item" data-scheme="solid-transparent" data-highlight-hover="2" @click="(ev)=>downloadItemEv(ev, state)">
+            <button data-tooltip="Download Image" class="download-item" data-scheme="solid-transparent" data-highlight="1" data-highlight-hover="2" @click="(ev)=>downloadItemEv(ev, state)">
                 <LucideIcon inert name="image-down" class="icon"/>
             </button>
         </div>

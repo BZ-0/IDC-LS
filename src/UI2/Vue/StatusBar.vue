@@ -21,12 +21,13 @@ document.documentElement.addEventListener("contextmenu", (ev)=>{
 <!-- -->
 <template>
     <div class="ui-status-bar" data-transparent data-scheme="dynamic-transparent">
-        <div class="left"></div>
+        <div class="left">
+            <Time></Time>
+        </div>
         <div class="center"></div>
         <div class="right">
             <Signal></Signal>
             <Battery></Battery>
-            <Time></Time>
         </div>
     </div>
 </template>
