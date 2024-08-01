@@ -15,5 +15,5 @@ setInterval(() => {
 
 <!-- -->
 <template>
-    <LucideIcon name="battery-charging,battery,battery-full,battery-low,battery-medium,battery-warning" :hook="setTarget" data-scheme="dynamic-transparent" ref="target" class="icon-wrap ui-icon-state ui-battery" data-icon="battery-charging"></LucideIcon>
+    <LucideIcon name="battery-charging,battery,battery-full,battery-low,battery-medium,battery-warning" :hook="setTarget" data-scheme="dynamic-transparent" ref="target" class="icon-wrap ui-icon-state ui-battery" data-icon="battery-charging" v-bind="$attrs"></LucideIcon>
 </template>

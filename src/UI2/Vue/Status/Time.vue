@@ -12,5 +12,5 @@ setInterval(() => {
 
 <!-- -->
 <template>
-    <div data-transparent data-scheme="dynamic-transparent" ref="target" class="time" color-scheme=""><span class="ui-time-hour">00</span>:<span class="ui-time-minute">00</span></div>
+    <div data-transparent data-scheme="dynamic-transparent" ref="target" class="ui-time" color-scheme="" v-bind="$attrs"><span class="ui-time-hour">00</span>:<span class="ui-time-minute">00</span></div>
 </template>

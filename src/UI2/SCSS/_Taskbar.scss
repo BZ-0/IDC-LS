@@ -1,0 +1,97 @@
+@use "@unite/scss/core/Utils" as u;
+@use "@unite/scss/core/CMixins" as cm;
+@use "@unite/scss/core/Detector" as d;
+
+//
+@use "@unite/scss/design/ColorVars" as cl;
+@use "@unite/scss/design/ColorUtils" as cu;
+@use "@unite/scss/design/ColorTheme" as tm;
+
+//
+@layer ui-taskbar {
+
+    //
+    .ui-taskbar {
+        position: fixed;
+
+        //
+        inset: 0px;
+        inset-block-start: auto;
+        z-index: 9999;
+        display: grid;
+
+        //
+        box-shadow: 0px 0px 1rem #00000070;
+
+        //
+        grid-template-columns:
+            [app-menu] minmax(0px, 3rem)
+            [task-bar] minmax(0px, 1fr)
+            [ui-status] minmax(0px, max-content);
+
+        //
+        grid-template-rows: minmax(0px, 3rem);
+        block-size: 3rem;
+
+        //
+        & .ui-app-menu {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        //
+        & .ui-task {
+            aspect-ratio: 1 / 1;
+            border-block-end: solid 0.125rem oklch(from var(--current-surface-color) l c h / 1.0);
+
+            //
+            inline-size: 3rem;
+            block-size: 3rem;
+
+            //
+            padding: 0.75rem;
+            cursor: pointer;
+        }
+
+        //
+        & .ui-status {
+            display: flex;
+            flex-direction: row;
+
+            place-content: center;
+            place-items: center;
+
+            gap: 0.5rem;
+            padding: 1rem;
+
+            //
+            & > .icon-wrap {
+                aspect-ratio: 1 / 1;
+            }
+
+            //
+            & > * {
+                display: flex;
+                place-content: center;
+                place-items: center;
+
+                //
+                min-inline-size: 2rem;
+                min-block-size: 2rem;
+                padding: 0.25rem;
+
+                border-radius: 0.25rem;
+                cursor: pointer;
+            }
+
+            & > .ui-time {
+                padding-inline: 1rem;
+            }
+        }
+
+        //
+        @media #{d.$isMobile} {
+            display: none;
+        }
+    }
+}

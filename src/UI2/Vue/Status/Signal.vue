@@ -15,5 +15,5 @@ setInterval(() => {
 
 <!-- -->
 <template>
-    <LucideIcon name="wifi,wifi-off,wifi-high,wifi-low,wifi-zero" data-scheme="dynamic-transparent" :hook="setTarget" class="icon-wrap ui-icon-state ui-network" data-icon="wifi"></LucideIcon>
+    <LucideIcon name="wifi,wifi-off,wifi-high,wifi-low,wifi-zero" data-scheme="dynamic-transparent" :hook="setTarget" class="icon-wrap ui-icon-state ui-network" data-icon="wifi" v-bind="$attrs"></LucideIcon>
 </template>

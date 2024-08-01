@@ -75,7 +75,7 @@
             box-sizing: border-box;
         }
 
-        .time {
+        .ui-time {
             display: inline-block;
             inline-size: max-content;
             block-size: max-content;
@@ -85,6 +85,11 @@
         @media #{d.$isMobile} {
             inset: auto;
             inset-block-start: 0px;
+        }
+
+        //
+        @media #{d.$isDesktop} {
+            display: none;
         }
 
     }

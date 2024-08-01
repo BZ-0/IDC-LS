@@ -11,6 +11,7 @@
 
     //
     import StatusBar from "@idc/UI2/Vue/StatusBar.vue";
+    import Taskbar from "@idc/UI2/Vue/Taskbar.vue";
 
     //
     import DesktopGrid from "@idc/UI2/Vue/DesktopGrid.vue";
@@ -66,6 +67,7 @@
 <ContextMenu :ctxList="gridCtxList" ctxName="grid-space"></ContextMenu>
 
 <StatusBar></StatusBar>
+<Taskbar></Taskbar>
 
 </template>
 

@@ -2,14 +2,16 @@
 
 //
 const setElementContent = (selector, value)=>{
-    const element = document.querySelector(selector);
-    if (element) { element.innerHTML = value; }
+    document.querySelectorAll(selector).forEach((element)=>{
+        if (element) { element.innerHTML = value; }
+    });
 }
 
 //
 const setElementIcon = (selector, value)=>{
-    const element = document.querySelector(selector);
-    if (element) { element.setAttribute("data-icon", value); }
+    document.querySelectorAll(selector).forEach((element)=>{
+        if (element) { element.setAttribute("data-icon", value); }
+    });
 }
 
 //

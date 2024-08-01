@@ -41,7 +41,7 @@
 
         <div class="ui-nav" data-scheme="solid" data-highlight="1">
             <div class="f-space"></div>
-            <button class="back-act hl-1 hl-2h" data-highlight="1" data-tooltip="Back" data-scheme="solid-transparent" data-highlight-hover="2">
+            <button class="back-act hl-1 hl-2h" data-tooltip="Back" data-scheme="solid-transparent" data-highlight-hover="1">
                 <LucideIcon inert slot="icon" name="arrow-left" class="icon"/>
             </button>
         </div>
