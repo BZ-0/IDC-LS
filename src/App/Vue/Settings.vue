@@ -41,9 +41,8 @@
 
         <div class="ui-nav" data-scheme="solid" data-highlight="1">
             <div class="f-space"></div>
-            <button class="back-act hl-1 hl-2h">
-                <div inert class="icon"><LucideIcon slot="icon" name="arrow-left"/></div>
-                <div inert class="name">Back</div>
+            <button class="back-act hl-1 hl-2h" data-tooltip="Back" data-scheme="solid-transparent" data-highlight-hover="2">
+                <LucideIcon inert slot="icon" name="arrow-left" class="icon"/>
             </button>
         </div>
         <x-scrollbox class="ui-space" >

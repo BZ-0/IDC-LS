@@ -37,10 +37,10 @@
     //
     @mixin whenMobile {
         padding-block-end: 0px;
-        grid-template-rows: [status] minmax(0px, var(--status-size)) [titlebar] minmax(0px, 3rem) [content-b] minmax(
-            0px,
-            1fr
-        );
+        grid-template-rows:
+            [status] minmax(0px, var(--status-size))
+            [content-b] minmax(0px, 1fr)
+            [titlebar] minmax(0px, 3rem);
     }
 
     //

@@ -53,17 +53,19 @@
 
 <Viewport>
     <DesktopGrid :state="state" :actionMap="actionMap"></DesktopGrid>
-    <ContextMenu :ctxList="itemCtxList" ctxName="grid-item"></ContextMenu>
-    <ContextMenu :ctxList="gridCtxList" ctxName="grid-space"></ContextMenu>
-
     <IconEdit></IconEdit>
-
-    <AppFrame hashIdName="#control-center">
-        <ControlCenter appId="#control-center"></ControlCenter>
-    </AppFrame>
-
-    <StatusBar></StatusBar>
 </Viewport>
+
+<div data-hidden="true" class="ui-tooltip" data-scheme="solid" v-bind="$attrs"></div>
+
+<AppFrame hashIdName="#control-center">
+    <ControlCenter appId="#control-center"></ControlCenter>
+</AppFrame>
+
+<ContextMenu :ctxList="itemCtxList" ctxName="grid-item"></ContextMenu>
+<ContextMenu :ctxList="gridCtxList" ctxName="grid-space"></ContextMenu>
+
+<StatusBar></StatusBar>
 
 </template>
 
