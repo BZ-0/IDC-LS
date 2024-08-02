@@ -13,7 +13,8 @@ const loading = Promise.allSettled([
     import("@idc/UI2/Scripts/Tooltip.ts"),
     import("@idc/App/Scripts/Settings.ts"),
     import("@idc/App/Scripts/ControlCenter.ts"),
-    import("@unite/wcomp/scrollbox/ScrollBox.ts")
+    import("@unite/wcomp/scrollbox/ScrollBox.ts"),
+    import("@unite/wcomp/flexlike/FlexLike.ts")
 ]);
 
 //

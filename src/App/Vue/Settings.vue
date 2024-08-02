@@ -45,30 +45,32 @@
                 <LucideIcon inert slot="icon" name="arrow-left" class="icon"/>
             </button>
         </div>
-        <x-scrollbox class="ui-space" >
+        <x-scrollbox class="ui-space">
 
-            <form v-if="forms" v-for="form in forms" data-page class="form-wrap hl-ns" data-name="grid-columns-row">
-                <div class="form-description">{{form.description}}</div>
-                <div v-if="form.fields" v-for="field in form.fields" class="ui-block-decor pe-none" style="--decor-size: 4rem;" >
-                    <span class="opt-label">{{field.label}}</span>
-                    <LucideIcon data-place="icon" :name="field.icon"/>
+            <div is="flex-like" data-gap="16">
+                <form v-if="forms" v-for="form in forms" data-page class="form-wrap hl-ns" data-name="grid-columns-row">
+                    <div class="form-description">{{form.description}}</div>
+                    <div v-if="form.fields" v-for="field in form.fields" class="ui-block-decor pe-none" style="--decor-size: 4rem;" >
+                        <span class="opt-label">{{field.label}}</span>
+                        <LucideIcon data-place="icon" :name="field.icon"/>
 
-                    <div data-place="element">
-                        <Number v-if="field.type == 'number'"
-                            :min="field.params[0]"
-                            :max="field.params[1]"
-                            :step="field.params[2]"
-                            :data-state="props.stateName"
-                            :data-name="field.name"
-                        ></Number>
+                        <div data-place="element">
+                            <Number v-if="field.type == 'number'"
+                                :min="field.params[0]"
+                                :max="field.params[1]"
+                                :step="field.params[2]"
+                                :data-state="props.stateName"
+                                :data-name="field.name"
+                            ></Number>
 
-                        <Switch v-if="field.type == 'switch'"
-                            :data-state="props.stateName"
-                            :data-name="field.name"
-                        ></Switch>
+                            <Switch v-if="field.type == 'switch'"
+                                :data-state="props.stateName"
+                                :data-name="field.name"
+                            ></Switch>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
 
         </x-scrollbox>
 
