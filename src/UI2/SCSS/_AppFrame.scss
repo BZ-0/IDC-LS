@@ -38,7 +38,7 @@
 
         //
         @include u.clamped-width(min(64rem, 100cqi), calc(80rem + var(--resize-x, 0) * var(--zpx, 1px)), 100cqi);
-        @include u.clamped-height(min(36rem, 100cqb), calc(45rem + var(--resize-y, 0) * var(--zpx, 1px)), 100cqb);
+        @include u.clamped-height(min(36rem, 100cqb), calc(45rem + var(--resize-y, 0) * var(--zpx, 1px)), calc(100cqb - var(--height-adjust, 0px)));
     }
 
     //
@@ -74,8 +74,9 @@
         --ry: calc(var(--drag-y, 0) * var(--zpx, 1px));
 
         //
+        --height-adjust: var(--taskbar-size, 0px);
         --translate-x: clamp(0px, var(--rx, 0px), calc(100cqi - 100%));
-        --translate-y: clamp(0px, var(--ry, 0px), calc(100cqb - 100%));
+        --translate-y: clamp(0px, var(--ry, 0px), calc(calc(100cqb - var(--height-adjust, 0px)) - 100%));
 
         //
         outline: solid 0.25px oklch(from var(--current-glyph-color) l c h / 0);

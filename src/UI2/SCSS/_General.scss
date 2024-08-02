@@ -23,6 +23,13 @@
 }
 
 //
+@property --height-adjust {
+    syntax: "<length-percentage>";
+    initial-value: 0px;
+    inherits: true;
+}
+
+//
 // titlebar == titlebar (desktop) | navbar (mobile) | taskbar (mobile)
 // status   == 0px      (desktop) | status (mobile)
 
