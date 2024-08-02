@@ -32,7 +32,7 @@
 </script>
 
 <template>
-    <div ref="target" class="ui-screen" id="manager" v-bind="$attrs">
+    <div ref="target" class="ui-screen ui-content" id="manager" v-bind="$attrs">
 
         <div class="ui-nav" data-scheme="solid" style="pointer-events: auto;" data-highlight="1">
             <button data-tooltip="Use as Wallpaper" class="use-item" data-scheme="solid-transparent" data-highlight-hover="1" @click="(ev)=>useItemEv(ev, state)">

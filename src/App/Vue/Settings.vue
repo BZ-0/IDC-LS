@@ -37,7 +37,7 @@
 
 <!-- -->
 <template>
-    <div class="ui-screen" id="settings" v-bind="$attrs">
+    <div class="ui-screen ui-content" id="settings" v-bind="$attrs">
 
         <div class="ui-nav" data-scheme="solid" data-highlight="1">
             <div class="f-space"></div>

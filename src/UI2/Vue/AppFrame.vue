@@ -1,8 +1,6 @@
 <script setup>
     import {reactive, watch, ref, onMounted} from "vue";
     import LucideIcon from './WLucideIcon.vue';
-
-    //
     import TaskManager from "@idc/UI2/Scripts/TaskManager.ts";
 
     //
@@ -20,6 +18,9 @@
         icon: {type: String, default: "settings"},
         label: {type: String, default: ""}
     });
+
+    //
+    const isActive = ref(location.hash == props.hashIdName);
 
     //
     const task = {
@@ -46,15 +47,23 @@
     const toFocus = (ev)=>{
         TaskManager.focus(props.hashIdName);
     }
+
+    //
+    TaskManager.on("*", ()=>{
+        isActive.value = task.active;
+    });
+
+    //
+    TaskManager.addTask(task, false);
 </script>
 
 <!-- -->
 <template>
-    <div ref="target" :data-hidden="currentHash != props.hashIdName" data-scheme="solid" class="ui-frame ui-app-frame ui-default-theme ui-detached" v-bind="$attrs">
+    <div @pointerdown="toFocus" ref="target" :data-hidden="!isActive" data-scheme="solid" class="ui-frame ui-app-frame ui-default-theme ui-detached" v-bind="$attrs">
 
-        <div class="titlebar" data-highlight="2" data-scheme="solid">
+        <div class="ui-titlebar" data-highlight="2" data-scheme="solid">
             <LucideIcon name="chevron-down" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;" data-scheme="solid" data-highlight="2" />
-            <div data-scheme="solid" data-highlight="2" class="ui-title-handle" @pointerdown="toFocus"></div>
+            <div data-scheme="solid" data-highlight="2" class="ui-title-handle"></div>
             <LucideIcon name="menu" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;" data-scheme="solid" data-highlight="2" />
         </div>
 

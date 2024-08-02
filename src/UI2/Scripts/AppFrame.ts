@@ -5,6 +5,10 @@ import { observeBySelector } from "@unite/scripts/dom/Observer.ts";
 import { zoomOf } from "@unite/scripts/utils/Zoom.ts";
 
 //
+import TaskManager from "@idc/UI2/Scripts/TaskManager.ts";
+
+
+//
 export default async ()=>{
 
     //
@@ -31,6 +35,56 @@ export default async ()=>{
             //if (windowManager) {
                 //windowManager?.focusTask?.("#" + MOCElement(target, ".ui-app-frame")?.querySelector(".ui-content")?.id||"");
             //}
+        }
+
+
+        //
+        if (target.matches(".ui-navbar .menu-button")) {
+            // kuril i umer
+            ev.stopPropagation();
+            ev.stopImmediatePropagation();
+            ev.preventDefault();
+
+            //
+            const task = TaskManager.getOnFocus();
+            const content = task?.id ? document.querySelector(task?.id) : null;
+            if (content) {
+                const event = new CustomEvent("ui-menu", {
+                    cancelable: true,
+                    bubbles: true,
+                    detail: {}
+                });
+                content.dispatchEvent(event);
+            }
+        }
+
+        //
+        if (target.matches(".ui-navbar .back-button")) {
+            // kuril i umer
+            ev.stopPropagation();
+            ev.stopImmediatePropagation();
+            ev.preventDefault();
+
+            //
+            const task = TaskManager.getOnFocus();
+            const content = task?.id ? document.querySelector(task?.id) : null;
+            if (content) {
+                const event = new CustomEvent("ui-back", {
+                    cancelable: true,
+                    bubbles: true,
+                    detail: {}
+                });
+
+                //
+                if (content.dispatchEvent(event)) {
+                    //if (windowManager) {
+                        //windowManager?.minimizeTask?.("#" + content.id);
+                    //} else {
+                        //history.back();
+                    //}
+                    TaskManager.deactivate(task?.id);
+                }
+            }
         }
 
         //
@@ -62,6 +116,7 @@ export default async ()=>{
             //
             const content = MOCElement(target, ".ui-app-frame")?.querySelector?.(".ui-content");
             if (content) {
+                const task = TaskManager.get("#" + content.id);
                 const event = new CustomEvent("ui-back", {
                     cancelable: true,
                     bubbles: true,
@@ -73,8 +128,9 @@ export default async ()=>{
                     //if (windowManager) {
                         //windowManager?.minimizeTask?.("#" + content.id);
                     //} else {
-                        history.back();
+                        //history.back();
                     //}
+                    TaskManager.deactivate("#" + content.id);
                 }
             }
         }
@@ -110,7 +166,7 @@ export default async ()=>{
 
     //
     observeBySelector(document.body, ".ui-app-frame", ({addedNodes})=>{
-        makeControl(addedNodes[0]);
+        addedNodes.forEach((n)=>makeControl(n));
     });
 
 }

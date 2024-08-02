@@ -45,6 +45,15 @@ export class TaskManager {
     }
 
     //
+    get(taskId: string) {
+        const index = this.tasks.findIndex((t)=>t.id == taskId);
+        if (index >= 0) {
+            return this.tasks[index];
+        }
+        return null;
+    }
+
+    //
     get tasks() {
         return this.#tasks;
     }
@@ -52,6 +61,20 @@ export class TaskManager {
     //
     getTasks() {
         return this.#tasks;
+    }
+
+    //
+    getOnFocus() {
+        return this.#tasks.findLast((t)=>t.active);
+    }
+
+    //
+    inFocus(taskId: string) {
+        const index = this.tasks.findIndex((t)=>t.id == taskId);
+        if (index >= 0) {
+            return ((index >= (this.tasks.length-1)) || location.hash == taskId) && this.#tasks[index].active;
+        }
+        return false;
     }
 
     //
@@ -85,6 +108,12 @@ export class TaskManager {
                 this.trigger("deactivate", {task, self: this, index});
             }
         }
+
+        //
+        if (location.hash == taskId)
+            { history.replaceState(null, null, location.hash = "#"); };
+
+        //
         return this;
     }
 
@@ -102,10 +131,11 @@ export class TaskManager {
     }
 
     //
-    addTask(task) {
+    addTask(task, doFocus = true) {
         const index = this.tasks.findIndex((t)=>(t == task || t.id == task.id));
         const last = this.tasks.length;
         if (index < 0) {
+            task.order = last;
             this.tasks.push(task);
             this.trigger("addTask", {task, self: this, index: last});
         } else {
@@ -116,7 +146,9 @@ export class TaskManager {
         }
 
         //
-        this.focus(location.hash);
+        if (doFocus) {
+            this.focus(location.hash);
+        }
         return this;
     }
 

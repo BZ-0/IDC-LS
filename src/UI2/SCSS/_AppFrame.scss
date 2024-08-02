@@ -33,7 +33,7 @@
         display: contents;
 
         //
-        & :where(.ui-title-label, .titlebar) {
+        & :where(.ui-title-label, .ui-titlebar) {
             display: none;
         }
 
@@ -63,6 +63,11 @@
             [status] minmax(0px, var(--status-size))
             [content-b] minmax(0px, 1fr)
             [titlebar] minmax(0px, var(--titlebar-size));
+
+        //
+        .ui-titlebar {
+            display: none;
+        }
     }
 
     //
@@ -163,7 +168,7 @@
         }
 
         //
-        & > :where(.titlebar > .ui-title-handle, .ui-title-label) {
+        & > :where(.ui-titlebar > .ui-title-handle, .ui-title-label) {
             @include cm.no-wrap;
             grid-row: titlebar;
 
@@ -204,7 +209,7 @@
         }
 
         //
-        & > :where(.titlebar) {
+        & > :where(.ui-titlebar) {
             @include cm.no-wrap;
 
             //

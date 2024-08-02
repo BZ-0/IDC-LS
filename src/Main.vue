@@ -14,9 +14,12 @@
     import Taskbar from "@idc/UI2/Vue/Taskbar.vue";
 
     //
+    import Manager from "@idc/App/Vue/Manager.vue";
+    import Settings from "@idc/App/Vue/Settings.vue";
+
+    //
     import DesktopGrid from "@idc/UI2/Vue/DesktopGrid.vue";
     import AppFrame from "@idc/UI2/Vue/AppFrame.vue";
-    import ControlCenter from "@idc/App/Vue/ControlCenter.vue";
 
     //
     const itemCtxList = [{
@@ -59,8 +62,12 @@
 
 <div data-hidden="true" class="ui-tooltip" data-scheme="solid" v-bind="$attrs"></div>
 
-<AppFrame hashIdName="#control-center">
-    <ControlCenter appId="#control-center"></ControlCenter>
+<AppFrame hashIdName="#settings" icon="settings" label="Settings">
+    <Settings data-instant></Settings>
+</AppFrame>
+
+<AppFrame hashIdName="#manager" icon="wallpaper" label="Wallpapers">
+    <Manager data-instant></Manager>
 </AppFrame>
 
 <ContextMenu :ctxList="itemCtxList" ctxName="grid-item"></ContextMenu>

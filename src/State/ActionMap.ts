@@ -8,6 +8,9 @@ import Timer from "@unite/scripts/performance/Time.ts";
 import States from "@unite/scripts/reactive/StateManager.ts"
 
 //
+import TaskManager from "@idc/UI2/Scripts/TaskManager.ts";
+
+//
 import {
     exportSettings,
     importSettings,
@@ -17,8 +20,7 @@ import {
 
 //
 export const UIState = makeReactiveObject({
-    controlCenterPanelOpen: false,
-    controlCenterPage: "settings",
+    taskPanelOpen: false,
     itemOnEdit: null,
     currentGridPage: "main"
 });
@@ -117,15 +119,11 @@ const actionMap = new Map<string, Function>([
 
 
     ["open-manager", ({initiator}) => {
-        location.hash = "#control-center";
-        UIState.controlCenterPage = "wallpapers";
-        //windowManager.focusTask("#control-center");
+        location.hash = "#manager";
     }],
 
     ["open-settings", ({initiator}) => {
-        location.hash = "#control-center";
-        UIState.controlCenterPage = "settings";
-        //windowManager.focusTask("#control-center");
+        location.hash = "#settings";
     }],
 
     //
