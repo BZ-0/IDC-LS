@@ -4,6 +4,7 @@
     //
     import Number from '@idc/UI2/Vue/Number.vue';
     import Switch from '@idc/UI2/Vue/Switch.vue';
+    import ShapeSelect from '@idc/UI2/Vue/ShapeSelect.vue';
 
     //
     import { state, layout, size } from "@idc/State/GridState.ts";
@@ -30,6 +31,12 @@
                 {label: "Scaling: ", icon: "scaling", type: "number", params: [0.5, 1.5, 0.125], name: "scaling"}, 
                 {label: "Theme: ", icon: "sun-moon", type: "switch", params: [-1, 1, 1], name: "theme"}, 
             ]
+        },
+        {
+            description: "Design Settings: ",
+            fields: [
+                {label: "Icon Shape: ", icon: "badge", type: "shape", name: "iconShape"},
+            ]
         }
     ]
 
@@ -50,7 +57,7 @@
             <div is="flex-like" data-gap="16">
                 <form v-if="forms" v-for="form in forms" data-page class="form-wrap hl-ns" data-name="grid-columns-row">
                     <div class="form-description">{{form.description}}</div>
-                    <div v-if="form.fields" v-for="field in form.fields" class="ui-block-decor pe-none" style="--decor-size: 4rem;" >
+                    <div v-if="form.fields" v-for="field in form.fields" class="ui-block-decor pe-none" :class="{'layout-alt': field.type == 'shape'}" style="--decor-size: 4rem;" >
                         <span class="opt-label">{{field.label}}</span>
                         <LucideIcon data-place="icon" :name="field.icon"/>
 
@@ -67,6 +74,11 @@
                                 :data-state="props.stateName"
                                 :data-name="field.name"
                             ></Switch>
+
+                            <ShapeSelect v-if="field.type == 'shape'"
+                                :data-state="props.stateName"
+                                :data-name="field.name"
+                            ></ShapeSelect>
                         </div>
                     </div>
                 </form>

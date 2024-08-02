@@ -2,7 +2,36 @@
 @use "@unite/scss/grid/GridLayout";
 
 //
+@use "@unite/scss/design/Shape" as s;
+
+//
 @layer ui-grid {
+
+    //
+    *[data-shape="wavy"] .ux-grid-item, .ux-grid-item[data-shape="wavy"] {
+        --clip-amplitude: 0.06;
+        --clip-freq: 8;
+        --clip-path: #{s.Integrate("WavyFx", 100)};
+        clip-path: var(--clip-path);
+        border-radius: calc(var(--icon-size, 100%) * 0.5);
+    }
+
+    //
+    *[data-shape="circle"] .ux-grid-item, .ux-grid-item[data-shape="circle"] {
+        border-radius: calc(var(--icon-size, 100%) * 0.5);
+    }
+
+    //
+    *[data-shape="tear"] .ux-grid-item, .ux-grid-item[data-shape="tear"] {
+        border-radius: calc(var(--icon-size, 100%) * 0.5);
+        border-end-end-radius: calc(var(--icon-size, 100%) * 0.125);
+    }
+
+    //
+    *[data-shape="square"] .ux-grid-item, .ux-grid-item[data-shape="square"] {
+        border-radius: calc(var(--icon-size, 100%) * 0.25);
+    }
+
     //
     .ui-grid-pages,
     .ui-desktop-grid {
@@ -58,8 +87,8 @@
             //
             display: flex;
             padding: calc(var(--icon-size) * 0.3);
-            clip-path: var(--clip-path);
-            border-radius: calc(var(--icon-size) * 0.5);
+            //clip-path: var(--clip-path);
+            //border-radius: calc(var(--icon-size) * 0.5);
 
             //
             inline-size: var(--icon-size);

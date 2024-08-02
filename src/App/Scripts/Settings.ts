@@ -21,7 +21,7 @@ export default async ()=>{
     //
     observeBySelector(document.documentElement, ".ui-input", (mutations)=>{
         mutations.addedNodes.forEach((target)=>{
-            const input = target.querySelector("input");
+            const input = target.querySelector("input:where([type=\"text\"], [type=\"number\"], [type=\"range\"])");
             const state = States.getState(target?.dataset?.state);
             if (state && input) {
                 input.value = state[target?.dataset?.name];

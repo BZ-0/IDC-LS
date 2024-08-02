@@ -120,18 +120,18 @@
 
         //
         & > *[data-place="icon"] {
-            grid-column: 1 / span 1;
-            grid-row: 1 / span 1;
+            grid-column: 1 / 1 span;
+            grid-row: 1 / 1 span;
         }
 
         & > *[data-place="element"] {
-            grid-column: 3 / span 3;
-            grid-row: 1 / span 1;
+            grid-column: 3 / 3 span;
+            grid-row: 1 / 1 span;
         }
 
         & > *:where([data-place="label"], :not([data-place])) {
-            grid-column: 2 / span 2;
-            grid-row: 1 / span 1;
+            grid-column: 2 / 2 span;
+            grid-row: 1 / 1 span;
         }
 
         //
@@ -140,19 +140,24 @@
             grid-template-rows: minmax(var(--decor-size), max-content) minmax(var(--decor-size), max-content);
 
             //
+            min-block-size: max-content;
+            block-size: calc(var(--decor-size) * 2);
+
+            //
             & > *[data-place="icon"] {
-                grid-column: 1 / span 1;
-                grid-row: 1 / span 2;
+                grid-column: 1 / 1 span;
+                grid-row: 1 / 1 span;
             }
 
             & > *[data-place="element"] {
-                grid-column: 2 / span 2;
-                grid-row: 2 / span 2;
+                grid-column: 1 / 2 span;
+                grid-row: 2 / 2 span;
+                justify-self: start;
             }
 
             & > *:where([data-place="label"], :not([data-place])) {
-                grid-column: 2 / span 2;
-                grid-row: 1 / span 1;
+                grid-column: 2 / 2 span;
+                grid-row: 1 / 1 span;
                 justify-self: start;
             }
         }

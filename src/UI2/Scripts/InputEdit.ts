@@ -6,8 +6,8 @@ export default async ()=>{
 
     //
     const TextInputSelector = "input[type=\"text\"]";
-    const InputValidSelector = ".ui-editor, input";
-    const IsEditorInputSelector = ".ui-editor input";
+    const InputValidSelector = ".ui-editor, input[type=\"text\"]";
+    const IsEditorInputSelector = ".ui-editor input[type=\"text\"]";
 
     //
     let input: HTMLInputElement | null = null, copyButton: HTMLButtonElement | null = null, pasteButton: HTMLButtonElement | null = null, fieldEdit: HTMLDivElement | null = null;

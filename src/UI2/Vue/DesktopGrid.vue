@@ -97,12 +97,15 @@
     subscribe(props.state, (v,p)=>{ if (state[p] !== v) {
         items.value = getItems(state.items);
     }}, "items")
+
+    //
+    const lastShape = localStorage?.getItem?.('@icon-shape') || 'wavy';
 </script>
 
 <!-- -->
 <template>
     <canvas is="w-canvas" :data-src="wp"></canvas>
-    <div :key="state" ref="elRef" data-transparent :data-current-page="current" data-ctx="grid-space" data-scheme="accent-inverse" class="ui-desktop-grid stretch grid-based-box pe-enable">
+    <div :key="state" ref="elRef" data-transparent :data-current-page="current" :data-shape="lastShape" data-ctx="grid-space" data-scheme="accent-inverse" class="ui-desktop-grid stretch grid-based-box pe-enable">
 
         <div class="ux-grid-layout ui-grid-page" data-transparent>
             <GridItemLabel v-if="items" v-for="item in items" :key="item.id" type="labels" :gridItem="props.state.items.get(item.id)"></GridItemLabel>

@@ -5,6 +5,7 @@ import { changeZoom } from "@unite/scripts/utils/Zoom.ts";
 
 //
 export const settings = makeReactiveObject({
+    iconShape: localStorage.getItem("@icon-shape") || "wavy",
     columns: parseInt(localStorage.getItem("@settings:@columns")) || 4,
     rows: parseInt(localStorage.getItem("@settings:@rows")) || 8,
     theme: parseInt(localStorage.getItem("@settings:@theme")) || 0,
@@ -87,3 +88,10 @@ subscribe(settings, (v) => {
 subscribe(settings, (v) => {
     localStorage.setItem("@settings:@scaling", changeZoom(v || 1));
 }, "scaling");
+
+//
+subscribe(settings, (v) => {
+    const grid = document.querySelector(".ui-desktop-grid");
+    localStorage.setItem("@icon-shape", v || "wavy");
+    if (grid) { grid.dataset.shape = v; };
+}, "iconShape");

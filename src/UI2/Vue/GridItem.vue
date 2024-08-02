@@ -60,7 +60,7 @@ onMounted(()=>{
         :data-type="props.type"
         data-ctx="grid-item"
         data-scheme="accent-inverse"
-        class="ux-grid-item wavy-shaped">
+        class="ux-grid-item">
 
         <LucideIcon inert :name="gridItem.icon" :data-icon="gridItem.icon"></LucideIcon>
 
