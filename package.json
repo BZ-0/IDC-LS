@@ -43,6 +43,7 @@
         "vite-plugin-pwa": "^0.20.0",
         "vite-plugin-singlefile": "^2.0.2",
         "vite-plugin-static-copy": "^1.0.5",
-        "vue": "^3.4.33"
+        "vue": "^3.4.33",
+        "vue-i18n": "^9.13.1"
     }
 }

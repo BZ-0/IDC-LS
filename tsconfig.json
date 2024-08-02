@@ -7,7 +7,8 @@
             "@": ["./"],
             "@idc": ["./src/"],
             "@src": ["./src/"],
-            "@unite": ["./unite/"]
+            "@unite": ["./unite/"],
+            "@assets": ["./assets/"]
         },
         "baseUrl": "./",
         "composite": true,
