@@ -70,10 +70,8 @@ export class TaskManager {
 
     //
     inFocus(taskId: string) {
-        const index = this.tasks.findIndex((t)=>t.id == taskId);
-        if (index >= 0) {
-            return ((index >= (this.tasks.length-1)) || location.hash == taskId) && this.#tasks[index].active;
-        }
+        const index = this.#tasks.findLastIndex((t)=>t.active && t.id == taskId);
+        if (index >= 0) { return true; };
         return false;
     }
 
@@ -92,7 +90,14 @@ export class TaskManager {
 
         //
         if (location.hash != taskId)
-            { history.replaceState(null, null, location.hash = taskId); };
+            {
+                const oldHash = location.hash;
+                history.replaceState(null, null, taskId);
+                window.dispatchEvent(new HashChangeEvent("hashchange", {
+                    oldURL: oldHash,
+                    newURL: taskId
+                }));
+            };
 
         //
         return this;
@@ -111,7 +116,14 @@ export class TaskManager {
 
         //
         if (location.hash == taskId)
-            { history.replaceState(null, null, location.hash = "#"); };
+            {
+                const oldHash = location.hash;
+                history.replaceState(null, null, "#");
+                window.dispatchEvent(new HashChangeEvent("hashchange", {
+                    oldURL: oldHash,
+                    newURL: "#"
+                }));
+            };
 
         //
         return this;

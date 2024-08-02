@@ -119,11 +119,27 @@ const actionMap = new Map<string, Function>([
 
 
     ["open-manager", ({initiator}) => {
-        location.hash = "#manager";
+        if (location.hash != "#manager")
+            {
+                const oldHash = location.hash;
+                history.replaceState(null, null, "#manager");
+                window.dispatchEvent(new HashChangeEvent("hashchange", {
+                    oldURL: oldHash,
+                    newURL: location.hash
+                }));
+            };
     }],
 
     ["open-settings", ({initiator}) => {
-        location.hash = "#settings";
+        if (location.hash != "#settings")
+            {
+                const oldHash = location.hash;
+                history.replaceState(null, null, "#settings");
+                window.dispatchEvent(new HashChangeEvent("hashchange", {
+                    oldURL: oldHash,
+                    newURL: location.hash
+                }));
+            };
     }],
 
     //

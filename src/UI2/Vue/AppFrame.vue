@@ -39,6 +39,11 @@
 
     // vue has poor reactivity in such cases
     const currentHash = ref(location.hash); toTask();
+
+    addEventListener("popstate", (event) => {
+        currentHash.value = location.hash; toTask();
+    });
+
     addEventListener("hashchange", (event) => {
         currentHash.value = location.hash; toTask();
     });
