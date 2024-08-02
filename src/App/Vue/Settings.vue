@@ -1,5 +1,10 @@
 <script setup>
     import LucideIcon from '@idc/UI2/Vue/WLucideIcon.vue';
+    import { lang } from "@idc/Config/Config.ts";
+
+    //
+    import { useI18n } from "vue-i18n";
+    const { t } = useI18n({ useScope: "global" });
 
     //
     import Number from '@idc/UI2/Vue/Number.vue';
@@ -19,23 +24,23 @@
     //
     const forms = [
         {
-            description: "Grid Layout Settings: ",
+            description: t('settings.grid_layout_desc'),
             fields: [
-                {label: "Columns: ", icon: "columns-3", type: "number", params: [4, 6, 1], name: "columns"}, 
-                {label: "Rows: ", icon: "rows-3", type: "number", params: [8, 12, 1], name: "rows"}, 
+                {label: t('settings.columns'), icon: "columns-3", type: "number", params: [4, 6, 1], name: "columns"}, 
+                {label: t('settings.rows'), icon: "rows-3", type: "number", params: [8, 12, 1], name: "rows"}, 
             ]
         },
         {
-            description: "Display Settings: ",
+            description: t('settings.display_desc'),
             fields: [
-                {label: "Scaling: ", icon: "scaling", type: "number", params: [0.5, 1.5, 0.125], name: "scaling"}, 
-                {label: "Theme: ", icon: "sun-moon", type: "switch", params: [-1, 1, 1], name: "theme"}, 
+                {label: t('settings.scaling'), icon: "scaling", type: "number", params: [0.5, 1.5, 0.125], name: "scaling"}, 
+                {label: t('settings.theme'), icon: "sun-moon", type: "switch", params: [-1, 1, 1], name: "theme"}, 
             ]
         },
         {
-            description: "Design Settings: ",
+            description: t('settings.design_desc'),
             fields: [
-                {label: "Icon Shape: ", icon: "badge", type: "shape", name: "iconShape"},
+                {label: t('settings.iconShape'), icon: "badge", type: "shape", name: "iconShape"},
             ]
         }
     ]

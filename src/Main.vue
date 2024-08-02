@@ -62,11 +62,11 @@
 
 <div data-hidden="true" class="ui-tooltip" data-scheme="solid" v-bind="$attrs"></div>
 
-<AppFrame hashIdName="#settings" icon="settings" label="Settings">
+<AppFrame hashIdName="#settings" icon="settings" :label="$t('tasks.settings')">
     <Settings data-instant></Settings>
 </AppFrame>
 
-<AppFrame hashIdName="#manager" icon="wallpaper" label="Wallpapers">
+<AppFrame hashIdName="#manager" icon="wallpaper" :label="$t('tasks.wallpapers')">
     <Manager data-instant></Manager>
 </AppFrame>
 
@@ -77,6 +77,4 @@
 <ContextMenu :ctxList="gridCtxList" ctxName="grid-space"></ContextMenu>
 
 </template>
-
-
 

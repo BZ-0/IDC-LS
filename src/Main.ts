@@ -1,5 +1,7 @@
 // Initiate loading instantly
 import $Bundle from "@unite/scripts/stylework/Bundle.ts";
+import i18n from "./L18n/L18n.ts";
+import { createI18n } from 'vue-i18n'
 
 //
 const loading = Promise.allSettled([
@@ -23,6 +25,7 @@ const loading = Promise.allSettled([
     const {createApp} = await import("vue");
     const App = (await import("./Main.vue")).default;
     const app = createApp(App);
+    app.use(i18n)
     app.mount(document.body);
 
     //

@@ -19,6 +19,7 @@ import pkg from "./package.json";
 import tsconfig from "./tsconfig.json";
 import vue from '@vitejs/plugin-vue'
 import { viteSingleFile } from "vite-plugin-singlefile"
+import json5Plugin from 'vite-plugin-json5'
 
 import cssnano from "cssnano";
 import deduplicate from "postcss-discard-duplicates";
@@ -50,6 +51,7 @@ const config = <UserConfig>defineConfig({
         },
     },
     plugins: [
+        json5Plugin(),
         vue({
             template: {
                 compilerOptions: {

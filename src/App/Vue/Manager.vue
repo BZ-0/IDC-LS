@@ -1,6 +1,7 @@
 <script setup>
     import LucideIcon from '@idc/UI2/Vue/WLucideIcon.vue';
     import { observeAttribute } from '@unite/scripts/dom/Observer.ts';
+    import { lang } from "@idc/Config/Config.ts";
 
     //
     import {reactive, watch, ref, onMounted} from "vue";
@@ -66,7 +67,7 @@
                 >
                     <div inert class="icon"><LucideIcon name="wallpaper"/></div>
                     <div inert class="name">{{file.name}}</div>
-                    <div inert class="date">{{new Date(file.lastModified).toLocaleString("ru-RU")}}</div>
+                    <div inert class="date">{{new Date(file.lastModified).toLocaleString(lang)}}</div>
                 </div>
             </div>
 
