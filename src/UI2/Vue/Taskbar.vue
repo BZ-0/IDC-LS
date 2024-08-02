@@ -1,6 +1,6 @@
 <script setup>
     import LucideIcon from '@idc/UI2/Vue/WLucideIcon.vue';
-    import {reactive, watch, ref, onMounted} from "vue";
+    import {reactive, watch, ref, onMounted, computed} from "vue";
     import States from "@unite/scripts/reactive/StateManager.ts";
     import { subscribe } from '@unite/scripts/reactive/ReactiveLib';
 
@@ -58,6 +58,9 @@
 
     //
     subscribe(UIState, (v)=>{ panelOpened.value = v; }, "taskPanelOpen");
+
+    //
+    const label = computed(()=> (tasks.value.find((t)=>t.id==currentHash.value)?.label || "") );
 </script>
 
 <!-- -->
@@ -106,7 +109,7 @@
     <!-- -->
     <div class="ui-navbar" data-highlight="2" data-scheme="solid" v-bind="$attrs">
         <LucideIcon name="chevron-down" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;" data-scheme="solid" data-highlight="2" />
-        <div data-scheme="solid" data-highlight="2" class="ui-title-handle" @pointerdown="toFocus"></div>
+        <div data-scheme="solid" data-highlight="2" class="ui-title-handle" @pointerdown="toFocus">{{ label }}</div>
         <LucideIcon name="menu" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;" data-scheme="solid" data-highlight="2" @click="openPanel"/>
     </div>
 
