@@ -23,10 +23,31 @@
         const target = ev.target;
         TaskManager.focus(target.dataset.id);
     }
+
+    // vue has poor reactivity in such cases
+    const currentHash = ref(location.hash);
+    addEventListener("hashchange", (event) => {
+        currentHash.value = location.hash;
+    });
 </script>
 
 <!-- -->
 <template>
+    <div class="ui-task-panel" data-hidden="true">
+        <div
+            v-for="task in tasks"
+            style="--decor-size: 4rem;" class="ui-block-decor ui-tab-item"
+            data-highlight="1" data-highlight-hover="2" @click="focusTask"
+            :data-scheme="task.id == currentHash ? 'inverse' : 'solid-transparent'"
+            :data-id="task.id"
+            :key="task.id">
+            <LucideIcon inert data-place="icon" :name="task.icon" data-scheme="solid-transparent" data-transparent/>
+            <span data-scheme="solid-transparent" data-transparent inert class="tab-label">{{task.label||""}}</span>
+            <LucideIcon inert data-place="element" name="chevron-right" data-scheme="solid-transparent" data-transparent/>
+        </div>
+    </div>
+
+    <!-- -->
     <div ref="target" class="ui-taskbar" v-bind="$attrs">
         <div class="ui-app-menu" data-highlight="1" data-highlight-hover="2">
             <LucideIcon inert name="layout-grid" data-transparent></LucideIcon>

@@ -7,6 +7,25 @@
 @use "@unite/scss/design/ColorUtils" as cu;
 @use "@unite/scss/design/ColorTheme" as tm;
 
+
+//
+@property --titlebar-size {
+    syntax: "<length-percentage>";
+    initial-value: 0px;
+    inherits: true;
+}
+
+//
+@property --status-size {
+    syntax: "<length-percentage>";
+    initial-value: 0px;
+    inherits: true;
+}
+
+//
+// titlebar == titlebar (desktop) | navbar (mobile) | taskbar (mobile)
+// status   == 0px      (desktop) | status (mobile)
+
 //
 @layer ui-app-frame {
     //
@@ -30,6 +49,9 @@
         box-shadow: 0px 0px 1rem 1px #00000070;
 
         //
+        --status-size: 0px;
+
+        //
         @include u.clamped-width(min(64rem, 100cqi), calc(80rem + var(--resize-x, 0) * var(--zpx, 1px)), 100cqi);
         @include u.clamped-height(min(36rem, 100cqb), calc(45rem + var(--resize-y, 0) * var(--zpx, 1px)), 100cqb);
     }
@@ -40,7 +62,7 @@
         grid-template-rows:
             [status] minmax(0px, var(--status-size))
             [content-b] minmax(0px, 1fr)
-            [titlebar] minmax(0px, 3rem);
+            [titlebar] minmax(0px, var(--titlebar-size));
     }
 
     //
@@ -54,13 +76,16 @@
         place-items: center;
 
         //
+        --titlebar-size: 3rem;
+        --status-size: max(env(safe-area-inset-top, 0px), 2rem);
+
+        //
         --rx: calc(var(--drag-x, 0) * var(--zpx, 1px));
         --ry: calc(var(--drag-y, 0) * var(--zpx, 1px));
 
         //
         --translate-x: clamp(0px, var(--rx, 0px), calc(100cqi - 100%));
         --translate-y: clamp(0px, var(--ry, 0px), calc(100cqb - 100%));
-        --status-size: max(env(safe-area-inset-top, 0px), 2rem);
 
         //
         outline: solid 0.25px oklch(from var(--current-glyph-color) l c h / 0);
@@ -104,9 +129,14 @@
 
         //
         grid-template-rows:
-            [titlebar] minmax(0px, 3rem)
+            [titlebar] minmax(0px, var(--titlebar-size))
             [content-b] minmax(0px, 1fr)
             [status] minmax(0px, var(--status-size));
+
+        //
+        &:has(*:target) {
+            z-index: 1399;
+        }
 
         //
         & > :where(*) { inline-size: 100%; block-size: 100%; }

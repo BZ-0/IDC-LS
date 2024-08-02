@@ -6,13 +6,24 @@
     import TaskManager from "@idc/UI2/Scripts/TaskManager.ts";
 
     //
+    const target = ref(null);
+
+    //
+    TaskManager.on("*", ()=>{
+        const idx = TaskManager.tasks.findIndex((t)=>(t.id == task.id));
+        target?.value?.style?.setProperty?.("--z-index", idx, "");
+    });
+
+    //
     const props = defineProps({
         hashIdName: {type: String, default: "#app"},
-        icon: {type: String, default: "settings"}
+        icon: {type: String, default: "settings"},
+        label: {type: String, default: ""}
     });
 
     //
     const task = {
+        get label() { return props.label },
         get id() { return props.hashIdName },
         get icon() { return props.icon },
         active: false
@@ -30,15 +41,20 @@
     addEventListener("hashchange", (event) => {
         currentHash.value = location.hash; toTask();
     });
+
+    //
+    const toFocus = (ev)=>{
+        TaskManager.focus(props.hashIdName);
+    }
 </script>
 
 <!-- -->
 <template>
-    <div :data-hidden="currentHash != props.hashIdName" data-scheme="solid" class="ui-frame ui-app-frame ui-default-theme ui-detached" v-bind="$attrs">
+    <div ref="target" :data-hidden="currentHash != props.hashIdName" data-scheme="solid" class="ui-frame ui-app-frame ui-default-theme ui-detached" v-bind="$attrs">
 
         <div class="titlebar" data-highlight="2" data-scheme="solid">
             <LucideIcon name="chevron-down" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;" data-scheme="solid" data-highlight="2" />
-            <div data-scheme="solid" data-highlight="2" class="ui-title-handle"></div>
+            <div data-scheme="solid" data-highlight="2" class="ui-title-handle" @pointerdown="toFocus"></div>
             <LucideIcon name="menu" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;" data-scheme="solid" data-highlight="2" />
         </div>
 
