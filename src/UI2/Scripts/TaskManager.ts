@@ -69,9 +69,16 @@ export class TaskManager {
     }
 
     //
-    inFocus(taskId: string) {
+    isActive(taskId: string) {
         const index = this.#tasks.findLastIndex((t)=>t.active && t.id == taskId);
         if (index >= 0) { return true; };
+        return false;
+    }
+
+    //
+    inFocus(taskId: string) {
+        const task = this.#tasks.findLast((t)=>t.active);
+        if (task?.id == taskId) { return true; };
         return false;
     }
 
