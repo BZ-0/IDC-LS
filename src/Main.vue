@@ -70,11 +70,11 @@
     <Manager data-instant></Manager>
 </AppFrame>
 
-<ContextMenu :ctxList="itemCtxList" ctxName="grid-item"></ContextMenu>
-<ContextMenu :ctxList="gridCtxList" ctxName="grid-space"></ContextMenu>
-
 <StatusBar></StatusBar>
 <Taskbar></Taskbar>
+
+<ContextMenu :ctxList="itemCtxList" ctxName="grid-item"></ContextMenu>
+<ContextMenu :ctxList="gridCtxList" ctxName="grid-space"></ContextMenu>
 
 </template>
 
