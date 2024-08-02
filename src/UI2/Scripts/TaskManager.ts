@@ -177,4 +177,18 @@ export class TaskManager {
 }
 
 //
-export default new TaskManager();
+const Manager = new TaskManager();
+export default Manager;
+
+//
+history.pushState(null, null, location.hash = location.hash || "#");
+addEventListener("popstate", (ev)=>{
+    ev.preventDefault();
+    ev.stopPropagation();
+    ev.stopImmediatePropagation();
+
+    //
+    const focus = Manager.getOnFocus();
+    if (focus?.id) { history.go(1); Manager.deactivate(focus.id); }
+    if (!focus || !location.hash || location.hash == "#") { close(); }
+});
