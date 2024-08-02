@@ -70,6 +70,7 @@
             :color="color"
             :stroke-width="strokeWidth" :default-class="defaultClass"
             :data-name="current"
+            shape-rendering="geometricPrecision"
         />
     </div>
 </template>

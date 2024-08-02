@@ -12,6 +12,7 @@
         --clip-amplitude: 0.06;
         --clip-freq: 8;
         --clip-path: #{s.Integrate("WavyFx", 100)};
+        --corrector: 1.1;
         clip-path: var(--clip-path);
         border-radius: calc(var(--icon-size, 100%) * 0.5);
     }
@@ -74,8 +75,6 @@
         //
         .ux-grid-item {
             will-change:
-                translate,
-                transform,
                 --rx, --ry,
                 --drag-x,
                 --drag-y,
@@ -86,7 +85,8 @@
 
             //
             display: flex;
-            padding: calc(var(--icon-size) * 0.265);
+            padding: calc(var(--icon-size) * 0.265 * var(--corrector));
+            --scale: var(--corrector, 1);
             //clip-path: var(--clip-path);
             //border-radius: calc(var(--icon-size) * 0.5);
 

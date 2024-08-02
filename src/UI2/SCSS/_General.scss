@@ -50,4 +50,9 @@
         @media #{d.$isDesktop} { @include whenDesktop; }
     }
 
+    :where(.icon-wrap) {
+        will-change: auto;
+        transform: none;
+    }
+
 }
