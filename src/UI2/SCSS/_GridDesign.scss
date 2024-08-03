@@ -73,6 +73,10 @@
         pointer-events: none;
 
         //
+        --c-gap: calc(4dvmin / var(--zoom, 1));
+        --r-gap: calc(4dvmin / var(--zoom, 1));
+
+        //
         .ux-grid-item {
             will-change:
                 --rx, --ry,
