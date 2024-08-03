@@ -14,5 +14,6 @@
         "@": "${folder}",
         "@idc": "${folder}/src",
         "@unite": "${folder}/unite",
-    }
+    },
+    "i18n-ally.localesPaths": []
 }

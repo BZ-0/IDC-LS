@@ -1,1 +1,1 @@
-export const lang = localStorage.getItem("@locale") || "en";
+export const lang = localStorage.getItem("@locale") || "ru";

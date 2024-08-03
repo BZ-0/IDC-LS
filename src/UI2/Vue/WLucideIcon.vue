@@ -47,25 +47,20 @@
 
     // reactive attribute...
     const target = ref(null);
-    const current = ref(cmz(names.value[0]));
+    const current = ref(names.value[0]);
 
     //
     onMounted(()=>{
-        observeAttribute(target.value, "data-icon", ()=>{
-            current.value = cmz(target.value.getAttribute("data-icon"));
-        });
-
-        //
         props?.hook?.(target.value);
     });
 
 </script>
 
 <template>
-    <div class="icon-wrap" :data-icon="names[0]" ref="target" v-bind="$attrs">
+    <div class="icon-wrap" :data-icon="names[0]" ref="target" v-observe:data-icon="(v)=>{ current = v; }" v-bind="$attrs">
         <component
             inert
-            :is="iconPack[current]"
+            :is="iconPack[cmz(current)]"
             :size="size"
             :color="color"
             :stroke-width="strokeWidth" :default-class="defaultClass"

@@ -2,6 +2,7 @@
 import $Bundle from "@unite/scripts/stylework/Bundle.ts";
 import i18n from "./L18n/L18n.ts";
 import { createI18n } from 'vue-i18n'
+import { observeAttribute } from "../unite/scripts/dom/Observer.ts";
 
 //
 const loading = Promise.allSettled([
@@ -26,6 +27,13 @@ const loading = Promise.allSettled([
     const App = (await import("./Main.vue")).default;
     const app = createApp(App);
     app.use(i18n)
+    app.directive("observe", {
+        created: (el, binding, vNode, prevNode) => {
+            observeAttribute(el, binding.arg, (mut)=>{
+                binding?.value?.(el.getAttribute(binding.arg));
+            });
+        }
+    });
     app.mount(document.body);
 
     //

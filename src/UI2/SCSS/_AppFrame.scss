@@ -74,7 +74,6 @@
         --ry: calc(var(--drag-y, 0) * var(--zpx, 1px));
 
         //
-        --height-adjust: var(--taskbar-size, 0px);
         --translate-x: clamp(0px, var(--rx, 0px), calc(100cqi - 100%));
         --translate-y: clamp(0px, var(--ry, 0px), calc(calc(100cqb - var(--height-adjust, 0px)) - 100%));
 

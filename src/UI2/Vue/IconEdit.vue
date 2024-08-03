@@ -9,7 +9,7 @@
     import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 
     // you can't use full reactivity due stack exceeded issues...
-    const gridItem = shallowRef(null);
+    const gridItem = ref(null); //shallowRef(null);
 
     //
     const editor = ref(null);
