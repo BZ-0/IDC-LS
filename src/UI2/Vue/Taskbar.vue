@@ -52,7 +52,7 @@
 
     //
     document.documentElement.addEventListener("click", (ev)=>{
-        if (!ev.target.matches(".ui-task-panel, .menu-button")) {
+        if (!ev.target.matches(".ui-task-panel, .menu-button, .back-button, .ui-navbar")) {
             UIState.taskPanelOpen = false;
             //requestAnimationFrame(()=>navigator?.vibrate?.([10]))
         }
@@ -63,6 +63,17 @@
 
     //
     const label = computed(()=> (tasks.value.find((t)=>t.id==currentHash.value)?.label || "") );
+
+    //
+    addEventListener("ui-back", (ev)=>{
+        if (UIState.taskPanelOpen) {
+            ev.stopPropagation();
+            ev.stopImmediatePropagation();
+            ev.preventDefault();
+            history.go(1);
+        };
+        UIState.taskPanelOpen = false;
+    });
 </script>
 
 <!-- -->
@@ -71,8 +82,9 @@
         <div
             v-for="task in tasks"
             style="--decor-size: 4rem;" class="ui-block-decor ui-tab-item"
+            data-highlight-hover="2" @click="focusTask"
             :style="{'order': task.order||0}"
-            data-highlight="1" data-highlight-hover="2" @click="focusTask"
+            :class="{'ui-focus': task.id == currentHash, 'ui-active': task.active}"
             :data-scheme="task.id == currentHash ? 'inverse' : 'solid-transparent'"
             :data-id="task.id"
             :key="task.id">
@@ -109,10 +121,10 @@
     </div>
 
     <!-- -->
-    <div class="ui-navbar" data-highlight="2" data-scheme="solid" v-bind="$attrs">
-        <LucideIcon name="chevron-down" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;" data-scheme="solid" data-highlight="2" />
-        <div data-scheme="solid" data-highlight="2" class="ui-title-handle" @pointerdown="toFocus">{{ label }}</div>
-        <LucideIcon name="menu" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;" data-scheme="solid" data-highlight="2" @click="openPanel"/>
+    <div class="ui-navbar" data-scheme="solid" data-highlight="2" v-bind="$attrs">
+        <LucideIcon name="chevron-down" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;" />
+        <div class="ui-title-handle" @pointerdown="toFocus">{{ label }}</div>
+        <LucideIcon name="menu" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;" @click="openPanel"/>
     </div>
 
 

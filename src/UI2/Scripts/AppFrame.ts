@@ -73,12 +73,12 @@ export default async ()=>{
                 const event = new CustomEvent("ui-back", {
                     cancelable: true,
                     bubbles: true,
-                    detail: {}
+                    detail: { target: content }
                 });
                 requestAnimationFrame(()=>navigator?.vibrate?.([10]))
 
                 //
-                if (content.dispatchEvent(event)) {
+                if (window.dispatchEvent(event)) {
                     //if (windowManager) {
                         //windowManager?.minimizeTask?.("#" + content.id);
                     //} else {
@@ -123,12 +123,12 @@ export default async ()=>{
                 const event = new CustomEvent("ui-back", {
                     cancelable: true,
                     bubbles: true,
-                    detail: {}
+                    detail: { target: content }
                 });
                 requestAnimationFrame(()=>navigator?.vibrate?.([10]))
 
                 //
-                if (content.dispatchEvent(event)) {
+                if (window.dispatchEvent(event)) {
                     //if (windowManager) {
                         //windowManager?.minimizeTask?.("#" + content.id);
                     //} else {

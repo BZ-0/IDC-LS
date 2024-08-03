@@ -195,7 +195,14 @@ addEventListener("popstate", (ev)=>{
     ev.stopImmediatePropagation();
 
     //
-    const focus = Manager.getOnFocus();
-    if (focus?.id) { history.go(1); Manager.deactivate(focus.id); }
-    if (!focus || !location.hash || location.hash == "#") { close(); }
+    if (window.dispatchEvent(new CustomEvent("ui-back", {
+        bubbles: true,
+        cancelable: true,
+        detail: ev,
+    }))) {
+        //
+        const focus = Manager.getOnFocus();
+        if (focus?.id) { history.go(1); Manager.deactivate(focus.id); }
+        if (!focus || !location.hash || location.hash == "#") { close(); }
+    }
 });
