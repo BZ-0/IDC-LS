@@ -5,24 +5,48 @@ import { createI18n } from 'vue-i18n'
 import { observeAttribute } from "../unite/scripts/dom/Observer.ts";
 
 //
-const loading = Promise.allSettled([
-    import("@idc/UI2/Scripts/Dropper.ts"),
-    import("@idc/UI2/Scripts/AppFrame.ts"),
-    import("@idc/UI2/Scripts/ContextMenu.ts"),
-    import("@idc/UI2/Scripts/DesktopGrid.ts"),
-    import("@idc/UI2/Scripts/InputEdit.ts"),
-    import("@idc/UI2/Scripts/ItemEdit.ts"),
-    import("@idc/UI2/Scripts/StatusBar.ts"),
-    import("@idc/UI2/Scripts/Tooltip.ts"),
-    import("@idc/UI2/Scripts/ShapeSelect.ts"),
-    import("@idc/App/Scripts/Settings.ts"),
-    import("@idc/App/Scripts/ControlCenter.ts"),
-    import("@unite/wcomp/scrollbox/ScrollBox.ts"),
-    import("@unite/wcomp/flexlike/FlexLike.ts")
-]);
+const preInit = Promise.allSettled([
+    import("@idc/PreInit/InitScreen.ts").catch(console.warn.bind(console)),
+    //import("@idc/PreInit/GW3Load.ts").catch(console.warn.bind(console))
+]).then((init) => {
+    return Promise.allSettled(Array.from(init).map((rv)=>{
+        const def = rv?.value?.default;
+        if (typeof def == "function") { return def?.()?.catch?.(console.warn.bind(console)); };
+        return def;
+    }))?.catch?.(console.warn.bind(console));
+});
 
 //
-(async ()=>{
+preInit.then(async ()=>{
+    //
+    const loading = Promise.allSettled([
+        import("@idc/UI2/Scripts/Dropper.ts"),
+        import("@idc/UI2/Scripts/AppFrame.ts"),
+        import("@idc/UI2/Scripts/ContextMenu.ts"),
+        import("@idc/UI2/Scripts/DesktopGrid.ts"),
+        import("@idc/UI2/Scripts/InputEdit.ts"),
+        import("@idc/UI2/Scripts/ItemEdit.ts"),
+        import("@idc/UI2/Scripts/StatusBar.ts"),
+        import("@idc/UI2/Scripts/Tooltip.ts"),
+        import("@idc/UI2/Scripts/ShapeSelect.ts"),
+        import("@idc/App/Scripts/Settings.ts"),
+        import("@idc/App/Scripts/ControlCenter.ts"),
+        import("@unite/wcomp/scrollbox/ScrollBox.ts"),
+        import("@unite/wcomp/flexlike/FlexLike.ts")
+    ]);
+
+    //
+    const services = Promise.allSettled([
+        //import("@idc/Service/GW3.ts").catch(console.warn.bind(console))
+    ]);
+
+    //
+    (await services).map((mod)=>{
+        const lazy = mod?.value?.default;
+        if (typeof lazy == "function") { lazy?.(); };
+    });
+
+    //
     const {createApp} = await import("vue");
     const App = (await import("./Main.vue")).default;
     const app = createApp(App);
@@ -41,7 +65,7 @@ const loading = Promise.allSettled([
         const lazy = mod?.value?.default;
         if (typeof lazy == "function") { lazy?.(); };
     });
-})();
+});
 
 //
 document.documentElement.style.setProperty("--theme-base-color", localStorage.getItem("--theme-base-color") || "oklch(50% 0.3 0)", "");

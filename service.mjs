@@ -69,7 +69,7 @@ const tryFetch = (req, event) => {
         // @ts-ignore
         const ctime = !navigator.onLine || (navigator?.connection?.effectiveType == "slow-2g") ? 1000 : NETWORK_TIMEOUT_MS;
         const fc = new Promise((resolve, reject) =>setTimeout(() => reject(null), ctime)).catch(_WARN_);
-        const fp = fetch(req?.url ?? req, {
+        const fp = fetch(req, {
             //cache: "no-store",
             signal: AbortSignal.timeout(ctime + 2000),
             mode: isSameOrigin(req?.url ?? req) ? "same-origin" : "cors",

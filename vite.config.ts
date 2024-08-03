@@ -102,17 +102,25 @@ const config = <UserConfig>defineConfig({
         })
     ],
     server: {
-        cors: true,
         host: "0.0.0.0",
         port: 8000,
         https: {
             ...certificate,
         },
+        cors: {
+            methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+            allowedHeaders: ["x-access-key","X-Access-Key","X-Access-Signature"],
+            exposedHeaders: ["x-access-key","X-Access-Key"],
+            origin: "*",
+            preflightContinue: true
+        },
         headers: {
             "Service-Worker-Allowed": "/",
             "Permissions-Policy": "fullscreen=*, window-management=*",
             "Cross-Origin-Embedder-Policy": "require-corp",
-            "Cross-Origin-Opener-Policy": "same-origin"
+            "Cross-Origin-Opener-Policy": "same-origin",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "x-access-key, X-Access-Key, X-Access-Signature"
         }
     },
     esbuild: {

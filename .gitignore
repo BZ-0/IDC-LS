@@ -221,3 +221,13 @@ private/
 ./package-lock.json
 /package-lock.json
 package-lock.json
+
+#
+PRIVATE.json
+PRIVATE.json5
+./PRIVATE.json
+./PRIVATE.json5
+/PRIVATE.json
+/PRIVATE.json5
+*/PRIVATE.json
+*/PRIVATE.json5

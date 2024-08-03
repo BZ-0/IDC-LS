@@ -13,6 +13,8 @@
     "dependencies": {
         "@effective/eslint-config": "^5.4.7",
         "@fastify/vite": "^6.0.6",
+        "@helia/mfs": "^3.0.7",
+        "@helia/unixfs": "^3.0.7",
         "@material/material-color-utilities": "^0.2.7",
         "@sass-fairy/list": "^1.2.4",
         "@types/node": "*",
@@ -25,6 +27,7 @@
         "eslint-config-prettier": "^9.1.0",
         "fastify": "^4.28.0",
         "glob": "^10.4.2",
+        "gw3-sdk": "^0.4.0",
         "jquery": "^4.0.0-beta.2",
         "jsox": "^1.2.119",
         "lucide-vue-next": "^0.414.0",
