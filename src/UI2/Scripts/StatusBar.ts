@@ -20,7 +20,7 @@ const setElementIcon = (selector, value)=>{
     const updateTime = ()=>{
         const date = new Date();
         const timeMinutes = `${date.getMinutes()}`.padStart(2,"0");
-        const timeHours = `${date.getUTCHours()}`.padStart(2,"0");
+        const timeHours = `${date.getHours()}`.padStart(2,"0");
 
         //
         setElementContent(".ui-time-minute", timeMinutes);
