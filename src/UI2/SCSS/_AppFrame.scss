@@ -57,6 +57,9 @@
 
     //
     .ui-app-frame {
+        direction: ltr;
+
+        //
         inline-size: 100%;
         block-size: 100%;
 
@@ -198,6 +201,7 @@
             @include cm.no-wrap;
 
             //
+            direction: ltr;
             inline-size: 100%;
 
             //
@@ -245,6 +249,7 @@
                 cursor: pointer;
                 aspect-ratio: 1 / 1;
                 pointer-events: auto;
+                direction: ltr;
 
                 //
                 max-inline-size: var(--titlebar-size);

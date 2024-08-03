@@ -36,6 +36,9 @@
     //
     .ui-grid-pages,
     .ui-desktop-grid {
+        direction: ltr;
+
+        //
         inline-size: 100%;
         block-size: 100%;
 
