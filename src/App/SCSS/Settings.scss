@@ -20,6 +20,9 @@
             //inset-inline: 1rem;
             //inline-size: calc(100% - 2rem);
             inline-size: 100%;
+            max-inline-size: 100cqi;
+            min-inline-size: none;
+
             block-size: max-content;
             min-block-size: max-content;
             max-block-size: none;
