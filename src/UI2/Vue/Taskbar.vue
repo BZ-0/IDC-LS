@@ -78,7 +78,7 @@
 
 <!-- -->
 <template>
-    <div class="ui-task-panel" :data-hidden="!panelOpened">
+    <x-scrollbox class="ui-task-panel" :data-hidden="!panelOpened">
         <div
             v-for="task in tasks"
             style="--decor-size: 4rem;" class="ui-block-decor ui-tab-item"
@@ -92,7 +92,7 @@
             <span data-transparent inert class="tab-label">{{task.label||""}}</span>
             <LucideIcon inert data-place="element" name="chevron-right" data-transparent/>
         </div>
-    </div>
+    </x-scrollbox>
 
     <!-- -->
     <div class="ui-taskbar" v-bind="$attrs">
