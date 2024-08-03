@@ -9,13 +9,40 @@
 @layer ui-settings {
     //
     #settings {
+
+        .ui-space {
+            padding-inline: 1rem;
+            padding-block: 1rem;
+        }
+
+        //
+        .form-wrap {
+            //inset-inline: 1rem;
+            //inline-size: calc(100% - 2rem);
+            inline-size: 100%;
+            block-size: max-content;
+            min-block-size: max-content;
+            max-block-size: none;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            container-type: normal;
+            contain: none;
+            //padding-inline: 0.5rem;
+            //padding-block-end: 0.5rem;
+        }
+
         //
         .form-description {
             @include cm.no-wrap;
+            align-self: start;
 
             //
             inline-size: 100%;
             block-size: 100%;
+            min-block-size: max-content;
 
             //
             pointer-events: none;

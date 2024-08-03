@@ -49,18 +49,18 @@
 
 <!-- -->
 <template>
-    <div class="ui-screen ui-content" id="settings" v-bind="$attrs">
+    <div class="ui-screen ui-content" id="settings" v-bind="$attrs" data-transparent data-scheme="solid-transparent">
 
-        <div class="ui-nav" data-scheme="solid" data-highlight="1">
+        <div class="ui-nav" data-scheme="solid" data-highlight="2.5">
             <div class="f-space"></div>
-            <button class="back-act hl-1 hl-2h" data-tooltip="Back" data-scheme="solid-transparent" data-highlight-hover="1">
+            <button class="back-act hl-1 hl-2h" data-tooltip="Back" data-scheme="solid-transparent" data-transparent data-highlight-hover="1">
                 <LucideIcon inert slot="icon" name="arrow-left" class="icon"/>
             </button>
         </div>
         <x-scrollbox class="ui-space">
 
             <div is="flex-like" data-gap="16">
-                <form v-if="forms" v-for="form in forms" data-page class="form-wrap hl-ns" data-name="grid-columns-row">
+                <div data-scheme="solid" data-highlight="1" v-if="forms" v-for="form in forms" data-page class="form-wrap">
                     <div class="form-description">{{form.description}}</div>
                     <div v-if="form.fields" v-for="field in form.fields" class="ui-block-decor pe-none" :class="{'layout-alt': field.type == 'shape'}" style="--decor-size: 4rem;" >
                         <span class="opt-label">{{field.label}}</span>
@@ -86,7 +86,7 @@
                             ></ShapeSelect>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
 
         </x-scrollbox>

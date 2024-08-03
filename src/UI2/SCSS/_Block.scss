@@ -9,11 +9,13 @@
         @include cm.no-wrap;
 
         //
+        position: relative;
         inline-size: stretch;
+        container-type: normal;
+        contain: none;
 
         //
         max-block-size: stretch;
-        min-block-size: max-content;
         min-inline-size: max-content;
         pointer-events: none;
 
@@ -27,9 +29,10 @@
         place-items: center;
 
         //
-        grid-template-columns: var(--decor-size) minmax(0px, 1fr) var(--decor-size);
-        grid-template-rows: var(--decor-size);
-        block-size: var(--decor-size);
+        grid-template-columns: minmax(var(--decor-size), max-content) minmax(0px, 1fr) minmax(var(--decor-size), max-content);
+        grid-template-rows: minmax(var(--decor-size), max-content);
+        block-size: max-content;
+        min-block-size: max-content;
 
         //
         padding: 0px;
@@ -49,12 +52,15 @@
             block-size: 100%;
 
             //
+            max-inline-size: none;
+            max-block-size: none;
+
+            //
             pointer-events: none;
             place-items: center;
             place-content: center;
 
             //
-            max-inline-size: stretch;
             min-inline-size: max-content;
             min-block-size: max-content;
 
@@ -67,13 +73,6 @@
             padding-inline: calc(var(--decor-size) * 0.3);
             padding-block: calc(var(--decor-size) * 0.3);
             overflow: visible;
-
-            // stretch or moz-available works buggy
-            @-moz-document url-prefix() {
-                inline-size: min(100%, 100cqi);
-                max-inline-size: min(100%, 100cqi);
-                max-block-size: min(100%, 100cqb);
-            }
         }
 
         & > *:where([data-place="label"], :not([data-place])) {
@@ -113,8 +112,8 @@
         & > *[data-place="icon"] {
             color: var(--current-glyph-color);
             aspect-ratio: 1 / 1;
-            max-inline-size: calc(var(--decor-size) * 1.333);
-            max-block-size: calc(var(--decor-size) * 1.333);
+            max-inline-size: var(--decor-size);//calc(var(--decor-size) * 1.333);
+            max-block-size: var(--decor-size);//calc(var(--decor-size) * 1.333);
 
             justify-self: start;
         }
@@ -143,18 +142,20 @@
 
             //
             min-block-size: max-content;
-            block-size: 6rem;
+            //block-size: 9rem;
 
             //
             & > *[data-place="icon"] {
                 grid-column: 1 / 1 span;
                 grid-row: 1 / 1 span;
+                justify-self: start;
             }
 
             & > *[data-place="element"] {
                 grid-column: 1 / 2 span;
                 grid-row: 2 / 2 span;
                 justify-self: start;
+                align-self: start;
             }
 
             & > *:where([data-place="label"], :not([data-place])) {

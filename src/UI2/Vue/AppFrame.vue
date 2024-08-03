@@ -66,15 +66,15 @@
 <template>
     <div @pointerdown="toFocus" ref="target" :data-hidden="!isActive" data-scheme="solid" class="ui-frame ui-app-frame ui-default-theme ui-detached" v-bind="$attrs">
 
-        <div class="ui-titlebar" data-highlight="2" data-scheme="solid">
-            <LucideIcon name="chevron-down" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;" data-scheme="solid" data-highlight="2" />
-            <div data-scheme="solid" data-highlight="2" class="ui-title-handle"></div>
-            <LucideIcon name="menu" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;" data-scheme="solid" data-highlight="2" />
+        <div class="ui-titlebar" data-highlight="3" data-scheme="solid">
+            <LucideIcon name="chevron-down" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;" />
+            <div data-transparent data-scheme="solid-transparent" class="ui-title-handle"></div>
+            <LucideIcon name="menu" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;" />
         </div>
 
         <slot></slot>
 
-        <div class="ui-status" data-scheme="solid" data-highlight="1"></div>
+        <div class="ui-status" data-scheme="solid" data-highlight="2.5"></div>
         <div class="ui-resize"></div>
     </div>
 </template>

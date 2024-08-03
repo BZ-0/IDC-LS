@@ -38,12 +38,14 @@ onMounted(() => {
 </script>
 
 <template>
-    <div ref="target" data-scheme="solid" data-highlight="1" class="ui-input number-input" v-bind="$attrs">
-        <button type="button" @click="whenClickDown" class="icon-wrap f-minus" data-scheme="solid" data-highlight="2">
+    <div ref="target" data-scheme="solid-transparent" class="ui-input number-input" v-bind="$attrs" data-highlight="1">
+        <button type="button" @click="whenClickDown" class="icon-wrap f-minus" data-scheme="solid-transparent" data-highlight="2">
             <LucideIcon inert name="chevron-left"/>
         </button>
-        <div class="input-wrap hl-ms">
+        <div class="input-wrap hl-ms" data-scheme="solid-transparent" data-transparent>
             <input
+                data-transparent
+                data-scheme="solid-transparent"
                 ref="input"
                 :min="props.min"
                 :max="props.max"
@@ -55,7 +57,7 @@ onMounted(() => {
                 virtualkeyboardpolicy="manual"
             />
         </div>
-        <button type="button" @click="whenClickUp" class="icon-wrap f-plus" data-scheme="solid" data-highlight="2">
+        <button type="button" @click="whenClickUp" class="icon-wrap f-plus" data-scheme="solid-transparent" data-highlight="2">
             <LucideIcon inert name="chevron-right"/>
         </button>
     </div>
