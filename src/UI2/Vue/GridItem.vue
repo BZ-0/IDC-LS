@@ -53,7 +53,7 @@ onMounted(()=>{
 <template>
     <div
         ref="elRef"
-        @click="props.onClick"
+        @click="(ev)=>{props.onClick(ev);}"
         :data-id="gridItem.id"
         :data-action="gridItem.action"
         :data-href="gridItem.href"

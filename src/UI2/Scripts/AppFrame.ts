@@ -55,6 +55,7 @@ export default async ()=>{
                     detail: {}
                 });
                 content.dispatchEvent(event);
+                requestAnimationFrame(()=>navigator?.vibrate?.([10]))
             }
         }
 
@@ -74,6 +75,7 @@ export default async ()=>{
                     bubbles: true,
                     detail: {}
                 });
+                requestAnimationFrame(()=>navigator?.vibrate?.([10]))
 
                 //
                 if (content.dispatchEvent(event)) {
@@ -103,6 +105,7 @@ export default async ()=>{
                     detail: {}
                 });
                 content.dispatchEvent(event);
+                requestAnimationFrame(()=>navigator?.vibrate?.([10]))
             }
         }
 
@@ -122,6 +125,7 @@ export default async ()=>{
                     bubbles: true,
                     detail: {}
                 });
+                requestAnimationFrame(()=>navigator?.vibrate?.([10]))
 
                 //
                 if (content.dispatchEvent(event)) {

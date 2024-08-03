@@ -21,12 +21,14 @@ const props = defineProps({
 const whenClickDown = ()=>{
     input.value?.stepDown?.();
     input.value?.dispatchEvent(new Event("input", { bubbles: true, cancelable: true, }))
+    requestAnimationFrame(()=>navigator?.vibrate?.([10]))
 }
 
 //
 const whenClickUp = ()=>{
     input.value?.stepUp?.();
     input.value?.dispatchEvent(new Event("input", { bubbles: true, cancelable: true, }))
+    requestAnimationFrame(()=>navigator?.vibrate?.([10]))
 }
 
 onMounted(() => {

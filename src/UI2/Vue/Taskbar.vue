@@ -27,6 +27,7 @@
         } else {
             TaskManager.focus(target.dataset.id);
         }
+        requestAnimationFrame(()=>navigator?.vibrate?.([10]))
     }
 
     // vue has poor reactivity in such cases
@@ -53,6 +54,7 @@
     document.documentElement.addEventListener("click", (ev)=>{
         if (!ev.target.matches(".ui-task-panel, .menu-button")) {
             UIState.taskPanelOpen = false;
+            //requestAnimationFrame(()=>navigator?.vibrate?.([10]))
         }
     });
 

@@ -62,6 +62,7 @@
         actionMap?.get?.(target.dataset.action)?.({
             initiator: target
         });
+        requestAnimationFrame(()=>navigator?.vibrate?.([10]))
     }
 
     //
