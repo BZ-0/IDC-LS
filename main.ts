@@ -7,23 +7,12 @@
 
     //
     if (typeof navigator != "undefined") {
-        navigator?.serviceWorker?.register?.(new URL("./service.mjs", import.meta.url).href, {scope: "/"}).then(
-            (registration) => {
-                console.log('Service worker registration succeeded:', registration);
-            },
-            (error) => {
-                console.error(`Service worker registration failed: ${error}`);
-            }
-        )?.catch?.(console.warn.bind(console));
-
-        //
-        navigator?.registerProtocolHandler?.(
-            "web+mxs",
-            location.origin + `/opfs?path=%s`
-        );
+        await navigator?.serviceWorker?.register?.(new URL("./service.mjs", import.meta.url).href, {scope: "/"})?.catch?.(console.warn.bind(console));
     }
-})();
 
-//
-import("./src/Main.ts");
-import("./src/Main.scss");
+    //
+    await Promise.all([
+        import("./src/Main.ts"),
+        import("./src/Main.scss")
+    ])
+})();
