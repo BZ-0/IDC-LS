@@ -6,8 +6,7 @@ import { observeAttribute } from "../unite/scripts/dom/Observer.ts";
 
 //
 const preInit = Promise.allSettled([
-    import("@idc/PreInit/InitScreen.ts").catch(console.warn.bind(console)),
-    //import("@idc/Cloud/Helia/HeliaLoad.ts").catch(console.warn.bind(console))
+    import("@idc/PreInit/InitScreen.ts").catch(console.warn.bind(console))
 ]).then((init) => {
     return Promise.allSettled(Array.from(init).map((rv)=>{
         const def = rv?.value?.default;
@@ -37,7 +36,6 @@ preInit.then(async ()=>{
 
     //
     const services = Promise.allSettled([
-        //import("@idc/Cloud/Helia/HeliaSync.ts").catch(console.warn.bind(console))
     ]);
 
     //
