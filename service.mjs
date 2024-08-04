@@ -72,7 +72,7 @@ const tryFetch = (req, event) => {
         const fp = fetch(req, {
             //cache: "no-store",
             signal: AbortSignal.timeout(ctime + 2000),
-            mode: isSameOrigin(req?.url ?? req) ? "same-origin" : "cors",
+            mode: (req?.url ?? req).startsWith("http:") ? "no-cors" : (isSameOrigin(req?.url ?? req) ? "same-origin" : "cors"),
         }).then(sendResponse).catch(_WARN_);
 
         //

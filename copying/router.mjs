@@ -68,6 +68,7 @@ export default async function (fastify, options) {
         reply.header("Cross-Origin-Opener-Policy", "same-origin");
         reply.header("Access-Control-Allow-Methods", "*");
         reply.header("Access-Control-Allow-Origin", "*");
+        reply.header("Access-Control-Allow-Headers", "Cache-Control, Origin, X-Requested-With, Content-Type, Accept, Service-Worker-Allowed, X-Access-Secret, X-Access-Key");
         reply.header(
             "Permissions-Policy",
             [
@@ -107,7 +108,7 @@ export default async function (fastify, options) {
         },
         origin: "*",
         allowedHeaders:
-            "Cache-Control, Origin, X-Requested-With, Content-Type, Accept, Service-Worker-Allowed",
+            "Cache-Control, Origin, X-Requested-With, Content-Type, Accept, Service-Worker-Allowed, X-Access-Secret, X-Access-Key",
         cacheControl,
     });
 

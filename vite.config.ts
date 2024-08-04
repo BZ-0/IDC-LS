@@ -1,10 +1,8 @@
 
 //
-const useBabel = true;
 const sourceMapsInProduction = true;
 
 //
-import legacy from "@vitejs/plugin-legacy";
 import autoprefixer from "autoprefixer";
 import path from "node:path";
 import {defineConfig, type UserConfig} from "vite";
@@ -109,17 +107,22 @@ const config = <UserConfig>defineConfig({
             ...certificate,
         },
         cors: {
+            allowedHeaders: "*",
             preflightContinue: true,
-            credentials:true,
+            credentials: true,
             methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
             origin: "*"
         },
         headers: {
+            "Content-Security-Policy": "upgrade-insecure-requests",
             "Service-Worker-Allowed": "/",
             "Permissions-Policy": "fullscreen=*, window-management=*",
             "Cross-Origin-Embedder-Policy": "require-corp",
             "Cross-Origin-Opener-Policy": "same-origin",
-            "Access-Control-Allow-Origin": "*"
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Request-Headers": "*"
         }
     },
     esbuild: {
@@ -133,7 +136,7 @@ const config = <UserConfig>defineConfig({
         minify: 'esbuild',
         cssMinify: true,
         modulePreload: true,
-        target: ["esnext", "es2020"],
+        target: ["esnext"],
         sourcemap: sourceMapsInProduction,
         outDir: "./webapp",
         emptyOutDir: true,
@@ -157,19 +160,9 @@ const config = <UserConfig>defineConfig({
         cspNonce: 'VITE_NONCE'//"allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' 'inline-speculation-rules' 'script-src-elem'; object-src 'self'; child-src 'self';"
     },
     optimizeDeps: {
-        include: ['src'],
         esbuildOptions: {target: "esnext", supported: {bigint: true}},
     },
 });
-
-// Babel
-if (useBabel) {
-    config.plugins?.unshift(
-        legacy({
-            targets: pkg.browserslist,
-        }),
-    );
-}
 
 // Load path aliases from the tsconfig.json file
 const aliases = tsconfig.compilerOptions.paths;
