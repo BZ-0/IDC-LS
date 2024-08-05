@@ -1,7 +1,7 @@
 <script setup>
-    import {settings} from "@idc/State/CurrentState.ts";
-    import actionMap from "@idc/State/ActionMap.ts";
-    import {state} from "@idc/State/GridState.ts";
+    import "@idc/State/CurrentState.ts";
+    import "@idc/State/ActionMap.ts";
+    import "@idc/State/GridState.ts";
 
     //
     import ContextMenu from "@idc/UI2/Vue/ContextMenu.vue";
@@ -56,7 +56,7 @@
 <template>
 
 <Viewport>
-    <DesktopGrid :state="state" :actionMap="actionMap"></DesktopGrid>
+    <DesktopGrid></DesktopGrid>
     <IconEdit></IconEdit>
 </Viewport>
 

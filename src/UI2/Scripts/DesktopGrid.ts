@@ -5,7 +5,7 @@ import {zoomOf} from "@unite/scripts/utils/Zoom.ts";
 import {redirectCell} from "@unite/scripts/utils/GridItemUtils.ts";
 import type {GridItemType} from "@unite/scripts/utils/GridItemUtils.ts";
 import {animationSequence} from "@unite/scripts/stylework/GridLayout.ts";
-import States from "@unite/scripts/reactive/StateManager.ts"
+import stateMap from "@unite/scripts/reactive/StateManager.ts"
 import {
     absoluteCXToRelativeCX,
     relativeToAbsoluteInPx,
@@ -23,7 +23,7 @@ export default async ()=>{
         ev?.stopPropagation?.();
 
         //
-        const state = States.getState(ev.target.closest(".ui-desktop-grid"));
+        const state = stateMap.get(ev.target.closest(".ui-desktop-grid"));
 
         //
         if (ev.target?.dataset?.id) {
@@ -78,7 +78,7 @@ export default async ()=>{
         const tx = el.closest(".ui-desktop-grid").querySelector("*[data-type=\"labels\"][data-id=\""+id+"\"]");
 
         //
-        const state = States.getState(el.closest(".ui-desktop-grid"));
+        const state = stateMap.get(el.closest(".ui-desktop-grid"));
         const current = "main"; //TODO! bind `current` with state.
 
         //
@@ -125,10 +125,6 @@ export default async ()=>{
             if (oldList) {
                 oldList.delete(id);
                 state.lists?.get?.(current)?.add?.(id);
-
-                // trigger re-draw
-                state.lists = lists;
-                state.items = items;
             }
         }
 
@@ -140,7 +136,7 @@ export default async ()=>{
     document.addEventListener("m-dragstart", (ev)=>{
         if (MOC(ev.target, ".ux-grid-item[data-type=\"items\"]")) {
             const current = "main"; //TODO! bind `current` with state.
-            const state = States.getState(ev.target.closest(".ui-desktop-grid"));
+            const state = stateMap.get(ev.target.closest(".ui-desktop-grid"));
             const id = ev.target.dataset.id;
             const item: GridItemType = state.items?.get(id) as unknown as GridItemType;
             const page: GridPageType = state.grids?.get(current) as unknown as GridPageType;
@@ -168,7 +164,7 @@ export default async ()=>{
 
             //
             const current = "main"; //TODO! bind `current` with state.
-            const state = States.getState(el.closest(".ui-desktop-grid"));
+            const state = stateMap.get(el.closest(".ui-desktop-grid"));
             const item: GridItemType = state.items?.get(id) as unknown as GridItemType;
             const page: GridPageType = state.grids?.get(current) as unknown as GridPageType;
 

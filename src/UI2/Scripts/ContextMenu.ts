@@ -3,12 +3,12 @@
 //
 import {zoomOf} from "@unite/scripts/utils/Zoom.ts";
 import { MOC } from "@unite/scripts/utils/Utils.ts";
-import States from "@unite/scripts/reactive/StateManager.ts"
+import stateMap from "@unite/scripts/reactive/StateManager.ts"
 
 //
 export default async ()=>{
-    const settings = States.getState("settings");
-    const actionMap = States.getState("actionMap");
+    const settings = stateMap.get("settings");
+    const actionMap = stateMap.get("actionMap");
 
     //
     const initiators = new Map<string, HTMLElement>();

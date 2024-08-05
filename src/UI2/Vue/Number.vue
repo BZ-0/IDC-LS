@@ -1,6 +1,6 @@
 <script setup>
 import LucideIcon from '@idc/UI2/Vue/WLucideIcon.vue';
-import States from "@unite/scripts/reactive/StateManager.ts";
+import stateMap from "@unite/scripts/reactive/StateManager.ts";
 
 //
 import {reactive, watch, ref, onMounted} from "vue";
@@ -10,7 +10,6 @@ const input = ref(null);
 const target = ref(null);
 
 //
-//const state = ref(null);
 const props = defineProps({
     min: Number,
     max: Number,
@@ -32,7 +31,7 @@ const whenClickUp = ()=>{
 }
 
 onMounted(() => {
-    //state.value = States.getState(target.dataset.state);
+    //state.value = stateMap.get(target.dataset.state);
 });
 
 </script>

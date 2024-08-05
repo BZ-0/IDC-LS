@@ -1,5 +1,5 @@
 import {MOC, MOCElement} from "@unite/scripts/utils/Utils.ts";
-import States from "@unite/scripts/reactive/StateManager.ts";
+import stateMap from "@unite/scripts/reactive/StateManager.ts";
 
 //
 export default async ()=>{
@@ -8,7 +8,7 @@ export default async ()=>{
 
     //
     document.documentElement?.addEventListener?.("ui-menu", (ev)=>{
-        //const UIState = States.getState("UIState");
+        //const UIState = stateMap.get("UIState");
     });
 
     //

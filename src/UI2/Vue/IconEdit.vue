@@ -5,19 +5,16 @@
     import ItemEdit from "./ItemEdit.vue";
     import GridItem from "@idc/UI2/Vue/GridItem.vue";
     import Frame from "@idc/UI2/Vue/Frame.vue";
-    import States from "@unite/scripts/reactive/StateManager.ts";
+    import stateMap from "@unite/scripts/reactive/StateManager.ts";
     import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 
-    // you can't use full reactivity due stack exceeded issues...
-    const gridItem = ref(null); //shallowRef(null);
+    //
+    const gridItem = ref(null); //shallowRef(null); // you can't use full reactivity due stack exceeded issues...
+    const editor   = ref(null);
 
     //
-    const editor = ref(null);
-
-    //
-    const UIState = States.getState("UIState");
-    const actionMap = States.getState("actionMap");
-    const state = States.getState("desktop");
+    const UIState   = stateMap.get("UIState");
+    const actionMap = stateMap.get("actionMap");
 
     //
     subscribe(UIState, (v)=>{

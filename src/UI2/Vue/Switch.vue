@@ -4,12 +4,11 @@
 
     //
     import RangeTouch from 'rangetouch';
-    import States from "@unite/scripts/reactive/StateManager.ts";
+    import stateMap from "@unite/scripts/reactive/StateManager.ts";
 
     //
-    const input = ref(null);
+    const input  = ref(null);
     const target = ref(null);
-    //const state = ref(null);
 
     //
     const whenChange = (ev)=>{
@@ -20,7 +19,6 @@
     //
     onMounted(()=>{
         const inp = input.value;
-        //state.value = States.getState(target.value.dataset.state);
         (target.value).style.setProperty("--value-mod", (inp.valueAsNumber - inp.min) / (inp.max - inp.min), "");
     });
 

@@ -5,7 +5,7 @@ import {redirectCell} from "@unite/scripts/utils/GridItemUtils.ts";
 
 //
 import Timer from "@unite/scripts/performance/Time.ts";
-import States from "@unite/scripts/reactive/StateManager.ts"
+import stateMap from "@unite/scripts/reactive/StateManager.ts"
 
 //
 import TaskManager from "@idc/UI2/Scripts/TaskManager.ts";

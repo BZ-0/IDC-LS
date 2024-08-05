@@ -1,7 +1,7 @@
 <script setup>
     import LucideIcon from '@idc/UI2/Vue/WLucideIcon.vue';
     import {reactive, watch, ref, onMounted, computed} from "vue";
-    import States from "@unite/scripts/reactive/StateManager.ts";
+    import stateMap from "@unite/scripts/reactive/StateManager.ts";
     import { subscribe } from '@unite/scripts/reactive/ReactiveLib';
 
     //
@@ -13,7 +13,7 @@
     import TaskManager from "@idc/UI2/Scripts/TaskManager.ts";
 
     //
-    const UIState = States.getState("UIState");
+    const UIState = stateMap.get("UIState");
     const tasks  = ref([...TaskManager.tasks]);
 
     //
