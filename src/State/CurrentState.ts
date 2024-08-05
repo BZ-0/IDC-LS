@@ -1,10 +1,9 @@
-import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveLib.ts";
-import States from "@unite/scripts/reactive/StateManager.ts"
+import {makeReactive} from "@unite/scripts/reactive/ReactiveLib.ts";
 import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 import { changeZoom } from "@unite/scripts/utils/Zoom.ts";
 
 //
-export const settings = makeReactiveObject({
+export const settings = makeReactive({
     iconShape: localStorage.getItem("@icon-shape") || "wavy",
     columns: parseInt(localStorage.getItem("@settings:@columns")) || 4,
     rows: parseInt(localStorage.getItem("@settings:@rows")) || 8,
@@ -12,14 +11,10 @@ export const settings = makeReactiveObject({
     orientation: parseInt(localStorage.getItem("@settings:@orientation")) || "auto",
     scaling: parseFloat(localStorage.getItem("@settings:@scaling")) || 1,
     useZoom: !!localStorage.getItem("@settings:@use-zoom") || true
-});
+}, "settings");
 
 //
 changeZoom(parseFloat(localStorage.getItem("@settings:@scaling")) || 1);
-
-//
-States.setState("settings", settings);
-
 
 //
 subscribe(settings, (v) => {

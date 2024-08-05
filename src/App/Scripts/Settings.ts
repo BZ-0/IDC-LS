@@ -1,16 +1,26 @@
 import { observeBySelector } from "@unite/scripts/dom/Observer.ts";
+import { settings} from "@idc/State/CurrentState.ts";
 import States from "@unite/scripts/reactive/StateManager.ts";
 
+//
 export default async ()=>{
+
     //
     const onChange = (ev)=>{
-        const input = ev.target;
+        const input  = ev.target;
+        const target = input.closest(".ui-input");
+        const state  = States.getState(target?.dataset?.state);
 
         //
-        const target = input.closest(".ui-input");
-        const state = States.getState(target?.dataset?.state);
         if (state) {
-            state[target.dataset.name] = input.valueAsNumber ?? input.value;
+            if (input.matches("input:where([type=\"text\"], [type=\"number\"], [type=\"range\"])")) {
+                state[target.dataset.name] = input.valueAsNumber ?? input.value;
+            }
+
+            //
+            if (input?.matches(".ui-shape input[type=\"radio\"]:checked")) {
+                state[target.dataset.name] = input.value;
+            }
         }
     };
 

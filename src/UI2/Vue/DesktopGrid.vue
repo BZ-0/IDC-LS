@@ -2,8 +2,7 @@
     import {reactive, watch, ref, onMounted, computed } from "vue";
 
     //
-    import States from "@unite/scripts/reactive/StateManager.ts"
-    import { makeReactiveObject } from "@unite/scripts/reactive/ReactiveLib.ts";
+    import States from "@unite/scripts/reactive/StateManager.ts";
     import {observeBySelector, observeBorderBox} from "@unite/scripts/dom/Observer.ts";
     import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
 

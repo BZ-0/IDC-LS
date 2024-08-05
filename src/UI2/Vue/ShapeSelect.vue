@@ -6,7 +6,7 @@
 
 <template>
 
-    <div class="ui-shape-selector">
+    <div class="ui-shape-selector ui-input" v-bind="$attrs">
         <div class="ui-shape-frame" data-scheme="solid-transparent" data-highlight="1" data-highlight-hover="2" @click="vib">
             <label class="wavy-shaped ui-shape" data-highlight="1">
                 <input type="radio" name="shape" value="wavy" :checked="current == 'wavy'"></input>

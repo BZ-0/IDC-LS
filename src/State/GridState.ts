@@ -1,9 +1,7 @@
 import {JSOX} from 'jsox';
 
 //
-import {createReactiveMap} from "@unite/scripts/reactive/ReactiveLib.ts";
-import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveLib.ts";
-import {createReactiveSet} from "@unite/scripts/reactive/ReactiveLib.ts";
+import {makeReactive, createReactiveSet, createReactiveMap} from "@unite/scripts/reactive/ReactiveLib.ts";
 import {makeObjectAssignable} from "@unite/scripts/reactive/AssignObject.ts";
 import States from "@unite/scripts/reactive/StateManager.ts"
 import {subscribe, extractSymbol} from "@unite/scripts/reactive/ReactiveLib.ts";
@@ -31,7 +29,7 @@ export const toMapSet = <K, V>(list) => {
 
 //
 export const toMap = <K, V>(list) => {
-    return createReactiveMap<K, V>(list.map((obj) => [obj.id, makeReactiveObject(obj)]));
+    return createReactiveMap<K, V>(list.map((obj) => [obj.id, makeReactive(obj)]));
 };
 
 //
@@ -40,18 +38,15 @@ export const fromMap = <K, V>(map: Map<K, V>): V[] => {
 };
 
 //
-export const layout: [number, number] = makeReactiveObject([settings.columns || 4, settings.rows || 8]);
-export const size: [number, number] = makeReactiveObject([0, 0]);
+export const layout: [number, number] = makeReactive([settings.columns || 4, settings.rows || 8], "grid-layout");
+export const size: [number, number] = makeReactive([0, 0], "grid-size");
 
 /* TODO: makeObjectAssignable */
-export const state: GridsStateType = makeReactiveObject(makeObjectAssignable({
+export const state: GridsStateType = makeReactive(makeObjectAssignable({
     grids: toMap(JSOX.parse(localStorage.getItem("@gridsState") || "[]")),
     items: toMap(JSOX.parse(localStorage.getItem("@itemsState") || "[]")),
     lists: createReactiveMap<string, Set<string>>()
-}));
-
-//
-States.setState("desktop", state);
+}), "desktop");
 
 //
 subscribe(settings, (v) => (layout[0] = v), "columns");
@@ -81,7 +76,7 @@ state.grids.set("backup", {
 });
 
 //
-state.grids.set("main", state.grids.get("main") || makeReactiveObject({
+state.grids.set("main", state.grids.get("main") || makeReactive({
     id: "main",
     size: size,
     layout: layout,
@@ -110,7 +105,7 @@ subscribe(state, (v, prop) => {
 });
 
 //
-state.items.set("import", state.items.get("import") || makeReactiveObject({
+state.items.set("import", state.items.get("import") || makeReactive({
     id: "import",
     cell: [1, 0],
     icon: "upload",
@@ -121,7 +116,7 @@ state.items.set("import", state.items.get("import") || makeReactiveObject({
 }));
 
 //
-state.items.set("export", state.items.get("export") || makeReactiveObject({
+state.items.set("export", state.items.get("export") || makeReactive({
     id: "export",
     cell: [2, 0],
     icon: "download",
@@ -133,7 +128,7 @@ state.items.set("export", state.items.get("export") || makeReactiveObject({
 
 
 //
-state.items.set("settings", state.items.get("settings") || makeReactiveObject({
+state.items.set("settings", state.items.get("settings") || makeReactive({
     id: "settings",
     cell: [0, 0],
     icon: "settings",
@@ -145,7 +140,7 @@ state.items.set("settings", state.items.get("settings") || makeReactiveObject({
 
 
 //
-state.items.set("wallpapers", state.items.get("wallpapers") || makeReactiveObject({
+state.items.set("wallpapers", state.items.get("wallpapers") || makeReactive({
     id: "wallpapers",
     cell: [3, 0],
     icon: "wallpaper",

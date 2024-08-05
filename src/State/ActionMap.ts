@@ -1,6 +1,6 @@
 import {state} from "./GridState.ts";
 import type {GridItemType} from "@unite/scripts/utils/GridItemUtils.ts";
-import {makeReactiveObject} from "@unite/scripts/reactive/ReactiveLib.ts";
+import {makeReactive} from "@unite/scripts/reactive/ReactiveLib.ts";
 import {redirectCell} from "@unite/scripts/utils/GridItemUtils.ts";
 
 //
@@ -19,11 +19,11 @@ import {
 } from "./ImportExport.ts";
 
 //
-export const UIState = makeReactiveObject({
+export const UIState = makeReactive({
     taskPanelOpen: false,
     itemOnEdit: null,
     currentGridPage: "main"
-});
+}, "UIState");
 //UIState
 
 //
@@ -35,7 +35,6 @@ export const UUIDv4 = () => {
         ).toString(16)
     );
 };
-
 
 //
 export const pickWallpaperImage = async () => {
@@ -80,7 +79,7 @@ export const pickWallpaperImage = async () => {
 
 
 //
-const actionMap = new Map<string, Function>([
+const actionMap = makeReactive(new Map<string, Function>([
 
     [
         "export-data",
@@ -190,7 +189,7 @@ const actionMap = new Map<string, Function>([
     ["add-item", ({initiator}) => {
         if (initiator && initiator.dataset.currentPage) {
             const currentPage = initiator.dataset.currentPage;
-            const newItem = makeReactiveObject({
+            const newItem = makeReactive({
                 id: UUIDv4(),
                 cell: [0, 0],
                 icon: "file-question",
@@ -230,9 +229,7 @@ const actionMap = new Map<string, Function>([
             }
         },
     ],
-]);
+]), "actionMap");
 
 //
-States.setState("UIState", UIState);
-States.setState("actionMap", actionMap);
 export default actionMap;
