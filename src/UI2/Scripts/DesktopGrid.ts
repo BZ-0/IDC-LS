@@ -95,10 +95,11 @@ export default async ()=>{
 
         //
         const cur = [...(item.cell || [0, 0])];
-        const xy: [number, number] = floorInCX([cur[0] + shift[0], cur[1] + shift[1]]);
+        const com = { items: state.items, item, page };
+        const xy: [number, number] = floorInCX([cur[0] + shift[0], cur[1] + shift[1]], com);
 
         //
-        if (state.items) { redirectCell(xy, { items: state.items, item, page }); }
+        if (state.items) { redirectCell(xy, com); }
         if (item) { item.pointerId = -1; }
 
         //
