@@ -1,3 +1,6 @@
+import "core-js";
+
+//
 (async()=>{
     //
     if ("virtualKeyboard" in navigator && navigator?.virtualKeyboard) {
