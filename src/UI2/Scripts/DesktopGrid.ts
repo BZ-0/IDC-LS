@@ -98,6 +98,10 @@ export default async ()=>{
         const xy: [number, number] = floorInCX([cur[0] + shift[0], cur[1] + shift[1]], com);
 
         //
+        el.style.setProperty("--cell-x", xy[0], "");
+        el.style.setProperty("--cell-y", xy[1], "");
+
+        //
         if (state.items) { redirectCell(xy, com); }
         if (item) { item.pointerId = -1; }
 
@@ -105,8 +109,9 @@ export default async ()=>{
         await el.animate(animationSequence(), {
             fill: "none",
             duration: 150,
-            rangeStart: "cover 0%",
-            rangeEnd: "cover 100%",
+            easing: "linear"
+            //rangeStart: "cover 0%",
+            //rangeEnd: "cover 100%",
         }).finished;
 
         //
