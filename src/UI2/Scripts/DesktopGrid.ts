@@ -3,10 +3,18 @@ import {grabForDrag} from "@unite/scripts/interact/PointerAPI.ts";
 import {createReactiveSet} from "@unite/scripts/reactive/ReactiveLib.ts";
 import {MOC} from "@unite/scripts/utils/Utils.ts";
 import {zoomOf} from "@unite/scripts/utils/Zoom.ts";
-import {putToCell} from "@unite/scripts/utils/GridItemUtils.ts";
+import {redirectCell} from "@unite/scripts/utils/GridItemUtils.ts";
 import type {GridItemType} from "@unite/scripts/utils/GridItemUtils.ts";
 import {animationSequence} from "@unite/scripts/stylework/GridLayout.ts";
 import States from "@unite/scripts/reactive/StateManager.ts"
+import {
+    absoluteCXToRelativeCX,
+    relativeToAbsoluteInPx,
+    convertOrientPxToCX,
+    absolutePxToRelativeInOrientPx,
+    convertPointerPxToOrientPx,
+    floorInCX
+} from "@unite/scripts/utils/GridItemUtils.ts";
 
 //
 export default async ()=>{
@@ -26,10 +34,6 @@ export default async ()=>{
             //
             const el = ev.target;
             if (item) {
-                //el.style.setProperty("--cell-x", item?.cell[0] || 0, "");
-                //el.style.setProperty("--cell-y", item?.cell[1] || 0, "");
-                el.style.setProperty("--p-cell-x", item?.cell[0] || 0, "");
-                el.style.setProperty("--p-cell-y", item?.cell[1] || 0, "");
                 grabForDrag(el, item);
             }
         }
@@ -79,8 +83,10 @@ export default async ()=>{
         const current = "main"; //TODO! bind `current` with state.
 
         //
-        const bbox = el.closest(".ui-grid-page").getBoundingClientRect();
-        const xy: [number, number] = [(pointer.current[0] - (bbox?.left || 0)) / zoomOf(), (pointer.current[1] - (bbox?.top || 0)) / zoomOf()];
+        const shift = [
+            parseFloat(el.style.getPropertyValue("--c-shift-mod")),
+            parseFloat(el.style.getPropertyValue("--r-shift-mod")),
+        ];
 
         //
         const prev = [...(state.items?.get?.(id)?.cell || [0, 0])];
@@ -88,18 +94,12 @@ export default async ()=>{
         const page: GridPageType = state.grids?.get(current) as unknown as GridPageType;
 
         //
-        if (state.items) { putToCell({ items: state.items, item, page }, xy); }
+        const cur = [...(item.cell || [0, 0])];
+        const xy: [number, number] = floorInCX([cur[0] + shift[0], cur[1] + shift[1]]);
+
+        //
+        if (state.items) { redirectCell(xy, { items: state.items, item, page }); }
         if (item) { item.pointerId = -1; }
-
-        //
-        el.style.setProperty("--p-cell-x", prev[0], "");
-        el.style.setProperty("--p-cell-y", prev[1], "");
-        //el.style.setProperty("--cell-x", (item?.cell?.[0] || 0) as unknown as string, "");
-        //el.style.setProperty("--cell-y", (item?.cell?.[1] || 0) as unknown as string, "");
-
-        //
-        //tx.style.setProperty("--cell-x", (item?.cell?.[0] || 0) as unknown as string, "");
-        //tx.style.setProperty("--cell-y", (item?.cell?.[1] || 0) as unknown as string, "");
 
         //
         await el.animate(animationSequence(), {
@@ -110,6 +110,8 @@ export default async ()=>{
         }).finished;
 
         //
+        el.style.setProperty("--c-shift-mod", 0, "");
+        el.style.setProperty("--r-shift-mod", 0, "");
         el.style.setProperty("--drag-x", 0, "");
         el.style.setProperty("--drag-y", 0, "");
 
@@ -135,10 +137,46 @@ export default async ()=>{
     }
 
     //
+    document.addEventListener("m-dragstart", (ev)=>{
+        if (MOC(ev.target, ".ux-grid-item[data-type=\"items\"]")) {
+            ev.target.style.setProperty("--p-cell-x", ev.target.style.getPropertyValue("--cell-x"));
+            ev.target.style.setProperty("--p-cell-y", ev.target.style.getPropertyValue("--cell-y"));
+        }
+    });
+
+    //
     document.addEventListener("m-dragend", (ev)=>{
         if (MOC(ev.target, ".ux-grid-item[data-type=\"items\"]")) {
             placeElement(ev.detail);
         }
     });
+
+    //
+    document.addEventListener("m-dragging", (ev)=>{
+        if (ev.target.matches(".ux-grid-item")) {
+            const el = ev.target;
+            const id = el.dataset.id;
+
+            //
+            const current = "main"; //TODO! bind `current` with state.
+            const state = States.getState(el.closest(".ui-desktop-grid"));
+            const item: GridItemType = state.items?.get(id) as unknown as GridItemType;
+            const page: GridPageType = state.grids?.get(current) as unknown as GridPageType;
+
+            //
+            const {detail, target} = ev;
+            const {modified} = detail.holding;
+            const pack = { items: state.items, item, page };
+            const absolute = relativeToAbsoluteInPx([modified[0], modified[1]], pack);
+            const orient = convertPointerPxToOrientPx(absolute, pack);
+            const CXa = convertOrientPxToCX(orient, pack);
+            const cx = absoluteCXToRelativeCX(CXa, pack);
+
+            //
+            target.style.setProperty("--c-shift-mod", cx[0]);
+            target.style.setProperty("--r-shift-mod", cx[1]);
+        }
+    });
+
 
 };

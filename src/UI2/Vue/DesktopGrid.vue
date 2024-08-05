@@ -47,8 +47,8 @@
 
     //
     const changeLayout = ()=>{
-        elRef.value?.style?.setProperty?.("--columns", settings.columns, "")
-        elRef.value?.style?.setProperty?.("--rows", settings.rows, "")
+        elRef.value?.style?.setProperty?.("--layout-c", settings.columns, "")
+        elRef.value?.style?.setProperty?.("--layout-r", settings.rows, "")
     }
 
     //

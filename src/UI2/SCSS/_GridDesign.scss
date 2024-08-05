@@ -102,16 +102,16 @@
             block-size: var(--icon-size);
 
             // override by animations...
-            --translate-x: calc(var(--drag-x, 0) * var(--zpx, 1px));
-            --translate-y: calc(var(--drag-y, 0) * var(--zpx, 1px));
+            --translate-x: 0px;//calc(var(--drag-x, 0) * var(--zpx, 1px));
+            --translate-y: 0px;//calc(var(--drag-y, 0) * var(--zpx, 1px));
 
             //
             &:where([data-type="backup"]) {
                 pointer-events: none;
 
                 // override by animations...
-                --grid-column: var(--fp-cell-x);
-                --grid-row: var(--fp-cell-y);
+                --grid-c: var(--fc-cell-x);
+                --grid-r: var(--fc-cell-y);
             }
 
             //

@@ -205,7 +205,7 @@ const actionMap = new Map<string, Function>([
             state.lists.get(currentPage)?.add?.(newItem.id);
 
             //
-            redirectCell({item: newItem, items: state.items, page: state.grids.get(currentPage)}, newItem.cell);
+            redirectCell(newItem.cell, {item: newItem, items: state.items, page: state.grids.get(currentPage)});
 
             //
             state.items = state.items;

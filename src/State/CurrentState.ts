@@ -74,13 +74,13 @@ subscribe(settings, (v) => {
 
 //
 subscribe(settings, (v) => {
-    document.documentElement.style.setProperty("--columns", v || 4);
+    document.documentElement.style.setProperty("--layout-c", v || 4);
     localStorage.setItem("@settings:@columns", v || 4);
 }, "columns");
 
 //
 subscribe(settings, (v) => {
-    document.documentElement.style.setProperty("--rows", v || 8);
+    document.documentElement.style.setProperty("--layout-r", v || 8);
     localStorage.setItem("@settings:@rows", v || 8);
 }, "rows");
 
