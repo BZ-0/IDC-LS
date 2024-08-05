@@ -140,6 +140,15 @@ export default async ()=>{
     //
     document.addEventListener("m-dragstart", (ev)=>{
         if (MOC(ev.target, ".ux-grid-item[data-type=\"items\"]")) {
+            const current = "main"; //TODO! bind `current` with state.
+            const state = States.getState(ev.target.closest(".ui-desktop-grid"));
+            const id = ev.target.dataset.id;
+            const item: GridItemType = state.items?.get(id) as unknown as GridItemType;
+            const page: GridPageType = state.grids?.get(current) as unknown as GridPageType;
+            const com = { items: state.items, item, page };
+            item.cell = floorInCX(item.cell, com);
+
+            //
             ev.target.style.setProperty("--p-cell-x", ev.target.style.getPropertyValue("--cell-x"));
             ev.target.style.setProperty("--p-cell-y", ev.target.style.getPropertyValue("--cell-y"));
         }
