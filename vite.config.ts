@@ -22,6 +22,8 @@ import json5Plugin from 'vite-plugin-json5'
 import cssnano from "cssnano";
 import deduplicate from "postcss-discard-duplicates";
 
+import postcssPresetEnv from 'postcss-preset-env';
+
 //
 const __dirname = import.meta.dirname;
 
@@ -153,7 +155,7 @@ const config = <UserConfig>defineConfig({
         postcss: {
             plugins: [autoprefixer(), deduplicate(), cssnano({
                 preset: 'default',
-            })],
+            }), postcssPresetEnv({ stage: 0 })],
         },
     },
     html: {
