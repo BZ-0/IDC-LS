@@ -2,8 +2,8 @@
 
 //
 import {zoomOf} from "@unite/scripts/utils/Zoom.ts";
-import { MOC } from "@unite/scripts/utils/Utils.ts";
-import stateMap from "@unite/scripts/reactive/StateManager.ts"
+import stateMap from "@unite/scripts/reactive/StateManager.ts";
+import { MOC, MOCElement } from "@unite/scripts/utils/Utils.ts";
 
 //
 export default async ()=>{
@@ -31,9 +31,10 @@ export default async ()=>{
         hideAllCtx();
 
         //
-        if (target.matches("*[data-ctx]")) {
-            const ctxName = target.dataset.ctx;
-            initiators.set(ctxName, target);
+        if (target.matches("*[data-ctx], *[data-ctx] .ui-item-design")) {
+            const real = MOCElement(target, "*[data-ctx]");
+            const ctxName = real.dataset.ctx;
+            initiators.set(ctxName, real);
 
             //
             requestAnimationFrame(()=>{

@@ -19,19 +19,16 @@ import {
 export default async ()=>{
 
     //
-    const initGrab = (ev)=> {
-        ev?.stopPropagation?.();
+    const initGrab = (target, pointerId = -1)=> {
+        const state = stateMap.get(target.closest(".ui-desktop-grid"));
 
         //
-        const state = stateMap.get(ev.target.closest(".ui-desktop-grid"));
-
-        //
-        if (ev.target?.dataset?.id) {
-            const item = state?.items?.get(ev.target.dataset.id);
-            if (item) { item.pointerId = ev.pointerId; }
+        if (target?.dataset?.id) {
+            const item = state?.items?.get(target.dataset.id);
+            if (item) { item.pointerId = pointerId; }
 
             //
-            const el = ev.target;
+            const el = target;
             if (item) {
                 grabForDrag(el, item);
             }
@@ -39,12 +36,12 @@ export default async ()=>{
     }
 
     //
-    const grabItem = (ev)=>{
+    const grabItem = (ev, ptr)=>{
         //
         const dragState = {
-            pointerId: ev.pointerId,
-            startX: ev.clientX,
-            startY: ev.clientY
+            pointerId: ptr.pointerId,
+            startX: ptr.clientX,
+            startY: ptr.clientY
         };
 
         //
@@ -53,7 +50,9 @@ export default async ()=>{
                 dragState.startX - evm.clientX,
                 dragState.startY - evm.clientY
             ) >= 10) {
-                initGrab(ev); document.documentElement.removeEventListener(...grabEvent);
+                //ev?.stopPropagation?.();
+                initGrab(ev.target, ptr.pointerId);
+                document.documentElement.removeEventListener(...grabEvent);
             }
         }, {capture: true, passive: true}];
 
@@ -67,7 +66,7 @@ export default async ()=>{
     //
     document.documentElement.addEventListener("long-press", (ev)=>{
         if (MOC(ev.target, ".ux-grid-item[data-type=\"items\"]")) {
-            grabItem(ev.detail);
+            grabItem(ev, ev.detail);
         }
     });
 

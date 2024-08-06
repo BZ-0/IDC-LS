@@ -8,7 +8,7 @@
 @layer ui-grid {
 
     //
-    *[data-shape="wavy"] .ux-grid-item, .ux-grid-item[data-shape="wavy"] {
+    *[data-shape="wavy"] .ui-item-design, .ui-item-design[data-shape="wavy"] {
         --clip-amplitude: 0.06;
         --clip-freq: 8;
         --clip-path: #{s.Integrate("WavyFx", 100)};
@@ -18,18 +18,18 @@
     }
 
     //
-    *[data-shape="circle"] .ux-grid-item, .ux-grid-item[data-shape="circle"] {
+    *[data-shape="circle"] .ui-item-design, .ui-item-design[data-shape="circle"] {
         border-radius: calc(var(--icon-size, 100%) * 0.5);
     }
 
     //
-    *[data-shape="tear"] .ux-grid-item, .ux-grid-item[data-shape="tear"] {
+    *[data-shape="tear"] .ui-item-design, .ui-item-design[data-shape="tear"] {
         border-radius: calc(var(--icon-size, 100%) * 0.5);
         border-end-end-radius: calc(var(--icon-size, 100%) * 0.125);
     }
 
     //
-    *[data-shape="square"] .ux-grid-item, .ux-grid-item[data-shape="square"] {
+    *[data-shape="square"] .ui-item-design, .ui-item-design[data-shape="square"] {
         border-radius: calc(var(--icon-size, 100%) * 0.25);
     }
 
@@ -72,7 +72,6 @@
 
     //
     .ui-grid-page {
-        filter: drop-shadow(0px 0px 0.25rem #00000060);
         pointer-events: none;
 
         //
@@ -80,7 +79,35 @@
         --r-gap: calc(4dvmin / var(--zoom, 1));
 
         //
+        .ux-grid-item-label {
+            filter: drop-shadow(0px 0px 0.25rem #00000080);
+        }
+
+        //
         .ux-grid-item {
+            inline-size: max-content;
+            block-size: max-content;
+
+            //
+            filter: drop-shadow(0px 0px 0.25rem #00000060);
+
+            //
+            &:where([data-type="backup"]) {
+                pointer-events: none;
+
+                //
+                --grid-c: var(--fc-cell-x);
+                --grid-r: var(--fc-cell-y);
+            }
+
+            //
+            &[data-dragging="true"] {
+                z-index: 99;
+            }
+        }
+
+        //
+        .ui-item-design {
             will-change:
                 --rx, --ry,
                 --drag-x,
@@ -89,6 +116,11 @@
                 --resize-y,
                 --translate-x,
                 --translate-y;
+
+            //
+            overflow: hidden;
+            pointer-events: auto;
+            cursor: pointer;
 
             //
             display: flex;
@@ -104,21 +136,6 @@
             // override by animations...
             --translate-x: 0px;//calc(var(--drag-x, 0) * var(--zpx, 1px));
             --translate-y: 0px;//calc(var(--drag-y, 0) * var(--zpx, 1px));
-
-            //
-            &:where([data-type="backup"]) {
-                pointer-events: none;
-
-                // override by animations...
-                --grid-c: var(--fc-cell-x);
-                --grid-r: var(--fc-cell-y);
-            }
-
-            //
-            &:where([data-type="items"]) {
-                pointer-events: auto;
-                cursor: pointer;
-            }
         }
     }
 }

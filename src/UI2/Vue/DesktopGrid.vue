@@ -9,6 +9,7 @@
     //
     import GridItem from "./GridItem.vue";
     import GridItemLabel from "./GridItemLabel.vue";
+    import { MOCElement } from '@unite/scripts/utils/Utils';
 
     //
     const props     = defineProps({ state: Object, actionMap: Object });
@@ -53,9 +54,9 @@
 
     //
     const onItemClick = (ev)=>{
-        const target = ev.target;
-        actionMap?.get?.(target.dataset.action)?.({
-            initiator: target
+        const actionEl = MOCElement(ev.target, ".ux-grid-item[data-action]");
+        actionMap?.get?.(actionEl.dataset.action)?.({
+            initiator: actionEl
         });
         requestAnimationFrame(()=>navigator?.vibrate?.([10]))
     }

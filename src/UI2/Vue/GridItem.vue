@@ -36,6 +36,7 @@ onMounted(()=>{
     if (elRef.value) {
         const gest = new GestureControl(elRef.value);
         gest.longPress({
+            handler: elRef.value.querySelector(".ui-item-design"),
             anyPointer: true,
             mouseImmediate: true,
             minHoldTime: 60 * 3600,
@@ -51,18 +52,25 @@ onMounted(()=>{
 </script>
 
 <template>
+
     <div
-        ref="elRef"
-        @click="(ev)=>{props.onClick(ev);}"
         :data-id="gridItem.id"
         :data-action="gridItem.action"
         :data-href="gridItem.href"
         :data-type="props.type"
+        :data-dragging="gridItem.pointerId >= 0"
+        class="ux-grid-item"
+        ref="elRef"
         data-ctx="grid-item"
-        data-scheme="accent-inverse"
-        class="ux-grid-item">
+    >
+        <div
+            class="ui-item-design"
+            @click="(ev)=>{props.onClick(ev);}"
+            data-scheme="accent-inverse">
 
-        <LucideIcon inert :name="gridItem.icon" :data-icon="gridItem.icon"></LucideIcon>
+            <LucideIcon inert :name="gridItem.icon" :data-icon="gridItem.icon"></LucideIcon>
 
+        </div>
     </div>
+
 </template>
