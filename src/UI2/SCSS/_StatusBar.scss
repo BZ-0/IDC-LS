@@ -37,10 +37,13 @@
 
         //
         position: fixed;
-        inset: auto;
-        inset-block-end: 0px;
+        //inset: auto;
+        //inset-block-end: 0px;
         block-size: 2rem;
         padding-inline: 1rem;
+
+        inset: auto;
+        inset-block-start: 0px;
 
         //
         & > * {
@@ -82,10 +85,10 @@
         }
 
         //
-        @media #{d.$isMobile} {
+        /*@media #{d.$isMobile} {
             inset: auto;
             inset-block-start: 0px;
-        }
+        }*/
 
         //
         @media #{d.$isDesktop} {

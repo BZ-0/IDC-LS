@@ -157,8 +157,10 @@
     //
     body:not(:has(.ui-app-frame[data-hidden="false"])) .ui-navbar {
         //display: none !important;
-        @include tm.ux-dynamic-transparent;
         box-shadow: none;
+
+        //
+        @include tm.ux-dynamic-transparent;
 
         //
         &, & * {
@@ -221,6 +223,14 @@
             aspect-ratio: 1 / 1;
 
             //
+            inline-size: 100cqmin;;
+            block-size: 100cqmin;;
+
+            //
+            padding: 0.75rem;
+            cursor: pointer;
+
+            //
             &.ui-focus {
                 border-block-end: solid 0.125rem oklch(from var(--current-surface-color) l c h / 1.0);
             }
@@ -229,14 +239,6 @@
             &:not(.ui-active) {
                 opacity: 0.5;
             }
-
-            //
-            inline-size: 100cqmin;;
-            block-size: 100cqmin;;
-
-            //
-            padding: 0.75rem;
-            cursor: pointer;
         }
 
         //

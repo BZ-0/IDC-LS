@@ -39,12 +39,6 @@
         --ry: calc(var(--hover-y, 0) * var(--zpx, 1px) - calc(50cqb - 50%));
 
         //
-        @media screen and (hover: none) and (pointer: coarse) {
-            --rx: calc(var(--hover-x, 0) * var(--zpx, 1px) - 50cqi);
-            --ry: calc(var(--hover-y, 0) * var(--zpx, 1px) - 50cqb);
-        }
-
-        //
         --translate-x: clamp(0px, calc(calc(50cqi - 50%) + var(--rx)), calc(100cqi - 100%));
         --translate-y: clamp(0px, calc(calc(50cqb - 50%) + var(--ry)), calc(100cqb - 100%));
 
@@ -55,5 +49,11 @@
         //
         @include u.clamped-width(max-content, max-content, 80cqi);
         @include u.clamped-height(max-content, max-content, 80cqb);
+
+        //
+        @media screen and (hover: none) and (pointer: coarse) {
+            --rx: calc(var(--hover-x, 0) * var(--zpx, 1px) - 50cqi);
+            --ry: calc(var(--hover-y, 0) * var(--zpx, 1px) - 50cqb);
+        }
     }
 }
