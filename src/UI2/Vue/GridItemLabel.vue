@@ -43,7 +43,7 @@ onMounted(()=>{
         :data-href="gridItem.href"
         :data-type="props.type"
         data-scheme="transparent"
-        class="ux-grid-item-label"
+        class="ux-grid-item ui-item-label"
         inert>
     {{ gridItem.label }}
     </div>
