@@ -6,7 +6,6 @@ const app = await server();
 
 // Start listening.
 try {
-    await app?.vite?.ready?.();
     await app.listen({ ...options, port: process.env.PORT || 8000 }, (err) => {
         if (err) {
             app.log.error(err);

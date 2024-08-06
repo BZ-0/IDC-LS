@@ -4,7 +4,6 @@ import fs from "fs/promises"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import zlib from "node:zlib"
-import FastifyVite from '@fastify/vite'
 
 //
 const probeDirectory = async (dirList, agr = "local/") => {
@@ -42,13 +41,6 @@ export default async function (fastify, options) {
         },
         zlibOptions: { level: 9 },
     });
-
-    //
-    await fastify.register(FastifyVite, {
-        root: import.meta.url,
-        dev: process.argv.includes('--dev'),
-        spa: true
-    })
 
     //
     const cacheControl = [

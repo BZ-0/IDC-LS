@@ -5,7 +5,7 @@ const sourceMapsInProduction = true;
 //
 import autoprefixer from "autoprefixer";
 import path from "node:path";
-import {defineConfig, type UserConfig} from "vite";
+import {defineConfig} from "vite";
 import VitePluginBrowserSync from 'vite-plugin-browser-sync';
 import prefetchPlugin from 'vite-plugin-bundle-prefetch';
 import {compression} from "vite-plugin-compression2";
@@ -13,8 +13,8 @@ import {nodePolyfills} from "vite-plugin-node-polyfills";
 import {VitePWA} from "vite-plugin-pwa";
 import {viteStaticCopy} from "vite-plugin-static-copy";
 import certificate from "./https/certificate.mjs";
-import pkg from "./package.json";
-import tsconfig from "./tsconfig.json";
+import pkg from "./package.json" with { type: "json" };
+import tsconfig from "./tsconfig.json" with { type: "json" };
 import vue from '@vitejs/plugin-vue'
 import { viteSingleFile } from "vite-plugin-singlefile"
 import json5Plugin from 'vite-plugin-json5'
@@ -39,7 +39,7 @@ const r = (s) => {
 
 //
 const production = process.env.NODE_ENV === 'production';
-const config = <UserConfig>defineConfig({
+const config = defineConfig({
     root: "./",
     resolve: {
         alias: {
@@ -170,13 +170,13 @@ const config = <UserConfig>defineConfig({
 const aliases = tsconfig.compilerOptions.paths;
 
 for (const alias in aliases) {
-    const paths = aliases[alias].map((p: string) => path.resolve(__dirname, p));
+    const paths = aliases[alias].map((p) => path.resolve(__dirname, p));
 
     // Our tsconfig uses glob path formats, whereas vite just wants directories
     // We'll need to transform the glob format into a format acceptable to vite
 
     const viteAlias = alias.replace(/(\\|\/)\*$/, '');
-    const vitePaths = paths.map((p: string) => p.replace(/(\\|\/)\*$/, ''));
+    const vitePaths = paths.map((p) => p.replace(/(\\|\/)\*$/, ''));
 
     if (!config.resolve) config.resolve = {};
     if (!config.resolve.alias) config.resolve.alias = {};
