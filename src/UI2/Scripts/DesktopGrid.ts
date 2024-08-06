@@ -115,6 +115,8 @@ export default async ()=>{
         }).finished;
 
         //
+        el.style.setProperty("--p-cell-x", xy[0], "");
+        el.style.setProperty("--p-cell-y", xy[1], "");
         el.style.setProperty("--c-shift-mod", 0, "");
         el.style.setProperty("--r-shift-mod", 0, "");
         el.style.setProperty("--drag-x", 0, "");
