@@ -68,7 +68,7 @@
 
         <div class="ui-titlebar" data-highlight="3" data-scheme="solid">
             <LucideIcon name="chevron-down" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;" />
-            <div data-transparent data-scheme="solid-transparent" class="ui-title-handle"></div>
+            <div data-transparent data-scheme="solid-transparent" class="ui-title-handle">{{ props.label }}</div>
             <LucideIcon name="menu" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;" />
         </div>
 

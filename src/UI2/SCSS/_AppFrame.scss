@@ -156,53 +156,13 @@
         }
 
         //
-        & > :where(.ui-titlebar > .ui-title-handle, .ui-title-label) {
+        & > :where(.ui-titlebar) {
             @include cm.no-wrap;
-            grid-row: titlebar;
-
-            //
             inline-size: 100%;
             block-size: 100%;
 
             //
-            pointer-events: none;
-            place-content: center;
-            place-items: center;
-
-            //
-            text-align: start;
-            justify-self: start;
-            justify-content: start;
-            justify-items: start;
-
-            //
-            display: flex;
-            grid-column: title-label;
-
-            //
-            flex-direction: row;
-            padding: 0.5rem;
-            padding-inline: 1rem;
-            min-inline-size: max-content;
-            cursor: grab;
-
-            //
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        //
-        & :where(.ui-title-handle) {
-            pointer-events: auto !important;
-        }
-
-        //
-        & > :where(.ui-titlebar) {
-            @include cm.no-wrap;
-
-            //
             direction: ltr;
-            inline-size: 100%;
 
             //
             pointer-events: auto;
@@ -221,14 +181,14 @@
 
             //
             box-sizing: border-box;
-            block-size: var(--titlebar-size);
+            //block-size: var(--titlebar-size);
 
             //
             align-items: end;
             min-block-size: max-content;
 
             //
-            & > :where(*) {//
+            & > :where(*) {
                 inline-size: 100%;
                 block-size: 100%;
 
@@ -240,7 +200,7 @@
                 //
                 display: flex;
                 padding: 1rem;
-                grid-row: 1 / 1 span;
+                grid-row: 1 / 1 span !important;
             }
 
             //
@@ -255,6 +215,47 @@
                 max-inline-size: var(--titlebar-size);
                 max-block-size: var(--titlebar-size);
             }
+        }
+
+        //
+        & :where(.ui-titlebar > .ui-title-handle, .ui-title-label) {
+            @include cm.no-wrap;
+
+            //
+            grid-row: titlebar;
+
+            //
+            inline-size: 100%;
+            block-size: 100%;
+
+            //
+            pointer-events: none;
+
+            //
+            text-align: start;
+            justify-self: start;
+            justify-content: start;
+            justify-items: start;
+
+            //
+            display: flex;
+            grid-column: title-label;
+
+            //
+            flex-direction: row;
+            padding: 0.5rem;
+            padding-inline: 1rem;
+            min-inline-size: max-content;
+            cursor: move;
+
+            //
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        //
+        & :where(.ui-title-handle) {
+            pointer-events: auto !important;
         }
 
         //
