@@ -3,6 +3,7 @@ import GestureControl from "@unite/scripts/interact/Gesture.ts";
 import {reactive, watch, ref, onMounted} from "vue";
 import LucideIcon from "./WLucideIcon.vue";
 import {subscribe} from "@unite/scripts/reactive/ReactiveLib.ts";
+import { objectAssign } from '@unite/scripts/reactive/AssignObject';
 
 //
 const props = defineProps({
@@ -18,7 +19,7 @@ subscribe(props.gridItem, (v,p)=>{ if (gridItem[p] !== v) { gridItem[p] = v; } }
 // any react from vue will "do" react in external (except no strict change, due avoid "stack exceeded" issue)
 
 // but due `gridItem` is copy, just re-set back into property object (and avoid recursions)...
-watch(() => gridItem, (newVal, oldVal) => { for (const k in newVal) { if (props.gridItem[k] !== newVal[k]) { props.gridItem[k] = newVal[k]; } } }, {deep: true});
+watch(() => gridItem, (newVal, oldVal) => { for (const k in newVal) { if (props.gridItem[k] !== newVal[k]) { objectAssign(props.gridItem, k, newVal[k]); } } }, {deep: true});
 // please, save such pattern for future!
 
 //

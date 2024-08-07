@@ -10,6 +10,7 @@
     import GridItem from "./GridItem.vue";
     import GridItemLabel from "./GridItemLabel.vue";
     import { MOCElement } from '@unite/scripts/utils/Utils';
+    import { objectAssign } from '@unite/scripts/reactive/AssignObject';
 
     //
     const props     = defineProps({ state: Object, actionMap: Object });
@@ -30,7 +31,7 @@
     //
     const state = reactive({...pState}); // react from vue
     subscribe(pState, (v,p)=>{ if (state[p] !== v) { state[p] = v; }}); // react to vue
-    //watch(() => state, (newVal, oldVal) => { for (const k in newVal) { if (pState[k] !== newVal[k]) { pState[k] = newVal[k]; } } }, {deep: true});
+    //watch(() => state, (newVal, oldVal) => { for (const k in newVal) { if (pState[k] !== newVal[k]) { objectAssign(pState, k, newVal[k]); } } }, {deep: true});
 
     // read-only, skip ir-reactivity...
     const $settings = stateMap.get("settings");
