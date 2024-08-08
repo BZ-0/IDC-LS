@@ -57,7 +57,7 @@
 </script>
 
 <template>
-    <div class="icon-wrap" :data-icon="names[0]" ref="target" v-observe:data-icon="(v)=>{ current = v; }" v-bind="$attrs">
+    <div class="icon-wrap" data-transparent :data-icon="names[0]" ref="target" v-observe:data-icon="(v)=>{ current = v; }" v-bind="$attrs">
         <component
             inert
             :is="iconPack[cmz(current)]"

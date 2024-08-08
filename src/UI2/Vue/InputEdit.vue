@@ -19,6 +19,7 @@
             autocomplete="off"
             type="text"
             maxlength="1024"
+            data-scheme="solid"
         />
         <button type="button" tabindex="-1" data-scheme="solid" data-highlight="2" class="field-copy pe-enable" style="grid-row: 1 / 1; grid-column: 2 / 2;">
             <LucideIcon name="copy" tabindex="-1" inert></LucideIcon>

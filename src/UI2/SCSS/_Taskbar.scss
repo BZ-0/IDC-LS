@@ -26,6 +26,14 @@
         pointer-events: auto;
 
         //
+        place-content: center;
+        place-items: center;
+
+        //
+        justify-items: start;
+        justify-content: start;
+
+        //
         display: flex;
         flex-direction: column;
         grid-column: 1 / 1 span;
@@ -76,7 +84,6 @@
             display: none;
         }
     }
-
 
     //
     .ui-navbar {
@@ -169,7 +176,9 @@
             pointer-events: none;
 
             //
-            @include tm.ux-dynamic-transparent;
+            //@include tm.ux-dynamic-transparent;
+            @include tm.ux-transparent;
+            @include tm.ux-bg-dep;
 
             //
             &, & * {
@@ -216,20 +225,24 @@
         @include tm.ux-solid;
 
         //
-        transition-property: --data-taskbar-shift;
-        transition-duration: 0.25s;
-        transition-timing-function: linear;
-        transition-delay: 0.25s;
-
-        //
-        pointer-events: auto;
-        box-shadow: 0px 0px 1rem #00000070;
-
-        //
-        --translate-y: var(--data-taskbar-shift, 0px);
-
-        //
         & {
+            transition-property: --data-taskbar-shift;
+            transition-duration: 0.25s;
+            transition-timing-function: linear;
+            transition-delay: 0.25s;
+
+            //
+            place-content: center;
+            place-items: center;
+
+            //
+            pointer-events: auto;
+            box-shadow: 0px 0px 1rem #00000070;
+
+            //
+            --translate-y: var(--data-taskbar-shift, 0px);
+
+            //
             position: fixed;
 
             //
@@ -254,6 +267,12 @@
         }
 
         //
+        & > :where(*) {
+            inline-size: 100%;
+            block-size: 100%;
+        }
+
+        //
         & .ui-app-menu {
             padding: 0.5rem;
             cursor: pointer;
@@ -266,6 +285,9 @@
             flex-direction: row;
             gap: 0.25rem;
             pointer-events: none;
+
+            justify-content: start;
+            justify-items: start;
         }
 
         //

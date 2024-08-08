@@ -20,14 +20,14 @@ document.documentElement.addEventListener("contextmenu", (ev)=>{
 
 <!-- -->
 <template>
-    <div class="ui-status-bar" data-transparent data-scheme="dynamic-transparent">
+    <div class="ui-status-bar" data-scheme="transparent" data-transparent data-bg-dep>
         <div class="left">
-            <Time></Time>
+            <Time data-scheme="dynamic-transparent"></Time>
         </div>
         <div class="center"></div>
         <div class="right">
-            <Signal></Signal>
-            <Battery></Battery>
+            <Signal data-scheme="dynamic-transparent"></Signal>
+            <Battery data-scheme="dynamic-transparent"></Battery>
         </div>
     </div>
 </template>

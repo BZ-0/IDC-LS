@@ -78,7 +78,7 @@
 
 <!-- -->
 <template>
-    <x-scrollbox class="ui-task-panel" :data-hidden="!panelOpened">
+    <x-scrollbox data-scheme="solid" class="ui-task-panel" :data-hidden="!panelOpened">
         <div
             v-for="task in tasks"
             style="--decor-size: 4rem;" class="ui-block-decor ui-tab-item"
@@ -95,11 +95,11 @@
     </x-scrollbox>
 
     <!-- -->
-    <div class="ui-taskbar" v-bind="$attrs">
-        <div class="ui-app-menu" data-highlight-hover="2" data-scheme="dynamic-transparent">
-            <LucideIcon inert name="layout-grid" data-transparent></LucideIcon>
+    <div class="ui-taskbar" v-bind="$attrs" data-scheme="transparent">
+        <div class="ui-app-menu" data-highlight-hover="2" data-transparent data-bg-dep>
+            <LucideIcon inert name="layout-grid"></LucideIcon>
         </div>
-        <div class="ui-task-bar" data-transparent>
+        <div class="ui-task-bar" data-transparent data-bg-dep>
             <div v-for="task in tasks"
                 :class="{'ui-focus': task.id == currentHash, 'ui-active': task.active}"
                 :key="task.id"
@@ -107,25 +107,24 @@
                 class="ui-task"
                 :data-id="task.id"
                 data-highlight-hover="1"
-                data-scheme="dynamic-transparent"
-                data-transparent
+                data-transparent data-bg-dep
                 @click="focusTask"
             >
-                <LucideIcon inert :name="task.icon" data-transparent></LucideIcon>
+                <LucideIcon inert :name="task.icon"></LucideIcon>
             </div>
         </div>
         <div class="ui-status" data-transparent>
-            <Signal data-highlight="1" data-highlight-hover="2" data-scheme="dynamic-transparent"></Signal>
-            <Battery data-highlight="1" data-highlight-hover="2" data-scheme="dynamic-transparent"></Battery>
-            <Time data-highlight="1" data-highlight-hover="2" data-scheme="dynamic-transparent"></Time>
+            <Signal data-bg-dep data-highlight="1" data-highlight-hover="2"></Signal>
+            <Battery data-bg-dep data-highlight="1" data-highlight-hover="2"></Battery>
+            <Time data-bg-dep data-highlight="1" data-highlight-hover="2"></Time>
         </div>
     </div>
 
     <!-- -->
     <div class="ui-navbar" data-scheme="solid" data-highlight="2" v-bind="$attrs">
-        <LucideIcon name="chevron-down" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;" />
+        <LucideIcon data-scheme="dynamic-transparent" name="chevron-down" class="back-button" style="grid-column: back-button; aspect-ratio: 1 / 1;" />
         <div class="ui-title-handle" @pointerdown="toFocus">{{ label }}</div>
-        <LucideIcon name="menu" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;" @click="openPanel"/>
+        <LucideIcon data-scheme="dynamic-transparent" name="menu" class="menu-button" style="grid-column: menu-button; aspect-ratio: 1 / 1;" @click="openPanel"/>
     </div>
 
 

@@ -57,21 +57,22 @@
 
 <Viewport>
     <DesktopGrid></DesktopGrid>
+
+    <AppFrame hashIdName="#settings" icon="settings" :label="$t('tasks.settings')">
+        <Settings data-instant></Settings>
+    </AppFrame>
+
+    <AppFrame hashIdName="#manager" icon="wallpaper" :label="$t('tasks.wallpapers')">
+        <Manager data-instant></Manager>
+    </AppFrame>
+
     <IconEdit></IconEdit>
+    <Taskbar></Taskbar>
 </Viewport>
 
-<div data-hidden="true" class="ui-tooltip" data-scheme="solid" v-bind="$attrs"></div>
-
-<AppFrame hashIdName="#settings" icon="settings" :label="$t('tasks.settings')">
-    <Settings data-instant></Settings>
-</AppFrame>
-
-<AppFrame hashIdName="#manager" icon="wallpaper" :label="$t('tasks.wallpapers')">
-    <Manager data-instant></Manager>
-</AppFrame>
-
 <StatusBar></StatusBar>
-<Taskbar></Taskbar>
+
+<div data-hidden="true" class="ui-tooltip" data-scheme="solid" v-bind="$attrs"></div>
 
 <ContextMenu :ctxList="itemCtxList" ctxName="grid-item"></ContextMenu>
 <ContextMenu :ctxList="gridCtxList" ctxName="grid-space"></ContextMenu>

@@ -5,14 +5,9 @@ import { ref } from "vue";
 
 //
 const target = ref(null);
-setInterval(() => {
-    if (target.value) {
-        pickFromCenter(target.value);
-    }
-}, 1000);
 </script>
 
 <!-- -->
 <template>
-    <LucideIcon name="battery-charging,battery,battery-full,battery-low,battery-medium,battery-warning" :hook="(v)=>{ target = v; }" data-scheme="dynamic-transparent" ref="target" class="icon-wrap ui-icon-state ui-battery" data-icon="battery-charging" v-bind="$attrs"></LucideIcon>
+    <LucideIcon name="battery-charging,battery,battery-full,battery-low,battery-medium,battery-warning" :hook="(v)=>{ target = v; }" data-transparent ref="target" class="icon-wrap ui-icon-state ui-battery" data-icon="battery-charging" v-bind="$attrs"></LucideIcon>
 </template>
