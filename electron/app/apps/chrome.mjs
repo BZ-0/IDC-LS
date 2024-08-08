@@ -1,4 +1,4 @@
-import module from 'module-alias';
+//import module from 'module-alias';
 import electron from 'electron';
 import path from 'path';
 
@@ -18,10 +18,14 @@ export default class ChromeApp {
         if (!this.browser) {
             const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
             const webPreferences = {
+                allowRunningInsecureContent: true,
+                webSecurity: false,
                 experimentalFeatures: true,
+                contextBridge: true,
                 nodeIntegration: true,
                 sandbox: false,
                 devTools: true,
+                transparent: true,
                 preload: path.resolve(import.meta.dirname, "../agents/injector.mjs")
             };
 

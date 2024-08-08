@@ -5,13 +5,13 @@ import path from "node:path"
 const probeDirectory = async (dirList, agr = "local/") => {
     for (const dir of dirList) {
         const check = await fs
-            .stat(path.resolve(dir + agr, "certificate.crt"))
+            .stat(path.resolve(import.meta.dirname, dir + agr, "certificate.crt"))
             .catch(() => false);
         if (check) {
-            return dir;
+            return path.resolve(import.meta.dirname, dir);
         }
     }
-    return dirList[0];
+    return path.resolve(import.meta.dirname, dirList[0]);
 };
 
 //

@@ -9,21 +9,17 @@ import zlib from "node:zlib"
 const probeDirectory = async (dirList, agr = "local/") => {
     for (const dir of dirList) {
         const check = await fs
-            .stat(path.resolve(dir + agr, "certificate.crt"))
+            .stat(path.resolve(import.meta.dirname, dir + agr, "certificate.crt"))
             .catch(() => false);
         if (check) {
-            return dir;
+            return path.resolve(import.meta.dirname, dir);
         }
     }
-    return dirList[0];
+    return path.resolve(import.meta.dirname, dirList[0]);
 };
 
 //
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.join(
-    path.dirname(__filename),
-    await probeDirectory(["../webapp/", "./webapp/", "../", "./"])
-);
+const __dirname = (await probeDirectory(["../webapp/", "./webapp/", "../", "./"]));
 
 //
 export default async function (fastify, options) {
@@ -145,7 +141,7 @@ export const options = {
     port,
     https: Array.from(process.argv).some((e) => e.endsWith("no-https"))
         ? null
-        : (await import(await probeDirectory(["../https/", "./https/"]) + "/certificate.mjs")).default,
+        : (await import("file://" + (await probeDirectory(["../https/", "./https/"]) + "/certificate.mjs"))).default,
     address: "0.0.0.0",
     host: "0.0.0.0",
 };

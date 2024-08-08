@@ -41,6 +41,7 @@ const r = (s) => {
 const production = process.env.NODE_ENV === 'production';
 const config = defineConfig({
     root: "./",
+    base: './',
     resolve: {
         alias: {
             "@": path.resolve("./"),

@@ -1,7 +1,8 @@
-import module from 'module-alias';
+//import module from 'module-alias';
 import electron from 'electron';
 import ChromeApp from './apps/chrome.mjs';
-import path from "path";
+//import path from "path";
+import paths from "../imports.mjs";
 
 //
 const { app, ipcMain, nativeTheme } = electron;
@@ -14,11 +15,12 @@ const { app, ipcMain, nativeTheme } = electron;
 const chrome = new ChromeApp(app);
 const restartChrome = async () => {
     chrome.init();
-    chrome.loadURL("https://localhost:8000");
+    chrome.loadURL("file://" + (await paths["@webapp"]) + "/index.html");
 }
 
 // execute application...
 export const main = (async()=>{
+    app.commandLine.appendSwitch('allow-file-access-from-files');
     app.commandLine.appendSwitch('enable-experimental-web-platform-features');
     app.commandLine.appendSwitch('enable-javascript-harmony');
     app.commandLine.appendSwitch('ignore-certificate-errors');

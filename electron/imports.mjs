@@ -1,16 +1,18 @@
-import path from "path";
-import fs from "fs";
+import fs from "node:fs/promises"
+import path from "node:path"
 
 //
-const resources = path.resolve(import.meta.dirname, "./resources/");
-const webapplocal = path.resolve(import.meta.dirname, "./webapp/");
-const webapp = path.resolve(import.meta.dirname, "../webapp/");
-const inline = path.resolve(import.meta.dirname, "./");
+const probeDirectory = async (dirList, agr = "") => {
+    for (const dir of dirList) {
+        const check = await fs
+            .stat(path.resolve(import.meta.dirname, dir + agr, "index.html"))
+            .catch(() => false);
+        if (check) {
+            return path.resolve(import.meta.dirname, dir);
+        }
+    }
+    return path.resolve(import.meta.dirname, dirList[0]);
+};
 
 //
-const r0 = fs.existsSync(resources) ? resources : webapplocal;
-const r1 = fs.existsSync(r0) ? r0 : inline;
-const r2 = fs.existsSync(r1) ? r1 : r0;
-
-//
-export default {"@webapp": r1 };
+export default {"@webapp": probeDirectory(["../webapp/", "./webapp/"]) };
