@@ -96,27 +96,28 @@
 
     <!-- -->
     <div class="ui-taskbar" v-bind="$attrs">
-        <div class="ui-app-menu" data-highlight="1" data-highlight-hover="2">
+        <div class="ui-app-menu" data-highlight-hover="2" data-scheme="dynamic-transparent">
             <LucideIcon inert name="layout-grid" data-transparent></LucideIcon>
         </div>
-        <div class="ui-task-bar">
+        <div class="ui-task-bar" data-transparent>
             <div v-for="task in tasks"
                 :class="{'ui-focus': task.id == currentHash, 'ui-active': task.active}"
                 :key="task.id"
                 :style="{'order': task.order||0}"
                 class="ui-task"
-                data-scheme="accent" :data-id="task.id"
+                :data-id="task.id"
                 data-highlight-hover="1"
+                data-scheme="dynamic-transparent"
                 data-transparent
                 @click="focusTask"
             >
-                <LucideIcon inert data-scheme="solid-transparent" :name="task.icon" data-transparent></LucideIcon>
+                <LucideIcon inert :name="task.icon" data-transparent></LucideIcon>
             </div>
         </div>
-        <div class="ui-status">
-            <Signal data-highlight="1" data-highlight-hover="2"></Signal>
-            <Battery data-highlight="1" data-highlight-hover="2"></Battery>
-            <Time data-highlight="1" data-highlight-hover="2"></Time>
+        <div class="ui-status" data-transparent>
+            <Signal data-highlight="1" data-highlight-hover="2" data-scheme="dynamic-transparent"></Signal>
+            <Battery data-highlight="1" data-highlight-hover="2" data-scheme="dynamic-transparent"></Battery>
+            <Time data-highlight="1" data-highlight-hover="2" data-scheme="dynamic-transparent"></Time>
         </div>
     </div>
 

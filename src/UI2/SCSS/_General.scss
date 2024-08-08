@@ -40,7 +40,8 @@
 
 //
 @mixin whenMobile {
-
+    // when hover/gesture option is not enabled
+    --height-adjust: var(--taskbar-size, 0px);
 }
 
 //
@@ -51,7 +52,7 @@
         --taskbar-size: 3rem;
         --titlebar-size: 3rem;
         --status-size: max(env(safe-area-inset-top, 0px), 2rem);
-        --height-adjust: var(--taskbar-size, 0px);
+        --height-adjust: 0px;//var(--taskbar-size, 0px);
 
         //
         @media #{d.$isMobile} { @include whenMobile; }

@@ -8,6 +8,13 @@
 @use "@unite/scss/design/ColorTheme" as tm;
 
 //
+@property --data-taskbar-shift {
+    syntax: "<length-percentage>";
+    initial-value: 0px;
+    inherits: true;
+}
+
+//
 @layer ui-taskbar {
 
     //
@@ -155,60 +162,102 @@
     }
 
     //
-    body:not(:has(.ui-app-frame[data-hidden="false"])) .ui-navbar {
-        //display: none !important;
-        box-shadow: none;
-
-        //
-        @include tm.ux-dynamic-transparent;
-
-        //
-        &, & * {
-            --highlight-coefficient: 0;
-        }
-
-        //
-        & .ui-title-handle {
+    body:not(:has(.ui-app-frame[data-hidden="false"])) {
+        .ui-navbar {
+            //display: none !important;
+            box-shadow: none;
             pointer-events: none;
+
+            //
+            @include tm.ux-dynamic-transparent;
+
+            //
+            &, & * {
+                --highlight-coefficient: 0;
+            }
+
+            //
+            & .ui-title-handle {
+                pointer-events: none;
+            }
+
+            //
+            & .back-button {
+                display: none;
+            }
         }
 
         //
-        & .back-button {
-            display: none;
+        .ui-taskbar {
+            box-shadow: none;
+            pointer-events: none;
+
+            //
+            @include tm.ux-transparent;
+        }
+    }
+
+    //
+    body:has(.ui-app-frame[data-hidden="false"]) {
+        .ui-taskbar {
+            --data-taskbar-shift: 2.5rem;
+
+            //
+            &:hover, &:active {
+                --data-taskbar-shift: 0px;
+            }
         }
     }
 
     //
     .ui-taskbar {
-        position: fixed;
+        //
+        //@include tm.ux-dynamic-transparent;
+        @include tm.ux-solid;
 
         //
-        inset: 0px;
-        inset-block-start: auto;
-        z-index: 9999;
-        display: grid;
+        transition-property: --data-taskbar-shift;
+        transition-duration: 0.25s;
+        transition-timing-function: linear;
+        transition-delay: 0.25s;
 
         //
-        container-type: size;
-        contain: content;
-
-        //
+        pointer-events: auto;
         box-shadow: 0px 0px 1rem #00000070;
 
         //
-        grid-template-columns:
-            [app-menu] minmax(0px, var(--taskbar-size))
-            [task-bar] minmax(0px, 1fr)
-            [ui-status] minmax(0px, max-content);
+        --translate-y: var(--data-taskbar-shift, 0px);
 
         //
-        grid-template-rows: minmax(0px, var(--taskbar-size));
-        block-size: var(--taskbar-size);
+        & {
+            position: fixed;
+
+            //
+            inset: 0px;
+            inset-block-start: auto;
+            z-index: 9999;
+            display: grid;
+
+            //
+            container-type: size;
+            contain: content;
+
+            //
+            grid-template-columns:
+                [app-menu] minmax(0px, var(--taskbar-size))
+                [task-bar] minmax(0px, 1fr)
+                [ui-status] minmax(0px, max-content);
+
+            //
+            grid-template-rows: minmax(0px, var(--taskbar-size));
+            block-size: var(--taskbar-size);
+        }
 
         //
         & .ui-app-menu {
             padding: 0.5rem;
             cursor: pointer;
+            pointer-events: auto;
         }
 
         //
@@ -216,6 +265,7 @@
             display: flex;
             flex-direction: row;
             gap: 0.25rem;
+            pointer-events: none;
         }
 
         //
@@ -223,8 +273,9 @@
             aspect-ratio: 1 / 1;
 
             //
-            inline-size: 100cqmin;;
-            block-size: 100cqmin;;
+            inline-size: 100cqmin;
+            block-size: 100cqmin;
+            pointer-events: auto;
 
             //
             padding: 0.75rem;
@@ -262,6 +313,7 @@
                 display: flex;
                 place-content: center;
                 place-items: center;
+                pointer-events: auto;
 
                 //
                 min-inline-size: 2rem;
