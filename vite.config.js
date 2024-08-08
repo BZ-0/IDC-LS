@@ -154,7 +154,12 @@ const config = defineConfig({
     css: {
         postcss: {
             plugins: [autoprefixer(), deduplicate(), cssnano({
-                preset: 'default',
+                preset: ['default', {
+                    calc: false,
+                    discardComments: {
+                        removeAll: true
+                    }
+                }],
             }), postcssPresetEnv({ stage: 0 })],
         },
     },

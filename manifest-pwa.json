@@ -15,8 +15,8 @@
         "standalone"
     ],
     "description": "A readable Hacker News app.",
-    "theme_color": "transparent",
-    "background_color": "transparent",
+    "theme_color": "#101010",
+    "background_color": "#101010",
     "orientation": "any",
     "categories": [
         "personalization",
